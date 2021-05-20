@@ -34,6 +34,10 @@
   "name": "@renft/sdk",
   "author": "nazariyv",
   "module": "dist/sdk.esm.js",
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/re-nft/sdk.git"
+  },
   "size-limit": [
     {
       "path": "dist/sdk.cjs.production.min.js",
