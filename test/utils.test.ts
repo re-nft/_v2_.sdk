@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { BigNumber } from "ethers";
+import { PaymentToken } from "../src/types";
 
 import { packPrice, toPaddedHex, bytesToNibbles, prepareBatch } from "../src/utils";
 
@@ -66,7 +67,7 @@ describe("Utils", () => {
   });
 
   it("batches usual domain", () => {
-    prepareBatch({
+    const prepd = prepareBatch({
       nftAddress: ["A", "B", "C", "A"],
       tokenID: [
         BigNumber.from("10"),
@@ -81,5 +82,161 @@ describe("Utils", () => {
         false
       ]
     });
+    expect(prepd).to.deep.equal({
+      nftAddress: ["A", "A", "B", "C"],
+      tokenID: [
+        BigNumber.from("2"),
+        BigNumber.from("10"),
+        BigNumber.from("1"),
+        BigNumber.from("2")
+      ],
+      is721: [
+        false,
+        false,
+        true,
+        true
+      ]
+    })
+  });
+
+  it("batches usual domain.", () => {
+    const prepd = prepareBatch({
+      nftAddress: ["A", "B", "C", "A", "D", "A"],
+      tokenID: [
+        BigNumber.from("2"),
+        BigNumber.from("1"),
+        BigNumber.from("2"),
+        BigNumber.from("10"),
+        BigNumber.from("22"),
+        BigNumber.from("3")
+      ],
+      is721: [
+        false,
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      amount: [
+        2,
+        1,
+        1,
+        3,
+        4,
+        5
+      ],
+      maxRentDuration: [
+        10,
+        2,
+        2,
+        10,
+        30,
+        20
+      ],
+      dailyRentPrice: [
+        1.11,
+        2.22,
+        3.33,
+        4.44,
+        5.55,
+        6.66
+      ],
+      nftPrice: [
+        11.11,
+        22.22,
+        33.33,
+        44.44,
+        55.55,
+        66.66
+      ],
+      paymentToken: [
+        PaymentToken.WETH,
+        PaymentToken.DAI,
+        PaymentToken.USDC,
+        PaymentToken.USDT,
+        PaymentToken.TUSD,
+        PaymentToken.RENT
+      ],
+      rentDuration: [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    });
+
+    // nftAddress: ["A", "B", "C", "A", "D", "A"],
+    // nftAddress: ["A", "A", "B", "C", "A", "D"],
+    // nftAddress: ["A", "A", "A", "B", "C", "D"],
+    expect(prepd).to.deep.equal({
+      nftAddress: ["A", "A", "A", "B", "C", "D"],
+      tokenID: [
+        BigNumber.from("2"),
+        BigNumber.from("3"),
+        BigNumber.from("10"),
+        BigNumber.from("1"),
+        BigNumber.from("2"),
+        BigNumber.from("22")
+      ],
+      is721: [
+        false,
+        false,
+        false,
+        true,
+        true,
+        false
+      ],
+      amount: [
+        2,
+        5,
+        3,
+        1,
+        1,
+        4
+      ],
+      maxRentDuration: [
+        10,
+        20,
+        10,
+        2,
+        2,
+        30
+      ],
+      dailyRentPrice: [
+        1.11,
+        6.66,
+        4.44,
+        2.22,
+        3.33,
+        5.55
+      ],
+      nftPrice: [
+        11.11,
+        66.66,
+        44.44,
+        22.22,
+        33.33,
+        55.55
+      ],
+      paymentToken: [
+        PaymentToken.WETH,
+        PaymentToken.RENT,
+        PaymentToken.USDT,
+        PaymentToken.DAI,
+        PaymentToken.USDC,
+        PaymentToken.TUSD
+      ],
+      rentDuration: [
+        1,
+        6,
+        4,
+        2,
+        3,
+        5
+      ]
+    })
   });
 });
