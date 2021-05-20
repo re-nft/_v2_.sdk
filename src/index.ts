@@ -1,2 +1,1 @@
-
-export const lend = () => {}
+import { IReNFT } from "./types"

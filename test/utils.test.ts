@@ -1,6 +1,7 @@
 import { expect } from "chai";
+import { BigNumber } from "ethers";
 
-import { packPrice, toPaddedHex, bytesToNibbles } from "../src/utils";
+import { packPrice, toPaddedHex, bytesToNibbles, prepareBatch } from "../src/utils";
 
 describe("Utils", () => {
   it("packs usual domain", () => {
@@ -62,5 +63,23 @@ describe("Utils", () => {
   it("throws if zero byteCount", () => {
     const byteCount = 0;
     expect(() => bytesToNibbles(byteCount)).to.throw();
+  });
+
+  it("batches usual domain", () => {
+    prepareBatch({
+      nftAddress: ["A", "B", "C", "A"],
+      tokenID: [
+        BigNumber.from("10"),
+        BigNumber.from("1"),
+        BigNumber.from("2"),
+        BigNumber.from("2")
+      ],
+      is721: [
+        false,
+        true,
+        true,
+        false
+      ]
+    });
   });
 });

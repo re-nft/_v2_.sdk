@@ -10,7 +10,7 @@ export enum PaymentToken {
   RENT
 }
 
-export interface ReNFT {
+export interface IReNFT {
   lend(
     nftAddress: string[],
     tokenID: BigNumber[],
