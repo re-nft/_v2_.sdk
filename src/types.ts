@@ -1,0 +1,52 @@
+import { BigNumber, ContractTransaction } from "ethers";
+
+export enum PaymentToken {
+  SENTINEL,
+  WETH,
+  DAI,
+  USDC,
+  USDT,
+  TUSD,
+  RENT
+}
+
+export interface ReNFT {
+  lend(
+    nftAddress: string[],
+    tokenID: BigNumber[],
+    amount: number[],
+    maxRentDuration: number[],
+    dailyRentPrice: number[],
+    nftPrice: number[],
+    paymentToken: PaymentToken[]
+  ): Promise<ContractTransaction>
+
+  rent(
+    nftAddress: string[],
+    tokenID: BigNumber[],
+    lentAmount: number[],
+    lendingID: BigNumber[],
+    rentDuration: number[]
+  ): Promise<ContractTransaction>
+
+  returnIt(
+    nftAddress: string[],
+    tokenID: BigNumber[],
+    lentAmount: number[],
+    lendingID: BigNumber[]
+  ): Promise<ContractTransaction>
+
+  claimCollateral(
+    nftAddress: string[],
+    tokenID: BigNumber[],
+    lentAmount: number[],
+    lendingID: BigNumber[]
+  ): Promise<ContractTransaction>
+
+  stopLending(
+    nftAddress: string[],
+    tokenID: BigNumber[],
+    lentAmount: number[],
+    lendingID: BigNumber[]
+  ): Promise<ContractTransaction>
+}
