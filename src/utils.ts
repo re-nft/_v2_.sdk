@@ -130,6 +130,8 @@ export const prepareBatch = (args: PrepareBatch) => {
   if (args.nftAddress.length == 1) return args;
   validateSameLength(Object.values(args));
   let nfts: Map<string, PrepareBatch> = new Map();
+  const pb: PrepareBatch = { nftAddress: [], tokenID: [], is721: []};
+  const iterator = nfts.keys();
 
   // O(N), maybe higher because of [...o[k]!, v[i]]
   const updateNfts = (nftAddress: string, i: number) => {
@@ -174,11 +176,7 @@ export const prepareBatch = (args: PrepareBatch) => {
     }
   );
 
-  // finally get the index args and reshuffle all the arrays
-  const pb: PrepareBatch = { nftAddress: [], tokenID: [], is721: []};
-  const iterator = nfts.keys();
-
-  // O(gazzilion)
+  // O(N * N)
   while (iterator) {
     const g = iterator.next().value;
     if (!g) break; // end of loop
