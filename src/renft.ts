@@ -1,19 +1,20 @@
-import { providers, BigNumber, ContractTransaction, Contract } from "ethers";
+import { Signer, BigNumber, ContractTransaction, Contract } from "ethers";
 
 import { IReNFT, PaymentToken } from "./types";
 import { ReNFT as AbiReNFT } from "./abi";
-import { prepareBatch } from "./utils";
+import { prepareBatch, packPrice } from "./utils";
 
 export class ReNFT implements IReNFT {
-  protected provider: providers.Provider;
+  readonly signer: Signer;
   protected contract: Contract;
 
-  constructor(_provider: providers.Provider) {
-    this.provider = _provider;
-    // * willf fail on the networks we haven't deployed to yet
-    this.contract = new Contract('0x610178dA211FEF7D417bC0e6FeD39F05609AD788', AbiReNFT, this.provider);
+  constructor(_signer: Signer, _contract: Contract) {
+    this.signer = _signer;
+    // * will fail on the networks we haven't deployed to yet
+    this.contract = new Contract('0x610178dA211FEF7D417bC0e6FeD39F05609AD788', AbiReNFT, this.signer);
   }
 
+  // TODO: if length 1, then skip everything
   async lend(
     nftAddress: string[],
     tokenID: BigNumber[],
@@ -24,13 +25,25 @@ export class ReNFT implements IReNFT {
     nftPrice: number[],
     paymentToken: PaymentToken[]
   ): Promise<ContractTransaction> {
+    if (nftAddress.length == 1) {
+      return await this.contract.lend(
+        nftAddress,
+        tokenID,
+        amount,
+        maxRentDuration,
+        packPrice(Number(dailyRentPrice).toString()),
+        packPrice(Number(nftPrice).toString()),
+        paymentToken
+      );
+    }
+
     const _nftAddress: string[] = [];
     const _tokenID: BigNumber[] = [];
     const _is721: boolean[] = [];
     const _amount: number[] = [];
     const _maxRentDuration: number[] = [];
-    const _dailyRentPrice: number[] = [];
-    const _nftPrice: number[] = [];
+    const _dailyRentPrice: string[] = [];
+    const _nftPrice: string[] = [];
 
     for (let i = 0; i < nftAddress.length; i++) {
       _nftAddress.push(String(nftAddress[i]).toLowerCase());
@@ -38,8 +51,8 @@ export class ReNFT implements IReNFT {
       _is721.push(Boolean(is721[i]));
       _amount.push(Number(amount[i]));
       _maxRentDuration.push(Number(maxRentDuration[i]));
-      _dailyRentPrice.push(Number(dailyRentPrice[i]));
-      _nftPrice.push(Number(nftPrice[i]));
+      _dailyRentPrice.push(packPrice(Number(dailyRentPrice[i]).toString()));
+      _nftPrice.push(packPrice(Number(nftPrice[i]).toString()));
     }
 
     const args = prepareBatch({

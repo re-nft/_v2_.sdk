@@ -91,8 +91,8 @@ type PrepareBatch = {
   is721: boolean[],
   amount?: number[],
   maxRentDuration?: number[],
-  dailyRentPrice?: number[],
-  nftPrice?: number[],
+  dailyRentPrice?: string[],
+  nftPrice?: string[],
   paymentToken?: PaymentToken[],
   rentDuration?: number[],
   lendingID?: BigNumber[]
