@@ -85,7 +85,25 @@ export const packPrice = (price: string | number) => {
   return wholeHex.concat(toPaddedHex(Number(decimal), HALF_BITSIZE).slice(2));
 };
 
-type PrepareBatch = {
+const sameLength = <T>(a: T[], b: T[]) => a.length == b.length;
+
+const validateSameLength = (...args: any[]) => {
+  let prev: any = args[0];
+  for (const curr of args) {
+    if (!curr) continue;
+    if (!sameLength(prev, curr)) throw new Error("args length variable");
+    prev = curr;
+  }
+  return true;
+}
+
+type IObjectKeysValues = string[] | BigNumber[] | boolean[] | number[] | PaymentToken[];
+
+interface IObjectKeys {
+  [key: string]: IObjectKeysValues | undefined;
+}
+
+interface PrepareBatch extends IObjectKeys {
   nftAddress: string[],
   tokenID: BigNumber[],
   is721: boolean[],
@@ -109,120 +127,70 @@ type PrepareBatch = {
  * @param args 
  */
 export const prepareBatch = (args: PrepareBatch) => {
-  let prev: any = args.nftAddress;
-  const allVals = Object.values(args);
-
-  for (const curr of allVals) {
-    if (!curr) continue;
-    if (curr.length !== prev.length) throw new Error("args lengths variable");
-    prev = curr;
-  }
-
   if (args.nftAddress.length == 1) return args;
+  validateSameLength(Object.values(args));
+  let nfts: Map<string, PrepareBatch> = new Map();
+  const pb: PrepareBatch = { nftAddress: [], tokenID: [], is721: []};
 
-  // all 1155s with the same address have to sit next to each other
-  // their tokenIDs must be sorted in ascending order
-  // everything else does not matter
-  //@ts-ignore
-  let uniqueNFTs: Map<string, Omit<PrepareBatch, 'nftAddress'>> = new Map();
-
-  // O(N)
-  const assignToMap = (nftAddress: string, i: number) => {
-    // uses closure
+  // O(N), maybe higher because of [...o[k]!, v[i]]
+  const updateNfts = (nftAddress: string, i: number) => {
+    const o = nfts.get(nftAddress);
     for (const [k, v] of Object.entries(args)) {
-      if (k == "nftAddress") continue;
-      if (!v) continue;
-      const curr = uniqueNFTs.get(nftAddress);
-      if (!curr) continue;
-      //@ts-ignore
-      curr[k].push(v[i])
+      if (!o) throw new Error(`could not find ${nftAddress}`);
+      if (v) o[k] = <IObjectKeysValues>[...(o[k] ?? []), v[i]];
     }
-    return uniqueNFTs;
+    return nfts;
   }
 
+  const createNft = (nftAddress: string, i: number) => {
+    nfts.set(nftAddress, {
+      nftAddress: [nftAddress],
+      tokenID: [args.tokenID[i]],
+      is721: [args.is721[i]],
+      amount: args.amount ? [args.amount[i]] : undefined,
+      maxRentDuration: args.maxRentDuration ? [args.maxRentDuration[i]] : undefined,
+      dailyRentPrice: args.dailyRentPrice ? [args.dailyRentPrice[i]] : undefined,
+      nftPrice: args.nftPrice ? [args.nftPrice[i]] : undefined,
+      paymentToken: args.paymentToken ? [args.paymentToken[i]] : undefined,
+      rentDuration: args.rentDuration ? [args.rentDuration[i]] : undefined,
+      lendingID: args.lendingID ? [args.lendingID[i]] : undefined
+    });
+    return nfts;
+  }
+
+  // O(2 * N), yikes to 2
   const worstArgsort = (tokenID: BigNumber[]) => {
-    let _tokenID = JSON.parse(JSON.stringify(tokenID));
-    _tokenID = _tokenID.map((v: {hex: string}) => (BigNumber.from(v.hex)))
-
-    var len = _tokenID.length;
-    var indices = new Array(len);
-    for (var i = 0; i < len; ++i) indices[i] = i;
-
+    var indices = new Array(tokenID.length);
+    for (var i = 0; i < tokenID.length; ++i) indices[i] = i;
     indices.sort((a, b) => (tokenID[a].lt(tokenID[b]) ? -1 : tokenID[a].gt(tokenID[b]) ? 1 : 0));
-    _tokenID = sortPerIndices(indices, _tokenID);
-
-    return { sortedTokenID: _tokenID, argsort: indices };
+    return { sortedTokenID: sortPerIndices(indices, tokenID), argsort: indices };
   }
 
-  // given an arr of indices and arr, returns arr in the order of indices
-  const sortPerIndices = (sortedIndices: number[], arr: any[]) => {
-    const sortedArr: any[] = [];
-    for (const i of sortedIndices) sortedArr.push(arr[i]);
-    return sortedArr;
-  }
+  const sortPerIndices = (argsort: number[], arr: any[]) => argsort.map((i) => arr[i]);
 
-  // O(N)
-  Object.values(args.nftAddress).forEach((k, i) => {
-    if (uniqueNFTs.has(k)) {
-      // if the nft is already in the map, simply append the arrays
-      uniqueNFTs = assignToMap(k, i);
-    } else {
-      // create the entry and append
-      uniqueNFTs.set(k, {
-        tokenID: [args.tokenID[i]],
-        is721: [args.is721[i]],
-        amount: args.amount ? [args.amount[i]] : undefined,
-        maxRentDuration: args.maxRentDuration ? [args.maxRentDuration[i]] : undefined,
-        dailyRentPrice: args.dailyRentPrice ? [args.dailyRentPrice[i]] : undefined,
-        nftPrice: args.nftPrice ? [args.nftPrice[i]] : undefined,
-        paymentToken: args.paymentToken ? [args.paymentToken[i]] : undefined,
-        rentDuration: args.rentDuration ? [args.rentDuration[i]] : undefined
-      });
+  // O(N ** M). for each nft loop through all args. M - number of args
+  Object.values(args.nftAddress).forEach((nft, i) => {
+      if (nfts.has(nft)) nfts = updateNfts(nft, i);
+      else nfts = createNft(nft, i);
     }
-  });
+  );
 
-  // finally get the index args and reshuffle all the arrays
-  //@ts-ignore
-  const preparedBatch: PrepareBatch = {};
-  const iterator = uniqueNFTs.keys();
-
+  const iterator = nfts.keys();
+  // O(N * N)
   while (iterator) {
-    const group = iterator.next().value;
-    if (!group) break;
-    const obj = uniqueNFTs.get(group);
-    if (!obj) continue;
-    const tokenID = obj.tokenID;
-    const { sortedTokenID, argsort } = worstArgsort(tokenID);
+    const g = iterator.next().value;
+    if (!g) break; // end of loop
+  
+    const nft = <PrepareBatch>nfts.get(g);
+    const tokenID = <BigNumber[]>nft.tokenID;
+    const { argsort } = worstArgsort(tokenID);
 
-    if (preparedBatch.nftAddress?.length > 0) {
-      preparedBatch.nftAddress = preparedBatch.nftAddress.concat(...Array(sortedTokenID.length).fill(group));
-    } else {
-      preparedBatch.nftAddress = Array(sortedTokenID.length).fill(group);
-    }
-
-    if (preparedBatch.tokenID?.length > 0) {
-      preparedBatch.tokenID = preparedBatch.tokenID.concat(...Array(sortedTokenID.length).fill(sortedTokenID));
-    } else {
-      preparedBatch.tokenID = sortedTokenID;
-    }
-
-    const allKeys = Object.keys(obj);
-    for (const otherKey of allKeys) {
-      if (otherKey == "tokenID") continue;
-      //@ts-ignore
-      if (!obj[otherKey]) continue;
-      //@ts-ignore
-      const sortedOther = sortPerIndices(argsort, obj[otherKey]);
-      //@ts-ignore
-      if (preparedBatch[otherKey]?.length > 0) {
-        //@ts-ignore
-        preparedBatch[otherKey] = preparedBatch[otherKey].concat(sortedOther);
-      } else {
-        //@ts-ignore
-        preparedBatch[otherKey] = sortedOther;
-      }
+    for (const k of Object.keys(nft)) {
+      if (!nft[k]) continue;
+      const sorted = <IObjectKeysValues>sortPerIndices(argsort, nft[k] ?? []);
+      pb[k] = <IObjectKeysValues>[...(pb[k] ?? []), ...sorted]
     }
   }
 
-  return preparedBatch;
+  return pb;
 }
