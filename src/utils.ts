@@ -94,7 +94,8 @@ type PrepareBatch = {
   dailyRentPrice?: number[],
   nftPrice?: number[],
   paymentToken?: PaymentToken[],
-  rentDuration?: number[]
+  rentDuration?: number[],
+  lendingID?: BigNumber[]
 }
 
 /**
