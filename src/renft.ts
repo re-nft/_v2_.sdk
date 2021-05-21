@@ -31,8 +31,8 @@ export class ReNFT implements IReNFT {
         tokenID,
         amount,
         maxRentDuration,
-        packPrice(Number(dailyRentPrice).toString()),
-        packPrice(Number(nftPrice).toString()),
+        [packPrice(Number(dailyRentPrice[0]).toString())],
+        [packPrice(Number(nftPrice[0]).toString())],
         paymentToken
       );
     }
