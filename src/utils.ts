@@ -118,6 +118,8 @@ export const prepareBatch = (args: PrepareBatch) => {
     prev = curr;
   }
 
+  if (args.nftAddress.length == 1) return args;
+
   // all 1155s with the same address have to sit next to each other
   // their tokenIDs must be sorted in ascending order
   // everything else does not matter

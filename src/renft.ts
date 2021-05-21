@@ -1,5 +1,6 @@
 import { Signer, BigNumber, ContractTransaction, Contract } from "ethers";
 
+import { RENFT as RENFT_ADDRESS } from "./consts";
 import { IReNFT, PaymentToken } from "./types";
 import { ReNFT as AbiReNFT } from "./abi";
 import { prepareBatch, packPrice } from "./utils";
@@ -11,10 +12,9 @@ export class ReNFT implements IReNFT {
   constructor(_signer: Signer, _contract: Contract) {
     this.signer = _signer;
     // * will fail on the networks we haven't deployed to yet
-    this.contract = new Contract('0x610178dA211FEF7D417bC0e6FeD39F05609AD788', AbiReNFT, this.signer);
+    this.contract = new Contract(RENFT_ADDRESS, AbiReNFT, this.signer);
   }
 
-  // TODO: if length 1, then skip everything
   async lend(
     nftAddress: string[],
     tokenID: BigNumber[],
@@ -25,44 +25,15 @@ export class ReNFT implements IReNFT {
     nftPrice: number[],
     paymentToken: PaymentToken[]
   ): Promise<ContractTransaction> {
-    if (nftAddress.length == 1) {
-      return await this.contract.lend(
-        nftAddress,
-        tokenID,
-        amount,
-        maxRentDuration,
-        [packPrice(Number(dailyRentPrice[0]).toString())],
-        [packPrice(Number(nftPrice[0]).toString())],
-        paymentToken
-      );
-    }
-
-    const _nftAddress: string[] = [];
-    const _tokenID: BigNumber[] = [];
-    const _is721: boolean[] = [];
-    const _amount: number[] = [];
-    const _maxRentDuration: number[] = [];
-    const _dailyRentPrice: string[] = [];
-    const _nftPrice: string[] = [];
-
-    for (let i = 0; i < nftAddress.length; i++) {
-      _nftAddress.push(String(nftAddress[i]).toLowerCase());
-      _tokenID.push(BigNumber.from(tokenID[i]));
-      _is721.push(Boolean(is721[i]));
-      _amount.push(Number(amount[i]));
-      _maxRentDuration.push(Number(maxRentDuration[i]));
-      _dailyRentPrice.push(packPrice(Number(dailyRentPrice[i]).toString()));
-      _nftPrice.push(packPrice(Number(nftPrice[i]).toString()));
-    }
 
     const args = prepareBatch({
-      nftAddress: _nftAddress,
-      tokenID: _tokenID,
-      is721: _is721,
-      amount: _amount,
-      maxRentDuration: _maxRentDuration,
-      dailyRentPrice: _dailyRentPrice,
-      nftPrice: _nftPrice,
+      nftAddress: nftAddress.map((nft) => String(nft).toLowerCase()),
+      tokenID: tokenID.map((id) => BigNumber.from(id)),
+      is721: is721.map((x) => Boolean(x)),
+      amount: amount.map((amt) => Number(amt)),
+      maxRentDuration: maxRentDuration.map((x) => Number(x)),
+      dailyRentPrice: dailyRentPrice.map((x) => packPrice(Number(x).toString())),
+      nftPrice: nftPrice.map((x) => packPrice(Number(x).toString())),
       paymentToken
     });
 
@@ -74,7 +45,8 @@ export class ReNFT implements IReNFT {
       args.dailyRentPrice,
       args.nftPrice,
       args.paymentToken
-    )
+    );
+  
   }
 
   async rent(
@@ -85,29 +57,14 @@ export class ReNFT implements IReNFT {
     lendingID: BigNumber[],
     rentDuration: number[]
   ): Promise<ContractTransaction> {
-    const _nftAddress: string[] = [];
-    const _tokenID: BigNumber[] = [];
-    const _is721: boolean[] = [];
-    const _amount: number[] = [];
-    const _lendingID: BigNumber[] = [];
-    const _rentDuration: number[] = [];
-
-    for (let i = 0; i < nftAddress.length; i++) {
-      _nftAddress.push(String(nftAddress[i]).toLowerCase());
-      _tokenID.push(BigNumber.from(tokenID[i]));
-      _is721.push(Boolean(is721[i]));
-      _amount.push(Number(lentAmount[i]));
-      _lendingID.push(BigNumber.from(lendingID[i]));
-      _rentDuration.push(Number(rentDuration[i]));
-    }
 
     const args = prepareBatch({
-      nftAddress: _nftAddress,
-      tokenID: _tokenID,
-      is721,
-      amount: _amount,
-      lendingID: _lendingID,
-      rentDuration: _rentDuration
+      nftAddress: nftAddress.map((nft) => String(nft).toLowerCase()),
+      tokenID: tokenID.map((id) => BigNumber.from(id)),
+      is721: is721.map((x) => Boolean(x)),
+      amount: lentAmount.map((amt) => Number(amt)),
+      lendingID: lendingID.map((x) => BigNumber.from(x)),
+      rentDuration: rentDuration.map((x) => Number(x))
     });
   
     return await this.contract.rent(
@@ -116,7 +73,8 @@ export class ReNFT implements IReNFT {
       args.amount,
       args.lendingID,
       args.rentDuration
-    )
+    );
+
   }
 
   async returnIt(
@@ -126,26 +84,13 @@ export class ReNFT implements IReNFT {
     lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction> {
-    const _nftAddress: string[] = [];
-    const _tokenID: BigNumber[] = [];
-    const _is721: boolean[] = [];
-    const _amount: number[] = [];
-    const _lendingID: BigNumber[] = [];
-
-    for (let i = 0; i < nftAddress.length; i++) {
-      _nftAddress.push(String(nftAddress[i]).toLowerCase());
-      _tokenID.push(BigNumber.from(tokenID[i]));
-      _is721.push(Boolean(is721[i]));
-      _amount.push(Number(lentAmount[i]));
-      _lendingID.push(BigNumber.from(lendingID[i]));
-    }
 
     const args = prepareBatch({
-      nftAddress: _nftAddress,
-      tokenID: _tokenID,
-      is721,
-      amount: _amount,
-      lendingID: _lendingID
+      nftAddress: nftAddress.map((nft) => String(nft).toLowerCase()),
+      tokenID: tokenID.map((id) => BigNumber.from(id)),
+      is721: is721.map((x) => Boolean(x)),
+      amount: lentAmount.map((amt) => Number(amt)),
+      lendingID: lendingID.map((x) => BigNumber.from(x)),
     });
 
     return await this.contract.returnIt(
@@ -153,7 +98,8 @@ export class ReNFT implements IReNFT {
       args.tokenID,
       args.amount,
       args.lendingID
-    )
+    );
+  
   }
 
   async claimCollateral(
@@ -163,26 +109,13 @@ export class ReNFT implements IReNFT {
     lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction> {
-    const _nftAddress: string[] = [];
-    const _tokenID: BigNumber[] = [];
-    const _is721: boolean[] = [];
-    const _amount: number[] = [];
-    const _lendingID: BigNumber[] = [];
-
-    for (let i = 0; i < nftAddress.length; i++) {
-      _nftAddress.push(String(nftAddress[i]).toLowerCase());
-      _tokenID.push(BigNumber.from(tokenID[i]));
-      _is721.push(Boolean(is721[i]));
-      _amount.push(Number(lentAmount[i]));
-      _lendingID.push(BigNumber.from(lendingID[i]));
-    }
 
     const args = prepareBatch({
-      nftAddress: _nftAddress,
-      tokenID: _tokenID,
-      is721,
-      amount: _amount,
-      lendingID: _lendingID
+      nftAddress: nftAddress.map((nft) => String(nft).toLowerCase()),
+      tokenID: tokenID.map((id) => BigNumber.from(id)),
+      is721: is721.map((x) => Boolean(x)),
+      amount: lentAmount.map((amt) => Number(amt)),
+      lendingID: lendingID.map((x) => BigNumber.from(x)),
     });
 
     return await this.contract.claimCollateral(
@@ -191,7 +124,8 @@ export class ReNFT implements IReNFT {
       args.amount,
       args.lendingID,
       args.rentDuration
-    )
+    );
+
   }
 
   async stopLending(
@@ -201,26 +135,13 @@ export class ReNFT implements IReNFT {
     lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction> {
-    const _nftAddress: string[] = [];
-    const _tokenID: BigNumber[] = [];
-    const _is721: boolean[] = [];
-    const _amount: number[] = [];
-    const _lendingID: BigNumber[] = [];
-
-    for (let i = 0; i < nftAddress.length; i++) {
-      _nftAddress.push(String(nftAddress[i]).toLowerCase());
-      _tokenID.push(BigNumber.from(tokenID[i]));
-      _is721.push(Boolean(is721[i]));
-      _amount.push(Number(lentAmount[i]));
-      _lendingID.push(BigNumber.from(lendingID[i]));
-    }
 
     const args = prepareBatch({
-      nftAddress: _nftAddress,
-      tokenID: _tokenID,
-      is721,
-      amount: _amount,
-      lendingID: _lendingID
+      nftAddress: nftAddress.map((nft) => String(nft).toLowerCase()),
+      tokenID: tokenID.map((id) => BigNumber.from(id)),
+      is721: is721.map((x) => Boolean(x)),
+      amount: lentAmount.map((amt) => Number(amt)),
+      lendingID: lendingID.map((x) => BigNumber.from(x)),
     });
 
     return await this.contract.stopLending(
@@ -229,6 +150,7 @@ export class ReNFT implements IReNFT {
       args.amount,
       args.lendingID,
       args.rentDuration
-    )
+    );
+
   }
 }
