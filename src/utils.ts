@@ -131,7 +131,6 @@ export const prepareBatch = (args: PrepareBatch) => {
   validateSameLength(Object.values(args));
   let nfts: Map<string, PrepareBatch> = new Map();
   const pb: PrepareBatch = { nftAddress: [], tokenID: [], is721: []};
-  const iterator = nfts.keys();
 
   // O(N), maybe higher because of [...o[k]!, v[i]]
   const updateNfts = (nftAddress: string, i: number) => {
@@ -176,6 +175,7 @@ export const prepareBatch = (args: PrepareBatch) => {
     }
   );
 
+  const iterator = nfts.keys();
   // O(N * N)
   while (iterator) {
     const g = iterator.next().value;
@@ -186,8 +186,9 @@ export const prepareBatch = (args: PrepareBatch) => {
     const { argsort } = worstArgsort(tokenID);
 
     for (const k of Object.keys(nft)) {
+      if (!nft[k]) continue;
       const sorted = <IObjectKeysValues>sortPerIndices(argsort, nft[k] ?? []);
-      pb[k] = <IObjectKeysValues>[...(pb[k] ?? []), sorted]
+      pb[k] = <IObjectKeysValues>[...(pb[k] ?? []), ...sorted]
     }
   }
 
