@@ -135,20 +135,20 @@ describe("Utils", () => {
         20
       ],
       dailyRentPrice: [
-        1.11,
-        2.22,
-        3.33,
-        4.44,
-        5.55,
-        6.66
+        packPrice(1.11),
+        packPrice(2.22),
+        packPrice(3.33),
+        packPrice(4.44),
+        packPrice(5.55),
+        packPrice(6.66)
       ],
       nftPrice: [
-        11.11,
-        22.22,
-        33.33,
-        44.44,
-        55.55,
-        66.66
+        packPrice(11.11),
+        packPrice(22.22),
+        packPrice(33.33),
+        packPrice(44.44),
+        packPrice(55.55),
+        packPrice(66.66)
       ],
       paymentToken: [
         PaymentToken.WETH,
@@ -206,20 +206,20 @@ describe("Utils", () => {
         30
       ],
       dailyRentPrice: [
-        1.11,
-        6.66,
-        4.44,
-        2.22,
-        3.33,
-        5.55
+        packPrice(1.11),
+        packPrice(6.66),
+        packPrice(4.44),
+        packPrice(2.22),
+        packPrice(3.33),
+        packPrice(5.55)
       ],
       nftPrice: [
-        11.11,
-        66.66,
-        44.44,
-        22.22,
-        33.33,
-        55.55
+        packPrice(11.11),
+        packPrice(66.66),
+        packPrice(44.44),
+        packPrice(22.22),
+        packPrice(33.33),
+        packPrice(55.55)
       ],
       paymentToken: [
         PaymentToken.WETH,
