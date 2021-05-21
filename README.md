@@ -1,6 +1,6 @@
 # Welcome to ReNFT SDK
 
-Library to make your life easier with ReNFT.
+Lend and rent any ERC721s and ERC1155s on Ethereum mainnet. This library will make your life easier with ReNFT.
 
 What is ReNFT?
 
