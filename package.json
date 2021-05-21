@@ -1,5 +1,5 @@
 {
-  "version": "0.7.7",
+  "version": "0.7.8",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -31,6 +31,20 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
+  "keywords": [
+    "ReNFT",
+    "NFT",
+    "Lending",
+    "Renting",
+    "ERC721",
+    "ERC1155",
+    "721",
+    "1155",
+    "cryptocurrencies",
+    "blockchain",
+    "ethereum",
+    "eth"
+  ],
   "name": "@renft/sdk",
   "author": "nazariyv",
   "module": "dist/sdk.esm.js",
