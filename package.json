@@ -1,5 +1,5 @@
 {
-  "version": "0.7.9",
+  "version": "0.7.10",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -62,15 +62,17 @@
       "limit": "10 KB"
     }
   ],
+  "dependencies": {
+    "ethers": "^5.1.4",
+    "typescript": "^4.2.4"
+  },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
     "@types/chai": "^4.2.18",
     "chai": "^4.3.4",
-    "ethers": "^5.1.4",
     "husky": "^6.0.0",
     "size-limit": "^4.10.2",
     "tsdx": "^0.14.1",
-    "tslib": "^2.2.0",
-    "typescript": "^4.2.4"
+    "tslib": "^2.2.0"
   }
 }
