@@ -39,12 +39,6 @@ const provider = new providers.JsonRpcProvider(`<your provider url>`);
 let wallet = new Wallet(walletMnemonic);
 wallet = wallet.connect(provider);
 
-   amount: number[],
-    maxRentDuration: number[],
-    dailyRentPrice: number[],
-    nftPrice: number[],
-    paymentToken: PaymentToken[]
-
 const main = async () => {
   const renft = new ReNFT(wallet);
 
