@@ -46,8 +46,6 @@ const main = async () => {
   const TEST_E721_ADDR = ['0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9'];
   // tokenID of the NFT you are lending
   const TEST_E721_TOKENID = ['1'];
-  // indicates if the NFT is 721 or 1155
-  const is721 = [true];
   // in the case of 721 this is ignored, since it will always be 1. However, very useful for semi-fungible 1155s
   const lendAmount = [1];
   // maximum number of days anyone will be able to rent your NFT for
@@ -61,7 +59,6 @@ const main = async () => {
   const txn = await renft.lend(
     TEST_E721_ADDR,
     TEST_E721_TOKENID,
-    is721,
     lendAmount,
     maxRentDuration,
     dailyRentPrice,
