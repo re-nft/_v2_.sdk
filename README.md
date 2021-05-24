@@ -43,9 +43,9 @@ const main = async () => {
   const renft = new ReNFT(wallet);
 
   // address of the nft contract you are lending
-  const TEST_E721_ADDR = ['0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9'];
+  const TEST_E721_ADDR = ['0xCDf60B46Fa88e74DE7e1e613325E386BFe8609ad'];
   // tokenID of the NFT you are lending
-  const TEST_E721_TOKENID = ['1'];
+  const TEST_E721_TOKENID = ['3'];
   // in the case of 721 this is ignored, since it will always be 1. However, very useful for semi-fungible 1155s
   const lendAmount = [1];
   // maximum number of days anyone will be able to rent your NFT for

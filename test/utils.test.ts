@@ -73,7 +73,7 @@ describe("Utils", () => {
     }
     const prepd = prepareBatch(lendThis);
     expect(prepd).to.deep.equal(lendThis);
-  })
+  });
 
   it("batch - domain #1", () => {
     const prepd = prepareBatch({
@@ -94,7 +94,7 @@ describe("Utils", () => {
         BigNumber.from("1"),
         BigNumber.from("2")
       ],
-    })
+    });
   });
 
   it("batch - domain #2", () => {
