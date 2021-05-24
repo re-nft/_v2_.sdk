@@ -14,7 +14,6 @@ export interface IReNFT {
   lend(
     nftAddress: string[],
     tokenID: BigNumber[],
-    is721: boolean[],
     amount: number[],
     maxRentDuration: number[],
     dailyRentPrice: number[],
@@ -25,7 +24,6 @@ export interface IReNFT {
   rent(
     nftAddress: string[],
     tokenID: BigNumber[],
-    is721: boolean[],
     lentAmount: number[],
     lendingID: BigNumber[],
     rentDuration: number[]
@@ -34,7 +32,6 @@ export interface IReNFT {
   returnIt(
     nftAddress: string[],
     tokenID: BigNumber[],
-    is721: boolean[],
     lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction>
@@ -42,7 +39,6 @@ export interface IReNFT {
   claimCollateral(
     nftAddress: string[],
     tokenID: BigNumber[],
-    is721: boolean[],
     lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction>
@@ -50,7 +46,6 @@ export interface IReNFT {
   stopLending(
     nftAddress: string[],
     tokenID: BigNumber[],
-    is721: boolean[],
     lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction>

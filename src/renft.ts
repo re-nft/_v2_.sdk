@@ -18,7 +18,6 @@ export class ReNFT implements IReNFT {
   async lend(
     nftAddress: string[],
     tokenID: BigNumber[],
-    is721: boolean[],
     amount: number[],
     maxRentDuration: number[],
     dailyRentPrice: number[],
@@ -29,7 +28,6 @@ export class ReNFT implements IReNFT {
     const args = prepareBatch({
       nftAddress: nftAddress.map((nft) => String(nft).toLowerCase()),
       tokenID: tokenID.map((id) => BigNumber.from(id)),
-      is721: is721.map((x) => Boolean(x)),
       amount: amount.map((amt) => Number(amt)),
       maxRentDuration: maxRentDuration.map((x) => Number(x)),
       dailyRentPrice: dailyRentPrice.map((x) => packPrice(Number(x).toString())),
@@ -52,7 +50,6 @@ export class ReNFT implements IReNFT {
   async rent(
     nftAddress: string[],
     tokenID: BigNumber[],
-    is721: boolean[],
     lentAmount: number[],
     lendingID: BigNumber[],
     rentDuration: number[]
@@ -61,7 +58,6 @@ export class ReNFT implements IReNFT {
     const args = prepareBatch({
       nftAddress: nftAddress.map((nft) => String(nft).toLowerCase()),
       tokenID: tokenID.map((id) => BigNumber.from(id)),
-      is721: is721.map((x) => Boolean(x)),
       amount: lentAmount.map((amt) => Number(amt)),
       lendingID: lendingID.map((x) => BigNumber.from(x)),
       rentDuration: rentDuration.map((x) => Number(x))
@@ -80,7 +76,6 @@ export class ReNFT implements IReNFT {
   async returnIt(
     nftAddress: string[],
     tokenID: BigNumber[],
-    is721: boolean[],
     lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction> {
@@ -88,7 +83,6 @@ export class ReNFT implements IReNFT {
     const args = prepareBatch({
       nftAddress: nftAddress.map((nft) => String(nft).toLowerCase()),
       tokenID: tokenID.map((id) => BigNumber.from(id)),
-      is721: is721.map((x) => Boolean(x)),
       amount: lentAmount.map((amt) => Number(amt)),
       lendingID: lendingID.map((x) => BigNumber.from(x)),
     });
@@ -105,7 +99,6 @@ export class ReNFT implements IReNFT {
   async claimCollateral(
     nftAddress: string[],
     tokenID: BigNumber[],
-    is721: boolean[],
     lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction> {
@@ -113,7 +106,6 @@ export class ReNFT implements IReNFT {
     const args = prepareBatch({
       nftAddress: nftAddress.map((nft) => String(nft).toLowerCase()),
       tokenID: tokenID.map((id) => BigNumber.from(id)),
-      is721: is721.map((x) => Boolean(x)),
       amount: lentAmount.map((amt) => Number(amt)),
       lendingID: lendingID.map((x) => BigNumber.from(x)),
     });
@@ -131,7 +123,6 @@ export class ReNFT implements IReNFT {
   async stopLending(
     nftAddress: string[],
     tokenID: BigNumber[],
-    is721: boolean[],
     lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction> {
@@ -139,7 +130,6 @@ export class ReNFT implements IReNFT {
     const args = prepareBatch({
       nftAddress: nftAddress.map((nft) => String(nft).toLowerCase()),
       tokenID: tokenID.map((id) => BigNumber.from(id)),
-      is721: is721.map((x) => Boolean(x)),
       amount: lentAmount.map((amt) => Number(amt)),
       lendingID: lendingID.map((x) => BigNumber.from(x)),
     });

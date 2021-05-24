@@ -66,7 +66,16 @@ describe("Utils", () => {
     expect(() => bytesToNibbles(byteCount)).to.throw();
   });
 
-  it("batches usual domain", () => {
+  it("batch - single item return", () => {
+    const lendThis = {
+      nftAddress: ["A"],
+      tokenID: [BigNumber.from("1")],
+    }
+    const prepd = prepareBatch(lendThis);
+    expect(prepd).to.deep.equal(lendThis);
+  })
+
+  it("batch - domain #1", () => {
     const prepd = prepareBatch({
       nftAddress: ["A", "B", "C", "A"],
       tokenID: [
@@ -75,13 +84,8 @@ describe("Utils", () => {
         BigNumber.from("2"),
         BigNumber.from("2")
       ],
-      is721: [
-        false,
-        true,
-        true,
-        false
-      ]
     });
+
     expect(prepd).to.deep.equal({
       nftAddress: ["A", "A", "B", "C"],
       tokenID: [
@@ -90,16 +94,10 @@ describe("Utils", () => {
         BigNumber.from("1"),
         BigNumber.from("2")
       ],
-      is721: [
-        false,
-        false,
-        true,
-        true
-      ]
     })
   });
 
-  it("batches usual domain.", () => {
+  it("batch - domain #2", () => {
     const prepd = prepareBatch({
       nftAddress: ["A", "B", "C", "A", "D", "A"],
       tokenID: [
@@ -109,14 +107,6 @@ describe("Utils", () => {
         BigNumber.from("10"),
         BigNumber.from("22"),
         BigNumber.from("3")
-      ],
-      is721: [
-        false,
-        true,
-        true,
-        false,
-        false,
-        false
       ],
       amount: [
         2,
@@ -180,14 +170,6 @@ describe("Utils", () => {
         BigNumber.from("1"),
         BigNumber.from("2"),
         BigNumber.from("22")
-      ],
-      is721: [
-        false,
-        false,
-        false,
-        true,
-        true,
-        false
       ],
       amount: [
         2,

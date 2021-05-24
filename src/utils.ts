@@ -106,7 +106,6 @@ interface IObjectKeys {
 interface PrepareBatch extends IObjectKeys {
   nftAddress: string[],
   tokenID: BigNumber[],
-  is721: boolean[],
   amount?: number[],
   maxRentDuration?: number[],
   dailyRentPrice?: string[],
@@ -130,7 +129,7 @@ export const prepareBatch = (args: PrepareBatch) => {
   if (args.nftAddress.length == 1) return args;
   validateSameLength(Object.values(args));
   let nfts: Map<string, PrepareBatch> = new Map();
-  const pb: PrepareBatch = { nftAddress: [], tokenID: [], is721: []};
+  const pb: PrepareBatch = { nftAddress: [], tokenID: []};
 
   // O(N), maybe higher because of [...o[k]!, v[i]]
   const updateNfts = (nftAddress: string, i: number) => {
@@ -146,7 +145,6 @@ export const prepareBatch = (args: PrepareBatch) => {
     nfts.set(nftAddress, {
       nftAddress: [nftAddress],
       tokenID: [args.tokenID[i]],
-      is721: [args.is721[i]],
       amount: args.amount ? [args.amount[i]] : undefined,
       maxRentDuration: args.maxRentDuration ? [args.maxRentDuration[i]] : undefined,
       dailyRentPrice: args.dailyRentPrice ? [args.dailyRentPrice[i]] : undefined,
