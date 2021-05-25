@@ -114,8 +114,7 @@ export class ReNFT implements IReNFT {
       args.nftAddress,
       args.tokenID,
       args.amount,
-      args.lendingID,
-      args.rentDuration
+      args.lendingID
     );
 
   }
@@ -138,8 +137,7 @@ export class ReNFT implements IReNFT {
       args.nftAddress,
       args.tokenID,
       args.amount,
-      args.lendingID,
-      args.rentDuration
+      args.lendingID
     );
 
   }
