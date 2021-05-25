@@ -40,6 +40,7 @@ let wallet = new Wallet(walletMnemonic);
 wallet = wallet.connect(provider);
 
 const main = async () => {
+  // you need an instance of ethers.Signer here
   const renft = new ReNFT(wallet);
 
   // address of the nft contract you are lending
