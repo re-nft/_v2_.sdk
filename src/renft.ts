@@ -1,6 +1,6 @@
 import { Signer, BigNumber, ContractTransaction, Contract } from "ethers";
 
-// import { RENFT as RENFT_ADDRESS } from "./consts";
+import { RENFT as RENFT_ADDRESS } from "./consts";
 import { IReNFT, PaymentToken } from "./types";
 import { ReNFT as AbiReNFT } from "./abi";
 import { prepareBatch, packPrice } from "./utils";
@@ -9,11 +9,9 @@ export class ReNFT implements IReNFT {
   readonly signer: Signer;
   protected contract: Contract;
 
-  // Naz: todo: remove the address for the mainnet
-  constructor(_signer: Signer, _renftAddress: string) {
+  constructor(_signer: Signer) {
     this.signer = _signer;
-    // * will fail on the networks we haven't deployed to yet
-    this.contract = new Contract(_renftAddress, AbiReNFT, this.signer);
+    this.contract = new Contract(RENFT_ADDRESS, AbiReNFT, this.signer);
   }
 
   async lend(
