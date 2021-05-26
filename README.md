@@ -30,6 +30,10 @@ This sdk will ease out your journey with ReNFT. Among other things it handles
 
 ## Usage
 
+The below is a simple example of lending an ERC721, note that amount is ignored, you will always lend **1** qty of ERC721 tokenID. This is not the case for ERC1155.
+
+With our protocol, you can also lend ERC1155 in multiple amounts! Moreover, it does not matter in what order you supply the inputs to our lend function, it will call the contract in a way that will save you as much gas as possible. This means a single call per ERC1155 group, moreover, the tokenIDs will be ordered in ascending order.
+
 ```javascript
 import { providers, Wallet } from 'ethers';
 import { ReNFT, PaymentToken } from '@renft/sdk';
@@ -44,9 +48,9 @@ const main = async () => {
   const renft = new ReNFT(wallet);
 
   // address of the nft contract you are lending
-  const TEST_E721_ADDR = ['0xCDf60B46Fa88e74DE7e1e613325E386BFe8609ad'];
+  const E721_ADDR = ['0xCDf60B46Fa88e74DE7e1e613325E386BFe8609ad'];
   // tokenID of the NFT you are lending
-  const TEST_E721_TOKENID = ['3'];
+  const E721_TOKENID = ['3'];
   // in the case of 721 this is ignored, since it will always be 1. However, very useful for semi-fungible 1155s
   const lendAmount = [1];
   // maximum number of days anyone will be able to rent your NFT for
@@ -58,8 +62,8 @@ const main = async () => {
   const paymentToken = [PaymentToken.WETH];
 
   const txn = await renft.lend(
-    TEST_E721_ADDR,
-    TEST_E721_TOKENID,
+    E721_ADDR,
+    E721_TOKENID,
     lendAmount,
     maxRentDuration,
     dailyRentPrice,
