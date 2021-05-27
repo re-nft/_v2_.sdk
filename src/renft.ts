@@ -124,7 +124,6 @@ export class ReNFT implements IReNFT {
     return await this.contract.stopLending(
       args.nftAddress,
       args.tokenID,
-      args.amount,
       args.lendingID
     );
 

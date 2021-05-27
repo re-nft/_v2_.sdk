@@ -1,5 +1,5 @@
 export const Resolver = {
-  "address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+  "address": "0x048B2ec9634368f08B9eEFFc5554F022E99A892C",
   "abi": [
     {
       "inputs": [
