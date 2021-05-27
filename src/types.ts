@@ -24,7 +24,6 @@ export interface IReNFT {
   rent(
     nftAddress: string[],
     tokenID: BigNumber[],
-    lentAmount: number[],
     lendingID: BigNumber[],
     rentDuration: number[]
   ): Promise<ContractTransaction>
@@ -32,21 +31,18 @@ export interface IReNFT {
   returnIt(
     nftAddress: string[],
     tokenID: BigNumber[],
-    lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction>
 
   claimCollateral(
     nftAddress: string[],
     tokenID: BigNumber[],
-    lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction>
 
   stopLending(
     nftAddress: string[],
     tokenID: BigNumber[],
-    lentAmount: number[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction>
 }
