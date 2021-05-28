@@ -9,9 +9,9 @@ export class ReNFT implements IReNFT {
   readonly signer: Signer;
   protected contract: Contract;
 
-  constructor(_signer: Signer) {
+  constructor(_signer: Signer, _address?: string) {
     this.signer = _signer;
-    this.contract = new Contract(RENFT_ADDRESS, AbiReNFT, this.signer);
+    this.contract = new Contract(_address ?? RENFT_ADDRESS, AbiReNFT, this.signer);
   }
 
   async lend(
