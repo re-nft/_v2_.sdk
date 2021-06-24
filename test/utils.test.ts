@@ -1,112 +1,117 @@
-import { expect } from "chai";
-import { BigNumber } from "ethers";
-import { PaymentToken } from "../src/types";
+import { expect } from 'chai';
+import { BigNumber } from 'ethers';
+import { PaymentToken } from '../src/types';
 
-import { packPrice, toPaddedHex, bytesToNibbles, prepareBatch } from "../src/utils";
+import {
+  packPrice,
+  toPaddedHex,
+  bytesToNibbles,
+  prepareBatch,
+} from '../src/utils';
 
-describe("Utils", () => {
-  it("packs usual domain", () => {
+describe('Utils', () => {
+  it('packs usual domain', () => {
     const price = 21.42;
     const packed = packPrice(price);
-    expect(packed).to.be.equal("0x0015002A");
+    expect(packed).to.be.equal('0x0015002A');
   });
 
-  it("pads usual domain", () => {
+  it('pads usual domain', () => {
     const price = 21;
     const padded = toPaddedHex(price, 32);
-    expect(padded).to.be.equal("0x00000015");
+    expect(padded).to.be.equal('0x00000015');
   });
 
-  it("truncates the excess decimals", () => {
+  it('truncates the excess decimals', () => {
     const price = 21.99999;
     const packed = packPrice(price);
-    expect(packed).to.be.equal("0x0015270F");
+    expect(packed).to.be.equal('0x0015270F');
   });
 
-  it("works with zero decimal", () => {
+  it('works with zero decimal', () => {
     const price = 21.0;
     const packed = packPrice(price);
-    expect(packed).to.be.equal("0x00150000");
+    expect(packed).to.be.equal('0x00150000');
   });
 
-  it("works with zero", () => {
+  it('works with zero', () => {
     const price = 0;
     const packed = packPrice(price);
-    expect(packed).to.be.equal("0x00000000");
+    expect(packed).to.be.equal('0x00000000');
   });
 
-  it("throws on unsigned", () => {
+  it('throws on unsigned', () => {
     const price = -1;
     expect(() => packPrice(price)).to.throw();
   });
 
-  it("throws if exceeds 9999.9999", () => {
+  it('throws if exceeds 9999.9999', () => {
     const price = 10000;
     expect(() => packPrice(price)).to.throw();
   });
 
-  it("throws on invalid price", () => {
-    const price = "11.22.33";
+  it('throws on invalid price', () => {
+    const price = '11.22.33';
     expect(() => packPrice(price)).to.throw();
   });
 
-  it("throws if bitsize exceeds 32", () => {
+  it('throws if bitsize exceeds 32', () => {
     const bitsize = 33;
     expect(() => toPaddedHex(1, bitsize)).to.throw();
   });
 
-  it("throws if !number supplied", () => {
-    const byteCount = "2";
+  it('throws if !number supplied', () => {
+    const byteCount = '2';
     //@ts-ignore
     expect(() => bytesToNibbles(byteCount)).to.throw();
   });
 
-  it("throws if zero byteCount", () => {
+  it('throws if zero byteCount', () => {
     const byteCount = 0;
     expect(() => bytesToNibbles(byteCount)).to.throw();
   });
 
-  it("batch - single item return", () => {
+  it('batch - single item return', () => {
     const lendThis = {
-      nftAddress: ["A"],
-      tokenID: [BigNumber.from("1")],
-    }
+      nftAddress: ['A'],
+      tokenID: [BigNumber.from('1')],
+    };
     const prepd = prepareBatch(lendThis);
     expect(prepd).to.deep.equal(lendThis);
   });
 
-  it("batch - domain #1", () => {
+  it('batch - domain #1', () => {
     const prepd = prepareBatch({
-      nftAddress: ["A", "B", "C", "A"],
+      nftAddress: ['A', 'B', 'C', 'A'],
       tokenID: [
-        BigNumber.from("10"),
-        BigNumber.from("1"),
-        BigNumber.from("2"),
-        BigNumber.from("2")
+        BigNumber.from('10'),
+        BigNumber.from('1'),
+        BigNumber.from('2'),
+        BigNumber.from('2'),
       ],
     });
 
     expect(prepd).to.deep.equal({
-      nftAddress: ["A", "A", "B", "C"],
+      nftAddress: ['A', 'A', 'B', 'C'],
       tokenID: [
-        BigNumber.from("2"),
-        BigNumber.from("10"),
-        BigNumber.from("1"),
-        BigNumber.from("2")
+        BigNumber.from('2'),
+        BigNumber.from('10'),
+        BigNumber.from('1'),
+        BigNumber.from('2'),
       ],
     });
   });
 
-  it("batch - domain #2", () => {
+  it('batch - domain #2', () => {
     const prepd = prepareBatch({
-      nftAddress: ["A", "B", "C", "A", "D", "A"],
+      nftAddress: ['A', 'B', 'C', 'A', 'D', 'A'],
       tokenID: [
-        BigNumber.from("2"),  // 0
-        BigNumber.from("1"),  // 3
-        BigNumber.from("2"),  // 4
-        BigNumber.from("10"), // 2
-        BigNumber.from("22"), // 5
-        BigNumber.from("3")   // 1
+        BigNumber.from('2'), // 0
+        BigNumber.from('1'), // 3
+        BigNumber.from('2'), // 4
+        BigNumber.from('10'), // 2
+        BigNumber.from('22'), // 5
+        BigNumber.from('3'), // 1
       ],
       amount: [
         2, // 0
@@ -114,23 +119,16 @@ describe("Utils", () => {
         1, // 4
         3, // 2
         4, // 5
-        5  // 1
+        5, // 1
       ],
-      maxRentDuration: [
-        10,
-        2,
-        2,
-        10,
-        30,
-        20
-      ],
+      maxRentDuration: [10, 2, 2, 10, 30, 20],
       dailyRentPrice: [
         packPrice(1.11),
         packPrice(2.22),
         packPrice(3.33),
         packPrice(4.44),
         packPrice(5.55),
-        packPrice(6.66)
+        packPrice(6.66),
       ],
       nftPrice: [
         packPrice(11.11),
@@ -138,7 +136,7 @@ describe("Utils", () => {
         packPrice(33.33),
         packPrice(44.44),
         packPrice(55.55),
-        packPrice(66.66)
+        packPrice(66.66),
       ],
       paymentToken: [
         PaymentToken.WETH,
@@ -146,51 +144,30 @@ describe("Utils", () => {
         PaymentToken.USDC,
         PaymentToken.USDT,
         PaymentToken.TUSD,
-        PaymentToken.RENT
+        PaymentToken.RENT,
       ],
-      rentDuration: [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ]
+      rentDuration: [1, 2, 3, 4, 5, 6],
     });
 
     expect(prepd).to.deep.equal({
-      nftAddress: ["A", "A", "A", "B", "C", "D"],
+      nftAddress: ['A', 'A', 'A', 'B', 'C', 'D'],
       tokenID: [
-        BigNumber.from("2"),
-        BigNumber.from("3"),
-        BigNumber.from("10"),
-        BigNumber.from("1"),
-        BigNumber.from("2"),
-        BigNumber.from("22")
+        BigNumber.from('2'),
+        BigNumber.from('3'),
+        BigNumber.from('10'),
+        BigNumber.from('1'),
+        BigNumber.from('2'),
+        BigNumber.from('22'),
       ],
-      amount: [
-        2,
-        5,
-        3,
-        1,
-        1,
-        4
-      ],
-      maxRentDuration: [
-        10,
-        20,
-        10,
-        2,
-        2,
-        30
-      ],
+      amount: [2, 5, 3, 1, 1, 4],
+      maxRentDuration: [10, 20, 10, 2, 2, 30],
       dailyRentPrice: [
         packPrice(1.11),
         packPrice(6.66),
         packPrice(4.44),
         packPrice(2.22),
         packPrice(3.33),
-        packPrice(5.55)
+        packPrice(5.55),
       ],
       nftPrice: [
         packPrice(11.11),
@@ -198,7 +175,7 @@ describe("Utils", () => {
         packPrice(44.44),
         packPrice(22.22),
         packPrice(33.33),
-        packPrice(55.55)
+        packPrice(55.55),
       ],
       paymentToken: [
         PaymentToken.WETH,
@@ -206,63 +183,56 @@ describe("Utils", () => {
         PaymentToken.USDT,
         PaymentToken.DAI,
         PaymentToken.USDC,
-        PaymentToken.TUSD
+        PaymentToken.TUSD,
       ],
-      rentDuration: [
-        1,
-        6,
-        4,
-        2,
-        3,
-        5
-      ]
+      rentDuration: [1, 6, 4, 2, 3, 5],
     });
   });
 
-  it("batch - domain #3", () => {
+  it('batch - domain #3', () => {
     const prepd = prepareBatch({
-      nftAddress: ["A", "B", "C", "A", "D", "A", "E", "F", "E"],
+      nftAddress: ['A', 'B', 'C', 'A', 'D', 'A', 'E', 'F', 'E'],
       tokenID: [
         // A:2
-        BigNumber.from("10"),
+        BigNumber.from('10'),
         // B:3
-        BigNumber.from("1"),
+        BigNumber.from('1'),
         // C:4
-        BigNumber.from("2"),
+        BigNumber.from('2'),
         // A:0
-        BigNumber.from("2"),
+        BigNumber.from('2'),
         // D:5
-        BigNumber.from("22"),
+        BigNumber.from('22'),
         // A:1
-        BigNumber.from("3"),
+        BigNumber.from('3'),
         // E:7
-        BigNumber.from("20"),
+        BigNumber.from('20'),
         // F:8
-        BigNumber.from("10"),
+        BigNumber.from('10'),
         // E:6
-        BigNumber.from("11")
+        BigNumber.from('11'),
       ],
       amount: [
-        2,  // 2
-        1,  // 3
-        1,  // 4
-        3,  // 0
-        4,  // 5
-        5,  // 1
+        2, // 2
+        1, // 3
+        1, // 4
+        3, // 0
+        4, // 5
+        5, // 1
         10, // 7
         11, // 8
-        20  // 6
+        20, // 6
       ],
       maxRentDuration: [
         10, // 2
-        2,  // 3
-        2,  // 4
+        2, // 3
+        2, // 4
         10, // 0
         30, // 5
         20, // 1
         10, // 7
         11, // 8
-        20  // 6
+        20, // 6
       ],
       dailyRentPrice: [
         packPrice(1.11), // 2
@@ -273,7 +243,7 @@ describe("Utils", () => {
         packPrice(6.66), // 1
         packPrice(7.77), // 7
         packPrice(8.88), // 8
-        packPrice(9.99)  // 6
+        packPrice(9.99), // 6
       ],
       nftPrice: [
         packPrice(11.11),
@@ -284,7 +254,7 @@ describe("Utils", () => {
         packPrice(66.66),
         packPrice(77.77),
         packPrice(88.88),
-        packPrice(99.99)
+        packPrice(99.99),
       ],
       paymentToken: [
         PaymentToken.WETH,
@@ -295,56 +265,26 @@ describe("Utils", () => {
         PaymentToken.RENT,
         PaymentToken.WETH,
         PaymentToken.WETH,
-        PaymentToken.WETH
+        PaymentToken.WETH,
       ],
-      rentDuration: [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        6,
-        6,
-        6
-      ]
+      rentDuration: [1, 2, 3, 4, 5, 6, 6, 6, 6],
     });
 
     expect(prepd).to.deep.equal({
-      nftAddress: ["A", "A", "A", "B", "C", "D", "E", "E", "F"],
+      nftAddress: ['A', 'A', 'A', 'B', 'C', 'D', 'E', 'E', 'F'],
       tokenID: [
-        BigNumber.from("2"),
-        BigNumber.from("3"),
-        BigNumber.from("10"),
-        BigNumber.from("1"),
-        BigNumber.from("2"),
-        BigNumber.from("22"),
-        BigNumber.from("11"),
-        BigNumber.from("20"),
-        BigNumber.from("10")
+        BigNumber.from('2'),
+        BigNumber.from('3'),
+        BigNumber.from('10'),
+        BigNumber.from('1'),
+        BigNumber.from('2'),
+        BigNumber.from('22'),
+        BigNumber.from('11'),
+        BigNumber.from('20'),
+        BigNumber.from('10'),
       ],
-      amount: [
-        3,
-        5,
-        2,
-        1,
-        1,
-        4,
-        20,
-        10,
-        11
-      ],
-      maxRentDuration: [
-        10,
-        20,
-        10,
-        2,
-        2,
-        30,
-        20,
-        10,
-        11
-      ],
+      amount: [3, 5, 2, 1, 1, 4, 20, 10, 11],
+      maxRentDuration: [10, 20, 10, 2, 2, 30, 20, 10, 11],
       dailyRentPrice: [
         packPrice(4.44),
         packPrice(6.66),
@@ -365,7 +305,7 @@ describe("Utils", () => {
         packPrice(55.55),
         packPrice(99.99),
         packPrice(77.77),
-        packPrice(88.88)
+        packPrice(88.88),
       ],
       paymentToken: [
         PaymentToken.USDT,
@@ -376,19 +316,9 @@ describe("Utils", () => {
         PaymentToken.TUSD,
         PaymentToken.WETH,
         PaymentToken.WETH,
-        PaymentToken.WETH
+        PaymentToken.WETH,
       ],
-      rentDuration: [
-        4,
-        6,
-        1,
-        2,
-        3,
-        5,
-        6,
-        6,
-        6
-      ]
+      rentDuration: [4, 6, 1, 2, 3, 5, 6, 6, 6],
     });
   });
 });

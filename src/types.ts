@@ -1,4 +1,4 @@
-import { BigNumber, ContractTransaction } from "ethers";
+import { BigNumber, ContractTransaction } from 'ethers';
 
 export enum PaymentToken {
   SENTINEL, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
@@ -7,7 +7,7 @@ export enum PaymentToken {
   USDC,
   USDT,
   TUSD,
-  RENT
+  RENT,
 }
 
 export interface IReNFT {
@@ -19,7 +19,7 @@ export interface IReNFT {
     dailyRentPrice: number[],
     nftPrice: number[],
     paymentToken: PaymentToken[]
-  ): Promise<ContractTransaction>
+  ): Promise<ContractTransaction>;
 
   rent(
     nftAddress: string[],
@@ -27,26 +27,26 @@ export interface IReNFT {
     amount: number[],
     lendingID: BigNumber[],
     rentDuration: number[]
-  ): Promise<ContractTransaction>
+  ): Promise<ContractTransaction>;
 
   returnIt(
     nftAddress: string[],
     tokenID: BigNumber[],
     amount: number[],
     lendingID: BigNumber[]
-  ): Promise<ContractTransaction>
+  ): Promise<ContractTransaction>;
 
   claimCollateral(
     nftAddress: string[],
     tokenID: BigNumber[],
     amount: number[],
     lendingID: BigNumber[]
-  ): Promise<ContractTransaction>
+  ): Promise<ContractTransaction>;
 
   stopLending(
     nftAddress: string[],
     tokenID: BigNumber[],
     amount: number[],
     lendingID: BigNumber[]
-  ): Promise<ContractTransaction>
+  ): Promise<ContractTransaction>;
 }

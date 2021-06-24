@@ -1,7 +1,7 @@
-import { BigNumber } from "ethers";
+import { BigNumber } from 'ethers';
 
-import { PaymentToken } from "./types";
-import { MAX_PRICE, NUM_BITS_IN_BYTE } from "./consts";
+import { PaymentToken } from './types';
+import { MAX_PRICE, NUM_BITS_IN_BYTE } from './consts';
 
 // consts that predominantly pertain to this file
 const BITSIZE_MAX_VALUE = 32;
@@ -19,8 +19,8 @@ const HALF_BITSIZE = 16;
  * @returns number of nibbles that represent the byteCount bytes
  */
 export const bytesToNibbles = (byteCount: number) => {
-  if (typeof byteCount != "number") throw new Error("only numbers supported");
-  if (byteCount < 1) throw new Error("invalid byteCount");
+  if (typeof byteCount != 'number') throw new Error('only numbers supported');
+  if (byteCount < 1) throw new Error('invalid byteCount');
   return byteCount * 2;
 };
 
@@ -40,9 +40,11 @@ export const bytesToNibbles = (byteCount: number) => {
 export const toPaddedHex = (number: number, bitsize: number) => {
   // in node.js this function fails for bitsize above 32 bits
   if (bitsize > BITSIZE_MAX_VALUE)
-    throw `bitsize ${bitsize} above maximum value ${BITSIZE_MAX_VALUE}`;
+    throw new Error(
+      `bitsize ${bitsize} above maximum value ${BITSIZE_MAX_VALUE}`
+    );
   // conversion to unsigned form based on
-  if (number < 0) throw new Error("unsigned number not supported");
+  if (number < 0) throw new Error('unsigned number not supported');
 
   // 8 bits = 1 byteCount; 16 bits = 2 byteCount, ...
   const byteCount = Math.ceil(bitsize / NUM_BITS_IN_BYTE);
@@ -51,12 +53,12 @@ export const toPaddedHex = (number: number, bitsize: number) => {
   // toString(16) converts into hex
   // .padStart(byteCount * 2, "0") adds byte
   return (
-    "0x" +
+    '0x' +
     (number >>> 0)
       .toString(16)
       .toUpperCase()
       // 1 nibble = 4 bits. 1 byte = 2 nibbles
-      .padStart(bytesToNibbles(byteCount), "0")
+      .padStart(bytesToNibbles(byteCount), '0')
   );
 };
 
@@ -72,60 +74,65 @@ export const toPaddedHex = (number: number, bitsize: number) => {
 export const packPrice = (price: string | number) => {
   if (price > MAX_PRICE) throw new Error(`supplied price exceeds ${MAX_PRICE}`);
 
-  const parts = price.toString().split(".");
+  const parts = price.toString().split('.');
   const whole = Number(parts[0]);
   if (whole < 0) throw new Error("can't pack negative price");
   const wholeHex = toPaddedHex(Number(whole), HALF_BITSIZE);
 
-  if (parts.length == 1) return wholeHex.concat("0000");
-  if (parts.length != 2) throw new Error("price packing issue");
+  if (parts.length === 1) return wholeHex.concat('0000');
+  if (parts.length !== 2) throw new Error('price packing issue');
 
   let decimal = parts[1].slice(0, 4);
 
   return wholeHex.concat(toPaddedHex(Number(decimal), HALF_BITSIZE).slice(2));
 };
 
-const sameLength = <T>(a: T[], b: T[]) => a.length == b.length;
+const sameLength = <T>(a: T[], b: T[]) => a.length === b.length;
 
 const validateSameLength = (...args: any[]) => {
   let prev: any = args[0];
   for (const curr of args) {
     if (!curr) continue;
-    if (!sameLength(prev, curr)) throw new Error("args length variable");
+    if (!sameLength(prev, curr)) throw new Error('args length variable');
     prev = curr;
   }
   return true;
-}
+};
 
-type IObjectKeysValues = string[] | BigNumber[] | boolean[] | number[] | PaymentToken[];
+type IObjectKeysValues =
+  | string[]
+  | BigNumber[]
+  | boolean[]
+  | number[]
+  | PaymentToken[];
 
 interface IObjectKeys {
   [key: string]: IObjectKeysValues | undefined;
 }
 
 interface PrepareBatch extends IObjectKeys {
-  nftAddress: string[],
-  tokenID: BigNumber[],
-  amount?: number[],
-  maxRentDuration?: number[],
-  dailyRentPrice?: string[],
-  nftPrice?: string[],
-  paymentToken?: PaymentToken[],
-  rentDuration?: number[],
-  lendingID?: BigNumber[]
+  nftAddress: string[];
+  tokenID: BigNumber[];
+  amount?: number[];
+  maxRentDuration?: number[];
+  dailyRentPrice?: string[];
+  nftPrice?: string[];
+  paymentToken?: PaymentToken[];
+  rentDuration?: number[];
+  lendingID?: BigNumber[];
 }
 
 /**
  * To spend as little gas as possible, arguments must follow a particular format
  * when passed to the contract. This function prepares whatever inputs you want
  * to send, and returns the inputs in an optimal format.
- * 
- * This algorithm's time complexity is pretty awful. But, it will never run on 
+ *
+ * This algorithm's time complexity is pretty awful. But, it will never run on
  * large arrays, so it doesn't really matter.
- * @param args 
+ * @param args
  */
 export const prepareBatch = (args: PrepareBatch) => {
-  if (args.nftAddress.length == 1) return args;
+  if (args.nftAddress.length === 1) return args;
   validateSameLength(Object.values(args));
   let nfts: Map<string, PrepareBatch> = new Map();
   const pb: PrepareBatch = { nftAddress: [], tokenID: [] };
@@ -135,42 +142,51 @@ export const prepareBatch = (args: PrepareBatch) => {
     const o = nfts.get(nftAddress);
     for (const [k, v] of Object.entries(args)) {
       if (!o) throw new Error(`could not find ${nftAddress}`);
-      if (v) o[k] = <IObjectKeysValues>[...(o[k] ?? []), v[i]];
+      if (v) o[k] = [...(o[k] ?? []), v[i]] as IObjectKeysValues;
     }
     return nfts;
-  }
+  };
 
   const createNft = (nftAddress: string, i: number) => {
     nfts.set(nftAddress, {
       nftAddress: [nftAddress],
       tokenID: [args.tokenID[i]],
       amount: args.amount ? [args.amount[i]] : undefined,
-      maxRentDuration: args.maxRentDuration ? [args.maxRentDuration[i]] : undefined,
-      dailyRentPrice: args.dailyRentPrice ? [args.dailyRentPrice[i]] : undefined,
+      maxRentDuration: args.maxRentDuration
+        ? [args.maxRentDuration[i]]
+        : undefined,
+      dailyRentPrice: args.dailyRentPrice
+        ? [args.dailyRentPrice[i]]
+        : undefined,
       nftPrice: args.nftPrice ? [args.nftPrice[i]] : undefined,
       paymentToken: args.paymentToken ? [args.paymentToken[i]] : undefined,
       rentDuration: args.rentDuration ? [args.rentDuration[i]] : undefined,
-      lendingID: args.lendingID ? [args.lendingID[i]] : undefined
+      lendingID: args.lendingID ? [args.lendingID[i]] : undefined,
     });
     return nfts;
-  }
+  };
 
   // O(2 * N), yikes to 2
   const worstArgsort = (tokenID: BigNumber[]) => {
     var indices = new Array(tokenID.length);
     for (var i = 0; i < tokenID.length; ++i) indices[i] = i;
-    indices.sort((a, b) => (tokenID[a].lt(tokenID[b]) ? -1 : tokenID[a].gt(tokenID[b]) ? 1 : 0));
-    return { sortedTokenID: sortPerIndices(indices, tokenID), argsort: indices };
-  }
+    indices.sort((a, b) =>
+      tokenID[a].lt(tokenID[b]) ? -1 : tokenID[a].gt(tokenID[b]) ? 1 : 0
+    );
+    return {
+      sortedTokenID: sortPerIndices(indices, tokenID),
+      argsort: indices,
+    };
+  };
 
-  const sortPerIndices = (argsort: number[], arr: any[]) => argsort.map((i) => arr[i]);
+  const sortPerIndices = (argsort: number[], arr: any[]) =>
+    argsort.map(i => arr[i]);
 
   // O(N ** M). for each nft loop through all args. M - number of args
   Object.values(args.nftAddress).forEach((nft, i) => {
     if (nfts.has(nft)) nfts = updateNfts(nft, i);
     else nfts = createNft(nft, i);
-  }
-  );
+  });
 
   const iterator = nfts.keys();
   // O(N * N)
@@ -178,16 +194,16 @@ export const prepareBatch = (args: PrepareBatch) => {
     const g = iterator.next().value;
     if (!g) break; // end of loop
 
-    const nft = <PrepareBatch>nfts.get(g);
-    const tokenID = <BigNumber[]>nft.tokenID;
+    const nft = nfts.get(g) as PrepareBatch;
+    const tokenID = nft.tokenID as BigNumber[];
     const { argsort } = worstArgsort(tokenID);
 
     for (const k of Object.keys(nft)) {
       if (!nft[k]) continue;
-      const sorted = <IObjectKeysValues>sortPerIndices(argsort, nft[k] ?? []);
-      pb[k] = <IObjectKeysValues>[...(pb[k] ?? []), ...sorted]
+      const sorted = sortPerIndices(argsort, nft[k] ?? []) as IObjectKeysValues;
+      pb[k] = [...(pb[k] ?? []), ...sorted] as IObjectKeysValues;
     }
   }
 
   return pb;
-}
+};

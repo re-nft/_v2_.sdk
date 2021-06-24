@@ -83,3 +83,5 @@ main()
     console.warn(e);
   });
 ```
+
+For more usage examples, see `test/utils.test.ts`
