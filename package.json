@@ -46,7 +46,7 @@
     "eth"
   ],
   "name": "@renft/sdk",
-  "author": "nazariyv",
+  "author": "nazariyv (https://github.com/nazariyv)",
   "module": "dist/sdk.esm.js",
   "repository": {
     "type": "git",

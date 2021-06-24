@@ -8,7 +8,7 @@ const BITSIZE_MAX_VALUE = 32;
 const HALF_BITSIZE = 16;
 
 /**
- * hexchat is 0 to 15 which is 2 ** 4 - 1.
+ * hexchar is 0 to 15 which is 2 ** 4 - 1.
  * This means that hexchar (aka nibble) is half a byte,
  * since byte is 8 bits. This function converts number
  * of bytes to number of nibbles.
@@ -120,16 +120,15 @@ interface PrepareBatch extends IObjectKeys {
  * when passed to the contract. This function prepares whatever inputs you want
  * to send, and returns the inputs in an optimal format.
  * 
- * This algorithm's time complexity is pretty awful, and the "algorithm" itself better
- * not be seen by any human eyes. But, it will never run on too large arrays, so it
- * doesn't really matter. I am ashamed of it, yes.
+ * This algorithm's time complexity is pretty awful. But, it will never run on 
+ * large arrays, so it doesn't really matter.
  * @param args 
  */
 export const prepareBatch = (args: PrepareBatch) => {
   if (args.nftAddress.length == 1) return args;
   validateSameLength(Object.values(args));
   let nfts: Map<string, PrepareBatch> = new Map();
-  const pb: PrepareBatch = { nftAddress: [], tokenID: []};
+  const pb: PrepareBatch = { nftAddress: [], tokenID: [] };
 
   // O(N), maybe higher because of [...o[k]!, v[i]]
   const updateNfts = (nftAddress: string, i: number) => {
@@ -168,9 +167,9 @@ export const prepareBatch = (args: PrepareBatch) => {
 
   // O(N ** M). for each nft loop through all args. M - number of args
   Object.values(args.nftAddress).forEach((nft, i) => {
-      if (nfts.has(nft)) nfts = updateNfts(nft, i);
-      else nfts = createNft(nft, i);
-    }
+    if (nfts.has(nft)) nfts = updateNfts(nft, i);
+    else nfts = createNft(nft, i);
+  }
   );
 
   const iterator = nfts.keys();
@@ -178,7 +177,7 @@ export const prepareBatch = (args: PrepareBatch) => {
   while (iterator) {
     const g = iterator.next().value;
     if (!g) break; // end of loop
-  
+
     const nft = <PrepareBatch>nfts.get(g);
     const tokenID = <BigNumber[]>nft.tokenID;
     const { argsort } = worstArgsort(tokenID);

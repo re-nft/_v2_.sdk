@@ -1,7 +1,7 @@
 import { BigNumber, ContractTransaction } from "ethers";
 
 export enum PaymentToken {
-  SENTINEL,
+  SENTINEL, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
   WETH,
   DAI,
   USDC,
