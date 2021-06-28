@@ -190,11 +190,6 @@ export const ReNFT = {
         },
         {
           internalType: 'uint256[]',
-          name: '_lendAmounts',
-          type: 'uint256[]',
-        },
-        {
-          internalType: 'uint256[]',
           name: '_lendingIds',
           type: 'uint256[]',
         },
@@ -283,7 +278,7 @@ export const ReNFT = {
           type: 'bytes4',
         },
       ],
-      stateMutability: 'pure',
+      stateMutability: 'nonpayable',
       type: 'function',
     },
     {
@@ -322,7 +317,7 @@ export const ReNFT = {
           type: 'bytes4',
         },
       ],
-      stateMutability: 'pure',
+      stateMutability: 'nonpayable',
       type: 'function',
     },
     {
@@ -356,7 +351,7 @@ export const ReNFT = {
           type: 'bytes4',
         },
       ],
-      stateMutability: 'pure',
+      stateMutability: 'nonpayable',
       type: 'function',
     },
     {
@@ -369,11 +364,6 @@ export const ReNFT = {
         {
           internalType: 'uint256[]',
           name: '_tokenIds',
-          type: 'uint256[]',
-        },
-        {
-          internalType: 'uint256[]',
-          name: '_lendAmounts',
           type: 'uint256[]',
         },
         {
@@ -419,11 +409,6 @@ export const ReNFT = {
         },
         {
           internalType: 'uint256[]',
-          name: '_lendAmounts',
-          type: 'uint256[]',
-        },
-        {
-          internalType: 'uint256[]',
           name: '_lendingIds',
           type: 'uint256[]',
         },
@@ -442,6 +427,19 @@ export const ReNFT = {
         },
       ],
       name: 'setBeneficiary',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'bool',
+          name: '_paused',
+          type: 'bool',
+        },
+      ],
+      name: 'setPaused',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function',
@@ -473,11 +471,6 @@ export const ReNFT = {
         },
         {
           internalType: 'uint256[]',
-          name: '_lendAmounts',
-          type: 'uint256[]',
-        },
-        {
-          internalType: 'uint256[]',
           name: '_lendingIds',
           type: 'uint256[]',
         },
@@ -503,7 +496,7 @@ export const ReNFT = {
           type: 'bool',
         },
       ],
-      stateMutability: 'pure',
+      stateMutability: 'view',
       type: 'function',
     },
   ],
