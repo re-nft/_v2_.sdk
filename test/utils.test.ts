@@ -7,13 +7,20 @@ import {
   toPaddedHex,
   bytesToNibbles,
   prepareBatch,
+  unpackPrice
 } from '../src/utils';
 
 describe('Utils', () => {
   it('packs usual domain', () => {
     const price = 21.42;
     const packed = packPrice(price);
-    expect(packed).to.be.equal('0x0015002A');
+    expect(packed).to.be.equal('0x00151068');
+  });
+
+  it('packs 1.1', () => {
+    const price = 1.1;
+    const packed = packPrice(price);
+    expect(packed).to.be.equal('0x000103E8');
   });
 
   it('pads usual domain', () => {
@@ -53,6 +60,20 @@ describe('Utils', () => {
   it('throws on invalid price', () => {
     const price = '11.22.33';
     expect(() => packPrice(price)).to.throw();
+  });
+
+  it('unpacks to correct number - 1.1', () => {
+    const price = '1.1';
+    const packedPrice = packPrice(price);
+    const unpackedPrice = unpackPrice(packedPrice);
+    expect(unpackedPrice.toString()).to.be.equal(price);
+  });
+
+  it('unpacks to correct number - 2874.3580', () => {
+    const price = '2874.3580';
+    const packedPrice = packPrice(price);
+    const unpackedPrice = unpackPrice(packedPrice);
+    expect(unpackedPrice.toString()).to.be.equal('2874.358');
   });
 
   it('throws if bitsize exceeds 32', () => {

@@ -1,4 +1,4 @@
-import { BigNumber } from 'ethers';
+import { BigNumber, BigNumberish } from 'ethers';
 
 import { PaymentToken } from './types';
 import { MAX_PRICE, NUM_BITS_IN_BYTE } from './consts';
@@ -6,6 +6,8 @@ import { MAX_PRICE, NUM_BITS_IN_BYTE } from './consts';
 // consts that predominantly pertain to this file
 const BITSIZE_MAX_VALUE = 32;
 const HALF_BITSIZE = 16;
+
+const PRICE_BITSIZE = 32;
 
 /**
  * hexchar is 0 to 15 which is 2 ** 4 - 1.
@@ -62,6 +64,11 @@ export const toPaddedHex = (number: number, bitsize: number) => {
   );
 };
 
+const scaleDecimal = (num: string) => {
+  const numDigits = Number(num).toString().length;
+  return (Number(num) * (1_000 / (10 ** (numDigits - 1)))).toString();
+}
+
 /**
  * Converts a number into the format that is acceptable by the ReNFT contract.
  * TLDR; to fit a single storage slot in the ReNFT contract, we split the whole
@@ -82,7 +89,7 @@ export const packPrice = (price: string | number) => {
   if (parts.length === 1) return wholeHex.concat('0000');
   if (parts.length !== 2) throw new Error('price packing issue');
 
-  let decimal = parts[1].slice(0, 4);
+  let decimal = scaleDecimal(parts[1].slice(0, 4));
 
   return wholeHex.concat(toPaddedHex(Number(decimal), HALF_BITSIZE).slice(2));
 };
@@ -98,6 +105,36 @@ const validateSameLength = (...args: any[]) => {
   }
   return true;
 };
+
+const decimalToPaddedHexString = (
+  number: number,
+  bitsize: number
+): string => {
+  const byteCount = Math.ceil(bitsize / 8);
+  const maxBinValue = Math.pow(2, bitsize) - 1;
+  if (bitsize > 32) throw "number above maximum value";
+  if (number < 0) number = maxBinValue + number + 1;
+  return (
+    "0x" +
+    (number >>> 0)
+      .toString(16)
+      .toUpperCase()
+      .padStart(byteCount * 2, "0")
+  );
+};
+
+export const unpackPrice = (price: BigNumberish) => {
+  // price is from 1 to 4294967295. i.e. from 0x00000001 to 0xffffffff
+  const numHex = decimalToPaddedHexString(Number(price), PRICE_BITSIZE).slice(
+    2
+  );
+  let whole = parseInt(numHex.slice(0, 4), 16);
+  let decimal = parseInt(numHex.slice(4), 16);
+  if (whole > 9999) whole = 9999;
+  if (decimal > 9999) decimal = 9999;
+  const number = parseFloat(`${whole}.${decimal}`);
+  return number;
+}
 
 type IObjectKeysValues =
   | string[]
