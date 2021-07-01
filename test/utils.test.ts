@@ -69,6 +69,20 @@ describe('Utils', () => {
     expect(unpackedPrice.toString()).to.be.equal(price);
   });
 
+  it('unpacks to correct number - 1.0101', () => {
+    const price = '1.0101';
+    const packedPrice = packPrice(price);
+    const unpackedPrice = unpackPrice(packedPrice);
+    expect(unpackedPrice.toString()).to.be.equal(price);
+  });
+
+  it('unpacks to correct number - 1.101', () => {
+    const price = '1.101';
+    const packedPrice = packPrice(price);
+    const unpackedPrice = unpackPrice(packedPrice);
+    expect(unpackedPrice.toString()).to.be.equal(price);
+  });
+
   it('unpacks to correct number - 1.0001', () => {
     const price = '1.0001';
     const packedPrice = packPrice(price);
