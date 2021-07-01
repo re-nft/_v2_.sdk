@@ -65,8 +65,12 @@ export const toPaddedHex = (number: number, bitsize: number) => {
 };
 
 const scaleDecimal = (num: string) => {
-  const numDigits = Number(num).toString().length;
-  return (Number(num) * (1_000 / (10 ** (numDigits - 1)))).toString();
+  const numLen = num.length;
+  const maxLen = 4;
+  for (let i = 0; i < (maxLen - numLen); i++) {
+    num = num + '0';
+  }
+  return Number(num);
 }
 
 /**
@@ -132,7 +136,15 @@ export const unpackPrice = (price: BigNumberish) => {
   let decimal = parseInt(numHex.slice(4), 16);
   if (whole > 9999) whole = 9999;
   if (decimal > 9999) decimal = 9999;
-  const number = parseFloat(`${whole}.${decimal}`);
+
+  let decimalStr = decimal.toString();
+  const decimalLen = decimalStr.length;
+  const maxLen = 4
+  for (let i = 0; i < (maxLen - decimalLen); i++) {
+    decimalStr = '0' + decimalStr;
+  }
+
+  const number = parseFloat(`${whole}.${decimalStr}`);
   return number;
 }
 
