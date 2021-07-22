@@ -43,6 +43,10 @@ const provider = new providers.JsonRpcProvider(`<your provider url>`);
 let wallet = new Wallet(walletMnemonic);
 wallet = wallet.connect(provider);
 
+// alternatively instead of the above, you can instantiate with a private key
+// const privKey = "<privateKey>";
+// let wallet = new Wallet(privKey);
+
 const main = async () => {
   // you need an instance of ethers.Signer here
   const renft = new ReNFT(wallet);
@@ -50,7 +54,7 @@ const main = async () => {
   // address of the nft contract you are lending
   const E721_ADDR = ['0xCDf60B46Fa88e74DE7e1e613325E386BFe8609ad'];
   // tokenID of the NFT you are lending
-  const E721_TOKENID = ['3'];
+  const E721_TOKENID = [BigNumber.from('3')];
   // in the case of 721 this is ignored, since it will always be 1. However, very useful for semi-fungible 1155s
   const lendAmount = [1];
   // maximum number of days anyone will be able to rent your NFT for
