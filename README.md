@@ -35,7 +35,7 @@ The below is a simple example of lending an ERC721, note that amount is ignored,
 With our protocol, you can also lend ERC1155 in multiple amounts! Moreover, it does not matter in what order you supply the inputs to our lend function, it will call the contract in a way that will save you as much gas as possible. This means a single call per ERC1155 group, moreover, the tokenIDs will be ordered in ascending order.
 
 ```javascript
-import { providers, Wallet } from 'ethers';
+import { BigNumber, providers, Wallet } from 'ethers';
 import { ReNFT, PaymentToken } from '@renft/sdk';
 
 const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
