@@ -36,7 +36,7 @@ With our protocol, you can also lend ERC1155 in multiple amounts! Moreover, it d
 
 ```javascript
 import { BigNumber, providers, Wallet } from 'ethers';
-import { ReNFT, PaymentToken } from '@renft/sdk';
+import { ReNFT, PaymentToken, NFTStandard } from '@renft/sdk';
 
 const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
 const provider = new providers.JsonRpcProvider(`<your provider url>`);
@@ -51,6 +51,7 @@ const main = async () => {
   // you need an instance of ethers.Signer here
   const renft = new ReNFT(wallet);
 
+  const nftStandard = [NFTStandard.E721];
   // address of the nft contract you are lending
   const E721_ADDR = ['0xCDf60B46Fa88e74DE7e1e613325E386BFe8609ad'];
   // tokenID of the NFT you are lending
@@ -62,10 +63,10 @@ const main = async () => {
   // in the scale of the payment token. This means 1.1 WETH per day payment to rent the NFT out
   const dailyRentPrice = [1.1];
   // if the renter does not return your NFT, this is how much you will get back, i.e. 2.2 WETH
-  const nftPrice = [2.2];
   const paymentToken = [PaymentToken.WETH];
 
   const txn = await renft.lend(
+    nftStandard,
     E721_ADDR,
     E721_TOKENID,
     lendAmount,
