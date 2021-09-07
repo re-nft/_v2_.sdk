@@ -1,5 +1,5 @@
 import { BigNumber, providers, Wallet } from 'ethers';
-import { ReNFT, PaymentToken } from './index';
+import { ReNFT, PaymentToken, NFTStandard } from './index';
 
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
 const provider = new providers.JsonRpcProvider("<your provider uri>");
@@ -10,21 +10,21 @@ wallet = wallet.connect(provider);
 const main = async () => {
   const renft = new ReNFT(wallet);
 
+  const nftStandard = [NFTStandard.E721];
   const E721_ADDR = ['0xCDf60B46Fa88e74DE7e1e613325E386BFe8609ad'];
   const E721_TOKENID = [BigNumber.from('3')];
   const lendAmount = [1];
   const maxRentDuration = [1];
   const dailyRentPrice = [1.1];
-  const nftPrice = [2.2];
   const paymentToken = [PaymentToken.WETH];
 
   const txn = await renft.lend(
+    nftStandard,
     E721_ADDR,
     E721_TOKENID,
     lendAmount,
     maxRentDuration,
     dailyRentPrice,
-    nftPrice,
     paymentToken
   );
 
