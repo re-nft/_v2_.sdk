@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish } from 'ethers';
 
-import { PaymentToken } from './types';
+import { NFTStandard, PaymentToken } from './types';
 import { MAX_PRICE, NUM_BITS_IN_BYTE } from './consts';
 
 // consts that predominantly pertain to this file
@@ -160,15 +160,16 @@ interface IObjectKeys {
 }
 
 interface PrepareBatch extends IObjectKeys {
+  nftStandard: NFTStandard[];
   nftAddress: string[];
   tokenID: BigNumber[];
-  amount?: number[];
+  lendAmount?: number[];
   maxRentDuration?: number[];
   dailyRentPrice?: string[];
-  nftPrice?: string[];
   paymentToken?: PaymentToken[];
   rentDuration?: number[];
   lendingID?: BigNumber[];
+  rentingID?: BigNumber[];
 }
 
 /**
@@ -184,7 +185,7 @@ export const prepareBatch = (args: PrepareBatch) => {
   if (args.nftAddress.length === 1) return args;
   validateSameLength(Object.values(args));
   let nfts: Map<string, PrepareBatch> = new Map();
-  const pb: PrepareBatch = { nftAddress: [], tokenID: [] };
+  const pb: PrepareBatch = { nftStandard: [], nftAddress: [], tokenID: [] };
 
   // O(N), maybe higher because of [...o[k]!, v[i]]
   const updateNfts = (nftAddress: string, i: number) => {
@@ -198,19 +199,20 @@ export const prepareBatch = (args: PrepareBatch) => {
 
   const createNft = (nftAddress: string, i: number) => {
     nfts.set(nftAddress, {
+      nftStandard: [args.nftStandard[i]],
       nftAddress: [nftAddress],
       tokenID: [args.tokenID[i]],
-      amount: args.amount ? [args.amount[i]] : undefined,
+      lendAmount: args.lendAmount ? [args.lendAmount[i]] : undefined,
       maxRentDuration: args.maxRentDuration
         ? [args.maxRentDuration[i]]
         : undefined,
       dailyRentPrice: args.dailyRentPrice
         ? [args.dailyRentPrice[i]]
         : undefined,
-      nftPrice: args.nftPrice ? [args.nftPrice[i]] : undefined,
       paymentToken: args.paymentToken ? [args.paymentToken[i]] : undefined,
       rentDuration: args.rentDuration ? [args.rentDuration[i]] : undefined,
       lendingID: args.lendingID ? [args.lendingID[i]] : undefined,
+      rentingID: args.rentingID ? [args.rentingID[i]] : undefined
     });
     return nfts;
   };

@@ -1,8 +1,8 @@
 import { Signer, BigNumber, ContractTransaction, Contract } from 'ethers';
 
-import { RENFT as RENFT_ADDRESS } from './consts';
-import { IReNFT, PaymentToken } from './types';
-import { ReNFT as AbiReNFT } from './abi';
+import { REGISTRY as RENFT_ADDRESS } from './consts';
+import { IReNFT, PaymentToken, NFTStandard } from './types';
+import { Registry as AbiReNFT } from './abi';
 import { prepareBatch, packPrice } from './utils';
 
 export class ReNFT implements IReNFT {
@@ -19,104 +19,120 @@ export class ReNFT implements IReNFT {
   }
 
   async lend(
+    nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: BigNumber[],
-    amount: number[],
+    lendAmount: number[],
     maxRentDuration: number[],
     dailyRentPrice: number[],
-    nftPrice: number[],
     paymentToken: PaymentToken[]
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
+      nftStandard,
       nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
       tokenID: tokenID.map(id => BigNumber.from(id)),
-      amount: amount.map(amt => Number(amt)),
+      lendAmount: lendAmount.map(amt => Number(amt)),
       maxRentDuration: maxRentDuration.map(x => Number(x)),
       dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
-      nftPrice: nftPrice.map(x => packPrice(Number(x).toString())),
       paymentToken,
     });
-
     return await this.contract.lend(
+      args.nftStandard,
       args.nftAddress,
       args.tokenID,
       args.amount,
       args.maxRentDuration,
       args.dailyRentPrice,
-      args.nftPrice,
       args.paymentToken
     );
   }
 
   async rent(
+    nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: BigNumber[],
     lendingID: BigNumber[],
-    rentDuration: number[]
+    rentDuration: number[],
+    rentAmount: number[]
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
+      nftStandard,
       nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
       tokenID: tokenID.map(id => BigNumber.from(id)),
       lendingID: lendingID.map(x => BigNumber.from(x)),
       rentDuration: rentDuration.map(x => Number(x)),
+      rentAmount: rentAmount.map(x => Number(x))
     });
-
     return await this.contract.rent(
+      args.nftStandard,
       args.nftAddress,
       args.tokenID,
       args.lendingID,
-      args.rentDuration
+      args.rentDuration,
+      args.rentAmount
     );
   }
 
-  async returnIt(
+  async stopRent(
+    nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    lendingID: BigNumber[],
+    rentingID: BigNumber[]
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
+      nftStandard,
       nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
       tokenID: tokenID.map(id => BigNumber.from(id)),
       lendingID: lendingID.map(x => BigNumber.from(x)),
+      rentingID: rentingID.map(x => BigNumber.from(x))
     });
-
-    return await this.contract.returnIt(
+    return await this.contract.stopRent(
+      args.nftStandard,
       args.nftAddress,
       args.tokenID,
-      args.lendingID
+      args.lendingID,
+      args.rentingID
     );
   }
 
-  async claimCollateral(
+  async claimRent(
+    nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    lendingID: BigNumber[],
+    rentingID: BigNumber[]
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
+      nftStandard,
       nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
       tokenID: tokenID.map(id => BigNumber.from(id)),
       lendingID: lendingID.map(x => BigNumber.from(x)),
+      rentingID: rentingID.map(x => BigNumber.from(x))
     });
-
-    return await this.contract.claimCollateral(
+    return await this.contract.claimRent(
+      args.nftStandard,
       args.nftAddress,
       args.tokenID,
-      args.lendingID
+      args.lendingID,
+      args.rentingID
     );
   }
 
-  async stopLending(
+  async stopLend(
+    nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: BigNumber[],
     lendingID: BigNumber[]
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
+      nftStandard,
       nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
       tokenID: tokenID.map(id => BigNumber.from(id)),
       lendingID: lendingID.map(x => BigNumber.from(x)),
     });
-
     return await this.contract.stopLending(
+      args.nftStandard,
       args.nftAddress,
       args.tokenID,
       args.lendingID

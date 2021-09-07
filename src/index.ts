@@ -1,5 +1,5 @@
 export { ReNFT } from './renft';
-export { RESOLVER as RESOLVER_ADDRESS, RENFT as RENFT_ADDRESS } from './consts';
-export { Resolver as RESOLVER_ABI, ReNFT as RENFT_ABI } from './abi';
+export { RESOLVER as RESOLVER_ADDRESS, REGISTRY as RENFT_ADDRESS } from './consts';
+export { Resolver as RESOLVER_ABI, Registry as RENFT_ABI } from './abi';
 export { IReNFT, PaymentToken } from './types';
 export { packPrice, unpackPrice, toPaddedHex, prepareBatch } from './utils';

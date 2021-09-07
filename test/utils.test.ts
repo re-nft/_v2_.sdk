@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { BigNumber } from 'ethers';
-import { PaymentToken } from '../src/types';
+import { PaymentToken, NFTStandard } from '../src/types';
 
 import {
   packPrice,
@@ -116,6 +116,7 @@ describe('Utils', () => {
 
   it('batch - single item return', () => {
     const lendThis = {
+      nftStandard: [NFTStandard.E721],
       nftAddress: ['A'],
       tokenID: [BigNumber.from('1')],
     };
@@ -125,6 +126,7 @@ describe('Utils', () => {
 
   it('batch - domain #1', () => {
     const prepd = prepareBatch({
+      nftStandard: [NFTStandard.E721, NFTStandard.E721, NFTStandard.E721, NFTStandard.E1155],
       nftAddress: ['A', 'B', 'C', 'A'],
       tokenID: [
         BigNumber.from('10'),
@@ -135,6 +137,7 @@ describe('Utils', () => {
     });
 
     expect(prepd).to.deep.equal({
+      nftStandard: [NFTStandard.E1155, NFTStandard.E721, NFTStandard.E721, NFTStandard.E721],
       nftAddress: ['A', 'A', 'B', 'C'],
       tokenID: [
         BigNumber.from('2'),
@@ -147,6 +150,14 @@ describe('Utils', () => {
 
   it('batch - domain #2', () => {
     const prepd = prepareBatch({
+      nftStandard: [
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721
+      ],
       nftAddress: ['A', 'B', 'C', 'A', 'D', 'A'],
       tokenID: [
         BigNumber.from('2'), // 0
@@ -156,7 +167,7 @@ describe('Utils', () => {
         BigNumber.from('22'), // 5
         BigNumber.from('3'), // 1
       ],
-      amount: [
+      lendAmount: [
         2, // 0
         1, // 3
         1, // 4
@@ -173,14 +184,6 @@ describe('Utils', () => {
         packPrice(5.55),
         packPrice(6.66),
       ],
-      nftPrice: [
-        packPrice(11.11),
-        packPrice(22.22),
-        packPrice(33.33),
-        packPrice(44.44),
-        packPrice(55.55),
-        packPrice(66.66),
-      ],
       paymentToken: [
         PaymentToken.WETH,
         PaymentToken.DAI,
@@ -193,6 +196,14 @@ describe('Utils', () => {
     });
 
     expect(prepd).to.deep.equal({
+      nftStandard: [
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721
+      ],
       nftAddress: ['A', 'A', 'A', 'B', 'C', 'D'],
       tokenID: [
         BigNumber.from('2'),
@@ -202,7 +213,7 @@ describe('Utils', () => {
         BigNumber.from('2'),
         BigNumber.from('22'),
       ],
-      amount: [2, 5, 3, 1, 1, 4],
+      lendAmount: [2, 5, 3, 1, 1, 4],
       maxRentDuration: [10, 20, 10, 2, 2, 30],
       dailyRentPrice: [
         packPrice(1.11),
@@ -211,14 +222,6 @@ describe('Utils', () => {
         packPrice(2.22),
         packPrice(3.33),
         packPrice(5.55),
-      ],
-      nftPrice: [
-        packPrice(11.11),
-        packPrice(66.66),
-        packPrice(44.44),
-        packPrice(22.22),
-        packPrice(33.33),
-        packPrice(55.55),
       ],
       paymentToken: [
         PaymentToken.WETH,
@@ -234,6 +237,17 @@ describe('Utils', () => {
 
   it('batch - domain #3', () => {
     const prepd = prepareBatch({
+      nftStandard: [
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+      ],
       nftAddress: ['A', 'B', 'C', 'A', 'D', 'A', 'E', 'F', 'E'],
       tokenID: [
         // A:2
@@ -255,7 +269,7 @@ describe('Utils', () => {
         // E:6
         BigNumber.from('11'),
       ],
-      amount: [
+      lendAmount: [
         2, // 2
         1, // 3
         1, // 4
@@ -288,17 +302,6 @@ describe('Utils', () => {
         packPrice(8.88), // 8
         packPrice(9.99), // 6
       ],
-      nftPrice: [
-        packPrice(11.11),
-        packPrice(22.22),
-        packPrice(33.33),
-        packPrice(44.44),
-        packPrice(55.55),
-        packPrice(66.66),
-        packPrice(77.77),
-        packPrice(88.88),
-        packPrice(99.99),
-      ],
       paymentToken: [
         PaymentToken.WETH,
         PaymentToken.DAI,
@@ -314,6 +317,17 @@ describe('Utils', () => {
     });
 
     expect(prepd).to.deep.equal({
+      nftStandard: [
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+        NFTStandard.E721,
+      ],      
       nftAddress: ['A', 'A', 'A', 'B', 'C', 'D', 'E', 'E', 'F'],
       tokenID: [
         BigNumber.from('2'),
@@ -326,7 +340,7 @@ describe('Utils', () => {
         BigNumber.from('20'),
         BigNumber.from('10'),
       ],
-      amount: [3, 5, 2, 1, 1, 4, 20, 10, 11],
+      lendAmount: [3, 5, 2, 1, 1, 4, 20, 10, 11],
       maxRentDuration: [10, 20, 10, 2, 2, 30, 20, 10, 11],
       dailyRentPrice: [
         packPrice(4.44),
@@ -338,17 +352,6 @@ describe('Utils', () => {
         packPrice(9.99),
         packPrice(7.77),
         packPrice(8.88),
-      ],
-      nftPrice: [
-        packPrice(44.44),
-        packPrice(66.66),
-        packPrice(11.11),
-        packPrice(22.22),
-        packPrice(33.33),
-        packPrice(55.55),
-        packPrice(99.99),
-        packPrice(77.77),
-        packPrice(88.88),
       ],
       paymentToken: [
         PaymentToken.USDT,

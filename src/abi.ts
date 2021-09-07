@@ -1,5 +1,5 @@
-import { ReNFT as ReNFTJSON } from './abi/ReNFT';
+import { Registry as RegistryJSON } from './abi/Registry';
 import { Resolver as ResolverJSON } from './abi/Resolver';
 
-export const ReNFT = ReNFTJSON.abi;
+export const Registry = RegistryJSON.abi;
 export const Resolver = ResolverJSON.abi;

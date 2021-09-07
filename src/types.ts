@@ -10,37 +10,49 @@ export enum PaymentToken {
   RENT,
 }
 
+export enum NFTStandard {
+  E721,
+  E1155
+}
+
 export interface IReNFT {
   lend(
+    nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: BigNumber[],
-    amount: number[],
+    lendAmount: number[],
     maxRentDuration: number[],
     dailyRentPrice: number[],
-    nftPrice: number[],
     paymentToken: PaymentToken[]
   ): Promise<ContractTransaction>;
 
   rent(
+    nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: BigNumber[],
     lendingID: BigNumber[],
-    rentDuration: number[]
+    rentDuration: number[],
+    rentAmount: number[]
   ): Promise<ContractTransaction>;
 
-  returnIt(
+  stopRent(
+    nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    lendingID: BigNumber[],
+    rentingID: BigNumber[]
   ): Promise<ContractTransaction>;
 
-  claimCollateral(
+  claimRent(
+    nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    lendingID: BigNumber[],
+    rentingID: BigNumber[]
   ): Promise<ContractTransaction>;
 
-  stopLending(
+  stopLend(
+    nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: BigNumber[],
     lendingID: BigNumber[]
