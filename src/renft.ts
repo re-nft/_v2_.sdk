@@ -40,7 +40,7 @@ export class ReNFT implements IReNFT {
       args.nftStandard,
       args.nftAddress,
       args.tokenID,
-      args.amount,
+      args.lendAmount,
       args.maxRentDuration,
       args.dailyRentPrice,
       args.paymentToken
