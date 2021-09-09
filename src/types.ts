@@ -32,7 +32,7 @@ export interface IReNFT {
     tokenID: BigNumber[],
     lendingID: BigNumber[],
     rentDuration: number[],
-    rentAmount: BigNumber[]
+    rentAmount: number[]
   ): Promise<ContractTransaction>;
 
   stopRent(
