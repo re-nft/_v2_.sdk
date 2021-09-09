@@ -164,6 +164,7 @@ interface PrepareBatch extends IObjectKeys {
   nftAddress: string[];
   tokenID: BigNumber[];
   lendAmount?: number[];
+  rentAmount?: number[];
   maxRentDuration?: number[];
   dailyRentPrice?: string[];
   paymentToken?: PaymentToken[];
@@ -203,6 +204,7 @@ export const prepareBatch = (args: PrepareBatch) => {
       nftAddress: [nftAddress],
       tokenID: [args.tokenID[i]],
       lendAmount: args.lendAmount ? [args.lendAmount[i]] : undefined,
+      rentAmount: args.rentAmount ? [args.rentAmount[i]] : undefined,
       maxRentDuration: args.maxRentDuration
         ? [args.maxRentDuration[i]]
         : undefined,
