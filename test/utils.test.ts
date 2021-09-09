@@ -148,6 +148,48 @@ describe('Utils', () => {
     });
   });
 
+  it('batch - domain #1.1', () => {
+    const prepd = prepareBatch({
+      nftStandard: [NFTStandard.E721],
+      nftAddress: ['A'],
+      tokenID: [
+        BigNumber.from('2'),
+      ],
+      rentAmount: [3]
+    });
+
+    expect(prepd).to.deep.equal({
+      nftStandard: [NFTStandard.E721],
+      nftAddress: ['A'],
+      tokenID: [
+        BigNumber.from('2'),
+      ],
+      rentAmount: [3]
+    });
+  });
+
+  it('batch - domain #1.2', () => {
+    const prepd = prepareBatch({
+      nftStandard: [NFTStandard.E721, NFTStandard.E721],
+      nftAddress: ['A', 'A'],
+      tokenID: [
+        BigNumber.from('2'),
+        BigNumber.from('3')
+      ],
+      rentAmount: [3,4]
+    });
+
+    expect(prepd).to.deep.equal({
+      nftStandard: [NFTStandard.E721, NFTStandard.E721],
+      nftAddress: ['A', 'A'],
+      tokenID: [
+        BigNumber.from('2'),
+        BigNumber.from('3')
+      ],
+      rentAmount: [3,4]
+    });
+  });
+
   it('batch - domain #2', () => {
     const prepd = prepareBatch({
       nftStandard: [

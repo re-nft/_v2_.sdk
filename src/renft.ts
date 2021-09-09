@@ -131,7 +131,7 @@ export class ReNFT implements IReNFT {
       tokenID: tokenID.map(id => BigNumber.from(id)),
       lendingID: lendingID.map(x => BigNumber.from(x)),
     });
-    return await this.contract.stopLending(
+    return await this.contract.stopLend(
       args.nftStandard,
       args.nftAddress,
       args.tokenID,
