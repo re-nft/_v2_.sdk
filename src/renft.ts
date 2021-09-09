@@ -53,7 +53,7 @@ export class ReNFT implements IReNFT {
     tokenID: BigNumber[],
     lendingID: BigNumber[],
     rentDuration: number[],
-    rentAmount: number[]
+    rentAmount: BigNumber[]
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
       nftStandard,
