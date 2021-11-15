@@ -1,5 +1,5 @@
 {
-  "version": "2.2.4",
+  "version": "2.2.5",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -46,7 +46,7 @@
     "eth"
   ],
   "name": "@renft/sdk",
-  "author": "nazariyv (https://github.com/nazariyv)",
+  "author": "reNFT (https://github.com/re-nft)",
   "module": "dist/sdk.esm.js",
   "repository": {
     "type": "git",
