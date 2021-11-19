@@ -1,4 +1,6 @@
-import { Signer, BigNumber, ContractTransaction, Contract } from 'ethers';
+import { ContractTransaction, Contract } from '@ethersproject/contracts';
+import { BigNumber } from '@ethersproject/bignumber';
+import { Signer } from '@ethersproject/abstract-signer';
 
 import { RENFT as RENFT_ADDRESS } from './consts';
 import { IReNFT, PaymentToken } from './types';

@@ -1,4 +1,4 @@
-import { BigNumber, BigNumberish } from 'ethers';
+import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 
 import { PaymentToken } from './types';
 import { MAX_PRICE, NUM_BITS_IN_BYTE } from './consts';

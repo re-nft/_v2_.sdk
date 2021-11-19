@@ -1,9 +1,11 @@
-import { BigNumber, providers, Wallet } from 'ethers';
-import { ReNFT, PaymentToken } from './index';
+import { JsonRpcProvider } from '@ethersproject/providers';
+import { Wallet } from '@ethersproject/wallet';
+import { BigNumber } from '@ethersproject/bignumber';
+import { ReNFT, PaymentToken } from '../src/index';
 
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
-const provider = new providers.JsonRpcProvider("<your provider uri>");
-const privKey = "<privateKey>";
+const provider = new JsonRpcProvider('<your provider uri>');
+const privKey = '<privateKey>';
 let wallet = new Wallet(privKey);
 wallet = wallet.connect(provider);
 
