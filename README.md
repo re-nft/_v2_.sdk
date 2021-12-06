@@ -35,33 +35,25 @@ The below is a simple example of lending an ERC721, note that amount is ignored,
 With our protocol, you can also lend ERC1155 in multiple amounts! Moreover, it does not matter in what order you supply the inputs to our lend function, it will call the contract in a way that will save you as much gas as possible. This means a single call per ERC1155 group, moreover, the tokenIDs will be ordered in ascending order.
 
 ```javascript
-import { BigNumber, providers, Wallet } from 'ethers';
+import { JsonRpcProvider } from '@ethersproject/providers';
+import { Wallet } from '@ethersproject/wallet';
+import { BigNumber } from '@ethersproject/bignumber';
 import { ReNFT, PaymentToken } from '@renft/sdk';
 
-const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
-const provider = new providers.JsonRpcProvider(`<your provider url>`);
-let wallet = new Wallet(walletMnemonic);
+// const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
+const provider = new JsonRpcProvider('<your provider uri>');
+const privKey = '<privateKey>';
+let wallet = new Wallet(privKey);
 wallet = wallet.connect(provider);
 
-// alternatively instead of the above, you can instantiate with a private key
-// const privKey = "<privateKey>";
-// let wallet = new Wallet(privKey);
-
 const main = async () => {
-  // you need an instance of ethers.Signer here
   const renft = new ReNFT(wallet);
 
-  // address of the nft contract you are lending
   const E721_ADDR = ['0xCDf60B46Fa88e74DE7e1e613325E386BFe8609ad'];
-  // tokenID of the NFT you are lending
   const E721_TOKENID = [BigNumber.from('3')];
-  // in the case of 721 this is ignored, since it will always be 1. However, very useful for semi-fungible 1155s
   const lendAmount = [1];
-  // maximum number of days anyone will be able to rent your NFT for
   const maxRentDuration = [1];
-  // in the scale of the payment token. This means 1.1 WETH per day payment to rent the NFT out
   const dailyRentPrice = [1.1];
-  // if the renter does not return your NFT, this is how much you will get back, i.e. 2.2 WETH
   const nftPrice = [2.2];
   const paymentToken = [PaymentToken.WETH];
 

@@ -1,4 +1,5 @@
-import { BigNumber, ContractTransaction } from 'ethers';
+import { ContractTransaction } from '@ethersproject/contracts';
+import { BigNumber } from '@ethersproject/bignumber';
 
 export enum PaymentToken {
   SENTINEL, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
