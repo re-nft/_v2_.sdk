@@ -67,11 +67,11 @@ export const toPaddedHex = (number: number, bitsize: number) => {
 const scaleDecimal = (num: string) => {
   const numLen = num.length;
   const maxLen = 4;
-  for (let i = 0; i < (maxLen - numLen); i++) {
+  for (let i = 0; i < maxLen - numLen; i++) {
     num = num + '0';
   }
   return Number(num);
-}
+};
 
 /**
  * Converts a number into the format that is acceptable by the ReNFT contract.
@@ -110,20 +110,17 @@ const validateSameLength = (...args: any[]) => {
   return true;
 };
 
-const decimalToPaddedHexString = (
-  number: number,
-  bitsize: number
-): string => {
+const decimalToPaddedHexString = (number: number, bitsize: number): string => {
   const byteCount = Math.ceil(bitsize / 8);
   const maxBinValue = Math.pow(2, bitsize) - 1;
-  if (bitsize > 32) throw "number above maximum value";
+  if (bitsize > 32) throw new Error('number above maximum value');
   if (number < 0) number = maxBinValue + number + 1;
   return (
-    "0x" +
+    '0x' +
     (number >>> 0)
       .toString(16)
       .toUpperCase()
-      .padStart(byteCount * 2, "0")
+      .padStart(byteCount * 2, '0')
   );
 };
 
@@ -139,14 +136,14 @@ export const unpackPrice = (price: BigNumberish) => {
 
   let decimalStr = decimal.toString();
   const decimalLen = decimalStr.length;
-  const maxLen = 4
-  for (let i = 0; i < (maxLen - decimalLen); i++) {
+  const maxLen = 4;
+  for (let i = 0; i < maxLen - decimalLen; i++) {
     decimalStr = '0' + decimalStr;
   }
 
   const number = parseFloat(`${whole}.${decimalStr}`);
   return number;
-}
+};
 
 type IObjectKeysValues =
   | string[]
