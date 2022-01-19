@@ -6,7 +6,9 @@ import { MAX_PRICE, UINT8_MAX } from './consts';
 const validateSameLength = (args: PrepareBatch) => {
   const nftsLen = args.nfts.nft.length;
 
-  if (nftsLen !== args.nfts.lendingIds.length) throw new Error('length mismatch');
+  if (args.nfts.lendingIds) {
+    if (nftsLen !== args.nfts.lendingIds.length) throw new Error('length mismatch');
+  }
   if (nftsLen !== args.nfts.tokenIds.length) throw new Error('length mismatch');
 
   Object.keys(args).forEach(key => {
@@ -27,6 +29,7 @@ const validateSameLength = (args: PrepareBatch) => {
 export const toPrice = (num: string | number): Price => {
   let price: string = '';
   if (typeof num === 'number') price = num.toString();
+  else price = num;
   const [whole, decimal] = price.split('.');
 
   if (parseInt(whole) > MAX_PRICE) throw new Error(`whole number exceeds allowed maximum ${MAX_PRICE}`);
@@ -64,15 +67,7 @@ interface PrepareBatch {
 export const prepareBatch = (args: PrepareBatch) => {
   if (args.nfts.nft.length <= 1) return args;
   validateSameLength(args);
-  let preparedBatch: PrepareBatch = { nfts: { nft: [], tokenIds: [], lendingIds: [] } };
-
-  // Pseudocode
-  // ----------
-  // nft in nfts is an array of addresses like ['A', 'B', 'A', 'C', 'B', 'D']
-  // The goal is to obtain sorting indices from this array to sort every
-  // other value (including nft) in the args object
-  // For example, a sorted nft in this case would look like:
-  // ['A', 'A', 'B', 'B', 'C', 'D']
+  let preparedBatch: PrepareBatch = { nfts: { nft: [], tokenIds: [] } };
 
   // input:  ['a', 'b', 'a', 'c']
   // output: [0, 2, 1, 3]
@@ -93,7 +88,9 @@ export const prepareBatch = (args: PrepareBatch) => {
     if (key === 'nfts') {
       preparedBatch.nfts.nft = sortWithIndices(args.nfts.nft, indices);
       preparedBatch.nfts.tokenIds = sortWithIndices(args.nfts.tokenIds, indices);
-      preparedBatch.nfts.lendingIds = sortWithIndices(args.nfts.lendingIds, indices);
+      if (args.nfts.lendingIds) {
+        preparedBatch.nfts.lendingIds = sortWithIndices(args.nfts.lendingIds, indices);
+      }
     } else {
       //@ts-ignore
       preparedBatch[key] = sortWithIndices(args[key], indices);

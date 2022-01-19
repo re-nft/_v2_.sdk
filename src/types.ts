@@ -13,7 +13,7 @@ export enum PaymentToken {
 export type Nfts = {
   nft: string[]; // INFTContract
   tokenIds: BigNumber[]; // uint256
-  lendingIds: BigNumber[]; // uint256
+  lendingIds?: BigNumber[]; // uint256
 }
 
 export type Price = {
