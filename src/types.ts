@@ -16,11 +16,13 @@ type Nfts = {
   lendingIds: BigNumber[]; // uint256
 }
 
-type Price = {
+export type Price = {
   whole: number; // uint24
   decimal: number; // uint8
 }
 
+// todo: add editLend
+// todo: add softDefault
 export interface IReNFT {
 
   lend(
