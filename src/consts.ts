@@ -11,6 +11,7 @@ export const NETWORK = {
   POLYGON: 137
 };
 
-// todo
+// todo: new addresses, plus different networks, so maybe something like
+// { [NETWORK]: { collateral: { resolver: ..., renft: ... }, collateralFree: {} } }
 export const RESOLVER = '<>';
 export const RENFT = '<>';
