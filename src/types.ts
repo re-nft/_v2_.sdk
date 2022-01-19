@@ -10,7 +10,7 @@ export enum PaymentToken {
   RENT,
 }
 
-type Nfts = {
+export type Nfts = {
   nft: string[]; // INFTContract
   tokenIds: BigNumber[]; // uint256
   lendingIds: BigNumber[]; // uint256

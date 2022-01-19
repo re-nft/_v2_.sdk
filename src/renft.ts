@@ -1,9 +1,9 @@
 import { Signer, BigNumber, ContractTransaction, Contract } from 'ethers';
 
 import { RENFT as RENFT_ADDRESS } from './consts';
-import { IReNFT, PaymentToken } from './types';
+import { IReNFT, PaymentToken, Price, Nfts } from './types';
 import { ReNFT as AbiReNFT } from './abi';
-import { prepareBatch, packPrice } from './utils';
+import { prepareBatch } from './utils';
 
 export class ReNFT implements IReNFT {
   readonly signer: Signer;
@@ -19,16 +19,15 @@ export class ReNFT implements IReNFT {
   }
 
   async lend(
-    nftAddress: string[],
-    tokenID: BigNumber[],
-    amount: number[],
-    maxRentDuration: number[],
-    dailyRentPrice: number[],
-    nftPrice: number[],
+    nfts: Nfts,
+    lendAmounts: BigNumber[],
+    maxRentDurations: number[],
+    dailyRentPrices: Price[],
+    collaterals: Price[],
     paymentToken: PaymentToken[]
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
+      nfts,
       tokenID: tokenID.map(id => BigNumber.from(id)),
       amount: amount.map(amt => Number(amt)),
       maxRentDuration: maxRentDuration.map(x => Number(x)),
