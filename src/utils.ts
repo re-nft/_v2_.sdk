@@ -29,7 +29,7 @@ export const toPrice = (num: string | number): Price => {
   let price: string = '';
   if (typeof num === 'number') price = num.toString();
   else price = num;
-  const [whole, decimal] = price.split('.');
+  let [whole, decimal] = price.split('.');
 
   if (parseInt(whole) > MAX_PRICE)
     throw new Error(`whole number exceeds allowed maximum ${MAX_PRICE}`);
@@ -38,11 +38,21 @@ export const toPrice = (num: string | number): Price => {
     if (parseInt(decimal) > 99) throw new Error(`decimal number exceeds 99`);
   }
 
+  if (decimal && decimal.length === 1) {
+    decimal = `${decimal}0`;
+  }
+
   return { whole: parseInt(whole), decimal: decimal ? parseInt(decimal) : 0 };
 };
 
 export const toNumber = (price: Price): number => {
-  return parseFloat(`${price.whole}.${price.decimal}`);
+  let decimal = price.decimal;
+  // need to make sure that if number is in {1,2,3,4,5,6,7,8,9} we get {01,02,...,09}
+  let mappedDecimal: string = decimal.toString();
+  if (decimal >= 1 && decimal <= 9) {
+    mappedDecimal = `0${decimal}`;
+  }
+  return parseFloat(`${price.whole}.${mappedDecimal}`);
 };
 
 interface PrepareBatch {
