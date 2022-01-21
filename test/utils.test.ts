@@ -20,21 +20,13 @@ describe('Utils', () => {
   });
 
   it('throws if exceeds MAX_PRICE by one decimal', () => {
-    expect(() => { toPrice(16777215.256) }).to.throw();
-  });
-
-  it('produces MAX_PRICE Price { whole: 16777215, decimal: 255 }', () => {
-    const price = toPrice(16777215.255);
-    expect(price).to.deep.equal({ whole: 16777215, decimal: 255 });
+    // * note that 100 would work, since it's considered to be '.01'
+    expect(() => { toPrice(16777215.101) }).to.throw();
   });
 
   it('produces Price { whole: 10, decimal: 11 } from string', () => {
     const price = toPrice('10.11');
     expect(price).to.deep.equal({ whole: 10, decimal: 11 });
-  });
-
-  it('throws if exceeds decimal uint8 type max', () => {
-    expect(() => { toPrice(1.256) }).to.throw();
   });
 
   it('produces Price { whole: 0, decimal: 0}', () => {
@@ -57,6 +49,15 @@ describe('Utils', () => {
     const price = { whole: 1, decimal: 23 };
     const number = toNumber(price);
     expect(number).to.be.equal(1.23);
+  });
+
+  // todo: 1 should map  to 0.01
+  // todo: 10 should map to 0.10
+
+  it('produces 0.01 from Price { whole: 0, decimal: "01"}', () => {
+    const price = { whole: 0, decimal: '01' };
+    const number = toNumber(price);
+    expect(number).to.be.equal(0.01);
   });
 
   it('batch - single item return', () => {

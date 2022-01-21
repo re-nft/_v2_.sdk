@@ -1,7 +1,5 @@
-import { BigNumber } from 'ethers';
-
 import { PaymentToken, Price, Nfts } from './types';
-import { MAX_PRICE, UINT8_MAX } from './consts';
+import { MAX_PRICE } from './consts';
 
 const validateSameLength = (args: PrepareBatch) => {
   const nftsLen = args.nfts.nft.length;
@@ -35,7 +33,7 @@ export const toPrice = (num: string | number): Price => {
   if (parseInt(whole) > MAX_PRICE) throw new Error(`whole number exceeds allowed maximum ${MAX_PRICE}`);
   if (parseInt(whole) < 0) throw new Error(`whole number is negative`);
   if (decimal) {
-    if (parseInt(decimal) > UINT8_MAX) throw new Error(`decimal number exceeds uint8`);
+    if (parseInt(decimal) > 99) throw new Error(`decimal number exceeds 99`);
   }
 
   return { whole: parseInt(whole), decimal: decimal ? parseInt(decimal) : 0 };
@@ -47,11 +45,11 @@ export const toNumber = (price: Price): number => {
 
 interface PrepareBatch {
   nfts: Nfts;
-  lendAmounts?: BigNumber[];
+  lendAmounts?: number[];
   maxRentDurations?: number[];
   dailyRentPrices?: Price[];
   collaterals?: Price[];
-  paymentToken?: PaymentToken[];
+  paymentTokens?: PaymentToken[];
   rentDurations?: number[];
 }
 

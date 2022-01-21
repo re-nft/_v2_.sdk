@@ -17,8 +17,8 @@ export type Nfts = {
 }
 
 export type Price = {
-  whole: number; // uint24
-  decimal: number; // uint8
+  whole: number | string;   // uint24
+  decimal: number | string; // uint8
 }
 
 // todo: add editLend
@@ -27,7 +27,7 @@ export interface IReNFT {
 
   lend(
     nfts: Nfts,
-    lendAmounts: BigNumber[],
+    lendAmounts: number[],
     maxRentDurations: number[],
     dailyRentPrices: Price[],
     collaterals: Price[],

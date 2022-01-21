@@ -1,52 +1,67 @@
 export const Resolver = {
   abi: [
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: 'address',
-          name: '_admin',
-          type: 'address',
-        },
+          "internalType": "address",
+          "name": "newAdmin",
+          "type": "address"
+        }
       ],
-      stateMutability: 'nonpayable',
-      type: 'constructor',
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-      inputs: [
-        {
-          internalType: 'uint8',
-          name: '_pt',
-          type: 'uint8',
-        },
-      ],
-      name: 'getPaymentToken',
-      outputs: [
-        {
-          internalType: 'address',
-          name: '',
-          type: 'address',
-        },
-      ],
-      stateMutability: 'view',
-      type: 'function',
+      "inputs": [],
+      "name": "CannotResetAddress",
+      "type": "error"
     },
     {
-      inputs: [
-        {
-          internalType: 'uint8',
-          name: '_pt',
-          type: 'uint8',
-        },
-        {
-          internalType: 'address',
-          name: '_v',
-          type: 'address',
-        },
-      ],
-      name: 'setPaymentToken',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
+      "inputs": [],
+      "name": "CannotSetSentinel",
+      "type": "error"
     },
-  ],
+    {
+      "inputs": [],
+      "name": "NotAdmin",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "enum IResolver.PaymentToken",
+          "name": "paymentToken",
+          "type": "uint8"
+        }
+      ],
+      "name": "getPaymentToken",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8",
+          "name": "paymentToken",
+          "type": "uint8"
+        },
+        {
+          "internalType": "address",
+          "name": "paymentTokenAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setPaymentToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
 };
