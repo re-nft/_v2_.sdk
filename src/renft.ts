@@ -74,11 +74,7 @@ export class ReNFT implements IReNFT {
     });
 
     return await this.contract.rent(
-      [
-        args.nfts.nft,
-        args.nfts.tokenIds,
-        Array(args.nfts.nft.length).fill(BigNumber.from('0')),
-      ],
+      [args.nfts.nft, args.nfts.tokenIds, args.nfts.lendingIds],
       args.rentDurations,
       options ? options : {}
     );
@@ -86,12 +82,10 @@ export class ReNFT implements IReNFT {
 
   async returnIt(nfts: Nfts, options?: any): Promise<ContractTransaction> {
     const args = prepareBatch({ nfts });
-    return await this.contract.returnIt([
-      args.nfts.nft,
-      args.nfts.tokenIds,
-      Array(args.nfts.nft.length).fill(BigNumber.from('0')),
-      options ? options : {},
-    ]);
+    return await this.contract.returnIt(
+      [args.nfts.nft, args.nfts.tokenIds, args.nfts.lendingIds],
+      options ? options : {}
+    );
   }
 
   async claimCollateral(
@@ -99,21 +93,17 @@ export class ReNFT implements IReNFT {
     options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({ nfts });
-    return await this.contract.claimCollateral([
-      args.nfts.nft,
-      args.nfts.tokenIds,
-      Array(args.nfts.nft.length).fill(BigNumber.from('0')),
-      options ? options : {},
-    ]);
+    return await this.contract.claimCollateral(
+      [args.nfts.nft, args.nfts.tokenIds, args.nfts.lendingIds],
+      options ? options : {}
+    );
   }
 
   async stopLending(nfts: Nfts, options?: any): Promise<ContractTransaction> {
     const args = prepareBatch({ nfts });
-    return await this.contract.stopLending([
-      args.nfts.nft,
-      args.nfts.tokenIds,
-      Array(args.nfts.nft.length).fill(BigNumber.from('0')),
-      options ? options : {},
-    ]);
+    return await this.contract.stopLending(
+      [args.nfts.nft, args.nfts.tokenIds, args.nfts.lendingIds],
+      options ? options : {}
+    );
   }
 }
