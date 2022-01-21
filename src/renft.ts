@@ -33,7 +33,7 @@ export class ReNFT implements IReNFT {
       maxRentDurations,
       dailyRentPrices,
       collaterals,
-      paymentTokens
+      paymentTokens,
     });
 
     // (address[], uint256[], uint256[]) nfts,
@@ -46,12 +46,18 @@ export class ReNFT implements IReNFT {
       [
         args.nfts.nft,
         args.nfts.tokenIds,
-        Array(args.nfts.nft.length).fill(BigNumber.from('0'))
+        Array(args.nfts.nft.length).fill(BigNumber.from('0')),
       ],
       args.lendAmounts,
       args.maxRentDurations,
-      dailyRentPrices.map(x => [BigNumber.from(x.whole), BigNumber.from(x.decimal)]),
-      collaterals.map(x => [BigNumber.from(x.whole), BigNumber.from(x.decimal)]),
+      dailyRentPrices.map(x => [
+        BigNumber.from(x.whole),
+        BigNumber.from(x.decimal),
+      ]),
+      collaterals.map(x => [
+        BigNumber.from(x.whole),
+        BigNumber.from(x.decimal),
+      ]),
       args.paymentTokens,
       options ? options : {}
     );
@@ -64,30 +70,27 @@ export class ReNFT implements IReNFT {
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
       nfts,
-      rentDurations
+      rentDurations,
     });
 
     return await this.contract.rent(
       [
         args.nfts.nft,
         args.nfts.tokenIds,
-        Array(args.nfts.nft.length).fill(BigNumber.from('0'))
+        Array(args.nfts.nft.length).fill(BigNumber.from('0')),
       ],
       args.rentDurations,
       options ? options : {}
     );
   }
 
-  async returnIt(
-    nfts: Nfts,
-    options?: any
-  ): Promise<ContractTransaction> {
+  async returnIt(nfts: Nfts, options?: any): Promise<ContractTransaction> {
     const args = prepareBatch({ nfts });
     return await this.contract.returnIt([
       args.nfts.nft,
       args.nfts.tokenIds,
       Array(args.nfts.nft.length).fill(BigNumber.from('0')),
-      options ? options : {}
+      options ? options : {},
     ]);
   }
 
@@ -100,20 +103,17 @@ export class ReNFT implements IReNFT {
       args.nfts.nft,
       args.nfts.tokenIds,
       Array(args.nfts.nft.length).fill(BigNumber.from('0')),
-      options ? options : {}
+      options ? options : {},
     ]);
   }
 
-  async stopLending(
-    nfts: Nfts,
-    options?: any
-  ): Promise<ContractTransaction> {
+  async stopLending(nfts: Nfts, options?: any): Promise<ContractTransaction> {
     const args = prepareBatch({ nfts });
     return await this.contract.stopLending([
       args.nfts.nft,
       args.nfts.tokenIds,
       Array(args.nfts.nft.length).fill(BigNumber.from('0')),
-      options ? options : {}
+      options ? options : {},
     ]);
   }
 }

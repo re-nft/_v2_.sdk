@@ -7,7 +7,7 @@ export const NETWORK = {
   RINKEBY: 4,
   GOERLI: 5,
   KOVAN: 42,
-  POLYGON: 137
+  POLYGON: 137,
 };
 
 // todo: new addresses, plus different networks, so maybe something like

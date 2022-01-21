@@ -14,17 +14,16 @@ export type Nfts = {
   nft: string[]; // INFTContract
   tokenIds: BigNumber[]; // uint256
   lendingIds?: BigNumber[]; // uint256
-}
+};
 
 export type Price = {
-  whole: number | string;   // uint24
+  whole: number | string; // uint24
   decimal: number | string; // uint8
-}
+};
 
 // todo: add editLend
 // todo: add softDefault
 export interface IReNFT {
-
   lend(
     nfts: Nfts,
     lendAmounts: number[],
@@ -34,20 +33,11 @@ export interface IReNFT {
     paymentToken: PaymentToken[]
   ): Promise<ContractTransaction>;
 
-  rent(
-    nfts: Nfts,
-    rentDurations: number[]
-  ): Promise<ContractTransaction>;
+  rent(nfts: Nfts, rentDurations: number[]): Promise<ContractTransaction>;
 
-  returnIt(
-    nfts: Nfts
-  ): Promise<ContractTransaction>;
+  returnIt(nfts: Nfts): Promise<ContractTransaction>;
 
-  claimCollateral(
-    nfts: Nfts
-  ): Promise<ContractTransaction>;
+  claimCollateral(nfts: Nfts): Promise<ContractTransaction>;
 
-  stopLending(
-    nfts: Nfts
-  ): Promise<ContractTransaction>;
+  stopLending(nfts: Nfts): Promise<ContractTransaction>;
 }

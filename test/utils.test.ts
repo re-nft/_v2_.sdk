@@ -2,26 +2,25 @@ import { expect } from 'chai';
 import { BigNumber } from 'ethers';
 // import { PaymentToken } from '../src/types';
 
-import {
-  toPrice,
-  toNumber,
-  prepareBatch,
-} from '../src/utils';
+import { toPrice, toNumber, prepareBatch } from '../src/utils';
 
 describe('Utils', () => {
-
   it('produces Price { whole: 10, decimal: 11 }', () => {
     const price = toPrice(10.11);
     expect(price).to.deep.equal({ whole: 10, decimal: 11 });
   });
 
   it('throws if exceeds MAX_PRICE', () => {
-    expect(() => { toPrice(16777216) }).to.throw();
+    expect(() => {
+      toPrice(16777216);
+    }).to.throw();
   });
 
   it('throws if exceeds MAX_PRICE by one decimal', () => {
     // * note that 100 would work, since it's considered to be '.01'
-    expect(() => { toPrice(16777215.101) }).to.throw();
+    expect(() => {
+      toPrice(16777215.101);
+    }).to.throw();
   });
 
   it('produces Price { whole: 10, decimal: 11 } from string', () => {
@@ -77,8 +76,8 @@ describe('Utils', () => {
           BigNumber.from('1'),
           BigNumber.from('2'),
           BigNumber.from('2'),
-        ]
-      }
+        ],
+      },
     });
 
     // indices = [0, 3, 1, 2]
@@ -92,7 +91,7 @@ describe('Utils', () => {
           BigNumber.from('1'),
           BigNumber.from('2'),
         ],
-      }
+      },
     });
   });
 

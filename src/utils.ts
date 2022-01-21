@@ -5,7 +5,8 @@ const validateSameLength = (args: PrepareBatch) => {
   const nftsLen = args.nfts.nft.length;
 
   if (args.nfts.lendingIds) {
-    if (nftsLen !== args.nfts.lendingIds.length) throw new Error('length mismatch');
+    if (nftsLen !== args.nfts.lendingIds.length)
+      throw new Error('length mismatch');
   }
   if (nftsLen !== args.nfts.tokenIds.length) throw new Error('length mismatch');
 
@@ -30,7 +31,8 @@ export const toPrice = (num: string | number): Price => {
   else price = num;
   const [whole, decimal] = price.split('.');
 
-  if (parseInt(whole) > MAX_PRICE) throw new Error(`whole number exceeds allowed maximum ${MAX_PRICE}`);
+  if (parseInt(whole) > MAX_PRICE)
+    throw new Error(`whole number exceeds allowed maximum ${MAX_PRICE}`);
   if (parseInt(whole) < 0) throw new Error(`whole number is negative`);
   if (decimal) {
     if (parseInt(decimal) > 99) throw new Error(`decimal number exceeds 99`);
@@ -40,8 +42,8 @@ export const toPrice = (num: string | number): Price => {
 };
 
 export const toNumber = (price: Price): number => {
-  return parseFloat(`${price.whole}.${price.decimal}`)
-}
+  return parseFloat(`${price.whole}.${price.decimal}`);
+};
 
 interface PrepareBatch {
   nfts: Nfts;
@@ -70,14 +72,14 @@ export const prepareBatch = (args: PrepareBatch) => {
   // input:  ['a', 'b', 'a', 'c']
   // output: [0, 2, 1, 3]
   const sortIndices = (nft: string[]): number[] => {
-    const comp = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
+    const comp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
     const indices = new Array(nft.length).fill(0).map((_, i) => i);
     return indices.sort((a, b) => comp(nft[a], nft[b]));
-  }
+  };
 
   const sortWithIndices = (items: any[], indices: number[]) => {
     return indices.map(i => items[i]);
-  }
+  };
 
   const indices = sortIndices(args.nfts.nft);
 
@@ -85,9 +87,15 @@ export const prepareBatch = (args: PrepareBatch) => {
     // if nfts
     if (key === 'nfts') {
       preparedBatch.nfts.nft = sortWithIndices(args.nfts.nft, indices);
-      preparedBatch.nfts.tokenIds = sortWithIndices(args.nfts.tokenIds, indices);
+      preparedBatch.nfts.tokenIds = sortWithIndices(
+        args.nfts.tokenIds,
+        indices
+      );
       if (args.nfts.lendingIds) {
-        preparedBatch.nfts.lendingIds = sortWithIndices(args.nfts.lendingIds, indices);
+        preparedBatch.nfts.lendingIds = sortWithIndices(
+          args.nfts.lendingIds,
+          indices
+        );
       }
     } else {
       //@ts-ignore
