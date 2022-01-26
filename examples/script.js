@@ -1,7 +1,7 @@
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { BigNumber } from '@ethersproject/bignumber';
-import { ReNFT, PaymentToken } from '../src/index';
+import { Azrael, PaymentToken } from '../src/index';
 
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
 const provider = new JsonRpcProvider('<your provider uri>');
@@ -10,7 +10,10 @@ let wallet = new Wallet(privKey);
 wallet = wallet.connect(provider);
 
 const main = async () => {
-  const renft = new ReNFT(wallet);
+  // collateral solution
+  const renft = new Azrael(wallet);
+  // * for collateral free (import Sylvester from index):
+  // const renft = new Sylvester(wallet);
 
   const E721_ADDR = ['0xCDf60B46Fa88e74DE7e1e613325E386BFe8609ad'];
   const E721_TOKENID = [BigNumber.from('3')];
