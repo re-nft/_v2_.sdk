@@ -1,20 +1,20 @@
-export const ReNFT = {
+export default {
   abi: [
     {
       inputs: [
         {
           internalType: 'address',
-          name: '_resolver',
+          name: 'newResolver',
           type: 'address',
         },
         {
           internalType: 'address payable',
-          name: '_beneficiary',
+          name: 'newBeneficiary',
           type: 'address',
         },
         {
           internalType: 'address',
-          name: '_admin',
+          name: 'newAdmin',
           type: 'address',
         },
       ],
@@ -25,43 +25,17 @@ export const ReNFT = {
       anonymous: false,
       inputs: [
         {
-          indexed: true,
-          internalType: 'uint256',
-          name: 'lendingId',
-          type: 'uint256',
-        },
-        {
           indexed: false,
-          internalType: 'uint32',
-          name: 'claimedAt',
-          type: 'uint32',
+          internalType: 'bool',
+          name: 'is721',
+          type: 'bool',
         },
-      ],
-      name: 'CollateralClaimed',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
         {
           indexed: true,
-          internalType: 'uint256',
-          name: 'lendingId',
-          type: 'uint256',
+          internalType: 'address',
+          name: 'lenderAddress',
+          type: 'address',
         },
-        {
-          indexed: false,
-          internalType: 'uint32',
-          name: 'stoppedAt',
-          type: 'uint32',
-        },
-      ],
-      name: 'LendingStopped',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
         {
           indexed: true,
           internalType: 'address',
@@ -71,26 +45,14 @@ export const ReNFT = {
         {
           indexed: true,
           internalType: 'uint256',
-          name: 'tokenId',
+          name: 'tokenID',
           type: 'uint256',
-        },
-        {
-          indexed: false,
-          internalType: 'uint8',
-          name: 'lentAmount',
-          type: 'uint8',
         },
         {
           indexed: false,
           internalType: 'uint256',
-          name: 'lendingId',
+          name: 'lendingID',
           type: 'uint256',
-        },
-        {
-          indexed: true,
-          internalType: 'address',
-          name: 'lenderAddress',
-          type: 'address',
         },
         {
           indexed: false,
@@ -106,15 +68,9 @@ export const ReNFT = {
         },
         {
           indexed: false,
-          internalType: 'bytes4',
-          name: 'nftPrice',
-          type: 'bytes4',
-        },
-        {
-          indexed: false,
-          internalType: 'bool',
-          name: 'isERC721',
-          type: 'bool',
+          internalType: 'uint16',
+          name: 'lendAmount',
+          type: 'uint16',
         },
         {
           indexed: false,
@@ -123,23 +79,35 @@ export const ReNFT = {
           type: 'uint8',
         },
       ],
-      name: 'Lent',
+      name: 'Lend',
       type: 'event',
     },
     {
       anonymous: false,
       inputs: [
         {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'lendingId',
-          type: 'uint256',
-        },
-        {
           indexed: true,
           internalType: 'address',
           name: 'renterAddress',
           type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: 'lendingID',
+          type: 'uint256',
+        },
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: 'rentingID',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          internalType: 'uint16',
+          name: 'rentAmount',
+          type: 'uint16',
         },
         {
           indexed: false,
@@ -154,7 +122,7 @@ export const ReNFT = {
           type: 'uint32',
         },
       ],
-      name: 'Rented',
+      name: 'Rent',
       type: 'event',
     },
     {
@@ -163,38 +131,86 @@ export const ReNFT = {
         {
           indexed: true,
           internalType: 'uint256',
-          name: 'lendingId',
+          name: 'rentingID',
           type: 'uint256',
         },
         {
           indexed: false,
           internalType: 'uint32',
-          name: 'returnedAt',
+          name: 'collectedAt',
           type: 'uint32',
         },
       ],
-      name: 'Returned',
+      name: 'RentClaimed',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: 'lendingID',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          internalType: 'uint32',
+          name: 'stoppedAt',
+          type: 'uint32',
+        },
+      ],
+      name: 'StopLend',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: 'rentingID',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          internalType: 'uint32',
+          name: 'stoppedAt',
+          type: 'uint32',
+        },
+      ],
+      name: 'StopRent',
       type: 'event',
     },
     {
       inputs: [
         {
+          internalType: 'enum IRegistry.NFTStandard[]',
+          name: 'nftStandard',
+          type: 'uint8[]',
+        },
+        {
           internalType: 'address[]',
-          name: '_nfts',
+          name: 'nftAddress',
           type: 'address[]',
         },
         {
           internalType: 'uint256[]',
-          name: '_tokenIds',
+          name: 'tokenID',
           type: 'uint256[]',
         },
         {
           internalType: 'uint256[]',
-          name: '_lendingIds',
+          name: '_lendingID',
+          type: 'uint256[]',
+        },
+        {
+          internalType: 'uint256[]',
+          name: '_rentingID',
           type: 'uint256[]',
         },
       ],
-      name: 'claimCollateral',
+      name: 'claimRent',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function',
@@ -202,38 +218,141 @@ export const ReNFT = {
     {
       inputs: [
         {
+          internalType: 'address',
+          name: 'nftAddress',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: 'tokenID',
+          type: 'uint256',
+        },
+        {
+          internalType: 'uint256',
+          name: '_lendingID',
+          type: 'uint256',
+        },
+      ],
+      name: 'getLending',
+      outputs: [
+        {
+          internalType: 'uint8',
+          name: '',
+          type: 'uint8',
+        },
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address',
+        },
+        {
+          internalType: 'uint8',
+          name: '',
+          type: 'uint8',
+        },
+        {
+          internalType: 'bytes4',
+          name: '',
+          type: 'bytes4',
+        },
+        {
+          internalType: 'uint16',
+          name: '',
+          type: 'uint16',
+        },
+        {
+          internalType: 'uint16',
+          name: '',
+          type: 'uint16',
+        },
+        {
+          internalType: 'uint8',
+          name: '',
+          type: 'uint8',
+        },
+      ],
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'nftAddress',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: 'tokenID',
+          type: 'uint256',
+        },
+        {
+          internalType: 'uint256',
+          name: '_rentingID',
+          type: 'uint256',
+        },
+      ],
+      name: 'getRenting',
+      outputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address',
+        },
+        {
+          internalType: 'uint16',
+          name: '',
+          type: 'uint16',
+        },
+        {
+          internalType: 'uint8',
+          name: '',
+          type: 'uint8',
+        },
+        {
+          internalType: 'uint32',
+          name: '',
+          type: 'uint32',
+        },
+      ],
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'enum IRegistry.NFTStandard[]',
+          name: 'nftStandard',
+          type: 'uint8[]',
+        },
+        {
           internalType: 'address[]',
-          name: '_nfts',
+          name: 'nftAddress',
           type: 'address[]',
         },
         {
           internalType: 'uint256[]',
-          name: '_tokenIds',
+          name: 'tokenID',
           type: 'uint256[]',
         },
         {
           internalType: 'uint256[]',
-          name: '_lendAmounts',
+          name: 'lendAmount',
           type: 'uint256[]',
         },
         {
           internalType: 'uint8[]',
-          name: '_maxRentDurations',
+          name: 'maxRentDuration',
           type: 'uint8[]',
         },
         {
           internalType: 'bytes4[]',
-          name: '_dailyRentPrices',
-          type: 'bytes4[]',
-        },
-        {
-          internalType: 'bytes4[]',
-          name: '_nftPrices',
+          name: 'dailyRentPrice',
           type: 'bytes4[]',
         },
         {
           internalType: 'enum IResolver.PaymentToken[]',
-          name: '_paymentTokens',
+          name: 'paymentToken',
           type: 'uint8[]',
         },
       ],
@@ -355,31 +474,54 @@ export const ReNFT = {
       type: 'function',
     },
     {
+      inputs: [],
+      name: 'paused',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool',
+        },
+      ],
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
       inputs: [
         {
+          internalType: 'enum IRegistry.NFTStandard[]',
+          name: 'nftStandard',
+          type: 'uint8[]',
+        },
+        {
           internalType: 'address[]',
-          name: '_nfts',
+          name: 'nftAddress',
           type: 'address[]',
         },
         {
           internalType: 'uint256[]',
-          name: '_tokenIds',
+          name: 'tokenID',
           type: 'uint256[]',
         },
         {
           internalType: 'uint256[]',
-          name: '_lendingIds',
+          name: '_lendingID',
           type: 'uint256[]',
         },
         {
           internalType: 'uint8[]',
-          name: '_rentDurations',
+          name: 'rentDuration',
           type: 'uint8[]',
+        },
+        {
+          internalType: 'uint256[]',
+          name: 'rentAmount',
+          type: 'uint256[]',
         },
       ],
       name: 'rent',
       outputs: [],
-      stateMutability: 'nonpayable',
+      stateMutability: 'payable',
       type: 'function',
     },
     {
@@ -398,31 +540,8 @@ export const ReNFT = {
     {
       inputs: [
         {
-          internalType: 'address[]',
-          name: '_nfts',
-          type: 'address[]',
-        },
-        {
-          internalType: 'uint256[]',
-          name: '_tokenIds',
-          type: 'uint256[]',
-        },
-        {
-          internalType: 'uint256[]',
-          name: '_lendingIds',
-          type: 'uint256[]',
-        },
-      ],
-      name: 'returnIt',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [
-        {
           internalType: 'address payable',
-          name: '_newBeneficiary',
+          name: 'newBeneficiary',
           type: 'address',
         },
       ],
@@ -435,7 +554,7 @@ export const ReNFT = {
       inputs: [
         {
           internalType: 'bool',
-          name: '_paused',
+          name: 'newPaused',
           type: 'bool',
         },
       ],
@@ -448,7 +567,7 @@ export const ReNFT = {
       inputs: [
         {
           internalType: 'uint256',
-          name: '_rentFee',
+          name: 'newRentFee',
           type: 'uint256',
         },
       ],
@@ -460,22 +579,60 @@ export const ReNFT = {
     {
       inputs: [
         {
+          internalType: 'enum IRegistry.NFTStandard[]',
+          name: 'nftStandard',
+          type: 'uint8[]',
+        },
+        {
           internalType: 'address[]',
-          name: '_nfts',
+          name: 'nftAddress',
           type: 'address[]',
         },
         {
           internalType: 'uint256[]',
-          name: '_tokenIds',
+          name: 'tokenID',
           type: 'uint256[]',
         },
         {
           internalType: 'uint256[]',
-          name: '_lendingIds',
+          name: '_lendingID',
           type: 'uint256[]',
         },
       ],
-      name: 'stopLending',
+      name: 'stopLend',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'enum IRegistry.NFTStandard[]',
+          name: 'nftStandard',
+          type: 'uint8[]',
+        },
+        {
+          internalType: 'address[]',
+          name: 'nftAddress',
+          type: 'address[]',
+        },
+        {
+          internalType: 'uint256[]',
+          name: 'tokenID',
+          type: 'uint256[]',
+        },
+        {
+          internalType: 'uint256[]',
+          name: '_lendingID',
+          type: 'uint256[]',
+        },
+        {
+          internalType: 'uint256[]',
+          name: '_rentingID',
+          type: 'uint256[]',
+        },
+      ],
+      name: 'stopRent',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function',

@@ -10,6 +10,8 @@ import {
   unpackPrice,
 } from '../src/utils';
 
+// Azrael - v1 collateral
+
 describe('Utils', () => {
   it('packs usual domain', () => {
     const price = 21.42;

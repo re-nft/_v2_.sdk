@@ -1,5 +1,7 @@
-import { ReNFT as ReNFTJSON } from './abi/ReNFT';
-import { Resolver as ResolverJSON } from './abi/Resolver';
+import AzraelAbi from './abi/azrael.abi';
+import SylvesterAbi from './abi/sylvester.abi';
+import ResolverAbi from './abi/resolver.abi';
 
-export const ReNFT = ReNFTJSON.abi;
-export const Resolver = ResolverJSON.abi;
+export const Azrael = AzraelAbi.abi;
+export const Sylvester = SylvesterAbi.abi;
+export const Resolver = ResolverAbi.abi;

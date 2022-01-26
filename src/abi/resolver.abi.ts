@@ -1,4 +1,4 @@
-export const Resolver = {
+export default {
   abi: [
     {
       inputs: [

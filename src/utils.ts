@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 
-import { PaymentToken } from './types';
+import { PaymentToken, NFTStandard } from './types';
 import { MAX_PRICE, NUM_BITS_IN_BYTE } from './consts';
 
 // consts that predominantly pertain to this file
@@ -157,6 +157,7 @@ interface IObjectKeys {
 }
 
 interface PrepareBatch extends IObjectKeys {
+  nftStandard?: NFTStandard[];
   nftAddress: string[];
   tokenID: BigNumber[];
   amount?: number[];
@@ -166,6 +167,7 @@ interface PrepareBatch extends IObjectKeys {
   paymentToken?: PaymentToken[];
   rentDuration?: number[];
   lendingID?: BigNumber[];
+  rentingID?: BigNumber[];
 }
 
 /**
@@ -195,6 +197,7 @@ export const prepareBatch = (args: PrepareBatch) => {
 
   const createNft = (nftAddress: string, i: number) => {
     nfts.set(nftAddress, {
+      nftStandard: args.nftStandard ? [args.nftStandard[i]] : undefined,
       nftAddress: [nftAddress],
       tokenID: [args.tokenID[i]],
       amount: args.amount ? [args.amount[i]] : undefined,
@@ -208,6 +211,7 @@ export const prepareBatch = (args: PrepareBatch) => {
       paymentToken: args.paymentToken ? [args.paymentToken[i]] : undefined,
       rentDuration: args.rentDuration ? [args.rentDuration[i]] : undefined,
       lendingID: args.lendingID ? [args.lendingID[i]] : undefined,
+      rentingID: args.rentingID ? [args.rentingID[i]] : undefined,
     });
     return nfts;
   };

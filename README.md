@@ -81,3 +81,19 @@ main()
 ```
 
 For more usage examples, see `test/utils.test.ts`
+
+## Repo references
+
+For v1 collateral free contract code, see [here](https://github.com/re-nft/registry).
+
+For v1 collateral contract code, see [here](https://github.com/re-nft/contracts).
+
+## Dapp name glossary
+
+| Name          |        App         |
+| ------------- | :----------------: |
+| **Azrael**    |   v1 collateral    |
+| **Sylvester** | v1 collateral free |
+| **Scar**      |   v2 collateral    |
+| **Meowth**    | v2 collateral free |
+| **Garfield**  |     v1 Solana      |
