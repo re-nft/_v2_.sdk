@@ -53,6 +53,7 @@ interface PrepareBatch extends IObjectKeys {
     rentDuration?: number[];
     lendingID?: BigNumber[];
     rentingID?: BigNumber[];
+    rentAmount?: BigNumber[];
 }
 /**
  * To spend as little gas as possible, arguments must follow a particular format

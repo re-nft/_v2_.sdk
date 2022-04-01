@@ -168,6 +168,7 @@ interface PrepareBatch extends IObjectKeys {
   rentDuration?: number[];
   lendingID?: BigNumber[];
   rentingID?: BigNumber[];
+  rentAmount?: BigNumber[];
 }
 
 /**
@@ -212,6 +213,7 @@ export const prepareBatch = (args: PrepareBatch) => {
       rentDuration: args.rentDuration ? [args.rentDuration[i]] : undefined,
       lendingID: args.lendingID ? [args.lendingID[i]] : undefined,
       rentingID: args.rentingID ? [args.rentingID[i]] : undefined,
+      rentAmount: args.rentAmount ? [args.rentAmount[i]] : undefined,
     });
     return nfts;
   };

@@ -1929,7 +1929,8 @@ var prepareBatch = function prepareBatch(args) {
       paymentToken: args.paymentToken ? [args.paymentToken[i]] : undefined,
       rentDuration: args.rentDuration ? [args.rentDuration[i]] : undefined,
       lendingID: args.lendingID ? [args.lendingID[i]] : undefined,
-      rentingID: args.rentingID ? [args.rentingID[i]] : undefined
+      rentingID: args.rentingID ? [args.rentingID[i]] : undefined,
+      rentAmount: args.rentAmount ? [args.rentAmount[i]] : undefined
     });
     return nfts;
   }; // O(2 * N), yikes to 2
