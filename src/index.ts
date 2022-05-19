@@ -11,6 +11,8 @@ export {
   ResolverAddress as RESOLVER_ADDRESS,
   AzraelAddress as AZRAEL_ADDRESS,
   SylvesterAddress as SYLVESTER_ADDRESS,
+  ResolverPolygonAddress as RESOLVER_POLYGON_ADDRESS,
+  SylvesterPolygonAddress as SYLVESTER_POLYGON_ADDRESS,
 } from './consts';
 
 export { PaymentToken, NFTStandard } from './types';

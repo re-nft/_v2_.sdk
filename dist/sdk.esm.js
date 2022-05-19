@@ -1747,8 +1747,10 @@ try {
 var MAX_PRICE = 9999.9999;
 var NUM_BITS_IN_BYTE = 8;
 var ResolverAddress = '0x945e589a4715d1915e6fe14f08e4887bc4019341';
+var ResolverPolygonAddress = '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518';
 var AzraelAddress = '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7';
 var SylvesterAddress = '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a';
+var SylvesterPolygonAddress = '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe';
 
 var BITSIZE_MAX_VALUE = 32;
 var HALF_BITSIZE = 16;
@@ -2459,5 +2461,5 @@ var NFTStandard;
   NFTStandard[NFTStandard["E1155"] = 1] = "E1155";
 })(NFTStandard || (NFTStandard = {}));
 
-export { AzraelAbi as AZRAEL_ABI, AzraelAddress as AZRAEL_ADDRESS, Azrael, NFTStandard, PaymentToken, resolver_abi as RESOLVER_ABI, ResolverAddress as RESOLVER_ADDRESS, SylvesterAbi as SYLVESTER_ABI, SylvesterAddress as SYLVESTER_ADDRESS, Sylvester, packPrice, prepareBatch, toPaddedHex, unpackPrice };
+export { AzraelAbi as AZRAEL_ABI, AzraelAddress as AZRAEL_ADDRESS, Azrael, NFTStandard, PaymentToken, resolver_abi as RESOLVER_ABI, ResolverAddress as RESOLVER_ADDRESS, ResolverPolygonAddress as RESOLVER_POLYGON_ADDRESS, SylvesterAbi as SYLVESTER_ABI, SylvesterAddress as SYLVESTER_ADDRESS, SylvesterPolygonAddress as SYLVESTER_POLYGON_ADDRESS, Sylvester, packPrice, prepareBatch, toPaddedHex, unpackPrice };
 //# sourceMappingURL=sdk.esm.js.map
