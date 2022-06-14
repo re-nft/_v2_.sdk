@@ -99,4 +99,4 @@ TODO: have a separate repo for this glossary, and link to it from the README in 
 | **Scar**      |   v2 collateral    |
 | **Meowth**    | v2 collateral free |
 | **Garfield**  |     v1 Solana      |
-| **Whoopi**    | Wildlife rev share v1 |
+| **Whoopi**    | Wildlife avalanche mainnet rev share v1 |
