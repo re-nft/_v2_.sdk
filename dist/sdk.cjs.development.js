@@ -958,6 +958,618 @@ var AzraelAbi = {
   }]
 };
 
+var WhoopiAbi = {
+  abi: [{
+    "inputs": [{
+      "internalType": "address",
+      "name": "newResolver",
+      "type": "address"
+    }, {
+      "internalType": "address payable",
+      "name": "newBeneficiary",
+      "type": "address"
+    }],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  }, {
+    "inputs": [{
+      "internalType": "uint256",
+      "name": "amount",
+      "type": "uint256"
+    }],
+    "name": "InvalidAmountToLend",
+    "type": "error"
+  }, {
+    "inputs": [],
+    "name": "LendingEmpty",
+    "type": "error"
+  }, {
+    "inputs": [],
+    "name": "LendingNotEmpty",
+    "type": "error"
+  }, {
+    "inputs": [],
+    "name": "NoNfts",
+    "type": "error"
+  }, {
+    "inputs": [{
+      "internalType": "address",
+      "name": "caller",
+      "type": "address"
+    }],
+    "name": "NotAdmin",
+    "type": "error"
+  }, {
+    "inputs": [],
+    "name": "NotAllowedToEdit",
+    "type": "error"
+  }, {
+    "inputs": [],
+    "name": "NotLendable",
+    "type": "error"
+  }, {
+    "inputs": [{
+      "internalType": "uint256",
+      "name": "nowTimestamp",
+      "type": "uint256"
+    }, {
+      "internalType": "uint256",
+      "name": "rentedAtTimestamp",
+      "type": "uint256"
+    }, {
+      "internalType": "uint256",
+      "name": "rentDuration",
+      "type": "uint256"
+    }],
+    "name": "NotPastReturnDate",
+    "type": "error"
+  }, {
+    "inputs": [],
+    "name": "NotRentable",
+    "type": "error"
+  }, {
+    "inputs": [{
+      "internalType": "uint256",
+      "name": "nowTimestamp",
+      "type": "uint256"
+    }, {
+      "internalType": "uint256",
+      "name": "rentedAtTimestamp",
+      "type": "uint256"
+    }],
+    "name": "NowBeforeRentedAt",
+    "type": "error"
+  }, {
+    "inputs": [{
+      "internalType": "uint256",
+      "name": "nowTimestamp",
+      "type": "uint256"
+    }, {
+      "internalType": "uint32",
+      "name": "rentedAt",
+      "type": "uint32"
+    }, {
+      "internalType": "uint8",
+      "name": "rentDuration",
+      "type": "uint8"
+    }],
+    "name": "PastReturnDate",
+    "type": "error"
+  }, {
+    "inputs": [],
+    "name": "Paused",
+    "type": "error"
+  }, {
+    "inputs": [{
+      "internalType": "uint8",
+      "name": "rentDuration",
+      "type": "uint8"
+    }, {
+      "internalType": "uint8",
+      "name": "maxRentDuration",
+      "type": "uint8"
+    }],
+    "name": "RentDurationExceedsMaxRentDuration",
+    "type": "error"
+  }, {
+    "inputs": [],
+    "name": "RentingEmpty",
+    "type": "error"
+  }, {
+    "inputs": [],
+    "name": "RentingNotEmpty",
+    "type": "error"
+  }, {
+    "inputs": [{
+      "internalType": "address",
+      "name": "renter",
+      "type": "address"
+    }, {
+      "internalType": "address",
+      "name": "msgSender",
+      "type": "address"
+    }],
+    "name": "ReturnerNotRenterNotAllowed",
+    "type": "error"
+  }, {
+    "inputs": [{
+      "internalType": "address",
+      "name": "lender",
+      "type": "address"
+    }, {
+      "internalType": "address",
+      "name": "msgSender",
+      "type": "address"
+    }],
+    "name": "StopperNotLender",
+    "type": "error"
+  }, {
+    "anonymous": false,
+    "inputs": [{
+      "indexed": true,
+      "internalType": "uint256",
+      "name": "lendingId",
+      "type": "uint256"
+    }],
+    "name": "Claim",
+    "type": "event"
+  }, {
+    "anonymous": false,
+    "inputs": [{
+      "indexed": true,
+      "internalType": "uint256",
+      "name": "lendingId",
+      "type": "uint256"
+    }, {
+      "indexed": false,
+      "internalType": "uint256",
+      "name": "dailyRentPrice",
+      "type": "uint256"
+    }, {
+      "indexed": false,
+      "internalType": "uint8",
+      "name": "maxRentDuration",
+      "type": "uint8"
+    }, {
+      "indexed": false,
+      "internalType": "enum IResolver.PaymentToken",
+      "name": "paymentToken",
+      "type": "uint8"
+    }],
+    "name": "EditLend",
+    "type": "event"
+  }, {
+    "anonymous": false,
+    "inputs": [{
+      "indexed": true,
+      "internalType": "address",
+      "name": "nftAddress",
+      "type": "address"
+    }, {
+      "indexed": false,
+      "internalType": "uint8",
+      "name": "lentAmount",
+      "type": "uint8"
+    }, {
+      "indexed": false,
+      "internalType": "uint8",
+      "name": "maxRentDuration",
+      "type": "uint8"
+    }, {
+      "indexed": false,
+      "internalType": "enum IResolver.PaymentToken",
+      "name": "paymentToken",
+      "type": "uint8"
+    }, {
+      "indexed": true,
+      "internalType": "address",
+      "name": "lenderAddress",
+      "type": "address"
+    }, {
+      "indexed": true,
+      "internalType": "uint256",
+      "name": "tokenId",
+      "type": "uint256"
+    }, {
+      "indexed": false,
+      "internalType": "uint256",
+      "name": "lendingId",
+      "type": "uint256"
+    }, {
+      "indexed": false,
+      "internalType": "uint256",
+      "name": "dailyRentPrice",
+      "type": "uint256"
+    }],
+    "name": "Lend",
+    "type": "event"
+  }, {
+    "anonymous": false,
+    "inputs": [{
+      "indexed": true,
+      "internalType": "uint256",
+      "name": "lendingId",
+      "type": "uint256"
+    }, {
+      "indexed": true,
+      "internalType": "address",
+      "name": "renterAddress",
+      "type": "address"
+    }, {
+      "indexed": false,
+      "internalType": "uint8",
+      "name": "rentDuration",
+      "type": "uint8"
+    }],
+    "name": "Rent",
+    "type": "event"
+  }, {
+    "anonymous": false,
+    "inputs": [{
+      "indexed": true,
+      "internalType": "uint256",
+      "name": "lendingId",
+      "type": "uint256"
+    }],
+    "name": "StopLend",
+    "type": "event"
+  }, {
+    "anonymous": false,
+    "inputs": [{
+      "indexed": true,
+      "internalType": "uint256",
+      "name": "lendingId",
+      "type": "uint256"
+    }],
+    "name": "StopRent",
+    "type": "event"
+  }, {
+    "inputs": [{
+      "components": [{
+        "internalType": "contract INFTContract[]",
+        "name": "nft",
+        "type": "address[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "lendingIds",
+        "type": "uint256[]"
+      }],
+      "internalType": "struct IReNFT.Nfts",
+      "name": "nfts",
+      "type": "tuple"
+    }],
+    "name": "claim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "components": [{
+        "internalType": "contract INFTContract[]",
+        "name": "nft",
+        "type": "address[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "lendingIds",
+        "type": "uint256[]"
+      }],
+      "internalType": "struct IReNFT.Nfts",
+      "name": "nfts",
+      "type": "tuple"
+    }, {
+      "internalType": "uint8[]",
+      "name": "maxRentDurations",
+      "type": "uint8[]"
+    }, {
+      "components": [{
+        "internalType": "uint24",
+        "name": "whole",
+        "type": "uint24"
+      }, {
+        "internalType": "uint8",
+        "name": "decimal",
+        "type": "uint8"
+      }],
+      "internalType": "struct IReNFT.Price[]",
+      "name": "dailyRentPrices",
+      "type": "tuple[]"
+    }, {
+      "internalType": "enum IResolver.PaymentToken[]",
+      "name": "paymentTokens",
+      "type": "uint8[]"
+    }],
+    "name": "editLend",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "components": [{
+        "internalType": "contract INFTContract[]",
+        "name": "nft",
+        "type": "address[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "lendingIds",
+        "type": "uint256[]"
+      }],
+      "internalType": "struct IReNFT.Nfts",
+      "name": "nfts",
+      "type": "tuple"
+    }, {
+      "internalType": "uint256[]",
+      "name": "lendAmounts",
+      "type": "uint256[]"
+    }, {
+      "internalType": "uint8[]",
+      "name": "maxRentDurations",
+      "type": "uint8[]"
+    }, {
+      "components": [{
+        "internalType": "uint24",
+        "name": "whole",
+        "type": "uint24"
+      }, {
+        "internalType": "uint8",
+        "name": "decimal",
+        "type": "uint8"
+      }],
+      "internalType": "struct IReNFT.Price[]",
+      "name": "dailyRentPrices",
+      "type": "tuple[]"
+    }, {
+      "internalType": "enum IResolver.PaymentToken[]",
+      "name": "paymentTokens",
+      "type": "uint8[]"
+    }],
+    "name": "lend",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "internalType": "address",
+      "name": "",
+      "type": "address"
+    }, {
+      "internalType": "address",
+      "name": "",
+      "type": "address"
+    }, {
+      "internalType": "uint256[]",
+      "name": "",
+      "type": "uint256[]"
+    }, {
+      "internalType": "uint256[]",
+      "name": "",
+      "type": "uint256[]"
+    }, {
+      "internalType": "bytes",
+      "name": "",
+      "type": "bytes"
+    }],
+    "name": "onERC1155BatchReceived",
+    "outputs": [{
+      "internalType": "bytes4",
+      "name": "",
+      "type": "bytes4"
+    }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "internalType": "address",
+      "name": "",
+      "type": "address"
+    }, {
+      "internalType": "address",
+      "name": "",
+      "type": "address"
+    }, {
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }, {
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }, {
+      "internalType": "bytes",
+      "name": "",
+      "type": "bytes"
+    }],
+    "name": "onERC1155Received",
+    "outputs": [{
+      "internalType": "bytes4",
+      "name": "",
+      "type": "bytes4"
+    }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "internalType": "address",
+      "name": "",
+      "type": "address"
+    }, {
+      "internalType": "address",
+      "name": "",
+      "type": "address"
+    }, {
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }, {
+      "internalType": "bytes",
+      "name": "",
+      "type": "bytes"
+    }],
+    "name": "onERC721Received",
+    "outputs": [{
+      "internalType": "bytes4",
+      "name": "",
+      "type": "bytes4"
+    }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [{
+      "internalType": "bool",
+      "name": "",
+      "type": "bool"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "components": [{
+        "internalType": "contract INFTContract[]",
+        "name": "nft",
+        "type": "address[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "lendingIds",
+        "type": "uint256[]"
+      }],
+      "internalType": "struct IReNFT.Nfts",
+      "name": "nfts",
+      "type": "tuple"
+    }, {
+      "internalType": "uint8[]",
+      "name": "rentDurations",
+      "type": "uint8[]"
+    }],
+    "name": "rent",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "inputs": [],
+    "name": "rentFee",
+    "outputs": [{
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+  }, {
+    "inputs": [],
+    "name": "revokeOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "internalType": "address payable",
+      "name": "newBeneficiary",
+      "type": "address"
+    }],
+    "name": "setBeneficiary",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "internalType": "bool",
+      "name": "newPaused",
+      "type": "bool"
+    }],
+    "name": "setPaused",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "internalType": "uint256",
+      "name": "newRentFee",
+      "type": "uint256"
+    }],
+    "name": "setRentFee",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "components": [{
+        "internalType": "contract INFTContract[]",
+        "name": "nft",
+        "type": "address[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "lendingIds",
+        "type": "uint256[]"
+      }],
+      "internalType": "struct IReNFT.Nfts",
+      "name": "nfts",
+      "type": "tuple"
+    }],
+    "name": "stopLend",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "components": [{
+        "internalType": "contract INFTContract[]",
+        "name": "nft",
+        "type": "address[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "lendingIds",
+        "type": "uint256[]"
+      }],
+      "internalType": "struct IReNFT.Nfts",
+      "name": "nfts",
+      "type": "tuple"
+    }],
+    "name": "stopRent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "internalType": "bytes4",
+      "name": "interfaceId",
+      "type": "bytes4"
+    }],
+    "name": "supportsInterface",
+    "outputs": [{
+      "internalType": "bool",
+      "name": "",
+      "type": "bool"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+  }]
+};
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
     var info = gen[key](arg);
@@ -1748,13 +2360,16 @@ try {
 }
 });
 
+// * Note, this price does not apply to Whoopi
 var MAX_PRICE = 9999.9999;
 var NUM_BITS_IN_BYTE = 8;
 var ResolverAddress = '0x945e589a4715d1915e6fe14f08e4887bc4019341';
 var ResolverPolygonAddress = '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518';
+var ResolverAvalancheAddress = '0xa87EE372743D5A07fc701E5c7b6bCb2204f46607';
 var AzraelAddress = '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7';
 var SylvesterAddress = '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a';
 var SylvesterPolygonAddress = '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe';
+var WhoopiAvalancheAddress = '0xEE9F125748aacCDe3BcD94758395f5AcD41e05a1';
 
 var BITSIZE_MAX_VALUE = 32;
 var HALF_BITSIZE = 16;
@@ -2446,6 +3061,208 @@ var Azrael = /*#__PURE__*/function () {
   return Azrael;
 }();
 
+var Whoopi = /*#__PURE__*/function () {
+  function Whoopi(_signer, _address) {
+    this.signer = _signer;
+    this.contract = new contracts.Contract(_address != null ? _address : WhoopiAvalancheAddress, WhoopiAbi.abi, this.signer);
+  } // If the user hasn't selected any value for upfront fee for a lending,
+  // then set it to zero on the front-end.
+
+
+  var _proto = Whoopi.prototype;
+
+  _proto.lend =
+  /*#__PURE__*/
+  function () {
+    var _lend = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee(nftAddress, tokenID, upfrontRentFees, revShareBeneficiaries, revSharePortions, maxRentDurations, paymentTokens, allowedRenters, options) {
+      var _upfrontRentFees$map, _allowedRenters$map;
+
+      return runtime_1.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return this.contract.lend([nftAddress.map(function (x) {
+                return String(x);
+              }), tokenID.map(function (x) {
+                return bignumber.BigNumber.from(x);
+              }), Array(nftAddress.length).fill(bignumber.BigNumber.from('0'))], (_upfrontRentFees$map = upfrontRentFees.map(function (x) {
+                return Number(x);
+              })) != null ? _upfrontRentFees$map : [], (_allowedRenters$map = allowedRenters == null ? void 0 : allowedRenters.map(function (x) {
+                return x.map(function (y) {
+                  return String(y);
+                });
+              })) != null ? _allowedRenters$map : [Array(nftAddress.length).fill([])], [revShareBeneficiaries.map(function (x) {
+                return x.map(function (y) {
+                  return String(y);
+                });
+              }), revSharePortions.map(function (x) {
+                return x.map(function (y) {
+                  return Number(y);
+                });
+              })], maxRentDurations.map(function (x) {
+                return Number(x);
+              }), paymentTokens, options != null ? options : []);
+
+            case 2:
+              return _context.abrupt("return", _context.sent);
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function lend(_x, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9) {
+      return _lend.apply(this, arguments);
+    }
+
+    return lend;
+  }();
+
+  _proto.rent = /*#__PURE__*/function () {
+    var _rent = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee2(nftAddress, tokenID, lendingID, rentDurations, options) {
+      return runtime_1.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return this.contract.rent(nftAddress.map(function (x) {
+                return String(x);
+              }), tokenID.map(function (x) {
+                return bignumber.BigNumber.from(x);
+              }), lendingID.map(function (x) {
+                return bignumber.BigNumber.from(x);
+              }), rentDurations.map(function (x) {
+                return Number(x);
+              }), options != null ? options : []);
+
+            case 2:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function rent(_x10, _x11, _x12, _x13, _x14) {
+      return _rent.apply(this, arguments);
+    }
+
+    return rent;
+  }();
+
+  _proto.stopRent = /*#__PURE__*/function () {
+    var _stopRent = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee3(nftAddress, tokenID, lendingID, options) {
+      return runtime_1.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return this.contract.stopRent(nftAddress.map(function (nft) {
+                return String(nft).toLowerCase();
+              }), tokenID.map(function (id) {
+                return bignumber.BigNumber.from(id);
+              }), lendingID.map(function (x) {
+                return bignumber.BigNumber.from(x);
+              }), options != null ? options : []);
+
+            case 2:
+              return _context3.abrupt("return", _context3.sent);
+
+            case 3:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
+    }));
+
+    function stopRent(_x15, _x16, _x17, _x18) {
+      return _stopRent.apply(this, arguments);
+    }
+
+    return stopRent;
+  }();
+
+  _proto.stopLending = /*#__PURE__*/function () {
+    var _stopLending = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee4(nftAddress, tokenID, lendingID, options) {
+      return runtime_1.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return this.contract.stopLend(nftAddress.map(function (nft) {
+                return String(nft).toLowerCase();
+              }), tokenID.map(function (id) {
+                return bignumber.BigNumber.from(id);
+              }), lendingID.map(function (x) {
+                return bignumber.BigNumber.from(x);
+              }), options != null ? options : []);
+
+            case 2:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 3:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function stopLending(_x19, _x20, _x21, _x22) {
+      return _stopLending.apply(this, arguments);
+    }
+
+    return stopLending;
+  }();
+
+  _proto.pay = /*#__PURE__*/function () {
+    var _pay = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee5(nftAddress, tokenID, lendingID, renterAddress, amountToPay, options) {
+      return runtime_1.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return this.contract.pay(nftAddress.map(function (nft) {
+                return String(nft).toLowerCase();
+              }), tokenID.map(function (id) {
+                return bignumber.BigNumber.from(id);
+              }), lendingID.map(function (x) {
+                return bignumber.BigNumber.from(x);
+              }), renterAddress.map(function (x) {
+                return String(x).toLowerCase();
+              }), amountToPay.map(function (x) {
+                return Number(x);
+              }), options != null ? options : []);
+
+            case 2:
+              return _context5.abrupt("return", _context5.sent);
+
+            case 3:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, this);
+    }));
+
+    function pay(_x23, _x24, _x25, _x26, _x27, _x28) {
+      return _pay.apply(this, arguments);
+    }
+
+    return pay;
+  }();
+
+  return Whoopi;
+}();
+
 (function (PaymentToken) {
   PaymentToken[PaymentToken["SENTINEL"] = 0] = "SENTINEL";
   PaymentToken[PaymentToken["WETH"] = 1] = "WETH";
@@ -2466,11 +3283,15 @@ exports.AZRAEL_ADDRESS = AzraelAddress;
 exports.Azrael = Azrael;
 exports.RESOLVER_ABI = resolver_abi;
 exports.RESOLVER_ADDRESS = ResolverAddress;
+exports.RESOLVER_AVALANCHE_ADDRESS = ResolverAvalancheAddress;
 exports.RESOLVER_POLYGON_ADDRESS = ResolverPolygonAddress;
 exports.SYLVESTER_ABI = SylvesterAbi;
 exports.SYLVESTER_ADDRESS = SylvesterAddress;
 exports.SYLVESTER_POLYGON_ADDRESS = SylvesterPolygonAddress;
 exports.Sylvester = Sylvester;
+exports.WHOOPI_ABI = WhoopiAbi;
+exports.WHOOPI_AVALANCHE_ADDRESS = WhoopiAvalancheAddress;
+exports.Whoopi = Whoopi;
 exports.packPrice = packPrice;
 exports.prepareBatch = prepareBatch;
 exports.toPaddedHex = toPaddedHex;

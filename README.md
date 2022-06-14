@@ -90,6 +90,8 @@ For v1 collateral contract code, see [here](https://github.com/re-nft/contracts)
 
 ## Dapp name glossary
 
+TODO: have a separate repo for this glossary, and link to it from the README in all of the repos
+
 | Name          |        App         |
 | ------------- | :----------------: |
 | **Azrael**    |   v1 collateral    |
@@ -97,3 +99,4 @@ For v1 collateral contract code, see [here](https://github.com/re-nft/contracts)
 | **Scar**      |   v2 collateral    |
 | **Meowth**    | v2 collateral free |
 | **Garfield**  |     v1 Solana      |
+| **Whoopi**    | Wildlife avalanche mainnet rev share v1 |
