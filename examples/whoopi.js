@@ -63,7 +63,7 @@ const main = async () => {
 
   // castle crush nft address
   const nftAddress = "0xeA4E79F0a40A9A468a5159499b738dc6b1332447";
-  const tokenId = [230, 220];
+  const tokenId = [210, 200];
 
   // ! Note that if allowedRenters is empty, you must set
   // upfrontRentFee to a non zero value.
@@ -78,9 +78,13 @@ const main = async () => {
     ["0x000000045232fe75A3C7db3e5B03B0Ab6166F425", "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE"],
     ["0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE", "0xeA4E79F0a40A9A468a5159499b738dc6b1332447"]
   ];
+  // ! portions sum cannot be 100 here. At lend, we don't know who will rent,
+  // ! and the renter is always a mandatory part in rev share. We are not setting
+  // ! the renter here at lend time. Therefore, 100 - sum(portions) is what
+  // ! gets eventually assigned to renter.
   const revSharePortions = [
-    [50, 50],
-    [90, 10]
+    [50, 40],
+    [90, 5]
   ];
 
   const maxRentDuration = [1, 2];

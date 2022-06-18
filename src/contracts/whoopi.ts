@@ -37,6 +37,21 @@ export class Whoopi implements IWhoopi {
     for (let i = 0; i < revShareBeneficiaries.length; i++) {
       revShares.push([revShareBeneficiaries[i], revSharePortions[i]]);
     }
+    let allowRenters = [];
+    if (allowedRenters) {
+      for (let i = 0; i < allowedRenters.length; i++) {
+        allowRenters.push([allowedRenters[i]]);
+      }
+    } else {
+      for (let i = 0; i < tokenId.length; i++) {
+        // outer array is for the AllowedRenters struct,
+        // and the inner is for its contents: allowedRenters
+        // ! we need this layering because graphprotocol cannot
+        // ! generate types for 2d arrays. So you have to wrap
+        // ! the outer array into a struct.
+        allowRenters.push([[]]);
+      }
+    }
     return await this.contract.lend(
       [
         String(nftAddress),
@@ -44,9 +59,7 @@ export class Whoopi implements IWhoopi {
         Array(nftAddress.length).fill(BigNumber.from('0')),
       ],
       upfrontRentFees.map(x => Number(x)) ?? [],
-      allowedRenters?.map(x => x.map(y => String(y))) ?? [
-        Array(nftAddress.length).fill([]),
-      ],
+      allowRenters,
       revShares,
       maxRentDurations.map(x => Number(x)),
       paymentTokens,

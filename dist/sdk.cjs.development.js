@@ -3080,9 +3080,10 @@ var Whoopi = /*#__PURE__*/function () {
   /*#__PURE__*/
   function () {
     var _lend = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee(nftAddress, tokenId, upfrontRentFees, revShareBeneficiaries, revSharePortions, maxRentDurations, paymentTokens, allowedRenters, options) {
-      var _upfrontRentFees$map, _allowedRenters$map;
+      var _upfrontRentFees$map;
 
-      var revShares, i;
+      var revShares, i, allowRenters, _i, _i2;
+
       return runtime_1.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -3093,23 +3094,36 @@ var Whoopi = /*#__PURE__*/function () {
                 revShares.push([revShareBeneficiaries[i], revSharePortions[i]]);
               }
 
-              _context.next = 4;
+              allowRenters = [];
+
+              if (allowedRenters) {
+                for (_i = 0; _i < allowedRenters.length; _i++) {
+                  allowRenters.push([allowedRenters[_i]]);
+                }
+              } else {
+                for (_i2 = 0; _i2 < tokenId.length; _i2++) {
+                  // outer array is for the AllowedRenters struct,
+                  // and the inner is for its contents: allowedRenters
+                  // ! we need this layering because graphprotocol cannot
+                  // ! generate types for 2d arrays. So you have to wrap
+                  // ! the outer array into a struct.
+                  allowRenters.push([[]]);
+                }
+              }
+
+              _context.next = 6;
               return this.contract.lend([String(nftAddress), tokenId.map(function (x) {
                 return bignumber.BigNumber.from(x);
               }), Array(nftAddress.length).fill(bignumber.BigNumber.from('0'))], (_upfrontRentFees$map = upfrontRentFees.map(function (x) {
                 return Number(x);
-              })) != null ? _upfrontRentFees$map : [], (_allowedRenters$map = allowedRenters == null ? void 0 : allowedRenters.map(function (x) {
-                return x.map(function (y) {
-                  return String(y);
-                });
-              })) != null ? _allowedRenters$map : [Array(nftAddress.length).fill([])], revShares, maxRentDurations.map(function (x) {
+              })) != null ? _upfrontRentFees$map : [], allowRenters, revShares, maxRentDurations.map(function (x) {
                 return Number(x);
               }), paymentTokens, options != null ? options : []);
 
-            case 4:
+            case 6:
               return _context.abrupt("return", _context.sent);
 
-            case 5:
+            case 7:
             case "end":
               return _context.stop();
           }
