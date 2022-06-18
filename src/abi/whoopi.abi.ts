@@ -1,790 +1,797 @@
 export default {
-  abi: [
+  "abi": [
     {
-      inputs: [
+      "inputs": [
         {
-          internalType: 'address',
-          name: 'newResolver',
-          type: 'address',
+          "internalType": "address",
+          "name": "newResolver",
+          "type": "address"
         },
         {
-          internalType: 'address payable',
-          name: 'newBeneficiary',
-          type: 'address',
-        },
+          "internalType": "address",
+          "name": "newAdmin",
+          "type": "address"
+        }
       ],
-      stateMutability: 'nonpayable',
-      type: 'constructor',
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-      inputs: [
+      "inputs": [],
+      "name": "InvalidPortionsSum",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidProtocolFeeReceivers",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "LendingEmpty",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "LendingNotActive",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "LendingNotEmpty",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NftTransferFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [
         {
-          internalType: 'uint256',
-          name: 'amount',
-          type: 'uint256',
-        },
+          "internalType": "address",
+          "name": "caller",
+          "type": "address"
+        }
       ],
-      name: 'InvalidAmountToLend',
-      type: 'error',
+      "name": "NotAdmin",
+      "type": "error"
     },
     {
-      inputs: [],
-      name: 'LendingEmpty',
-      type: 'error',
-    },
-    {
-      inputs: [],
-      name: 'LendingNotEmpty',
-      type: 'error',
-    },
-    {
-      inputs: [],
-      name: 'NoNfts',
-      type: 'error',
-    },
-    {
-      inputs: [
+      "inputs": [
         {
-          internalType: 'address',
-          name: 'caller',
-          type: 'address',
-        },
+          "internalType": "uint8",
+          "name": "errorCode",
+          "type": "uint8"
+        }
       ],
-      name: 'NotAdmin',
-      type: 'error',
+      "name": "NotLendable",
+      "type": "error"
     },
     {
-      inputs: [],
-      name: 'NotAllowedToEdit',
-      type: 'error',
-    },
-    {
-      inputs: [],
-      name: 'NotLendable',
-      type: 'error',
-    },
-    {
-      inputs: [
+      "inputs": [
         {
-          internalType: 'uint256',
-          name: 'nowTimestamp',
-          type: 'uint256',
-        },
-        {
-          internalType: 'uint256',
-          name: 'rentedAtTimestamp',
-          type: 'uint256',
-        },
-        {
-          internalType: 'uint256',
-          name: 'rentDuration',
-          type: 'uint256',
-        },
+          "internalType": "uint8",
+          "name": "errorCode",
+          "type": "uint8"
+        }
       ],
-      name: 'NotPastReturnDate',
-      type: 'error',
+      "name": "NotPayable",
+      "type": "error"
     },
     {
-      inputs: [],
-      name: 'NotRentable',
-      type: 'error',
-    },
-    {
-      inputs: [
+      "inputs": [
         {
-          internalType: 'uint256',
-          name: 'nowTimestamp',
-          type: 'uint256',
-        },
-        {
-          internalType: 'uint256',
-          name: 'rentedAtTimestamp',
-          type: 'uint256',
-        },
+          "internalType": "uint8",
+          "name": "errorCode",
+          "type": "uint8"
+        }
       ],
-      name: 'NowBeforeRentedAt',
-      type: 'error',
+      "name": "NotRentable",
+      "type": "error"
     },
     {
-      inputs: [
+      "inputs": [],
+      "name": "NotWhitelistedToRent",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Paused",
+      "type": "error"
+    },
+    {
+      "inputs": [
         {
-          internalType: 'uint256',
-          name: 'nowTimestamp',
-          type: 'uint256',
+          "internalType": "uint8",
+          "name": "rentDuration",
+          "type": "uint8"
         },
         {
-          internalType: 'uint32',
-          name: 'rentedAt',
-          type: 'uint32',
-        },
-        {
-          internalType: 'uint8',
-          name: 'rentDuration',
-          type: 'uint8',
-        },
+          "internalType": "uint8",
+          "name": "maxRentDuration",
+          "type": "uint8"
+        }
       ],
-      name: 'PastReturnDate',
-      type: 'error',
+      "name": "RentDurationExceedsMaxRentDuration",
+      "type": "error"
     },
     {
-      inputs: [],
-      name: 'Paused',
-      type: 'error',
+      "inputs": [],
+      "name": "RentingNotEmpty",
+      "type": "error"
     },
     {
-      inputs: [
+      "inputs": [],
+      "name": "ReturningNotAllowed",
+      "type": "error"
+    },
+    {
+      "inputs": [
         {
-          internalType: 'uint8',
-          name: 'rentDuration',
-          type: 'uint8',
+          "internalType": "address",
+          "name": "lender",
+          "type": "address"
         },
         {
-          internalType: 'uint8',
-          name: 'maxRentDuration',
-          type: 'uint8',
-        },
+          "internalType": "address",
+          "name": "msgSender",
+          "type": "address"
+        }
       ],
-      name: 'RentDurationExceedsMaxRentDuration',
-      type: 'error',
+      "name": "StopperNotLender",
+      "type": "error"
     },
     {
-      inputs: [],
-      name: 'RentingEmpty',
-      type: 'error',
-    },
-    {
-      inputs: [],
-      name: 'RentingNotEmpty',
-      type: 'error',
-    },
-    {
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          internalType: 'address',
-          name: 'renter',
-          type: 'address',
+          "indexed": true,
+          "internalType": "address",
+          "name": "nftAddress",
+          "type": "address"
         },
         {
-          internalType: 'address',
-          name: 'msgSender',
-          type: 'address',
-        },
-      ],
-      name: 'ReturnerNotRenterNotAllowed',
-      type: 'error',
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address',
-          name: 'lender',
-          type: 'address',
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "upfrontRentFee",
+          "type": "uint256"
         },
         {
-          internalType: 'address',
-          name: 'msgSender',
-          type: 'address',
-        },
-      ],
-      name: 'StopperNotLender',
-      type: 'error',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: 'uint256',
-          name: 'lendingId',
-          type: 'uint256',
-        },
-      ],
-      name: 'Claim',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: 'uint256',
-          name: 'lendingId',
-          type: 'uint256',
+          "indexed": false,
+          "internalType": "address payable[]",
+          "name": "allowedRenters",
+          "type": "address[]"
         },
         {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'dailyRentPrice',
-          type: 'uint256',
-        },
-        {
-          indexed: false,
-          internalType: 'uint8',
-          name: 'maxRentDuration',
-          type: 'uint8',
-        },
-        {
-          indexed: false,
-          internalType: 'enum IResolver.PaymentToken',
-          name: 'paymentToken',
-          type: 'uint8',
-        },
-      ],
-      name: 'EditLend',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: 'address',
-          name: 'nftAddress',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          internalType: 'uint8',
-          name: 'lentAmount',
-          type: 'uint8',
-        },
-        {
-          indexed: false,
-          internalType: 'uint8',
-          name: 'maxRentDuration',
-          type: 'uint8',
-        },
-        {
-          indexed: false,
-          internalType: 'enum IResolver.PaymentToken',
-          name: 'paymentToken',
-          type: 'uint8',
-        },
-        {
-          indexed: true,
-          internalType: 'address',
-          name: 'lenderAddress',
-          type: 'address',
-        },
-        {
-          indexed: true,
-          internalType: 'uint256',
-          name: 'tokenId',
-          type: 'uint256',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'lendingId',
-          type: 'uint256',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'dailyRentPrice',
-          type: 'uint256',
-        },
-      ],
-      name: 'Lend',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: 'uint256',
-          name: 'lendingId',
-          type: 'uint256',
-        },
-        {
-          indexed: true,
-          internalType: 'address',
-          name: 'renterAddress',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          internalType: 'uint8',
-          name: 'rentDuration',
-          type: 'uint8',
-        },
-      ],
-      name: 'Rent',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: 'uint256',
-          name: 'lendingId',
-          type: 'uint256',
-        },
-      ],
-      name: 'StopLend',
-      type: 'event',
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: 'uint256',
-          name: 'lendingId',
-          type: 'uint256',
-        },
-      ],
-      name: 'StopRent',
-      type: 'event',
-    },
-    {
-      inputs: [
-        {
-          components: [
+          "components": [
             {
-              internalType: 'contract INFTContract[]',
-              name: 'nft',
-              type: 'address[]',
+              "internalType": "address payable[]",
+              "name": "beneficiaries",
+              "type": "address[]"
             },
             {
-              internalType: 'uint256[]',
-              name: 'tokenIds',
-              type: 'uint256[]',
-            },
-            {
-              internalType: 'uint256[]',
-              name: 'lendingIds',
-              type: 'uint256[]',
-            },
+              "internalType": "uint8[]",
+              "name": "portions",
+              "type": "uint8[]"
+            }
           ],
-          internalType: 'struct IReNFT.Nfts',
-          name: 'nfts',
-          type: 'tuple',
+          "indexed": false,
+          "internalType": "struct IReNFT.RevShare",
+          "name": "revShares",
+          "type": "tuple"
         },
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "maxRentDuration",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum IResolver.PaymentToken",
+          "name": "paymentToken",
+          "type": "uint8"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "lenderAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "lendingId",
+          "type": "uint256"
+        }
       ],
-      name: 'claim',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
+      "name": "Lend",
+      "type": "event"
     },
     {
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          components: [
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lendingId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "renterAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "rentDuration",
+          "type": "uint8"
+        }
+      ],
+      "name": "Rent",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lendingId",
+          "type": "uint256"
+        }
+      ],
+      "name": "StopLend",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "lendingId",
+          "type": "uint256"
+        }
+      ],
+      "name": "StopRent",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "flipPaused",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
             {
-              internalType: 'contract INFTContract[]',
-              name: 'nft',
-              type: 'address[]',
+              "internalType": "contract INFTContract",
+              "name": "nft",
+              "type": "address"
             },
             {
-              internalType: 'uint256[]',
-              name: 'tokenIds',
-              type: 'uint256[]',
+              "internalType": "uint256[]",
+              "name": "tokenIds",
+              "type": "uint256[]"
             },
             {
-              internalType: 'uint256[]',
-              name: 'lendingIds',
-              type: 'uint256[]',
-            },
+              "internalType": "uint256[]",
+              "name": "lendingIds",
+              "type": "uint256[]"
+            }
           ],
-          internalType: 'struct IReNFT.Nfts',
-          name: 'nfts',
-          type: 'tuple',
+          "internalType": "struct IReNFT.Nfts",
+          "name": "nfts",
+          "type": "tuple"
         },
         {
-          internalType: 'uint8[]',
-          name: 'maxRentDurations',
-          type: 'uint8[]',
+          "internalType": "uint256[]",
+          "name": "upfrontRentFee",
+          "type": "uint256[]"
         },
         {
-          components: [
+          "components": [
             {
-              internalType: 'uint24',
-              name: 'whole',
-              type: 'uint24',
-            },
-            {
-              internalType: 'uint8',
-              name: 'decimal',
-              type: 'uint8',
-            },
+              "internalType": "address payable[]",
+              "name": "allowedRenters",
+              "type": "address[]"
+            }
           ],
-          internalType: 'struct IReNFT.Price[]',
-          name: 'dailyRentPrices',
-          type: 'tuple[]',
+          "internalType": "struct IReNFT.AllowedRenters[]",
+          "name": "allowedRenters",
+          "type": "tuple[]"
         },
         {
-          internalType: 'enum IResolver.PaymentToken[]',
-          name: 'paymentTokens',
-          type: 'uint8[]',
-        },
-      ],
-      name: 'editLend',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [
-        {
-          components: [
+          "components": [
             {
-              internalType: 'contract INFTContract[]',
-              name: 'nft',
-              type: 'address[]',
+              "internalType": "address payable[]",
+              "name": "beneficiaries",
+              "type": "address[]"
             },
             {
-              internalType: 'uint256[]',
-              name: 'tokenIds',
-              type: 'uint256[]',
-            },
-            {
-              internalType: 'uint256[]',
-              name: 'lendingIds',
-              type: 'uint256[]',
-            },
+              "internalType": "uint8[]",
+              "name": "portions",
+              "type": "uint8[]"
+            }
           ],
-          internalType: 'struct IReNFT.Nfts',
-          name: 'nfts',
-          type: 'tuple',
+          "internalType": "struct IReNFT.RevShare[]",
+          "name": "revShares",
+          "type": "tuple[]"
         },
         {
-          internalType: 'uint256[]',
-          name: 'lendAmounts',
-          type: 'uint256[]',
+          "internalType": "uint8[]",
+          "name": "maxRentDurations",
+          "type": "uint8[]"
         },
         {
-          internalType: 'uint8[]',
-          name: 'maxRentDurations',
-          type: 'uint8[]',
-        },
+          "internalType": "enum IResolver.PaymentToken[]",
+          "name": "paymentTokens",
+          "type": "uint8[]"
+        }
+      ],
+      "name": "lend",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
         {
-          components: [
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "lendingRentings",
+      "outputs": [
+        {
+          "components": [
             {
-              internalType: 'uint24',
-              name: 'whole',
-              type: 'uint24',
+              "internalType": "address payable[]",
+              "name": "allowedRenters",
+              "type": "address[]"
             },
             {
-              internalType: 'uint8',
-              name: 'decimal',
-              type: 'uint8',
+              "components": [
+                {
+                  "internalType": "address payable[]",
+                  "name": "beneficiaries",
+                  "type": "address[]"
+                },
+                {
+                  "internalType": "uint8[]",
+                  "name": "portions",
+                  "type": "uint8[]"
+                }
+              ],
+              "internalType": "struct IReNFT.RevShare",
+              "name": "revShares",
+              "type": "tuple"
             },
+            {
+              "internalType": "uint256",
+              "name": "upfrontRentFee",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address payable",
+              "name": "lenderAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "uint8",
+              "name": "maxRentDuration",
+              "type": "uint8"
+            },
+            {
+              "internalType": "enum IResolver.PaymentToken",
+              "name": "paymentToken",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bool",
+              "name": "inactive",
+              "type": "bool"
+            }
           ],
-          internalType: 'struct IReNFT.Price[]',
-          name: 'dailyRentPrices',
-          type: 'tuple[]',
+          "internalType": "struct IReNFT.Lending",
+          "name": "lending",
+          "type": "tuple"
         },
         {
-          internalType: 'enum IResolver.PaymentToken[]',
-          name: 'paymentTokens',
-          type: 'uint8[]',
-        },
-      ],
-      name: 'lend',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address',
-          name: '',
-          type: 'address',
-        },
-        {
-          internalType: 'address',
-          name: '',
-          type: 'address',
-        },
-        {
-          internalType: 'uint256[]',
-          name: '',
-          type: 'uint256[]',
-        },
-        {
-          internalType: 'uint256[]',
-          name: '',
-          type: 'uint256[]',
-        },
-        {
-          internalType: 'bytes',
-          name: '',
-          type: 'bytes',
-        },
-      ],
-      name: 'onERC1155BatchReceived',
-      outputs: [
-        {
-          internalType: 'bytes4',
-          name: '',
-          type: 'bytes4',
-        },
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address',
-          name: '',
-          type: 'address',
-        },
-        {
-          internalType: 'address',
-          name: '',
-          type: 'address',
-        },
-        {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256',
-        },
-        {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256',
-        },
-        {
-          internalType: 'bytes',
-          name: '',
-          type: 'bytes',
-        },
-      ],
-      name: 'onERC1155Received',
-      outputs: [
-        {
-          internalType: 'bytes4',
-          name: '',
-          type: 'bytes4',
-        },
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address',
-          name: '',
-          type: 'address',
-        },
-        {
-          internalType: 'address',
-          name: '',
-          type: 'address',
-        },
-        {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256',
-        },
-        {
-          internalType: 'bytes',
-          name: '',
-          type: 'bytes',
-        },
-      ],
-      name: 'onERC721Received',
-      outputs: [
-        {
-          internalType: 'bytes4',
-          name: '',
-          type: 'bytes4',
-        },
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [],
-      name: 'paused',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool',
-        },
-      ],
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      inputs: [
-        {
-          components: [
+          "components": [
             {
-              internalType: 'contract INFTContract[]',
-              name: 'nft',
-              type: 'address[]',
+              "internalType": "address payable",
+              "name": "renterAddress",
+              "type": "address"
             },
             {
-              internalType: 'uint256[]',
-              name: 'tokenIds',
-              type: 'uint256[]',
+              "internalType": "uint32",
+              "name": "rentedAt",
+              "type": "uint32"
             },
             {
-              internalType: 'uint256[]',
-              name: 'lendingIds',
-              type: 'uint256[]',
-            },
+              "internalType": "uint8",
+              "name": "rentDuration",
+              "type": "uint8"
+            }
           ],
-          internalType: 'struct IReNFT.Nfts',
-          name: 'nfts',
-          type: 'tuple',
-        },
-        {
-          internalType: 'uint8[]',
-          name: 'rentDurations',
-          type: 'uint8[]',
-        },
+          "internalType": "struct IReNFT.Renting",
+          "name": "renting",
+          "type": "tuple"
+        }
       ],
-      name: 'rent',
-      outputs: [],
-      stateMutability: 'payable',
-      type: 'function',
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      inputs: [],
-      name: 'rentFee',
-      outputs: [
+      "inputs": [
         {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256',
+          "internalType": "address",
+          "name": "",
+          "type": "address"
         },
-      ],
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      inputs: [],
-      name: 'revokeOwnership',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [
         {
-          internalType: 'address payable',
-          name: 'newBeneficiary',
-          type: 'address',
+          "internalType": "address",
+          "name": "",
+          "type": "address"
         },
-      ],
-      name: 'setBeneficiary',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [
         {
-          internalType: 'bool',
-          name: 'newPaused',
-          type: 'bool',
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
         },
-      ],
-      name: 'setPaused',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [
         {
-          internalType: 'uint256',
-          name: 'newRentFee',
-          type: 'uint256',
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
         },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
       ],
-      name: 'setRentFee',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
+      "name": "onERC1155BatchReceived",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          components: [
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "onERC1155Received",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "onERC721Received",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
             {
-              internalType: 'contract INFTContract[]',
-              name: 'nft',
-              type: 'address[]',
+              "internalType": "contract INFTContract",
+              "name": "nft",
+              "type": "address"
             },
             {
-              internalType: 'uint256[]',
-              name: 'tokenIds',
-              type: 'uint256[]',
+              "internalType": "uint256[]",
+              "name": "tokenIds",
+              "type": "uint256[]"
             },
             {
-              internalType: 'uint256[]',
-              name: 'lendingIds',
-              type: 'uint256[]',
-            },
+              "internalType": "uint256[]",
+              "name": "lendingIds",
+              "type": "uint256[]"
+            }
           ],
-          internalType: 'struct IReNFT.Nfts',
-          name: 'nfts',
-          type: 'tuple',
+          "internalType": "struct IReNFT.Nfts",
+          "name": "nfts",
+          "type": "tuple"
         },
+        {
+          "internalType": "address payable[]",
+          "name": "renter",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "amountToPay",
+          "type": "uint256[]"
+        }
       ],
-      name: 'stopLend',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
+      "name": "pay",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          components: [
+          "components": [
             {
-              internalType: 'contract INFTContract[]',
-              name: 'nft',
-              type: 'address[]',
+              "internalType": "contract INFTContract",
+              "name": "nft",
+              "type": "address"
             },
             {
-              internalType: 'uint256[]',
-              name: 'tokenIds',
-              type: 'uint256[]',
+              "internalType": "uint256[]",
+              "name": "tokenIds",
+              "type": "uint256[]"
             },
             {
-              internalType: 'uint256[]',
-              name: 'lendingIds',
-              type: 'uint256[]',
-            },
+              "internalType": "uint256[]",
+              "name": "lendingIds",
+              "type": "uint256[]"
+            }
           ],
-          internalType: 'struct IReNFT.Nfts',
-          name: 'nfts',
-          type: 'tuple',
+          "internalType": "struct IReNFT.Nfts",
+          "name": "nfts",
+          "type": "tuple"
         },
+        {
+          "internalType": "uint8[]",
+          "name": "rentDurations",
+          "type": "uint8[]"
+        }
       ],
-      name: 'stopRent',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
+      "name": "rent",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [],
+      "name": "rentFee",
+      "outputs": [
         {
-          internalType: 'bytes4',
-          name: 'interfaceId',
-          type: 'bytes4',
-        },
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
       ],
-      name: 'supportsInterface',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool',
-        },
-      ],
-      stateMutability: 'view',
-      type: 'function',
+      "stateMutability": "view",
+      "type": "function"
     },
+    {
+      "inputs": [],
+      "name": "revokeOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable[]",
+          "name": "newFeeReceivers",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint8[]",
+          "name": "newFeePortions",
+          "type": "uint8[]"
+        }
+      ],
+      "name": "setProtocolFeeReceivers",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "newRentFee",
+          "type": "uint256"
+        }
+      ],
+      "name": "setRentFee",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "newRentStoppers",
+          "type": "address[]"
+        }
+      ],
+      "name": "setRentStoppers",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "newRewardPayers",
+          "type": "address[]"
+        }
+      ],
+      "name": "setRewardPayers",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract INFTContract",
+              "name": "nft",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "tokenIds",
+              "type": "uint256[]"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "lendingIds",
+              "type": "uint256[]"
+            }
+          ],
+          "internalType": "struct IReNFT.Nfts",
+          "name": "nfts",
+          "type": "tuple"
+        }
+      ],
+      "name": "stopLend",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract INFTContract",
+              "name": "nft",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "tokenIds",
+              "type": "uint256[]"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "lendingIds",
+              "type": "uint256[]"
+            }
+          ],
+          "internalType": "struct IReNFT.Nfts",
+          "name": "nfts",
+          "type": "tuple"
+        }
+      ],
+      "name": "stopRent",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
   ],
 };

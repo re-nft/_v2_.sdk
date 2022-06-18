@@ -69,6 +69,8 @@ export class Whoopi implements IWhoopi {
     );
   }
 
+  // This is only callable by reNFT bot. This cannot be used
+  // on the front-end side.
   async stopRent(
     nftAddress: string[],
     tokenID: BigNumber[],

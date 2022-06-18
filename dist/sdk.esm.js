@@ -955,25 +955,25 @@ var AzraelAbi = {
 };
 
 var WhoopiAbi = {
-  abi: [{
+  "abi": [{
     "inputs": [{
       "internalType": "address",
       "name": "newResolver",
       "type": "address"
     }, {
-      "internalType": "address payable",
-      "name": "newBeneficiary",
+      "internalType": "address",
+      "name": "newAdmin",
       "type": "address"
     }],
     "stateMutability": "nonpayable",
     "type": "constructor"
   }, {
-    "inputs": [{
-      "internalType": "uint256",
-      "name": "amount",
-      "type": "uint256"
-    }],
-    "name": "InvalidAmountToLend",
+    "inputs": [],
+    "name": "InvalidPortionsSum",
+    "type": "error"
+  }, {
+    "inputs": [],
+    "name": "InvalidProtocolFeeReceivers",
     "type": "error"
   }, {
     "inputs": [],
@@ -981,11 +981,15 @@ var WhoopiAbi = {
     "type": "error"
   }, {
     "inputs": [],
+    "name": "LendingNotActive",
+    "type": "error"
+  }, {
+    "inputs": [],
     "name": "LendingNotEmpty",
     "type": "error"
   }, {
     "inputs": [],
-    "name": "NoNfts",
+    "name": "NftTransferFailed",
     "type": "error"
   }, {
     "inputs": [{
@@ -996,60 +1000,32 @@ var WhoopiAbi = {
     "name": "NotAdmin",
     "type": "error"
   }, {
-    "inputs": [],
-    "name": "NotAllowedToEdit",
-    "type": "error"
-  }, {
-    "inputs": [],
+    "inputs": [{
+      "internalType": "uint8",
+      "name": "errorCode",
+      "type": "uint8"
+    }],
     "name": "NotLendable",
     "type": "error"
   }, {
     "inputs": [{
-      "internalType": "uint256",
-      "name": "nowTimestamp",
-      "type": "uint256"
-    }, {
-      "internalType": "uint256",
-      "name": "rentedAtTimestamp",
-      "type": "uint256"
-    }, {
-      "internalType": "uint256",
-      "name": "rentDuration",
-      "type": "uint256"
+      "internalType": "uint8",
+      "name": "errorCode",
+      "type": "uint8"
     }],
-    "name": "NotPastReturnDate",
+    "name": "NotPayable",
     "type": "error"
   }, {
-    "inputs": [],
+    "inputs": [{
+      "internalType": "uint8",
+      "name": "errorCode",
+      "type": "uint8"
+    }],
     "name": "NotRentable",
     "type": "error"
   }, {
-    "inputs": [{
-      "internalType": "uint256",
-      "name": "nowTimestamp",
-      "type": "uint256"
-    }, {
-      "internalType": "uint256",
-      "name": "rentedAtTimestamp",
-      "type": "uint256"
-    }],
-    "name": "NowBeforeRentedAt",
-    "type": "error"
-  }, {
-    "inputs": [{
-      "internalType": "uint256",
-      "name": "nowTimestamp",
-      "type": "uint256"
-    }, {
-      "internalType": "uint32",
-      "name": "rentedAt",
-      "type": "uint32"
-    }, {
-      "internalType": "uint8",
-      "name": "rentDuration",
-      "type": "uint8"
-    }],
-    "name": "PastReturnDate",
+    "inputs": [],
+    "name": "NotWhitelistedToRent",
     "type": "error"
   }, {
     "inputs": [],
@@ -1069,23 +1045,11 @@ var WhoopiAbi = {
     "type": "error"
   }, {
     "inputs": [],
-    "name": "RentingEmpty",
-    "type": "error"
-  }, {
-    "inputs": [],
     "name": "RentingNotEmpty",
     "type": "error"
   }, {
-    "inputs": [{
-      "internalType": "address",
-      "name": "renter",
-      "type": "address"
-    }, {
-      "internalType": "address",
-      "name": "msgSender",
-      "type": "address"
-    }],
-    "name": "ReturnerNotRenterNotAllowed",
+    "inputs": [],
+    "name": "ReturningNotAllowed",
     "type": "error"
   }, {
     "inputs": [{
@@ -1103,49 +1067,33 @@ var WhoopiAbi = {
     "anonymous": false,
     "inputs": [{
       "indexed": true,
-      "internalType": "uint256",
-      "name": "lendingId",
-      "type": "uint256"
-    }],
-    "name": "Claim",
-    "type": "event"
-  }, {
-    "anonymous": false,
-    "inputs": [{
-      "indexed": true,
-      "internalType": "uint256",
-      "name": "lendingId",
-      "type": "uint256"
-    }, {
-      "indexed": false,
-      "internalType": "uint256",
-      "name": "dailyRentPrice",
-      "type": "uint256"
-    }, {
-      "indexed": false,
-      "internalType": "uint8",
-      "name": "maxRentDuration",
-      "type": "uint8"
-    }, {
-      "indexed": false,
-      "internalType": "enum IResolver.PaymentToken",
-      "name": "paymentToken",
-      "type": "uint8"
-    }],
-    "name": "EditLend",
-    "type": "event"
-  }, {
-    "anonymous": false,
-    "inputs": [{
-      "indexed": true,
       "internalType": "address",
       "name": "nftAddress",
       "type": "address"
     }, {
       "indexed": false,
-      "internalType": "uint8",
-      "name": "lentAmount",
-      "type": "uint8"
+      "internalType": "uint256",
+      "name": "upfrontRentFee",
+      "type": "uint256"
+    }, {
+      "indexed": false,
+      "internalType": "address payable[]",
+      "name": "allowedRenters",
+      "type": "address[]"
+    }, {
+      "components": [{
+        "internalType": "address payable[]",
+        "name": "beneficiaries",
+        "type": "address[]"
+      }, {
+        "internalType": "uint8[]",
+        "name": "portions",
+        "type": "uint8[]"
+      }],
+      "indexed": false,
+      "internalType": "struct IReNFT.RevShare",
+      "name": "revShares",
+      "type": "tuple"
     }, {
       "indexed": false,
       "internalType": "uint8",
@@ -1170,11 +1118,6 @@ var WhoopiAbi = {
       "indexed": false,
       "internalType": "uint256",
       "name": "lendingId",
-      "type": "uint256"
-    }, {
-      "indexed": false,
-      "internalType": "uint256",
-      "name": "dailyRentPrice",
       "type": "uint256"
     }],
     "name": "Lend",
@@ -1220,78 +1163,17 @@ var WhoopiAbi = {
     "name": "StopRent",
     "type": "event"
   }, {
-    "inputs": [{
-      "components": [{
-        "internalType": "contract INFTContract[]",
-        "name": "nft",
-        "type": "address[]"
-      }, {
-        "internalType": "uint256[]",
-        "name": "tokenIds",
-        "type": "uint256[]"
-      }, {
-        "internalType": "uint256[]",
-        "name": "lendingIds",
-        "type": "uint256[]"
-      }],
-      "internalType": "struct IReNFT.Nfts",
-      "name": "nfts",
-      "type": "tuple"
-    }],
-    "name": "claim",
+    "inputs": [],
+    "name": "flipPaused",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   }, {
     "inputs": [{
       "components": [{
-        "internalType": "contract INFTContract[]",
+        "internalType": "contract INFTContract",
         "name": "nft",
-        "type": "address[]"
-      }, {
-        "internalType": "uint256[]",
-        "name": "tokenIds",
-        "type": "uint256[]"
-      }, {
-        "internalType": "uint256[]",
-        "name": "lendingIds",
-        "type": "uint256[]"
-      }],
-      "internalType": "struct IReNFT.Nfts",
-      "name": "nfts",
-      "type": "tuple"
-    }, {
-      "internalType": "uint8[]",
-      "name": "maxRentDurations",
-      "type": "uint8[]"
-    }, {
-      "components": [{
-        "internalType": "uint24",
-        "name": "whole",
-        "type": "uint24"
-      }, {
-        "internalType": "uint8",
-        "name": "decimal",
-        "type": "uint8"
-      }],
-      "internalType": "struct IReNFT.Price[]",
-      "name": "dailyRentPrices",
-      "type": "tuple[]"
-    }, {
-      "internalType": "enum IResolver.PaymentToken[]",
-      "name": "paymentTokens",
-      "type": "uint8[]"
-    }],
-    "name": "editLend",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }, {
-    "inputs": [{
-      "components": [{
-        "internalType": "contract INFTContract[]",
-        "name": "nft",
-        "type": "address[]"
+        "type": "address"
       }, {
         "internalType": "uint256[]",
         "name": "tokenIds",
@@ -1306,25 +1188,34 @@ var WhoopiAbi = {
       "type": "tuple"
     }, {
       "internalType": "uint256[]",
-      "name": "lendAmounts",
+      "name": "upfrontRentFee",
       "type": "uint256[]"
+    }, {
+      "components": [{
+        "internalType": "address payable[]",
+        "name": "allowedRenters",
+        "type": "address[]"
+      }],
+      "internalType": "struct IReNFT.AllowedRenters[]",
+      "name": "allowedRenters",
+      "type": "tuple[]"
+    }, {
+      "components": [{
+        "internalType": "address payable[]",
+        "name": "beneficiaries",
+        "type": "address[]"
+      }, {
+        "internalType": "uint8[]",
+        "name": "portions",
+        "type": "uint8[]"
+      }],
+      "internalType": "struct IReNFT.RevShare[]",
+      "name": "revShares",
+      "type": "tuple[]"
     }, {
       "internalType": "uint8[]",
       "name": "maxRentDurations",
       "type": "uint8[]"
-    }, {
-      "components": [{
-        "internalType": "uint24",
-        "name": "whole",
-        "type": "uint24"
-      }, {
-        "internalType": "uint8",
-        "name": "decimal",
-        "type": "uint8"
-      }],
-      "internalType": "struct IReNFT.Price[]",
-      "name": "dailyRentPrices",
-      "type": "tuple[]"
     }, {
       "internalType": "enum IResolver.PaymentToken[]",
       "name": "paymentTokens",
@@ -1333,6 +1224,75 @@ var WhoopiAbi = {
     "name": "lend",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "internalType": "bytes32",
+      "name": "",
+      "type": "bytes32"
+    }],
+    "name": "lendingRentings",
+    "outputs": [{
+      "components": [{
+        "internalType": "address payable[]",
+        "name": "allowedRenters",
+        "type": "address[]"
+      }, {
+        "components": [{
+          "internalType": "address payable[]",
+          "name": "beneficiaries",
+          "type": "address[]"
+        }, {
+          "internalType": "uint8[]",
+          "name": "portions",
+          "type": "uint8[]"
+        }],
+        "internalType": "struct IReNFT.RevShare",
+        "name": "revShares",
+        "type": "tuple"
+      }, {
+        "internalType": "uint256",
+        "name": "upfrontRentFee",
+        "type": "uint256"
+      }, {
+        "internalType": "address payable",
+        "name": "lenderAddress",
+        "type": "address"
+      }, {
+        "internalType": "uint8",
+        "name": "maxRentDuration",
+        "type": "uint8"
+      }, {
+        "internalType": "enum IResolver.PaymentToken",
+        "name": "paymentToken",
+        "type": "uint8"
+      }, {
+        "internalType": "bool",
+        "name": "inactive",
+        "type": "bool"
+      }],
+      "internalType": "struct IReNFT.Lending",
+      "name": "lending",
+      "type": "tuple"
+    }, {
+      "components": [{
+        "internalType": "address payable",
+        "name": "renterAddress",
+        "type": "address"
+      }, {
+        "internalType": "uint32",
+        "name": "rentedAt",
+        "type": "uint32"
+      }, {
+        "internalType": "uint8",
+        "name": "rentDuration",
+        "type": "uint8"
+      }],
+      "internalType": "struct IReNFT.Renting",
+      "name": "renting",
+      "type": "tuple"
+    }],
+    "stateMutability": "view",
     "type": "function"
   }, {
     "inputs": [{
@@ -1433,9 +1393,40 @@ var WhoopiAbi = {
   }, {
     "inputs": [{
       "components": [{
-        "internalType": "contract INFTContract[]",
+        "internalType": "contract INFTContract",
         "name": "nft",
-        "type": "address[]"
+        "type": "address"
+      }, {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }, {
+        "internalType": "uint256[]",
+        "name": "lendingIds",
+        "type": "uint256[]"
+      }],
+      "internalType": "struct IReNFT.Nfts",
+      "name": "nfts",
+      "type": "tuple"
+    }, {
+      "internalType": "address payable[]",
+      "name": "renter",
+      "type": "address[]"
+    }, {
+      "internalType": "uint256[]",
+      "name": "amountToPay",
+      "type": "uint256[]"
+    }],
+    "name": "pay",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "components": [{
+        "internalType": "contract INFTContract",
+        "name": "nft",
+        "type": "address"
       }, {
         "internalType": "uint256[]",
         "name": "tokenIds",
@@ -1475,21 +1466,15 @@ var WhoopiAbi = {
     "type": "function"
   }, {
     "inputs": [{
-      "internalType": "address payable",
-      "name": "newBeneficiary",
-      "type": "address"
+      "internalType": "address payable[]",
+      "name": "newFeeReceivers",
+      "type": "address[]"
+    }, {
+      "internalType": "uint8[]",
+      "name": "newFeePortions",
+      "type": "uint8[]"
     }],
-    "name": "setBeneficiary",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }, {
-    "inputs": [{
-      "internalType": "bool",
-      "name": "newPaused",
-      "type": "bool"
-    }],
-    "name": "setPaused",
+    "name": "setProtocolFeeReceivers",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1505,10 +1490,30 @@ var WhoopiAbi = {
     "type": "function"
   }, {
     "inputs": [{
+      "internalType": "address[]",
+      "name": "newRentStoppers",
+      "type": "address[]"
+    }],
+    "name": "setRentStoppers",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
+      "internalType": "address[]",
+      "name": "newRewardPayers",
+      "type": "address[]"
+    }],
+    "name": "setRewardPayers",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, {
+    "inputs": [{
       "components": [{
-        "internalType": "contract INFTContract[]",
+        "internalType": "contract INFTContract",
         "name": "nft",
-        "type": "address[]"
+        "type": "address"
       }, {
         "internalType": "uint256[]",
         "name": "tokenIds",
@@ -1529,9 +1534,9 @@ var WhoopiAbi = {
   }, {
     "inputs": [{
       "components": [{
-        "internalType": "contract INFTContract[]",
+        "internalType": "contract INFTContract",
         "name": "nft",
-        "type": "address[]"
+        "type": "address"
       }, {
         "internalType": "uint256[]",
         "name": "tokenIds",
@@ -3151,9 +3156,13 @@ var Whoopi = /*#__PURE__*/function () {
     }
 
     return rent;
-  }();
+  }() // This is only callable by reNFT bot. This cannot be used
+  // on the front-end side.
+  ;
 
-  _proto.stopRent = /*#__PURE__*/function () {
+  _proto.stopRent =
+  /*#__PURE__*/
+  function () {
     var _stopRent = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee3(nftAddress, tokenID, lendingID, options) {
       return runtime_1.wrap(function _callee3$(_context3) {
         while (1) {

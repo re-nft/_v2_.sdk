@@ -125,12 +125,23 @@ export declare const Whoopi: ({
     outputs?: undefined;
 } | {
     anonymous: boolean;
-    inputs: {
+    inputs: ({
         indexed: boolean;
         internalType: string;
         name: string;
         type: string;
-    }[];
+        components?: undefined;
+    } | {
+        components: {
+            internalType: string;
+            name: string;
+            type: string;
+        }[];
+        indexed: boolean;
+        internalType: string;
+        name: string;
+        type: string;
+    })[];
     name: string;
     type: string;
     stateMutability?: undefined;
@@ -153,6 +164,36 @@ export declare const Whoopi: ({
     })[];
     name: string;
     outputs: never[];
+    stateMutability: string;
+    type: string;
+    anonymous?: undefined;
+} | {
+    inputs: {
+        internalType: string;
+        name: string;
+        type: string;
+    }[];
+    name: string;
+    outputs: {
+        components: ({
+            internalType: string;
+            name: string;
+            type: string;
+            components?: undefined;
+        } | {
+            components: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            internalType: string;
+            name: string;
+            type: string;
+        })[];
+        internalType: string;
+        name: string;
+        type: string;
+    }[];
     stateMutability: string;
     type: string;
     anonymous?: undefined;
