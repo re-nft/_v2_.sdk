@@ -10,10 +10,6 @@ let wallet = new Wallet(privKey);
 wallet = wallet.connect(provider);
 
 const main = async () => {
-  // collateral solution
-  // const renft = new Azrael(wallet);
-  // * for collateral free (import Sylvester from index):
-  // const renft = new Sylvester(wallet);
   const whoopi = new Whoopi(wallet, "0xBBda1DDeAd65E780b4330F771801011C995fa02E")
 
   // TODO: approve spending of nftAddress
