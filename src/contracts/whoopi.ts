@@ -23,8 +23,8 @@ export class Whoopi implements IWhoopi {
   // If the user hasn't selected any value for upfront fee for a lending,
   // then set it to zero on the front-end.
   async lend(
-    nftAddress: string[],
-    tokenID: BigNumber[],
+    nftAddress: string,
+    tokenId: BigNumber[],
     upfrontRentFees: number[],
     revShareBeneficiaries: string[][],
     revSharePortions: number[][],
@@ -33,20 +33,21 @@ export class Whoopi implements IWhoopi {
     allowedRenters?: string[][],
     options?: any
   ): Promise<ContractTransaction> {
+    let revShares = [];
+    for (let i = 0; i < revShareBeneficiaries.length; i++) {
+      revShares.push([revShareBeneficiaries[i], revSharePortions[i]]);
+    }
     return await this.contract.lend(
       [
-        nftAddress.map(x => String(x)),
-        tokenID.map(x => BigNumber.from(x)),
+        String(nftAddress),
+        tokenId.map(x => BigNumber.from(x)),
         Array(nftAddress.length).fill(BigNumber.from('0')),
       ],
       upfrontRentFees.map(x => Number(x)) ?? [],
       allowedRenters?.map(x => x.map(y => String(y))) ?? [
         Array(nftAddress.length).fill([]),
       ],
-      [
-        revShareBeneficiaries.map(x => x.map(y => String(y))),
-        revSharePortions.map(x => x.map(y => Number(y))),
-      ],
+      revShares,
       maxRentDurations.map(x => Number(x)),
       paymentTokens,
       options ?? []
@@ -55,15 +56,15 @@ export class Whoopi implements IWhoopi {
 
   async rent(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
+    tokenId: BigNumber[],
+    lendingId: BigNumber[],
     rentDurations: number[],
     options?: any
   ): Promise<ContractTransaction> {
     return await this.contract.rent(
       nftAddress.map(x => String(x)),
-      tokenID.map(x => BigNumber.from(x)),
-      lendingID.map(x => BigNumber.from(x)),
+      tokenId.map(x => BigNumber.from(x)),
+      lendingId.map(x => BigNumber.from(x)),
       rentDurations.map(x => Number(x)),
       options ?? []
     );
@@ -73,44 +74,44 @@ export class Whoopi implements IWhoopi {
   // on the front-end side.
   async stopRent(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
+    tokenId: BigNumber[],
+    lendingId: BigNumber[],
     options?: any
   ): Promise<ContractTransaction> {
     return await this.contract.stopRent(
       nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID.map(id => BigNumber.from(id)),
-      lendingID.map(x => BigNumber.from(x)),
+      tokenId.map(id => BigNumber.from(id)),
+      lendingId.map(x => BigNumber.from(x)),
       options ?? []
     );
   }
 
   async stopLending(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
+    tokenId: BigNumber[],
+    lendingId: BigNumber[],
     options?: any
   ): Promise<ContractTransaction> {
     return await this.contract.stopLend(
       nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID.map(id => BigNumber.from(id)),
-      lendingID.map(x => BigNumber.from(x)),
+      tokenId.map(id => BigNumber.from(id)),
+      lendingId.map(x => BigNumber.from(x)),
       options ?? []
     );
   }
 
   async pay(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
+    tokenId: BigNumber[],
+    lendingId: BigNumber[],
     renterAddress: string[],
     amountToPay: number[],
     options?: any
   ): Promise<ContractTransaction> {
     return await this.contract.pay(
       nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID.map(id => BigNumber.from(id)),
-      lendingID.map(x => BigNumber.from(x)),
+      tokenId.map(id => BigNumber.from(id)),
+      lendingId.map(x => BigNumber.from(x)),
       renterAddress.map(x => String(x).toLowerCase()),
       amountToPay.map(x => Number(x)),
       options ?? []

@@ -7,8 +7,8 @@ import { PaymentToken } from '../../types';
 // Wildlife avalanche mainnet v1 rev share
 interface IWhoopi {
   lend(
-    nftAddress: string[],
-    tokenID: BigNumber[],
+    nftAddress: string,
+    tokenId: BigNumber[],
     upfrontRentFees: number[],
     revShareBeneficiaries: string[][],
     portions: number[][],
@@ -20,8 +20,8 @@ interface IWhoopi {
 
   rent(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
+    tokenId: BigNumber[],
+    lendingId: BigNumber[],
     rentDurations: number[],
     options?: any
   ): Promise<ContractTransaction>;
@@ -29,22 +29,22 @@ interface IWhoopi {
   // This is only callable by the stop rent bot.
   stopRent(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
+    tokenId: BigNumber[],
+    lendingId: BigNumber[],
     options?: any
   ): Promise<ContractTransaction>;
 
   stopLending(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
+    tokenId: BigNumber[],
+    lendingId: BigNumber[],
     options?: any
   ): Promise<ContractTransaction>;
 
   pay(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
+    tokenId: BigNumber[],
+    lendingId: BigNumber[],
     renterAddress: string[],
     amountToPay: number[],
     options?: any

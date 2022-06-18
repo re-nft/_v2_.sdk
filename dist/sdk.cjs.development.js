@@ -3079,17 +3079,22 @@ var Whoopi = /*#__PURE__*/function () {
   _proto.lend =
   /*#__PURE__*/
   function () {
-    var _lend = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee(nftAddress, tokenID, upfrontRentFees, revShareBeneficiaries, revSharePortions, maxRentDurations, paymentTokens, allowedRenters, options) {
+    var _lend = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee(nftAddress, tokenId, upfrontRentFees, revShareBeneficiaries, revSharePortions, maxRentDurations, paymentTokens, allowedRenters, options) {
       var _upfrontRentFees$map, _allowedRenters$map;
 
+      var revShares, i;
       return runtime_1.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return this.contract.lend([nftAddress.map(function (x) {
-                return String(x);
-              }), tokenID.map(function (x) {
+              revShares = [];
+
+              for (i = 0; i < revShareBeneficiaries.length; i++) {
+                revShares.push([revShareBeneficiaries[i], revSharePortions[i]]);
+              }
+
+              _context.next = 4;
+              return this.contract.lend([String(nftAddress), tokenId.map(function (x) {
                 return bignumber.BigNumber.from(x);
               }), Array(nftAddress.length).fill(bignumber.BigNumber.from('0'))], (_upfrontRentFees$map = upfrontRentFees.map(function (x) {
                 return Number(x);
@@ -3097,22 +3102,14 @@ var Whoopi = /*#__PURE__*/function () {
                 return x.map(function (y) {
                   return String(y);
                 });
-              })) != null ? _allowedRenters$map : [Array(nftAddress.length).fill([])], [revShareBeneficiaries.map(function (x) {
-                return x.map(function (y) {
-                  return String(y);
-                });
-              }), revSharePortions.map(function (x) {
-                return x.map(function (y) {
-                  return Number(y);
-                });
-              })], maxRentDurations.map(function (x) {
+              })) != null ? _allowedRenters$map : [Array(nftAddress.length).fill([])], revShares, maxRentDurations.map(function (x) {
                 return Number(x);
               }), paymentTokens, options != null ? options : []);
 
-            case 2:
+            case 4:
               return _context.abrupt("return", _context.sent);
 
-            case 3:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -3128,7 +3125,7 @@ var Whoopi = /*#__PURE__*/function () {
   }();
 
   _proto.rent = /*#__PURE__*/function () {
-    var _rent = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee2(nftAddress, tokenID, lendingID, rentDurations, options) {
+    var _rent = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee2(nftAddress, tokenId, lendingId, rentDurations, options) {
       return runtime_1.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -3136,9 +3133,9 @@ var Whoopi = /*#__PURE__*/function () {
               _context2.next = 2;
               return this.contract.rent(nftAddress.map(function (x) {
                 return String(x);
-              }), tokenID.map(function (x) {
+              }), tokenId.map(function (x) {
                 return bignumber.BigNumber.from(x);
-              }), lendingID.map(function (x) {
+              }), lendingId.map(function (x) {
                 return bignumber.BigNumber.from(x);
               }), rentDurations.map(function (x) {
                 return Number(x);
@@ -3167,7 +3164,7 @@ var Whoopi = /*#__PURE__*/function () {
   _proto.stopRent =
   /*#__PURE__*/
   function () {
-    var _stopRent = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee3(nftAddress, tokenID, lendingID, options) {
+    var _stopRent = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee3(nftAddress, tokenId, lendingId, options) {
       return runtime_1.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -3175,9 +3172,9 @@ var Whoopi = /*#__PURE__*/function () {
               _context3.next = 2;
               return this.contract.stopRent(nftAddress.map(function (nft) {
                 return String(nft).toLowerCase();
-              }), tokenID.map(function (id) {
+              }), tokenId.map(function (id) {
                 return bignumber.BigNumber.from(id);
-              }), lendingID.map(function (x) {
+              }), lendingId.map(function (x) {
                 return bignumber.BigNumber.from(x);
               }), options != null ? options : []);
 
@@ -3200,7 +3197,7 @@ var Whoopi = /*#__PURE__*/function () {
   }();
 
   _proto.stopLending = /*#__PURE__*/function () {
-    var _stopLending = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee4(nftAddress, tokenID, lendingID, options) {
+    var _stopLending = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee4(nftAddress, tokenId, lendingId, options) {
       return runtime_1.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -3208,9 +3205,9 @@ var Whoopi = /*#__PURE__*/function () {
               _context4.next = 2;
               return this.contract.stopLend(nftAddress.map(function (nft) {
                 return String(nft).toLowerCase();
-              }), tokenID.map(function (id) {
+              }), tokenId.map(function (id) {
                 return bignumber.BigNumber.from(id);
-              }), lendingID.map(function (x) {
+              }), lendingId.map(function (x) {
                 return bignumber.BigNumber.from(x);
               }), options != null ? options : []);
 
@@ -3233,7 +3230,7 @@ var Whoopi = /*#__PURE__*/function () {
   }();
 
   _proto.pay = /*#__PURE__*/function () {
-    var _pay = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee5(nftAddress, tokenID, lendingID, renterAddress, amountToPay, options) {
+    var _pay = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee5(nftAddress, tokenId, lendingId, renterAddress, amountToPay, options) {
       return runtime_1.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
@@ -3241,9 +3238,9 @@ var Whoopi = /*#__PURE__*/function () {
               _context5.next = 2;
               return this.contract.pay(nftAddress.map(function (nft) {
                 return String(nft).toLowerCase();
-              }), tokenID.map(function (id) {
+              }), tokenId.map(function (id) {
                 return bignumber.BigNumber.from(id);
-              }), lendingID.map(function (x) {
+              }), lendingId.map(function (x) {
                 return bignumber.BigNumber.from(x);
               }), renterAddress.map(function (x) {
                 return String(x).toLowerCase();
