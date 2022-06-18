@@ -1,7 +1,7 @@
-const { Contract } = require('@ethersproject/contracts');
 const { JsonRpcProvider } = require('@ethersproject/providers');
 const { Wallet } = require('@ethersproject/wallet');
 const { Whoopi, PaymentToken } = require('../dist/index');
+const { mintPaymentToken, approvePaymentToken, approveNftForAll, FUJI_USDC } = require('./utils/index');
 
 // ! Ping Naz with your wallet address so that he can ask
 // ! castle crush to mint you some Fuji NFTs.
@@ -27,44 +27,21 @@ let receipt;
 
 
 const main = async () => {
+  const castleCrushNftAddress = "0xeA4E79F0a40A9A468a5159499b738dc6b1332447";
   const whoopiAddress = "0xBBda1DDeAd65E780b4330F771801011C995fa02E";
   const whoopi = new Whoopi(wallet, whoopiAddress);
 
-  const castleCrush = new Contract(
-    "0xeA4E79F0a40A9A468a5159499b738dc6b1332447",
-    [
-        {
-            "inputs": [
-                {
-                "internalType": "address",
-                "name": "operator",
-                "type": "address"
-                },
-                {
-                "internalType": "bool",
-                "name": "approved",
-                "type": "bool"
-                }
-            ],
-            "name": "setApprovalForAll",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-            },
-    ],
-    wallet
-  );
-  // * note that on the front-end side, you need only call this once
-  // * to know if you should call it or not, there is a read function
-  // * `isApprovedForAll(address,address)` that you need to call to figure
-  // * out if the wallet is approved to be handled by the contract
-  txn = await castleCrush.setApprovalForAll(whoopiAddress, true)
-  receipt = await txn.wait();
+  // ! depending on what you want to do, comment out a section
+  // ! for example, if you want to just lend, comment out
+  // ! the other sections
 
-  // castle crush nft address
-  const nftAddress = "0xeA4E79F0a40A9A468a5159499b738dc6b1332447";
+  // ---------------- LENDING ----------------------
+
+  // * you only need to run this once (as a lender)
+  // so if you are re-running the script, comment this out
+  //   await approveNftForAll(castleCrushNftAddress, wallet, whoopiAddress);
+
   const tokenId = [210, 200];
-
   // ! Note that if allowedRenters is empty, you must set
   // upfrontRentFee to a non zero value.
   // ! if you provide decimals, BigNumber will fail
@@ -73,7 +50,6 @@ const main = async () => {
   // ! you don't want to set an upfront rent fee. Just use any
   // ! payment token in such a case.
   const paymentToken = [PaymentToken.USDC, PaymentToken.USDC];
-  
   const revShareBeneficiaries = [
     ["0x000000045232fe75A3C7db3e5B03B0Ab6166F425", "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE"],
     ["0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE", "0xeA4E79F0a40A9A468a5159499b738dc6b1332447"]
@@ -86,11 +62,10 @@ const main = async () => {
     [50, 40],
     [90, 5]
   ];
-
   const maxRentDuration = [1, 2];
 
   txn = await whoopi.lend(
-    nftAddress,
+    castleCrushNftAddress,
     tokenId,
     upfrontRentFee,
     revShareBeneficiaries,
@@ -103,6 +78,26 @@ const main = async () => {
     // { gasLimit: 1000000 }
   );
   receipt = await txn.wait();
+
+  // -------------------- RENTING ----------------------
+
+  // * you only need to run this once (as a renter)
+  // so if you are re-runnig the script, comment this out
+//   await mintPaymentToken(FUJI_USDC, wallet);
+//   await approvePaymentToken(FUJI_USDC, wallet, whoopiAddress, "1000000000");
+
+  // castle crush nft address
+//   const tokenId = [210, 200];
+//   const lendingId = [3, 4];
+//   const rentingDuration = [1, 2];
+
+//   txn = await whoopi.rent(
+//     castleCrushNftAddress,
+//     tokenId,
+//     lendingId,
+//     rentingDuration
+//   );
+//   receipt = await txn.wait();
 
   return receipt;
 };

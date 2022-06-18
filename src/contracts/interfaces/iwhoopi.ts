@@ -19,7 +19,7 @@ interface IWhoopi {
   ): Promise<ContractTransaction>;
 
   rent(
-    nftAddress: string[],
+    nftAddress: string,
     tokenId: BigNumber[],
     lendingId: BigNumber[],
     rentDurations: number[],
@@ -28,21 +28,21 @@ interface IWhoopi {
 
   // This is only callable by the stop rent bot.
   stopRent(
-    nftAddress: string[],
+    nftAddress: string,
     tokenId: BigNumber[],
     lendingId: BigNumber[],
     options?: any
   ): Promise<ContractTransaction>;
 
   stopLending(
-    nftAddress: string[],
+    nftAddress: string,
     tokenId: BigNumber[],
     lendingId: BigNumber[],
     options?: any
   ): Promise<ContractTransaction>;
 
   pay(
-    nftAddress: string[],
+    nftAddress: string,
     tokenId: BigNumber[],
     lendingId: BigNumber[],
     renterAddress: string[],

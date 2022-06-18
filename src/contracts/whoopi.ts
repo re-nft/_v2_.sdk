@@ -68,16 +68,18 @@ export class Whoopi implements IWhoopi {
   }
 
   async rent(
-    nftAddress: string[],
+    nftAddress: string,
     tokenId: BigNumber[],
     lendingId: BigNumber[],
     rentDurations: number[],
     options?: any
   ): Promise<ContractTransaction> {
     return await this.contract.rent(
-      nftAddress.map(x => String(x)),
-      tokenId.map(x => BigNumber.from(x)),
-      lendingId.map(x => BigNumber.from(x)),
+      [
+        String(nftAddress),
+        tokenId.map(x => BigNumber.from(x)),
+        lendingId.map(x => BigNumber.from(x)),
+      ],
       rentDurations.map(x => Number(x)),
       options ?? []
     );
@@ -86,13 +88,13 @@ export class Whoopi implements IWhoopi {
   // This is only callable by reNFT bot. This cannot be used
   // on the front-end side.
   async stopRent(
-    nftAddress: string[],
+    nftAddress: string,
     tokenId: BigNumber[],
     lendingId: BigNumber[],
     options?: any
   ): Promise<ContractTransaction> {
     return await this.contract.stopRent(
-      nftAddress.map(nft => String(nft).toLowerCase()),
+      String(nftAddress),
       tokenId.map(id => BigNumber.from(id)),
       lendingId.map(x => BigNumber.from(x)),
       options ?? []
@@ -100,13 +102,13 @@ export class Whoopi implements IWhoopi {
   }
 
   async stopLending(
-    nftAddress: string[],
+    nftAddress: string,
     tokenId: BigNumber[],
     lendingId: BigNumber[],
     options?: any
   ): Promise<ContractTransaction> {
     return await this.contract.stopLend(
-      nftAddress.map(nft => String(nft).toLowerCase()),
+      String(nftAddress),
       tokenId.map(id => BigNumber.from(id)),
       lendingId.map(x => BigNumber.from(x)),
       options ?? []
@@ -114,7 +116,7 @@ export class Whoopi implements IWhoopi {
   }
 
   async pay(
-    nftAddress: string[],
+    nftAddress: string,
     tokenId: BigNumber[],
     lendingId: BigNumber[],
     renterAddress: string[],
@@ -122,7 +124,7 @@ export class Whoopi implements IWhoopi {
     options?: any
   ): Promise<ContractTransaction> {
     return await this.contract.pay(
-      nftAddress.map(nft => String(nft).toLowerCase()),
+      String(nftAddress),
       tokenId.map(id => BigNumber.from(id)),
       lendingId.map(x => BigNumber.from(x)),
       renterAddress.map(x => String(x).toLowerCase()),

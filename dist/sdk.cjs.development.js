@@ -3145,13 +3145,11 @@ var Whoopi = /*#__PURE__*/function () {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return this.contract.rent(nftAddress.map(function (x) {
-                return String(x);
-              }), tokenId.map(function (x) {
+              return this.contract.rent([String(nftAddress), tokenId.map(function (x) {
                 return bignumber.BigNumber.from(x);
               }), lendingId.map(function (x) {
                 return bignumber.BigNumber.from(x);
-              }), rentDurations.map(function (x) {
+              })], rentDurations.map(function (x) {
                 return Number(x);
               }), options != null ? options : []);
 
@@ -3184,9 +3182,7 @@ var Whoopi = /*#__PURE__*/function () {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return this.contract.stopRent(nftAddress.map(function (nft) {
-                return String(nft).toLowerCase();
-              }), tokenId.map(function (id) {
+              return this.contract.stopRent(String(nftAddress), tokenId.map(function (id) {
                 return bignumber.BigNumber.from(id);
               }), lendingId.map(function (x) {
                 return bignumber.BigNumber.from(x);
@@ -3217,9 +3213,7 @@ var Whoopi = /*#__PURE__*/function () {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return this.contract.stopLend(nftAddress.map(function (nft) {
-                return String(nft).toLowerCase();
-              }), tokenId.map(function (id) {
+              return this.contract.stopLend(String(nftAddress), tokenId.map(function (id) {
                 return bignumber.BigNumber.from(id);
               }), lendingId.map(function (x) {
                 return bignumber.BigNumber.from(x);
@@ -3250,9 +3244,7 @@ var Whoopi = /*#__PURE__*/function () {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.next = 2;
-              return this.contract.pay(nftAddress.map(function (nft) {
-                return String(nft).toLowerCase();
-              }), tokenId.map(function (id) {
+              return this.contract.pay(String(nftAddress), tokenId.map(function (id) {
                 return bignumber.BigNumber.from(id);
               }), lendingId.map(function (x) {
                 return bignumber.BigNumber.from(x);
