@@ -1,6 +1,5 @@
 const { JsonRpcProvider } = require('@ethersproject/providers');
 const { Wallet } = require('@ethersproject/wallet');
-const { BigNumber } = require('@ethersproject/bignumber');
 const { Whoopi, PaymentToken } = require('../dist/index');
 
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
@@ -12,14 +11,43 @@ wallet = wallet.connect(provider);
 const main = async () => {
   const whoopi = new Whoopi(wallet, "0xBBda1DDeAd65E780b4330F771801011C995fa02E")
 
-  // TODO: approve spending of nftAddress
+  castleCrush = new Contract(
+    "0xeA4E79F0a40A9A468a5159499b738dc6b1332447",
+    [
+        {
+            "inputs": [
+                {
+                "internalType": "address",
+                "name": "operator",
+                "type": "address"
+                },
+                {
+                "internalType": "bool",
+                "name": "approved",
+                "type": "bool"
+                }
+            ],
+            "name": "setApprovalForAll",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+            },
+    ],
+    wallet
+  );
+  // * note that on the front-end side, you need only call this once
+  // * to know if you should call it or not, there is a read function
+  // * `isApprovedForAll(address,address)` that you need to call to figure
+  // * out if the wallet is approved to be handled by the contract
+  let txn = await castleCrush.setApprovalForAll(whoopi.address, true)
+  let receipt = await txn.wait();
 
   // castle crush nft address
   const nftAddress = [
     "0xeA4E79F0a40A9A468a5159499b738dc6b1332447",
     "0xeA4E79F0a40A9A468a5159499b738dc6b1332447"
   ];
-  const tokenId = [BigNumber.from('3')];
+  const tokenId = [230, 220];
 
   const upfrontRentFee = [1.1, 0];
   const paymentToken = [PaymentToken.USDC, PaymentToken.SENTINEL];
@@ -35,7 +63,7 @@ const main = async () => {
 
   const maxRentDuration = [1, 2];
 
-  const txn = await renft.lend(
+  txn = await renft.lend(
     nftAddress,
     tokenId,
     upfrontRentFee,
@@ -44,8 +72,8 @@ const main = async () => {
     maxRentDuration,
     paymentToken
   );
+  receipt = await txn.wait();
 
-  const receipt = await txn.wait();
   return receipt;
 };
 
