@@ -3213,11 +3213,11 @@ var Whoopi = /*#__PURE__*/function () {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return this.contract.stopLend(String(nftAddress), tokenId.map(function (id) {
-                return bignumber.BigNumber.from(id);
+              return this.contract.stopLend([String(nftAddress), tokenId.map(function (x) {
+                return bignumber.BigNumber.from(x);
               }), lendingId.map(function (x) {
                 return bignumber.BigNumber.from(x);
-              }), options != null ? options : []);
+              })], options != null ? options : []);
 
             case 2:
               return _context4.abrupt("return", _context4.sent);
