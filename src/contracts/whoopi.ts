@@ -108,9 +108,11 @@ export class Whoopi implements IWhoopi {
     options?: any
   ): Promise<ContractTransaction> {
     return await this.contract.stopLend(
-      String(nftAddress),
-      tokenId.map(id => BigNumber.from(id)),
-      lendingId.map(x => BigNumber.from(x)),
+      [
+        String(nftAddress),
+        tokenId.map(x => BigNumber.from(x)),
+        lendingId.map(x => BigNumber.from(x)),
+      ],
       options ?? []
     );
   }
