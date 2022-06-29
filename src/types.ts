@@ -5,10 +5,23 @@ export enum PaymentToken {
   USDC,
   USDT,
   TUSD,
-  RENT,
+  ACS,
 }
+
+export type PaymentTokenDetails = {
+  address: String;
+  scale: number;
+};
 
 export enum NFTStandard {
   E721,
   E1155,
+}
+
+export enum RenftContracts {
+  SYLVESTER,
+  SYLVESTER_POLYGON,
+  AZRAEL,
+  WHOOPI_AVALANCHE,
+  WHOOPI_FUJI,
 }

@@ -189,7 +189,7 @@ describe('Utils', () => {
         PaymentToken.USDC,
         PaymentToken.USDT,
         PaymentToken.TUSD,
-        PaymentToken.RENT,
+        PaymentToken.ACS,
       ],
       rentDuration: [1, 2, 3, 4, 5, 6],
     });
@@ -224,7 +224,7 @@ describe('Utils', () => {
       ],
       paymentToken: [
         PaymentToken.WETH,
-        PaymentToken.RENT,
+        PaymentToken.ACS,
         PaymentToken.USDT,
         PaymentToken.DAI,
         PaymentToken.USDC,
@@ -307,7 +307,7 @@ describe('Utils', () => {
         PaymentToken.USDC,
         PaymentToken.USDT,
         PaymentToken.TUSD,
-        PaymentToken.RENT,
+        PaymentToken.ACS,
         PaymentToken.WETH,
         PaymentToken.WETH,
         PaymentToken.WETH,
@@ -354,7 +354,7 @@ describe('Utils', () => {
       ],
       paymentToken: [
         PaymentToken.USDT,
-        PaymentToken.RENT,
+        PaymentToken.ACS,
         PaymentToken.WETH,
         PaymentToken.DAI,
         PaymentToken.USDC,
