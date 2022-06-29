@@ -2715,7 +2715,7 @@ var toScaledAmount = function toScaledAmount(v, c, t) {
   }
 
   var bigv = BigNumber.from(v);
-  bigv = bigv.mul(BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t])));
+  bigv = bigv.mul(BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale)));
   return bigv;
 }; // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
 
@@ -2729,7 +2729,7 @@ var fromScaledAmount = function fromScaledAmount(v, c, t) {
   }
 
   var bigv = BigNumber.from(v);
-  bigv = bigv.div(BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t])));
+  bigv = bigv.div(BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale)));
   return bigv.toString();
 };
 
