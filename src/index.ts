@@ -20,7 +20,7 @@ export {
   WhoopiAvalancheAddress as WHOOPI_AVALANCHE_ADDRESS,
 } from './consts';
 
-export { PaymentToken, NFTStandard } from './types';
+export { PaymentToken, NFTStandard, RenftContracts } from './types';
 export {
   packPrice,
   unpackPrice,
