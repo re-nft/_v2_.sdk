@@ -1,7 +1,7 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 
-import { PaymentToken, NFTStandard } from './types';
-import { MAX_PRICE, NUM_BITS_IN_BYTE } from './consts';
+import { PaymentToken, NFTStandard, RenftContracts } from './types';
+import { MAX_PRICE, NUM_BITS_IN_BYTE, Resolvers } from './consts';
 
 // consts that predominantly pertain to this file
 const BITSIZE_MAX_VALUE = 32;
@@ -258,4 +258,48 @@ export const prepareBatch = (args: PrepareBatch) => {
   }
 
   return pb;
+};
+
+// TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
+export const toScaledAmount = (
+  v: BigNumberish,
+  c: RenftContracts,
+  t: PaymentToken
+): BigNumber => {
+  if (
+    c !== RenftContracts.WHOOPI_FUJI &&
+    c !== RenftContracts.WHOOPI_AVALANCHE
+  ) {
+    throw new TypeError(
+      'Invalid contract type. Only whoopy fuji and whoopi avalanche supported.'
+    );
+  }
+  if (t === PaymentToken.SENTINEL) {
+    throw new TypeError('Invalid payment token. Non sentinels supported only.');
+  }
+  let bigv: BigNumber = BigNumber.from(v);
+  bigv = bigv.mul(BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t])));
+  return bigv;
+};
+
+// TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
+export const fromScaledAmount = (
+  v: BigNumberish,
+  c: RenftContracts,
+  t: PaymentToken
+): string => {
+  if (
+    c !== RenftContracts.WHOOPI_FUJI &&
+    c !== RenftContracts.WHOOPI_AVALANCHE
+  ) {
+    throw new TypeError(
+      'Invalid contract type. Only whoopy fuji and whoopi avalanche supported.'
+    );
+  }
+  if (t === PaymentToken.SENTINEL) {
+    throw new TypeError('Invalid payment token. Non sentinels supported only.');
+  }
+  let bigv: BigNumber = BigNumber.from(v);
+  bigv = bigv.div(BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t])));
+  return bigv.toString();
 };

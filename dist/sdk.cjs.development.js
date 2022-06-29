@@ -2365,7 +2365,33 @@ try {
 }
 });
 
-// * Note, this price does not apply to Whoopi
+(function (PaymentToken) {
+  PaymentToken[PaymentToken["SENTINEL"] = 0] = "SENTINEL";
+  PaymentToken[PaymentToken["WETH"] = 1] = "WETH";
+  PaymentToken[PaymentToken["DAI"] = 2] = "DAI";
+  PaymentToken[PaymentToken["USDC"] = 3] = "USDC";
+  PaymentToken[PaymentToken["USDT"] = 4] = "USDT";
+  PaymentToken[PaymentToken["TUSD"] = 5] = "TUSD";
+  PaymentToken[PaymentToken["ACS"] = 6] = "ACS";
+})(exports.PaymentToken || (exports.PaymentToken = {}));
+
+(function (NFTStandard) {
+  NFTStandard[NFTStandard["E721"] = 0] = "E721";
+  NFTStandard[NFTStandard["E1155"] = 1] = "E1155";
+})(exports.NFTStandard || (exports.NFTStandard = {}));
+
+var RenftContracts;
+
+(function (RenftContracts) {
+  RenftContracts[RenftContracts["SYLVESTER"] = 0] = "SYLVESTER";
+  RenftContracts[RenftContracts["SYLVESTER_POLYGON"] = 1] = "SYLVESTER_POLYGON";
+  RenftContracts[RenftContracts["AZRAEL"] = 2] = "AZRAEL";
+  RenftContracts[RenftContracts["WHOOPI_AVALANCHE"] = 3] = "WHOOPI_AVALANCHE";
+  RenftContracts[RenftContracts["WHOOPI_FUJI"] = 4] = "WHOOPI_FUJI";
+})(RenftContracts || (RenftContracts = {}));
+
+var _RenftContracts$SYLVE, _RenftContracts$SYLVE2, _RenftContracts$AZRAE, _RenftContracts$WHOOP, _RenftContracts$WHOOP2, _Resolvers;
+
 var MAX_PRICE = 9999.9999;
 var NUM_BITS_IN_BYTE = 8;
 var ResolverAddress = '0x945e589a4715d1915e6fe14f08e4887bc4019341';
@@ -2374,7 +2400,77 @@ var ResolverAvalancheAddress = '0xa87EE372743D5A07fc701E5c7b6bCb2204f46607';
 var AzraelAddress = '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7';
 var SylvesterAddress = '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a';
 var SylvesterPolygonAddress = '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe';
-var WhoopiAvalancheAddress = '0xEE9F125748aacCDe3BcD94758395f5AcD41e05a1';
+var WhoopiAvalancheAddress = '0xEE9F125748aacCDe3BcD94758395f5AcD41e05a1'; // Resolver related
+
+var SENTINEL = {
+  address: '',
+  scale: 0
+};
+var ETHEREUM_WETH = {
+  address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+  scale: 18
+};
+var ETHEREUM_DAI = {
+  address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+  scale: 18
+};
+var ETHEREUM_USDC = {
+  address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+  scale: 6
+};
+var ETHEREUM_USDT = {
+  address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+  scale: 6
+};
+var ETHEREUM_TUSD = {
+  address: '0x0000000000085d4780B73119b644AE5ecd22b376',
+  scale: 18
+};
+var POLYGON_WETH = {
+  address: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
+  scale: 18
+};
+var POLYGON_DAI = {
+  address: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063',
+  scale: 18
+};
+var POLYGON_USDC = {
+  address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
+  scale: 6
+};
+var POLYGON_USDT = {
+  address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
+  scale: 6
+};
+var POLYGON_TUSD = {
+  address: '0x2e1AD108fF1D8C782fcBbB89AAd783aC49586756',
+  scale: 18
+};
+var FUJI_WETH = {
+  address: '0x40E71a970Ff1fbd21A53b4d2dbc102Be0E1d574f',
+  scale: 18
+};
+var FUJI_DAI = {
+  address: '0x40E71a970Ff1fbd21A53b4d2dbc102Be0E1d574f',
+  scale: 18
+};
+var FUJI_USDC = {
+  address: '0x43CDA502069B1dFa4f7C1a1625Bc6be47cD0bD88',
+  scale: 6
+};
+var FUJI_USDT = {
+  address: '0x051DE28a8B5836f678A13d19EE7F8c167b4Ca54D',
+  scale: 6
+};
+var FUJI_TUSD = {
+  address: '0x051DE28a8B5836f678A13d19EE7F8c167b4Ca54D',
+  scale: 6
+};
+var FUJI_ACS = {
+  address: '0x425bFc9031997dCc6771f37B9Dd1f087E86da71B',
+  scale: 18
+};
+var Resolvers = (_Resolvers = {}, _Resolvers[RenftContracts.SYLVESTER] = (_RenftContracts$SYLVE = {}, _RenftContracts$SYLVE[exports.PaymentToken.SENTINEL] = SENTINEL, _RenftContracts$SYLVE[exports.PaymentToken.WETH] = ETHEREUM_WETH, _RenftContracts$SYLVE[exports.PaymentToken.DAI] = ETHEREUM_DAI, _RenftContracts$SYLVE[exports.PaymentToken.USDC] = ETHEREUM_USDC, _RenftContracts$SYLVE[exports.PaymentToken.USDT] = ETHEREUM_USDT, _RenftContracts$SYLVE[exports.PaymentToken.TUSD] = ETHEREUM_TUSD, _RenftContracts$SYLVE[exports.PaymentToken.ACS] = SENTINEL, _RenftContracts$SYLVE), _Resolvers[RenftContracts.SYLVESTER_POLYGON] = (_RenftContracts$SYLVE2 = {}, _RenftContracts$SYLVE2[exports.PaymentToken.SENTINEL] = SENTINEL, _RenftContracts$SYLVE2[exports.PaymentToken.WETH] = POLYGON_WETH, _RenftContracts$SYLVE2[exports.PaymentToken.DAI] = POLYGON_DAI, _RenftContracts$SYLVE2[exports.PaymentToken.USDC] = POLYGON_USDC, _RenftContracts$SYLVE2[exports.PaymentToken.USDT] = POLYGON_USDT, _RenftContracts$SYLVE2[exports.PaymentToken.TUSD] = POLYGON_TUSD, _RenftContracts$SYLVE2[exports.PaymentToken.ACS] = SENTINEL, _RenftContracts$SYLVE2), _Resolvers[RenftContracts.AZRAEL] = (_RenftContracts$AZRAE = {}, _RenftContracts$AZRAE[exports.PaymentToken.SENTINEL] = SENTINEL, _RenftContracts$AZRAE[exports.PaymentToken.WETH] = ETHEREUM_WETH, _RenftContracts$AZRAE[exports.PaymentToken.DAI] = ETHEREUM_DAI, _RenftContracts$AZRAE[exports.PaymentToken.USDC] = ETHEREUM_USDC, _RenftContracts$AZRAE[exports.PaymentToken.USDT] = ETHEREUM_USDT, _RenftContracts$AZRAE[exports.PaymentToken.TUSD] = ETHEREUM_TUSD, _RenftContracts$AZRAE[exports.PaymentToken.ACS] = SENTINEL, _RenftContracts$AZRAE), _Resolvers[RenftContracts.WHOOPI_AVALANCHE] = (_RenftContracts$WHOOP = {}, _RenftContracts$WHOOP[exports.PaymentToken.SENTINEL] = SENTINEL, _RenftContracts$WHOOP[exports.PaymentToken.WETH] = SENTINEL, _RenftContracts$WHOOP[exports.PaymentToken.DAI] = SENTINEL, _RenftContracts$WHOOP[exports.PaymentToken.USDC] = SENTINEL, _RenftContracts$WHOOP[exports.PaymentToken.USDT] = SENTINEL, _RenftContracts$WHOOP[exports.PaymentToken.TUSD] = SENTINEL, _RenftContracts$WHOOP[exports.PaymentToken.ACS] = SENTINEL, _RenftContracts$WHOOP), _Resolvers[RenftContracts.WHOOPI_FUJI] = (_RenftContracts$WHOOP2 = {}, _RenftContracts$WHOOP2[exports.PaymentToken.SENTINEL] = SENTINEL, _RenftContracts$WHOOP2[exports.PaymentToken.WETH] = FUJI_WETH, _RenftContracts$WHOOP2[exports.PaymentToken.DAI] = FUJI_DAI, _RenftContracts$WHOOP2[exports.PaymentToken.USDC] = FUJI_USDC, _RenftContracts$WHOOP2[exports.PaymentToken.USDT] = FUJI_USDT, _RenftContracts$WHOOP2[exports.PaymentToken.TUSD] = FUJI_TUSD, _RenftContracts$WHOOP2[exports.PaymentToken.ACS] = FUJI_ACS, _RenftContracts$WHOOP2), _Resolvers);
 
 var BITSIZE_MAX_VALUE = 32;
 var HALF_BITSIZE = 16;
@@ -2607,6 +2703,34 @@ var prepareBatch = function prepareBatch(args) {
   }
 
   return pb;
+}; // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
+
+var toScaledAmount = function toScaledAmount(v, c, t) {
+  if (c !== RenftContracts.WHOOPI_FUJI && c !== RenftContracts.WHOOPI_AVALANCHE) {
+    throw new TypeError('Invalid contract type. Only whoopy fuji and whoopi avalanche supported.');
+  }
+
+  if (t === exports.PaymentToken.SENTINEL) {
+    throw new TypeError('Invalid payment token. Non sentinels supported only.');
+  }
+
+  var bigv = bignumber.BigNumber.from(v);
+  bigv = bigv.mul(bignumber.BigNumber.from('10').pow(bignumber.BigNumber.from(Resolvers[c][t])));
+  return bigv;
+}; // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
+
+var fromScaledAmount = function fromScaledAmount(v, c, t) {
+  if (c !== RenftContracts.WHOOPI_FUJI && c !== RenftContracts.WHOOPI_AVALANCHE) {
+    throw new TypeError('Invalid contract type. Only whoopy fuji and whoopi avalanche supported.');
+  }
+
+  if (t === exports.PaymentToken.SENTINEL) {
+    throw new TypeError('Invalid payment token. Non sentinels supported only.');
+  }
+
+  var bigv = bignumber.BigNumber.from(v);
+  bigv = bigv.div(bignumber.BigNumber.from('10').pow(bignumber.BigNumber.from(Resolvers[c][t])));
+  return bigv.toString();
 };
 
 var Sylvester = /*#__PURE__*/function () {
@@ -3275,21 +3399,6 @@ var Whoopi = /*#__PURE__*/function () {
   return Whoopi;
 }();
 
-(function (PaymentToken) {
-  PaymentToken[PaymentToken["SENTINEL"] = 0] = "SENTINEL";
-  PaymentToken[PaymentToken["WETH"] = 1] = "WETH";
-  PaymentToken[PaymentToken["DAI"] = 2] = "DAI";
-  PaymentToken[PaymentToken["USDC"] = 3] = "USDC";
-  PaymentToken[PaymentToken["USDT"] = 4] = "USDT";
-  PaymentToken[PaymentToken["TUSD"] = 5] = "TUSD";
-  PaymentToken[PaymentToken["RENT"] = 6] = "RENT";
-})(exports.PaymentToken || (exports.PaymentToken = {}));
-
-(function (NFTStandard) {
-  NFTStandard[NFTStandard["E721"] = 0] = "E721";
-  NFTStandard[NFTStandard["E1155"] = 1] = "E1155";
-})(exports.NFTStandard || (exports.NFTStandard = {}));
-
 exports.AZRAEL_ABI = AzraelAbi;
 exports.AZRAEL_ADDRESS = AzraelAddress;
 exports.Azrael = Azrael;
@@ -3304,8 +3413,10 @@ exports.Sylvester = Sylvester;
 exports.WHOOPI_ABI = WhoopiAbi;
 exports.WHOOPI_AVALANCHE_ADDRESS = WhoopiAvalancheAddress;
 exports.Whoopi = Whoopi;
+exports.fromScaledAmount = fromScaledAmount;
 exports.packPrice = packPrice;
 exports.prepareBatch = prepareBatch;
 exports.toPaddedHex = toPaddedHex;
+exports.toScaledAmount = toScaledAmount;
 exports.unpackPrice = unpackPrice;
 //# sourceMappingURL=sdk.cjs.development.js.map

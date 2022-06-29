@@ -5,9 +5,20 @@ export declare enum PaymentToken {
     USDC = 3,
     USDT = 4,
     TUSD = 5,
-    RENT = 6
+    ACS = 6
 }
+export declare type PaymentTokenDetails = {
+    address: String;
+    scale: number;
+};
 export declare enum NFTStandard {
     E721 = 0,
     E1155 = 1
+}
+export declare enum RenftContracts {
+    SYLVESTER = 0,
+    SYLVESTER_POLYGON = 1,
+    AZRAEL = 2,
+    WHOOPI_AVALANCHE = 3,
+    WHOOPI_FUJI = 4
 }

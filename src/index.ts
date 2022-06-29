@@ -21,7 +21,14 @@ export {
 } from './consts';
 
 export { PaymentToken, NFTStandard } from './types';
-export { packPrice, unpackPrice, toPaddedHex, prepareBatch } from './utils';
+export {
+  packPrice,
+  unpackPrice,
+  toPaddedHex,
+  prepareBatch,
+  toScaledAmount,
+  fromScaledAmount,
+} from './utils';
 
 export {
   ResolverAbi as RESOLVER_ABI,

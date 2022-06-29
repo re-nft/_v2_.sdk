@@ -1,5 +1,5 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { PaymentToken, NFTStandard } from './types';
+import { PaymentToken, NFTStandard, RenftContracts } from './types';
 /**
  * hexchar is 0 to 15 which is 2 ** 4 - 1.
  * This means that hexchar (aka nibble) is half a byte,
@@ -65,4 +65,6 @@ interface PrepareBatch extends IObjectKeys {
  * @param args
  */
 export declare const prepareBatch: (args: PrepareBatch) => PrepareBatch;
+export declare const toScaledAmount: (v: BigNumberish, c: RenftContracts, t: PaymentToken) => BigNumber;
+export declare const fromScaledAmount: (v: BigNumberish, c: RenftContracts, t: PaymentToken) => string;
 export {};

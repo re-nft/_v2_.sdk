@@ -18,6 +18,10 @@ export const WhoopiAvalancheAddress =
   '0xEE9F125748aacCDe3BcD94758395f5AcD41e05a1';
 
 // Resolver related
+const SENTINEL: PaymentTokenDetails = {
+  address: '',
+  scale: 0,
+};
 const ETHEREUM_WETH: PaymentTokenDetails = {
   address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
   scale: 18,
@@ -83,36 +87,50 @@ const FUJI_ACS: PaymentTokenDetails = {
   scale: 18,
 };
 
-// ! once all the RenftContracts are the keys, we can remove the outer Partial<>
-type ResolversType = Partial<
-  Record<RenftContracts, Partial<Record<PaymentToken, PaymentTokenDetails>>>
+type ResolversType = Record<
+  RenftContracts,
+  Record<PaymentToken, PaymentTokenDetails>
 >;
 export const Resolvers: ResolversType = {
   [RenftContracts.SYLVESTER]: {
+    [PaymentToken.SENTINEL]: SENTINEL,
     [PaymentToken.WETH]: ETHEREUM_WETH,
     [PaymentToken.DAI]: ETHEREUM_DAI,
     [PaymentToken.USDC]: ETHEREUM_USDC,
     [PaymentToken.USDT]: ETHEREUM_USDT,
     [PaymentToken.TUSD]: ETHEREUM_TUSD,
+    [PaymentToken.ACS]: SENTINEL,
   },
   [RenftContracts.SYLVESTER_POLYGON]: {
+    [PaymentToken.SENTINEL]: SENTINEL,
     [PaymentToken.WETH]: POLYGON_WETH,
     [PaymentToken.DAI]: POLYGON_DAI,
     [PaymentToken.USDC]: POLYGON_USDC,
     [PaymentToken.USDT]: POLYGON_USDT,
     [PaymentToken.TUSD]: POLYGON_TUSD,
+    [PaymentToken.ACS]: SENTINEL,
   },
   [RenftContracts.AZRAEL]: {
+    [PaymentToken.SENTINEL]: SENTINEL,
     [PaymentToken.WETH]: ETHEREUM_WETH,
     [PaymentToken.DAI]: ETHEREUM_DAI,
     [PaymentToken.USDC]: ETHEREUM_USDC,
     [PaymentToken.USDT]: ETHEREUM_USDT,
     [PaymentToken.TUSD]: ETHEREUM_TUSD,
+    [PaymentToken.ACS]: SENTINEL,
   },
-  // TODO
-  // [RenftContracts.WHOOPI_AVALANCHE]: {
-  // },
+  // TODO: set all of these once you deploy to avalanche
+  [RenftContracts.WHOOPI_AVALANCHE]: {
+    [PaymentToken.SENTINEL]: SENTINEL,
+    [PaymentToken.WETH]: SENTINEL,
+    [PaymentToken.DAI]: SENTINEL,
+    [PaymentToken.USDC]: SENTINEL,
+    [PaymentToken.USDT]: SENTINEL,
+    [PaymentToken.TUSD]: SENTINEL,
+    [PaymentToken.ACS]: SENTINEL,
+  },
   [RenftContracts.WHOOPI_FUJI]: {
+    [PaymentToken.SENTINEL]: SENTINEL,
     [PaymentToken.WETH]: FUJI_WETH,
     [PaymentToken.DAI]: FUJI_DAI,
     [PaymentToken.USDC]: FUJI_USDC,
