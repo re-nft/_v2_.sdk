@@ -277,11 +277,26 @@ export const toScaledAmount = (
   if (t === PaymentToken.SENTINEL) {
     throw new TypeError('Invalid payment token. Non sentinels supported only.');
   }
-  let bigv: BigNumber = BigNumber.from(v);
-  bigv = bigv.mul(
-    BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale))
-  );
-  return bigv;
+
+  let numberv = Number(v);
+  if (numberv < 0) {
+    throw new Error(
+      'Value is less than zero. Renft does not support negative values.'
+    );
+  }
+
+  if (numberv < 1) {
+    const bigv = numberv * 10 ** Resolvers[c][t].scale;
+
+    return BigNumber.from(bigv);
+  } else {
+    let bigv: BigNumber = BigNumber.from(v);
+    bigv = bigv.mul(
+      BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale))
+    );
+
+    return bigv;
+  }
 };
 
 // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
@@ -301,9 +316,11 @@ export const fromScaledAmount = (
   if (t === PaymentToken.SENTINEL) {
     throw new TypeError('Invalid payment token. Non sentinels supported only.');
   }
+
   let bigv: BigNumber = BigNumber.from(v);
   bigv = bigv.div(
     BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale))
   );
+
   return bigv.toString();
 };
