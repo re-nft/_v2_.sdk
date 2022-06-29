@@ -2714,9 +2714,21 @@ var toScaledAmount = function toScaledAmount(v, c, t) {
     throw new TypeError('Invalid payment token. Non sentinels supported only.');
   }
 
-  var bigv = BigNumber.from(v);
-  bigv = bigv.mul(BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale)));
-  return bigv;
+  var numberv = Number(v);
+
+  if (numberv < 0) {
+    throw new Error('Value is less than zero. Renft does not support negative values.');
+  }
+
+  if (numberv < 1) {
+    var bigv = numberv * Math.pow(10, Resolvers[c][t].scale);
+    return BigNumber.from(bigv);
+  } else {
+    var _bigv = BigNumber.from(v);
+
+    _bigv = _bigv.mul(BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale)));
+    return _bigv;
+  }
 }; // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
 
 var fromScaledAmount = function fromScaledAmount(v, c, t) {
