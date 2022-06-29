@@ -285,15 +285,15 @@ export const toScaledAmount = (
     );
   }
 
+  const unit = 10 ** Resolvers[c][t].scale;
+
   if (numberv < 1) {
-    const bigv = numberv * 10 ** Resolvers[c][t].scale;
+    const bigv = numberv * unit;
 
     return BigNumber.from(bigv);
   } else {
     let bigv: BigNumber = BigNumber.from(v);
-    bigv = bigv.mul(
-      BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale))
-    );
+    bigv = bigv.mul(unit);
 
     return bigv;
   }
@@ -317,10 +317,23 @@ export const fromScaledAmount = (
     throw new TypeError('Invalid payment token. Non sentinels supported only.');
   }
 
-  let bigv: BigNumber = BigNumber.from(v);
-  bigv = bigv.div(
-    BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale))
-  );
+  let numberv = Number(v);
+  if (numberv < 0) {
+    throw new Error(
+      'Value is less than zero. Renft does not support negative values.'
+    );
+  }
 
-  return bigv.toString();
+  const unit = 10 ** Resolvers[c][t].scale;
+
+  if (numberv < unit) {
+    const bigv = numberv / unit;
+
+    return String(bigv);
+  } else {
+    let bigv: BigNumber = BigNumber.from(v);
+    bigv = bigv.div(BigNumber.from(unit));
+
+    return bigv.toString();
+  }
 };
