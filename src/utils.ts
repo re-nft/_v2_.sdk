@@ -278,7 +278,9 @@ export const toScaledAmount = (
     throw new TypeError('Invalid payment token. Non sentinels supported only.');
   }
   let bigv: BigNumber = BigNumber.from(v);
-  bigv = bigv.mul(BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t])));
+  bigv = bigv.mul(
+    BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale))
+  );
   return bigv;
 };
 
@@ -300,6 +302,8 @@ export const fromScaledAmount = (
     throw new TypeError('Invalid payment token. Non sentinels supported only.');
   }
   let bigv: BigNumber = BigNumber.from(v);
-  bigv = bigv.div(BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t])));
+  bigv = bigv.div(
+    BigNumber.from('10').pow(BigNumber.from(Resolvers[c][t].scale))
+  );
   return bigv.toString();
 };
