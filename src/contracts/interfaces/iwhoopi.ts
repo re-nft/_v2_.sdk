@@ -1,5 +1,4 @@
 import { ContractTransaction } from '@ethersproject/contracts';
-import { BigNumber } from '@ethersproject/bignumber';
 
 // * Note that there is no RENT payment token on avalanche (as of 14th June 2022)
 import { PaymentToken } from '../../types';
@@ -8,8 +7,8 @@ import { PaymentToken } from '../../types';
 interface IWhoopi {
   lend(
     nftAddress: string,
-    tokenId: BigNumber[],
-    upfrontRentFees: BigNumber[],
+    tokenId: string[],
+    upfrontRentFees: string[],
     revShareBeneficiaries: string[][],
     portions: number[][],
     maxRentDurations: number[],
@@ -20,8 +19,8 @@ interface IWhoopi {
 
   rent(
     nftAddress: string,
-    tokenId: BigNumber[],
-    lendingId: BigNumber[],
+    tokenId: string[],
+    lendingId: string[],
     rentDurations: number[],
     options?: any
   ): Promise<ContractTransaction>;
@@ -29,24 +28,24 @@ interface IWhoopi {
   // This is only callable by the stop rent bot.
   stopRent(
     nftAddress: string,
-    tokenId: BigNumber[],
-    lendingId: BigNumber[],
+    tokenId: string[],
+    lendingId: string[],
     options?: any
   ): Promise<ContractTransaction>;
 
   stopLending(
     nftAddress: string,
-    tokenId: BigNumber[],
-    lendingId: BigNumber[],
+    tokenId: string[],
+    lendingId: string[],
     options?: any
   ): Promise<ContractTransaction>;
 
   pay(
     nftAddress: string,
-    tokenId: BigNumber[],
-    lendingId: BigNumber[],
+    tokenId: string[],
+    lendingId: string[],
     renterAddress: string[],
-    amountToPay: number[],
+    amountToPay: string[],
     options?: any
   ): Promise<ContractTransaction>;
 }
