@@ -1,4 +1,9 @@
-import { BigNumber, BigNumberish, parseFixed, formatFixed } from '@ethersproject/bignumber';
+import {
+  BigNumber,
+  BigNumberish,
+  parseFixed,
+  formatFixed,
+} from '@ethersproject/bignumber';
 
 import { PaymentToken, NFTStandard, RenftContracts } from './types';
 import { MAX_PRICE, NUM_BITS_IN_BYTE, Resolvers } from './consts';
