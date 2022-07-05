@@ -1,5 +1,5 @@
 import { Contract } from '@ethersproject/contracts';
-import { BigNumber } from '@ethersproject/bignumber';
+import { parseFixed, formatFixed, BigNumber } from '@ethersproject/bignumber';
 
 var resolver_abi = {
   abi: [{
@@ -2714,23 +2714,7 @@ var toScaledAmount = function toScaledAmount(v, c, t) {
     throw new TypeError('Invalid payment token. Non sentinels supported only.');
   }
 
-  var numberv = Number(v);
-
-  if (numberv < 0) {
-    throw new Error('Value is less than zero. Renft does not support negative values.');
-  }
-
-  var unit = Math.pow(10, Resolvers[c][t].scale);
-
-  if (numberv < 1) {
-    var bigv = numberv * unit;
-    return BigNumber.from(bigv);
-  } else {
-    var _bigv = BigNumber.from(v);
-
-    _bigv = _bigv.mul(unit);
-    return _bigv;
-  }
+  return parseFixed(String(v), Resolvers[c][t].scale);
 }; // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
 
 var fromScaledAmount = function fromScaledAmount(v, c, t) {
@@ -2742,23 +2726,7 @@ var fromScaledAmount = function fromScaledAmount(v, c, t) {
     throw new TypeError('Invalid payment token. Non sentinels supported only.');
   }
 
-  var numberv = Number(v);
-
-  if (numberv < 0) {
-    throw new Error('Value is less than zero. Renft does not support negative values.');
-  }
-
-  var unit = Math.pow(10, Resolvers[c][t].scale);
-
-  if (numberv < unit) {
-    var bigv = numberv / unit;
-    return String(bigv);
-  } else {
-    var _bigv2 = BigNumber.from(v);
-
-    _bigv2 = _bigv2.div(BigNumber.from(unit));
-    return _bigv2.toString();
-  }
+  return formatFixed(v, Resolvers[c][t].scale);
 };
 
 var Sylvester = /*#__PURE__*/function () {
