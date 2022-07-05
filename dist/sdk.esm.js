@@ -3232,13 +3232,10 @@ var Whoopi = /*#__PURE__*/function () {
               }
 
               _context.next = 6;
-              return this.contract.lend([String(nftAddress), tokenId.map(function (x) {
-                return BigNumber.from(x);
-              }), Array(nftAddress.length).fill(BigNumber.from('0'))], (_upfrontRentFees$map = upfrontRentFees.map(function (x) {
-                return Number(x);
-              })) != null ? _upfrontRentFees$map : [], allowRenters, revShares, maxRentDurations.map(function (x) {
-                return Number(x);
-              }), paymentTokens, options != null ? options : []);
+              return this.contract.lend([nftAddress, tokenId, Array(nftAddress.length).fill('0')], // TODO: change this to mainner renft contract
+              (_upfrontRentFees$map = upfrontRentFees.map(function (x, i) {
+                return toScaledAmount(x, RenftContracts.WHOOPI_FUJI, paymentTokens[i]);
+              })) != null ? _upfrontRentFees$map : [], allowRenters, revShares, maxRentDurations, paymentTokens, options != null ? options : []);
 
             case 6:
               return _context.abrupt("return", _context.sent);
@@ -3265,13 +3262,7 @@ var Whoopi = /*#__PURE__*/function () {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return this.contract.rent([String(nftAddress), tokenId.map(function (x) {
-                return BigNumber.from(x);
-              }), lendingId.map(function (x) {
-                return BigNumber.from(x);
-              })], rentDurations.map(function (x) {
-                return Number(x);
-              }), options != null ? options : []);
+              return this.contract.rent([nftAddress, tokenId, lendingId], rentDurations, options != null ? options : []);
 
             case 2:
               return _context2.abrupt("return", _context2.sent);
@@ -3302,11 +3293,7 @@ var Whoopi = /*#__PURE__*/function () {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return this.contract.stopRent(String(nftAddress), tokenId.map(function (id) {
-                return BigNumber.from(id);
-              }), lendingId.map(function (x) {
-                return BigNumber.from(x);
-              }), options != null ? options : []);
+              return this.contract.stopRent(nftAddress, tokenId, lendingId, options != null ? options : []);
 
             case 2:
               return _context3.abrupt("return", _context3.sent);
@@ -3333,11 +3320,7 @@ var Whoopi = /*#__PURE__*/function () {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return this.contract.stopLend([String(nftAddress), tokenId.map(function (x) {
-                return BigNumber.from(x);
-              }), lendingId.map(function (x) {
-                return BigNumber.from(x);
-              })], options != null ? options : []);
+              return this.contract.stopLend([nftAddress, tokenId, lendingId], options != null ? options : []);
 
             case 2:
               return _context4.abrupt("return", _context4.sent);
@@ -3364,15 +3347,7 @@ var Whoopi = /*#__PURE__*/function () {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.next = 2;
-              return this.contract.pay(String(nftAddress), tokenId.map(function (id) {
-                return BigNumber.from(id);
-              }), lendingId.map(function (x) {
-                return BigNumber.from(x);
-              }), renterAddress.map(function (x) {
-                return String(x).toLowerCase();
-              }), amountToPay.map(function (x) {
-                return Number(x);
-              }), options != null ? options : []);
+              return this.contract.pay(nftAddress, tokenId, lendingId, renterAddress, amountToPay, options != null ? options : []);
 
             case 2:
               return _context5.abrupt("return", _context5.sent);
