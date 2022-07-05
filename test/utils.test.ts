@@ -6,7 +6,7 @@ import { toScaledAmount, fromScaledAmount } from '../src/utils';
 
 describe('Scaling', () => {
   it('Scales one WETH for Whopi Fuji (string input)', () => {
-    const unscaledOneWETH = '1';
+    const unscaledOneWETH = '1.0';
     const scaledOneWTH = toScaledAmount(
       unscaledOneWETH,
       RenftContracts.WHOOPI_FUJI,
@@ -72,7 +72,7 @@ describe('Scaling', () => {
       RenftContracts.WHOOPI_FUJI,
       PaymentToken.USDC
     );
-    expect(unscaledOneUSDC).to.equal('1');
+    expect(unscaledOneUSDC).to.equal('1.0');
   });
 
   it('Unscales 1 USDC for Whoopi Fuji (string input)', () => {
@@ -82,7 +82,7 @@ describe('Scaling', () => {
       RenftContracts.WHOOPI_FUJI,
       PaymentToken.USDC
     );
-    expect(unscaledOneUSDC).to.equal('1');
+    expect(unscaledOneUSDC).to.equal('1.0');
   });
 
   it('Unscales 0.1 USDC for Whoopi Fuji (number input)', () => {
