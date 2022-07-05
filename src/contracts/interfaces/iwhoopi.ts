@@ -9,7 +9,7 @@ interface IWhoopi {
   lend(
     nftAddress: string,
     tokenId: BigNumber[],
-    upfrontRentFees: number[],
+    upfrontRentFees: BigNumber[],
     revShareBeneficiaries: string[][],
     portions: number[][],
     maxRentDurations: number[],

@@ -1,4 +1,5 @@
 const { JsonRpcProvider } = require('@ethersproject/providers');
+const { parseFixed } = require('@ethersproject/bignumber');
 const { Wallet } = require('@ethersproject/wallet');
 const { Whoopi, PaymentToken } = require('../dist/index');
 const { mintPaymentToken, approvePaymentToken, approveNftForAll, FUJI_USDC } = require('./utils/index');
@@ -45,7 +46,7 @@ const main = async () => {
   // ! Note that if allowedRenters is empty, you must set
   // upfrontRentFee to a non zero value.
   // ! if you provide decimals, BigNumber will fail
-  const upfrontRentFee = [1, 1];
+  const upfrontRentFee = [parseFixed("1", 6), parseFixed("1", 6)];
   // ! you can't use SENTINEL as a payment token, even though
   // ! you don't want to set an upfront rent fee. Just use any
   // ! payment token in such a case.

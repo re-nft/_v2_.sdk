@@ -25,7 +25,7 @@ export class Whoopi implements IWhoopi {
   async lend(
     nftAddress: string,
     tokenId: BigNumber[],
-    upfrontRentFees: number[],
+    upfrontRentFees: BigNumber[],
     revShareBeneficiaries: string[][],
     revSharePortions: number[][],
     maxRentDurations: number[],
