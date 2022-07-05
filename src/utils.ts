@@ -285,7 +285,7 @@ export const toScaledAmount = (
     );
   }
 
-  const unit = parseFixed("1", Resolvers[c][t].scale);
+  const unit = parseFixed('1', Resolvers[c][t].scale);
 
   if (numberv < 1) {
     const bigv = numberv * unit.toNumber();

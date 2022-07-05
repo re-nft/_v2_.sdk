@@ -5,7 +5,6 @@ import { PaymentToken, RenftContracts } from '../src/types';
 import { toScaledAmount, fromScaledAmount } from '../src/utils';
 
 describe('Scaling', () => {
-
   it('Scales one WETH for Whopi Fuji (string input)', () => {
     const unscaledOneWETH = '1';
     const scaledOneWTH = toScaledAmount(
