@@ -1,4 +1,4 @@
-import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
+import { BigNumber, BigNumberish, parseFixed } from '@ethersproject/bignumber';
 
 import { PaymentToken, NFTStandard, RenftContracts } from './types';
 import { MAX_PRICE, NUM_BITS_IN_BYTE, Resolvers } from './consts';
@@ -285,10 +285,10 @@ export const toScaledAmount = (
     );
   }
 
-  const unit = 10 ** Resolvers[c][t].scale;
+  const unit = parseFixed("1", Resolvers[c][t].scale);
 
   if (numberv < 1) {
-    const bigv = numberv * unit;
+    const bigv = numberv * unit.toNumber();
 
     return BigNumber.from(bigv);
   } else {

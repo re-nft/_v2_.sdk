@@ -1,10 +1,23 @@
 import { expect } from 'chai';
-import { BigNumber } from '@ethersproject/bignumber';
+import { BigNumber, parseFixed } from '@ethersproject/bignumber';
 import { PaymentToken, RenftContracts } from '../src/types';
 
 import { toScaledAmount, fromScaledAmount } from '../src/utils';
 
 describe('Scaling', () => {
+
+  it('Scales one WETH for Whopi Fuji (string input)', () => {
+    const unscaledOneWETH = '1';
+    const scaledOneWTH = toScaledAmount(
+      unscaledOneWETH,
+      RenftContracts.WHOOPI_FUJI,
+      PaymentToken.WETH
+    );
+    expect(scaledOneWTH.toString()).to.equal(
+      parseFixed(unscaledOneWETH, 18).toString()
+    );
+  });
+
   it('Scales one USDC for Whoopi Fuji (string input)', () => {
     const unscaledOneUSDC = '1';
     const scaledOneUSDC = toScaledAmount(
