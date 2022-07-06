@@ -2396,11 +2396,11 @@ var MAX_PRICE = 9999.9999;
 var NUM_BITS_IN_BYTE = 8;
 var ResolverAddress = '0x945e589a4715d1915e6fe14f08e4887bc4019341';
 var ResolverPolygonAddress = '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518';
-var ResolverAvalancheAddress = '0xa87EE372743D5A07fc701E5c7b6bCb2204f46607';
+var ResolverAvalancheAddress = '0xD41e46d44f55bC93C33D8cDd7E2CB5BE3e93A4c0';
 var AzraelAddress = '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7';
 var SylvesterAddress = '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a';
 var SylvesterPolygonAddress = '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe';
-var WhoopiAvalancheAddress = '0xEE9F125748aacCDe3BcD94758395f5AcD41e05a1'; // Resolver related
+var WhoopiAvalancheAddress = '0x516775e81b0d1fC91Ec326DEd21c33728895Fc6C'; // Resolver related
 
 var SENTINEL = {
   address: '',
