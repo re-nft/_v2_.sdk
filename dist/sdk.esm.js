@@ -3347,7 +3347,7 @@ var Whoopi = /*#__PURE__*/function () {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.next = 2;
-              return this.contract.pay(nftAddress, tokenId, lendingId, renterAddress, amountToPay, options != null ? options : []);
+              return this.contract.pay([nftAddress, tokenId, lendingId], renterAddress, amountToPay, options != null ? options : []);
 
             case 2:
               return _context5.abrupt("return", _context5.sent);
