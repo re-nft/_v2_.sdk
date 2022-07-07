@@ -117,9 +117,7 @@ export class Whoopi implements IWhoopi {
     options?: any
   ): Promise<ContractTransaction> {
     return await this.contract.pay(
-      nftAddress,
-      tokenId,
-      lendingId,
+      [nftAddress, tokenId, lendingId],
       renterAddress,
       amountToPay,
       options ?? []
