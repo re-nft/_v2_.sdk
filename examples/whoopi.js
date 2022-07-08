@@ -116,22 +116,6 @@ const main = async () => {
 
   // -------------------- PAYING REWARDS ----------------------
 
-  // async pay(
-  //   nftAddress: string,
-  //   tokenId: string[],
-  //   lendingId: string[],
-  //   renterAddress: string[],
-  //   amountToPay: string[],
-  //   options?: any
-  // ): Promise<ContractTransaction> {
-  //   return await this.contract.pay(
-  //     [nftAddress, tokenId, lendingId],
-  //     renterAddress,
-  //     amountToPay,
-  //     options ?? []
-  //   );
-  // }
-
   // * you only need to run this once (as a reward payer)
   // * to approve once, consider setting the amount to max uint256
   // * "115792089237316195423570985008687907853269984665640564039457584007913129639935"
