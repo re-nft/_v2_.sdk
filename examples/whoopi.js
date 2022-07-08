@@ -43,12 +43,12 @@ const main = async () => {
   // * it does not have any side-effect, it's a no-op
   // await approveNftForAll(castleCrushNftAddress, wallet, whoopiAddress);
 
-  tokenId = [210, 200];
+  tokenId = ["210", "200"];
   // ! Note that if allowedRenters is empty, you must set
   // ! upfrontRentFee to a non zero value.
   const upfrontRentFee = [
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString(),
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString()
+    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString(),
+    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString()
   ];
   // ! you can't use SENTINEL as a payment token, even though
   // ! you don't want to set an upfront rent fee. Just use any
@@ -127,8 +127,8 @@ const main = async () => {
   lendingId = [3, 4];
   const renterAddress = ["0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE", "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE"];
   const amountToPay = [
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString(),
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString()
+    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString(),
+    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString()
   ];
 
   txn = await whoopi.pay(
