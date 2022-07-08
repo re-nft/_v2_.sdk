@@ -1,11 +1,9 @@
 const { JsonRpcProvider } = require('@ethersproject/providers');
 const { parseFixed } = require('@ethersproject/bignumber');
 const { Wallet } = require('@ethersproject/wallet');
-const { Whoopi, PaymentToken } = require('../dist/index');
+// * in your code this import will become: import { Whoopi } from "@renft/sdk";
+const { Whoopi, PaymentToken, RESOLVERS, RenftContracts } = require('../dist/index');
 const { mintPaymentToken, approvePaymentToken, approveNftForAll, FUJI_USDC } = require('./utils/index');
-
-// ! Ping Naz with your wallet address so that he can ask
-// ! castle crush to mint you some Fuji NFTs.
 
 // If you ever have issues with sending a transaction:
 // use { gasLimit: 1000000 } options when you send a transaction.
@@ -13,11 +11,10 @@ const { mintPaymentToken, approvePaymentToken, approveNftForAll, FUJI_USDC } = r
 // expected to fail. Next, take transaction's receipt hash
 // and use tenderly to debug: https://tenderly.co/
 
-// avalanche fuji rpc: https://api.avax-test.network/ext/bc/C/rpc
-// avalanche main rpc: https://api.avax.network/ext/bc/C/rpc
-
-
+// * if you need to use mnemonic instead of a private key
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
+// * avalanche fuji rpc: https://api.avax-test.network/ext/bc/C/rpc
+// * avalanche main rpc: https://api.avax.network/ext/bc/C/rpc
 const provider = new JsonRpcProvider('https://api.avax-test.network/ext/bc/C/rpc');
 const privKey = '';
 let wallet = new Wallet(privKey);
@@ -27,9 +24,10 @@ let txn;
 let receipt;
 
 
+// Wildlife Castle Crush FUJI examples
 const main = async () => {
   const castleCrushNftAddress = "0xeA4E79F0a40A9A468a5159499b738dc6b1332447";
-  const whoopiAddress = "0xBBda1DDeAd65E780b4330F771801011C995fa02E";
+  const whoopiAddress = "0x516775e81b0d1fC91Ec326DEd21c33728895Fc6C";
   const whoopi = new Whoopi(wallet, whoopiAddress);
 
   // ! depending on what you want to do, comment out a section
@@ -39,14 +37,17 @@ const main = async () => {
   // ---------------- LENDING ----------------------
 
   // * you only need to run this once (as a lender)
-  // so if you are re-running the script, comment this out
-  //   await approveNftForAll(castleCrushNftAddress, wallet, whoopiAddress);
+  // * if, however, you have ran it more than once,
+  // * it does not have any side-effect, it's a no-op
+  // await approveNftForAll(castleCrushNftAddress, wallet, whoopiAddress);
 
   const tokenId = [210, 200];
   // ! Note that if allowedRenters is empty, you must set
-  // upfrontRentFee to a non zero value.
-  // ! if you provide decimals, BigNumber will fail
-  const upfrontRentFee = [parseFixed("1", 6), parseFixed("1", 6)];
+  // ! upfrontRentFee to a non zero value.
+  const upfrontRentFee = [
+    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString(),
+    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString()
+  ];
   // ! you can't use SENTINEL as a payment token, even though
   // ! you don't want to set an upfront rent fee. Just use any
   // ! payment token in such a case.
@@ -58,10 +59,10 @@ const main = async () => {
   // ! portions sum cannot be 100 here. At lend, we don't know who will rent,
   // ! and the renter is always a mandatory part in rev share. We are not setting
   // ! the renter here at lend time. Therefore, 100 - sum(portions) is what
-  // ! gets eventually assigned to renter.
+  // ! gets eventually assigned to the renter.
   const revSharePortions = [
-    [50, 40],
-    [90, 5]
+    [50, 40], // 10% is how much the renter will get on this lending
+    [90, 5] // 5% is how much ther renter will get on this lending
   ];
   const maxRentDuration = [1, 2];
 
@@ -83,22 +84,76 @@ const main = async () => {
   // -------------------- RENTING ----------------------
 
   // * you only need to run this once (as a renter)
-  // so if you are re-runnig the script, comment this out
-//   await mintPaymentToken(FUJI_USDC, wallet);
-//   await approvePaymentToken(FUJI_USDC, wallet, whoopiAddress, "1000000000");
+  // await mintPaymentToken(FUJI_USDC, wallet);
+  // await approvePaymentToken(FUJI_USDC, wallet, whoopiAddress, "1000000000");
 
   // castle crush nft address
-//   const tokenId = [210, 200];
-//   const lendingId = [3, 4];
-//   const rentingDuration = [1, 2];
+  // const tokenId = [210, 200];
+  // const lendingId = [3, 4];
+  // const rentingDuration = [1, 2];
 
-//   txn = await whoopi.rent(
-//     castleCrushNftAddress,
-//     tokenId,
-//     lendingId,
-//     rentingDuration
-//   );
-//   receipt = await txn.wait();
+  // txn = await whoopi.rent(
+  //   castleCrushNftAddress,
+  //   tokenId,
+  //   lendingId,
+  //   rentingDuration
+  //   // { gasLimit: 1000000 }
+  // );
+  // receipt = await txn.wait();
+
+  // -------------------- STOPPING LENDING ----------------------
+
+  // const tokenId = [210, 200];
+  // const lendingId = [3, 4];
+
+  // txn = await whoopi.stopLending(
+  //   castleCrushNftAddress,
+  //   tokenId,
+  //   lendingId,
+  //   // { gasLimit: 1000000 }
+  // )
+  // receipt = await txn.wait();
+
+  // -------------------- PAYING REWARDS ----------------------
+
+  // async pay(
+  //   nftAddress: string,
+  //   tokenId: string[],
+  //   lendingId: string[],
+  //   renterAddress: string[],
+  //   amountToPay: string[],
+  //   options?: any
+  // ): Promise<ContractTransaction> {
+  //   return await this.contract.pay(
+  //     [nftAddress, tokenId, lendingId],
+  //     renterAddress,
+  //     amountToPay,
+  //     options ?? []
+  //   );
+  // }
+
+  // * you only need to run this once (as a reward payer)
+  // * to approve once, consider setting the amount to max uint256
+  // * "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+  // await approvePaymentToken(FUJI_USDC, wallet, whoopiAddress, "1000000000");
+
+  // const tokenId = [210, 200];
+  // const lendingId = [3, 4];
+  // const renterAddress = ["0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE", "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE"];
+  // const amountToPay = [
+  //   parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString(),
+  //   parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString()
+  // ];
+
+  // txn = await whoopi.pay(
+  //   castleCrushNftAddress,
+  //   tokenId,
+  //   lendingId,
+  //   renterAddress,
+  //   amountToPay,
+  //   // { gasLimit: 1000000 }
+  // );
+  // receipt = await txn.wait();
 
   return receipt;
 };

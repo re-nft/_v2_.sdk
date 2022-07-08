@@ -18,6 +18,7 @@ export {
   SylvesterPolygonAddress as SYLVESTER_POLYGON_ADDRESS,
   ResolverAvalancheAddress as RESOLVER_AVALANCHE_ADDRESS,
   WhoopiAvalancheAddress as WHOOPI_AVALANCHE_ADDRESS,
+  Resolvers as RESOLVERS,
 } from './consts';
 
 export { PaymentToken, NFTStandard, RenftContracts } from './types';
