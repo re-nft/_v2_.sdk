@@ -1,5 +1,5 @@
 {
-  "version": "3.0.5",
+  "version": "4.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -8,7 +8,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -17,12 +17,11 @@
     "lint": "tsdx lint",
     "format": "prettier --write './src/**/*' './test/**/*'",
     "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
+    "size": "size-limit"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "tsdx lint && prettier --write './src/**/*' './test/**/*'"
     }
   },
   "prettier": {
