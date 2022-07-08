@@ -1,8 +1,8 @@
 const { JsonRpcProvider } = require('@ethersproject/providers');
 const { parseFixed } = require('@ethersproject/bignumber');
 const { Wallet } = require('@ethersproject/wallet');
-// * in your code this import will become: import { Whoopi } from "@renft/sdk";
-const { Whoopi, PaymentToken, RESOLVERS, RenftContracts } = require('../dist/index');
+const { Whoopi, PaymentToken, RESOLVERS, RenftContracts } = require('@renft/sdk');
+
 const { mintPaymentToken, approvePaymentToken, approveNftForAll, FUJI_USDC } = require('./utils/index');
 
 // If you ever have issues with sending a transaction:
@@ -22,6 +22,8 @@ wallet = wallet.connect(provider);
 
 let txn;
 let receipt;
+let tokenId;
+let lendingId;
 
 
 // Wildlife Castle Crush FUJI examples
@@ -41,7 +43,7 @@ const main = async () => {
   // * it does not have any side-effect, it's a no-op
   // await approveNftForAll(castleCrushNftAddress, wallet, whoopiAddress);
 
-  const tokenId = [210, 200];
+  tokenId = [210, 200];
   // ! Note that if allowedRenters is empty, you must set
   // ! upfrontRentFee to a non zero value.
   const upfrontRentFee = [
@@ -88,31 +90,31 @@ const main = async () => {
   // await approvePaymentToken(FUJI_USDC, wallet, whoopiAddress, "1000000000");
 
   // castle crush nft address
-  // const tokenId = [210, 200];
-  // const lendingId = [3, 4];
-  // const rentingDuration = [1, 2];
+  tokenId = [210, 200];
+  lendingId = [3, 4];
+  const rentingDuration = [1, 2];
 
-  // txn = await whoopi.rent(
-  //   castleCrushNftAddress,
-  //   tokenId,
-  //   lendingId,
-  //   rentingDuration
-  //   // { gasLimit: 1000000 }
-  // );
-  // receipt = await txn.wait();
+  txn = await whoopi.rent(
+    castleCrushNftAddress,
+    tokenId,
+    lendingId,
+    rentingDuration
+    // { gasLimit: 1000000 }
+  );
+  receipt = await txn.wait();
 
   // -------------------- STOPPING LENDING ----------------------
 
-  // const tokenId = [210, 200];
-  // const lendingId = [3, 4];
+  tokenId = [210, 200];
+  lendingId = [3, 4];
 
-  // txn = await whoopi.stopLending(
-  //   castleCrushNftAddress,
-  //   tokenId,
-  //   lendingId,
-  //   // { gasLimit: 1000000 }
-  // )
-  // receipt = await txn.wait();
+  txn = await whoopi.stopLending(
+    castleCrushNftAddress,
+    tokenId,
+    lendingId,
+    // { gasLimit: 1000000 }
+  )
+  receipt = await txn.wait();
 
   // -------------------- PAYING REWARDS ----------------------
 
@@ -121,23 +123,23 @@ const main = async () => {
   // * "115792089237316195423570985008687907853269984665640564039457584007913129639935"
   // await approvePaymentToken(FUJI_USDC, wallet, whoopiAddress, "1000000000");
 
-  // const tokenId = [210, 200];
-  // const lendingId = [3, 4];
-  // const renterAddress = ["0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE", "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE"];
-  // const amountToPay = [
-  //   parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString(),
-  //   parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString()
-  // ];
+  tokenId = [210, 200];
+  lendingId = [3, 4];
+  const renterAddress = ["0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE", "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE"];
+  const amountToPay = [
+    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString(),
+    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC]).toString()
+  ];
 
-  // txn = await whoopi.pay(
-  //   castleCrushNftAddress,
-  //   tokenId,
-  //   lendingId,
-  //   renterAddress,
-  //   amountToPay,
-  //   // { gasLimit: 1000000 }
-  // );
-  // receipt = await txn.wait();
+  txn = await whoopi.pay(
+    castleCrushNftAddress,
+    tokenId,
+    lendingId,
+    renterAddress,
+    amountToPay,
+    // { gasLimit: 1000000 }
+  );
+  receipt = await txn.wait();
 
   return receipt;
 };

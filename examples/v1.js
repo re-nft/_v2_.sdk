@@ -1,7 +1,7 @@
 const { JsonRpcProvider } = require('@ethersproject/providers');
 const { Wallet } = require('@ethersproject/wallet');
 const { BigNumber } = require('@ethersproject/bignumber');
-const { Sylvester, PaymentToken } = require('../dist/index');
+const { Sylvester, PaymentToken } = require('@renft/sdk');
 
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
 const provider = new JsonRpcProvider('<your provider uri>');
@@ -9,7 +9,14 @@ const privKey = '<privateKey>';
 let wallet = new Wallet(privKey);
 wallet = wallet.connect(provider);
 
+let txn;
+let receipt;
+
+
 const main = async () => {
+
+  // ---------------- LENDING ----------------------
+
   // collateral solution
   // const renft = new Azrael(wallet);
   // * for collateral free (import Sylvester from index):
@@ -31,18 +38,21 @@ const main = async () => {
   const rentAmount = [1, 1];
 
   // Azrael Lend Transaction
-  // const txn = await renft.lend(
-  //   E721_ADDR,
-  //   E721_TOKENID,
-  //   lendAmount,
-  //   maxRentDuration,
-  //   dailyRentPrice,
-  //   nftPrice,
-  //   paymentToken
-  // );
+  txn = await renft.lend(
+    E721_ADDR,
+    E721_TOKENID,
+    lendAmount,
+    maxRentDuration,
+    dailyRentPrice,
+    nftPrice,
+    paymentToken
+  );
+  receipt = await txn.wait();
+
+  // -------------------- RENTING ----------------------
 
   // Sylvester Rent Transaction
-  const txn = await renft.rent(
+  txn = await renft.rent(
     nftStandard,
     nftAddress,
     tokenID,
@@ -50,8 +60,8 @@ const main = async () => {
     rentDuration,
     rentAmount
   );
+  receipt = await txn.wait();
 
-  const receipt = await txn.wait();
   return receipt;
 };
 
