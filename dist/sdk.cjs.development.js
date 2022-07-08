@@ -3371,6 +3371,7 @@ var Whoopi = /*#__PURE__*/function () {
 exports.AZRAEL_ABI = AzraelAbi;
 exports.AZRAEL_ADDRESS = AzraelAddress;
 exports.Azrael = Azrael;
+exports.RESOLVERS = Resolvers;
 exports.RESOLVER_ABI = resolver_abi;
 exports.RESOLVER_ADDRESS = ResolverAddress;
 exports.RESOLVER_AVALANCHE_ADDRESS = ResolverAvalancheAddress;
