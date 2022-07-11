@@ -8,14 +8,14 @@ export const ResolverAddress = '0x945e589a4715d1915e6fe14f08e4887bc4019341';
 export const ResolverPolygonAddress =
   '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518';
 export const ResolverAvalancheAddress =
-  '0xD41e46d44f55bC93C33D8cDd7E2CB5BE3e93A4c0';
+  '0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D';
 
 export const AzraelAddress = '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7';
 export const SylvesterAddress = '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a';
 export const SylvesterPolygonAddress =
   '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe';
 export const WhoopiAvalancheAddress =
-  '0x516775e81b0d1fC91Ec326DEd21c33728895Fc6C';
+  '0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084';
 
 // Resolver related
 const SENTINEL: PaymentTokenDetails = {
@@ -83,7 +83,7 @@ const FUJI_TUSD: PaymentTokenDetails = {
   scale: 6,
 };
 const FUJI_ACS: PaymentTokenDetails = {
-  address: '0x425bFc9031997dCc6771f37B9Dd1f087E86da71B',
+  address: '0x4a590276DA8E8d660f8ef638464c2D1DF40cEAbA',
   scale: 18,
 };
 
