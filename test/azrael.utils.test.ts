@@ -139,8 +139,8 @@ describe('Utils', () => {
     expect(prepd).to.deep.equal({
       nftAddress: ['A', 'A', 'B', 'C'],
       tokenID: [
-        BigNumber.from('2'),
         BigNumber.from('10'),
+        BigNumber.from('2'),
         BigNumber.from('1'),
         BigNumber.from('2'),
       ],
@@ -154,17 +154,17 @@ describe('Utils', () => {
         BigNumber.from('2'), // 0
         BigNumber.from('1'), // 3
         BigNumber.from('2'), // 4
-        BigNumber.from('10'), // 2
+        BigNumber.from('10'), // 1
         BigNumber.from('22'), // 5
-        BigNumber.from('3'), // 1
+        BigNumber.from('3'), // 2
       ],
       amount: [
         2, // 0
         1, // 3
         1, // 4
-        3, // 2
+        3, // 1
         4, // 5
-        5, // 1
+        5, // 2
       ],
       maxRentDuration: [10, 2, 2, 10, 30, 20],
       dailyRentPrice: [
@@ -198,97 +198,100 @@ describe('Utils', () => {
       nftAddress: ['A', 'A', 'A', 'B', 'C', 'D'],
       tokenID: [
         BigNumber.from('2'),
-        BigNumber.from('3'),
         BigNumber.from('10'),
+        BigNumber.from('3'),
         BigNumber.from('1'),
         BigNumber.from('2'),
         BigNumber.from('22'),
       ],
-      amount: [2, 5, 3, 1, 1, 4],
-      maxRentDuration: [10, 20, 10, 2, 2, 30],
+      amount: [2, 3, 5, 1, 1, 4],
+      maxRentDuration: [10, 10, 20, 2, 2, 30],
       dailyRentPrice: [
         packPrice(1.11),
-        packPrice(6.66),
         packPrice(4.44),
+        packPrice(6.66),
         packPrice(2.22),
         packPrice(3.33),
         packPrice(5.55),
       ],
       nftPrice: [
         packPrice(11.11),
-        packPrice(66.66),
         packPrice(44.44),
+        packPrice(66.66),
         packPrice(22.22),
         packPrice(33.33),
         packPrice(55.55),
       ],
       paymentToken: [
         PaymentToken.WETH,
-        PaymentToken.ACS,
         PaymentToken.USDT,
+        PaymentToken.ACS,
         PaymentToken.DAI,
         PaymentToken.USDC,
         PaymentToken.TUSD,
       ],
-      rentDuration: [1, 6, 4, 2, 3, 5],
+      rentDuration: [1, 4, 6, 2, 3, 5],
     });
   });
 
   it('batch - domain #3', () => {
     const prepd = prepareBatch({
-      nftAddress: ['A', 'B', 'C', 'A', 'D', 'A', 'E', 'F', 'E'],
-      tokenID: [
-        // A:2
-        BigNumber.from('10'),
-        // B:3
-        BigNumber.from('1'),
-        // C:4
-        BigNumber.from('2'),
-        // A:0
-        BigNumber.from('2'),
-        // D:5
-        BigNumber.from('22'),
-        // A:1
-        BigNumber.from('3'),
-        // E:7
-        BigNumber.from('20'),
-        // F:8
-        BigNumber.from('10'),
-        // E:6
-        BigNumber.from('11'),
+      nftAddress: [
+        'A', // 0
+        'B', // 3
+        'C', // 4
+        'A', // 1
+        'D', // 5
+        'A', // 2
+        'E', // 6
+        'F', // 8
+        'E', // 7
       ],
+      tokenID: [
+        BigNumber.from('10'), // 0 -> 10
+        BigNumber.from('1'), // 3 -> 2
+        BigNumber.from('2'), // 4 -> 3
+        BigNumber.from('2'), // 1 -> 1
+        BigNumber.from('22'), // 5 -> 2
+        BigNumber.from('3'), // 2 -> 22
+        BigNumber.from('20'), // 6 -> 20
+        BigNumber.from('10'), // 8 -> 11
+        BigNumber.from('11'), // 7 -> 10
+      ],
+      // becomes -> [2, 3, 5, 1, 1, 4, 10, 20, 11]
       amount: [
-        2, // 2
+        2, // 0
         1, // 3
         1, // 4
-        3, // 0
+        3, // 1
         4, // 5
-        5, // 1
-        10, // 7
+        5, // 2
+        10, // 6
         11, // 8
-        20, // 6
+        20, // 7
       ],
+      // becomes -> [10, 10, 20, 2, 2, 30, 10, 20, 11]
       maxRentDuration: [
-        10, // 2
+        10, // 0
         2, // 3
         2, // 4
-        10, // 0
+        10, // 1
         30, // 5
-        20, // 1
-        10, // 7
+        20, // 2
+        10, // 6
         11, // 8
-        20, // 6
+        20, // 7
       ],
       dailyRentPrice: [
-        packPrice(1.11), // 2
+        packPrice(1.11), // 0
         packPrice(2.22), // 3
         packPrice(3.33), // 4
-        packPrice(4.44), // 0
+        packPrice(4.44), // 1
         packPrice(5.55), // 5
-        packPrice(6.66), // 1
-        packPrice(7.77), // 7
+        packPrice(6.66), // 2
+        packPrice(7.77), // 6
         packPrice(8.88), // 8
-        packPrice(9.99), // 6
+        packPrice(9.99), // 7
       ],
       nftPrice: [
         packPrice(11.11),
@@ -318,44 +321,44 @@ describe('Utils', () => {
     expect(prepd).to.deep.equal({
       nftAddress: ['A', 'A', 'A', 'B', 'C', 'D', 'E', 'E', 'F'],
       tokenID: [
+        BigNumber.from('10'),
         BigNumber.from('2'),
         BigNumber.from('3'),
-        BigNumber.from('10'),
         BigNumber.from('1'),
         BigNumber.from('2'),
         BigNumber.from('22'),
-        BigNumber.from('11'),
         BigNumber.from('20'),
+        BigNumber.from('11'),
         BigNumber.from('10'),
       ],
-      amount: [3, 5, 2, 1, 1, 4, 20, 10, 11],
-      maxRentDuration: [10, 20, 10, 2, 2, 30, 20, 10, 11],
+      amount: [2, 3, 5, 1, 1, 4, 10, 20, 11],
+      maxRentDuration: [10, 10, 20, 2, 2, 30, 10, 20, 11],
       dailyRentPrice: [
+        packPrice(1.11),
         packPrice(4.44),
         packPrice(6.66),
-        packPrice(1.11),
         packPrice(2.22),
         packPrice(3.33),
         packPrice(5.55),
-        packPrice(9.99),
         packPrice(7.77),
+        packPrice(9.99),
         packPrice(8.88),
       ],
       nftPrice: [
+        packPrice(11.11),
         packPrice(44.44),
         packPrice(66.66),
-        packPrice(11.11),
         packPrice(22.22),
         packPrice(33.33),
         packPrice(55.55),
-        packPrice(99.99),
         packPrice(77.77),
+        packPrice(99.99),
         packPrice(88.88),
       ],
       paymentToken: [
+        PaymentToken.WETH,
         PaymentToken.USDT,
         PaymentToken.ACS,
-        PaymentToken.WETH,
         PaymentToken.DAI,
         PaymentToken.USDC,
         PaymentToken.TUSD,
@@ -363,7 +366,7 @@ describe('Utils', () => {
         PaymentToken.WETH,
         PaymentToken.WETH,
       ],
-      rentDuration: [4, 6, 1, 2, 3, 5, 6, 6, 6],
+      rentDuration: [1, 4, 6, 2, 3, 5, 6, 6, 6],
     });
   });
 });

@@ -129,6 +129,15 @@ const decimalToPaddedHexString = (number: number, bitsize: number): string => {
   );
 };
 
+/**
+ * To save as much gas as possible, we have decided to pack the rental
+ * price tightly in the Lending struct in our contract. For this purpose,
+ * we have decided to use 4 bytes to express the price. Leading two bytes
+ * are used to signify the whole part of the price and the last two bytes
+ * are used to signify the decimal part of the price. This function deals
+ * with converting the packed price back to the human readable price.
+ * @param price packed price to convert to human readable price
+ */
 export const unpackPrice = (price: BigNumberish) => {
   // price is from 1 to 4294967295. i.e. from 0x00000001 to 0xffffffff
   const numHex = decimalToPaddedHexString(Number(price), PRICE_BITSIZE).slice(
@@ -177,94 +186,52 @@ interface PrepareBatch extends IObjectKeys {
 }
 
 /**
+ * Our contracts take arrays of NFT addresses, their token ids, and other
+ * relevant informatino for lending / renting. Contract assumes a specific
+ * ordering for these. That is how we achieve minimal gas usage. This function
+ * facilitates that ordering. In a nutshell, it puts all the ERC721s together,
+ * followed by ERC1155s, which also sit next to each other in the sorted array.
+ * This helps our contracts with calling the ERC1155's bundle transfer, and
+ * that is yet another gas saving trick.
+ *
  * To spend as little gas as possible, arguments must follow a particular format
  * when passed to the contract. This function prepares whatever inputs you want
  * to send, and returns the inputs in an optimal format.
  *
  * This algorithm's time complexity is pretty awful. But, it will never run on
  * large arrays, so it doesn't really matter.
- * @param args
+ * @param args arguments that the client is intending to call the contracts
+ * with.
  */
 export const prepareBatch = (args: PrepareBatch) => {
-  if (args.nftAddress.length === 1) return args;
-  validateSameLength(Object.values(args));
-  let nfts: Map<string, PrepareBatch> = new Map();
-  const pb: PrepareBatch = { nftAddress: [], tokenID: [] };
+  if (args.nftAddress.length <= 1) return args;
+  validateSameLength(args);
+  let preparedBatch: PrepareBatch = { nftAddress: [], tokenID: [] };
 
-  // O(N), maybe higher because of [...o[k]!, v[i]]
-  const updateNfts = (nftAddress: string, i: number) => {
-    const o = nfts.get(nftAddress);
-    for (const [k, v] of Object.entries(args)) {
-      if (!o) throw new Error(`could not find ${nftAddress}`);
-      if (v) o[k] = [...(o[k] ?? []), v[i]] as IObjectKeysValues;
-    }
-    return nfts;
+  // input:  ['a', 'b', 'a', 'c']
+  // output: [0, 2, 1, 3]
+  const sortIndices = (nft: string[]): number[] => {
+    const comp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+    const indices = new Array(nft.length).fill(0).map((_, i) => i);
+    return indices.sort((a, b) => comp(nft[a], nft[b]));
   };
 
-  const createNft = (nftAddress: string, i: number) => {
-    nfts.set(nftAddress, {
-      nftStandard: args.nftStandard ? [args.nftStandard[i]] : undefined,
-      nftAddress: [nftAddress],
-      tokenID: [args.tokenID[i]],
-      amount: args.amount ? [args.amount[i]] : undefined,
-      maxRentDuration: args.maxRentDuration
-        ? [args.maxRentDuration[i]]
-        : undefined,
-      dailyRentPrice: args.dailyRentPrice
-        ? [args.dailyRentPrice[i]]
-        : undefined,
-      nftPrice: args.nftPrice ? [args.nftPrice[i]] : undefined,
-      paymentToken: args.paymentToken ? [args.paymentToken[i]] : undefined,
-      rentDuration: args.rentDuration ? [args.rentDuration[i]] : undefined,
-      lendingID: args.lendingID ? [args.lendingID[i]] : undefined,
-      rentingID: args.rentingID ? [args.rentingID[i]] : undefined,
-      rentAmount: args.rentAmount ? [args.rentAmount[i]] : undefined,
-    });
-    return nfts;
+  const sortWithIndices = (items: any[], indices: number[]) => {
+    return indices.map(i => items[i]);
   };
 
-  // O(2 * N), yikes to 2
-  const worstArgsort = (tokenID: BigNumber[]) => {
-    var indices = new Array(tokenID.length);
-    for (var i = 0; i < tokenID.length; ++i) indices[i] = i;
-    indices.sort((a, b) =>
-      tokenID[a].lt(tokenID[b]) ? -1 : tokenID[a].gt(tokenID[b]) ? 1 : 0
-    );
-    return {
-      sortedTokenID: sortPerIndices(indices, tokenID),
-      argsort: indices,
-    };
-  };
+  const indices = sortIndices(args.nftAddress);
 
-  const sortPerIndices = (argsort: number[], arr: any[]) =>
-    argsort.map(i => arr[i]);
-
-  // O(N ** M). for each nft loop through all args. M - number of args
-  Object.values(args.nftAddress).forEach((nft, i) => {
-    if (nfts.has(nft)) nfts = updateNfts(nft, i);
-    else nfts = createNft(nft, i);
+  Object.keys(args).forEach(key => {
+    //@ts-ignore
+    preparedBatch[key] = sortWithIndices(args[key], indices);
   });
 
-  const iterator = nfts.keys();
-  // O(N * N)
-  while (iterator) {
-    const g = iterator.next().value;
-    if (!g) break; // end of loop
-
-    const nft = nfts.get(g) as PrepareBatch;
-    const tokenID = nft.tokenID as BigNumber[];
-    const { argsort } = worstArgsort(tokenID);
-
-    for (const k of Object.keys(nft)) {
-      if (!nft[k]) continue;
-      const sorted = sortPerIndices(argsort, nft[k] ?? []) as IObjectKeysValues;
-      pb[k] = [...(pb[k] ?? []), ...sorted] as IObjectKeysValues;
-    }
-  }
-
-  return pb;
+  return preparedBatch;
 };
 
+// TODO: deprecate the usage of these in front & api. People should use
+// parseFixed directly.
 // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
 export const toScaledAmount = (
   v: BigNumberish,
@@ -285,6 +252,8 @@ export const toScaledAmount = (
   return parseFixed(String(v), Resolvers[c][t].scale);
 };
 
+// TODO: deprecate the usage of these in front & api. People should use
+// formatFixed directly.
 // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
 export const fromScaledAmount = (
   v: BigNumberish,
