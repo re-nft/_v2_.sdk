@@ -1,38 +1,29 @@
-# Welcome to ReNFT SDK
+<p align="center">
+  <a href="https://renft.io/"><img width="350" height="208" src="https://ipfs.io/ipfs/QmT27zHHasWhGxEVr7Gxsb1czDmBcrLAVGsSsYqWvHY5oE" alt='renft-cat'></a>
+</p>
 
-Lend and rent any ERC721s and ERC1155s on Ethereum mainnet. This library will make your life easier with ReNFT.
+<p align="center"><strong>reNFT</strong> <em>- A leading multi-chain NFT rental protocol.</em></p>
+
+<p align="center">
+<a href="https://pypi.org/project/httpx/">
+    <img src="https://img.shields.io/npm/v/@renft/sdk?style=for-the-badge" alt="Package version">
+    <img src="https://img.shields.io/npm/l/@renft/sdk?style=for-the-badge" alt="License">
+    <img src="https://img.shields.io/bundlephobia/min/@renft/sdk?style=for-the-badge" alt="Minified Size">
+    <img src="https://img.shields.io/npm/dm/@renft/sdk?style=for-the-badge" alt="Monthly Downloads">
+</a>
+</p>
 
 What is ReNFT?
 
-- lend your ERC721 NFTs
-- lend your ERC1155 NFTs
-- lend combinations of ERC721 and ERC1155
-- lend different amount of ERC1155, along with ERC721 all in one transaction
-- gas optimised. Single lend is a single storage slot
-- rent the NFTs
-- claim collateral if your NFT is not returned in time
-- return the NFT before the due date
-- automatically re-lends your NFT after it is being returned
+reNFT is a multi-chain highly gas-optimised NFT rental protocol and platform that can be whitelabel integrated into any project to enable collateral-free in-house renting, lending, and reward share (scholarship automation).
 
-This sdk will ease out your journey with ReNFT. Among other things it handles
-
-- price packing of collateral and rent prices
-- correctly calling the contract to take advantage of the gas savings
-
-![npm](https://img.shields.io/npm/v/@renft/sdk?style=for-the-badge)
-![NPM](https://img.shields.io/npm/l/@renft/sdk?style=for-the-badge)
-![npm bundle size](https://img.shields.io/bundlephobia/min/@renft/sdk?style=for-the-badge)
-![npm](https://img.shields.io/npm/dm/@renft/sdk?style=for-the-badge)
-
-## Install
+# Install
 
 `yarn add @renft/sdk`
 
-## Usage
+# Usage
 
-The below is a simple example of lending an ERC721, note that amount is ignored, you will always lend **1** qty of ERC721 tokenID. This is not the case for ERC1155.
-
-With our protocol, you can also lend ERC1155 in multiple amounts! Moreover, it does not matter in what order you supply the inputs to our lend function, it will call the contract in a way that will save you as much gas as possible. This means a single call per ERC1155 group, moreover, the tokenIDs will be ordered in ascending order.
+The below is a simple example of lending an ERC721, note that amount is ignored, you will always lend **1** qty of ERC721 tokenID.
 
 ```javascript
 import { JsonRpcProvider } from '@ethersproject/providers';
@@ -82,11 +73,7 @@ main()
 
 For more usage examples, see `test/utils.test.ts`
 
-## Repo references
-
-For v1 collateral free contract code, see [here](https://github.com/re-nft/registry).
-
-For v1 collateral contract code, see [here](https://github.com/re-nft/contracts).
+Take time to familiarise yourself with our [docs](https://docs.renft.io).
 
 ## Contract name code-mapping
 
