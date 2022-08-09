@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://renft.io/"><img width="350" height="208" src="https://ipfs.io/ipfs/QmT27zHHasWhGxEVr7Gxsb1czDmBcrLAVGsSsYqWvHY5oE" alt='renft-cat'></a>
+  <a href="https://renft.io/"><img width="350" height="208" src="https://i.imgur.com/WgB9HzK.png" alt='renft-cat'></a>
 </p>
 
 <p align="center"><strong>reNFT</strong> <em>- A leading multi-chain NFT rental protocol.</em></p>
