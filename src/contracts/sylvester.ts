@@ -1,5 +1,4 @@
 import { ContractTransaction, Contract } from '@ethersproject/contracts';
-import { BigNumber } from '@ethersproject/bignumber';
 import { Signer } from '@ethersproject/abstract-signer';
 
 import { SylvesterAddress } from '../consts';
@@ -24,18 +23,19 @@ export class Sylvester implements ISylvester {
   async lend(
     nftStandard: NFTStandard[],
     nftAddress: string[],
-    tokenID: BigNumber[],
+    tokenID: string[],
     amount: number[],
     maxRentDuration: number[],
     dailyRentPrice: number[],
-    paymentToken: PaymentToken[]
+    paymentToken: PaymentToken[],
+    options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
       nftStandard,
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID: tokenID.map(id => BigNumber.from(id)),
-      amount: amount.map(amt => Number(amt)),
-      maxRentDuration: maxRentDuration.map(x => Number(x)),
+      nftAddress: nftAddress.map(String),
+      tokenID: tokenID.map(String),
+      amount: amount.map(Number),
+      maxRentDuration: maxRentDuration.map(Number),
       dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
       paymentToken,
     });
@@ -47,25 +47,27 @@ export class Sylvester implements ISylvester {
       args.amount,
       args.maxRentDuration,
       args.dailyRentPrice,
-      args.paymentToken
+      args.paymentToken,
+      options ?? []
     );
   }
 
   async rent(
     nftStandard: NFTStandard[],
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
+    tokenID: string[],
+    lendingID: string[],
     rentDuration: number[],
-    rentAmount: BigNumber[]
+    rentAmount: string[],
+    options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
-      nftStandard: nftStandard.map(standard => Number(standard)),
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID: tokenID.map(id => BigNumber.from(id)),
-      lendingID: lendingID.map(x => BigNumber.from(x)),
-      rentDuration: rentDuration.map(x => Number(x)),
-      rentAmount: rentAmount.map(x => BigNumber.from(x)),
+      nftStandard: nftStandard.map(Number),
+      nftAddress: nftAddress.map(String),
+      tokenID: tokenID.map(String),
+      lendingID: lendingID.map(String),
+      rentDuration: rentDuration.map(Number),
+      rentAmount: rentAmount.map(String),
     });
 
     return await this.contract.rent(
@@ -74,23 +76,25 @@ export class Sylvester implements ISylvester {
       args.tokenID,
       args.lendingID,
       args.rentDuration,
-      args.rentAmount
+      args.rentAmount,
+      options ?? []
     );
   }
 
   async returnIt(
     nftStandard: NFTStandard[],
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
-    rentingID: BigNumber[]
+    tokenID: string[],
+    lendingID: string[],
+    rentingID: string[],
+    options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
-      nftStandard: nftStandard.map(standard => Number(standard)),
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID: tokenID.map(id => BigNumber.from(id)),
-      lendingID: lendingID.map(x => BigNumber.from(x)),
-      rentingID: rentingID.map(x => BigNumber.from(x)),
+      nftStandard: nftStandard.map(Number),
+      nftAddress: nftAddress.map(String),
+      tokenID: tokenID.map(String),
+      lendingID: lendingID.map(String),
+      rentingID: rentingID.map(String),
     });
 
     return await this.contract.stopRent(
@@ -98,23 +102,25 @@ export class Sylvester implements ISylvester {
       args.nftAddress,
       args.tokenID,
       args.lendingID,
-      args.rentingID
+      args.rentingID,
+      options ?? []
     );
   }
 
   async claimCollateral(
     nftStandard: NFTStandard[],
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
-    rentingID: BigNumber[]
+    tokenID: string[],
+    lendingID: string[],
+    rentingID: string[],
+    options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
-      nftStandard: nftStandard.map(standard => Number(standard)),
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID: tokenID.map(id => BigNumber.from(id)),
-      lendingID: lendingID.map(x => BigNumber.from(x)),
-      rentingID: rentingID.map(x => BigNumber.from(x)),
+      nftStandard: nftStandard.map(Number),
+      nftAddress: nftAddress.map(String),
+      tokenID: tokenID.map(String),
+      lendingID: lendingID.map(String),
+      rentingID: rentingID.map(String),
     });
 
     return await this.contract.claimRent(
@@ -122,28 +128,31 @@ export class Sylvester implements ISylvester {
       args.nftAddress,
       args.tokenID,
       args.lendingID,
-      args.rentingID
+      args.rentingID,
+      options ?? []
     );
   }
 
   async stopLending(
     nftStandard: NFTStandard[],
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    tokenID: string[],
+    lendingID: string[],
+    options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
-      nftStandard: nftStandard.map(standard => Number(standard)),
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID: tokenID.map(id => BigNumber.from(id)),
-      lendingID: lendingID.map(x => BigNumber.from(x)),
+      nftStandard: nftStandard.map(Number),
+      nftAddress: nftAddress.map(String),
+      tokenID: tokenID.map(String),
+      lendingID: lendingID.map(String),
     });
 
     return await this.contract.stopLend(
       args.nftStandard,
       args.nftAddress,
       args.tokenID,
-      args.lendingID
+      args.lendingID,
+      options ?? []
     );
   }
 }

@@ -1,5 +1,4 @@
 import { ContractTransaction } from '@ethersproject/contracts';
-import { BigNumber } from '@ethersproject/bignumber';
 
 import { PaymentToken } from '../../types';
 
@@ -7,37 +6,42 @@ import { PaymentToken } from '../../types';
 interface IAzrael {
   lend(
     nftAddress: string[],
-    tokenID: BigNumber[],
+    tokenID: string[],
     amount: number[],
     maxRentDuration: number[],
     dailyRentPrice: number[],
     nftPrice: number[],
-    paymentToken: PaymentToken[]
+    paymentToken: PaymentToken[],
+    options?: any
   ): Promise<ContractTransaction>;
 
   rent(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
-    rentDuration: number[]
+    tokenID: string[],
+    lendingID: string[],
+    rentDuration: number[],
+    options?: any
   ): Promise<ContractTransaction>;
 
   returnIt(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    tokenID: string[],
+    lendingID: string[],
+    options?: any
   ): Promise<ContractTransaction>;
 
   claimCollateral(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    tokenID: string[],
+    lendingID: string[],
+    options?: any
   ): Promise<ContractTransaction>;
 
   stopLending(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    tokenID: string[],
+    lendingID: string[],
+    options?: any
   ): Promise<ContractTransaction>;
 }
 

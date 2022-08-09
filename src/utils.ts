@@ -159,12 +159,7 @@ export const unpackPrice = (price: BigNumberish) => {
   return number;
 };
 
-type IObjectKeysValues =
-  | string[]
-  | BigNumber[]
-  | boolean[]
-  | number[]
-  | PaymentToken[];
+type IObjectKeysValues = string[] | boolean[] | number[] | PaymentToken[];
 
 interface IObjectKeys {
   [key: string]: IObjectKeysValues | undefined;
@@ -173,16 +168,16 @@ interface IObjectKeys {
 interface PrepareBatch extends IObjectKeys {
   nftStandard?: NFTStandard[];
   nftAddress: string[];
-  tokenID: BigNumber[];
+  tokenID: string[];
   amount?: number[];
   maxRentDuration?: number[];
   dailyRentPrice?: string[];
   nftPrice?: string[];
   paymentToken?: PaymentToken[];
   rentDuration?: number[];
-  lendingID?: BigNumber[];
-  rentingID?: BigNumber[];
-  rentAmount?: BigNumber[];
+  lendingID?: string[];
+  rentingID?: string[];
+  rentAmount?: string[];
 }
 
 /**

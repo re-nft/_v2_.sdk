@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { BigNumber } from '@ethersproject/bignumber';
 import { PaymentToken } from '../src/types';
 
 import {
@@ -119,7 +118,7 @@ describe('Utils', () => {
   it('batch - single item return', () => {
     const lendThis = {
       nftAddress: ['A'],
-      tokenID: [BigNumber.from('1')],
+      tokenID: ['1'],
     };
     const prepd = prepareBatch(lendThis);
     expect(prepd).to.deep.equal(lendThis);
@@ -128,22 +127,12 @@ describe('Utils', () => {
   it('batch - domain #1', () => {
     const prepd = prepareBatch({
       nftAddress: ['A', 'B', 'C', 'A'],
-      tokenID: [
-        BigNumber.from('10'),
-        BigNumber.from('1'),
-        BigNumber.from('2'),
-        BigNumber.from('2'),
-      ],
+      tokenID: ['10', '1', '2', '2'],
     });
 
     expect(prepd).to.deep.equal({
       nftAddress: ['A', 'A', 'B', 'C'],
-      tokenID: [
-        BigNumber.from('10'),
-        BigNumber.from('2'),
-        BigNumber.from('1'),
-        BigNumber.from('2'),
-      ],
+      tokenID: ['10', '2', '1', '2'],
     });
   });
 
@@ -151,12 +140,12 @@ describe('Utils', () => {
     const prepd = prepareBatch({
       nftAddress: ['A', 'B', 'C', 'A', 'D', 'A'],
       tokenID: [
-        BigNumber.from('2'), // 0
-        BigNumber.from('1'), // 3
-        BigNumber.from('2'), // 4
-        BigNumber.from('10'), // 1
-        BigNumber.from('22'), // 5
-        BigNumber.from('3'), // 2
+        '2', // 0
+        '1', // 3
+        '2', // 4
+        '10', // 1
+        '22', // 5
+        '3', // 2
       ],
       amount: [
         2, // 0
@@ -196,14 +185,7 @@ describe('Utils', () => {
 
     expect(prepd).to.deep.equal({
       nftAddress: ['A', 'A', 'A', 'B', 'C', 'D'],
-      tokenID: [
-        BigNumber.from('2'),
-        BigNumber.from('10'),
-        BigNumber.from('3'),
-        BigNumber.from('1'),
-        BigNumber.from('2'),
-        BigNumber.from('22'),
-      ],
+      tokenID: ['2', '10', '3', '1', '2', '22'],
       amount: [2, 3, 5, 1, 1, 4],
       maxRentDuration: [10, 10, 20, 2, 2, 30],
       dailyRentPrice: [
@@ -248,15 +230,15 @@ describe('Utils', () => {
         'E', // 7
       ],
       tokenID: [
-        BigNumber.from('10'), // 0 -> 10
-        BigNumber.from('1'), // 3 -> 2
-        BigNumber.from('2'), // 4 -> 3
-        BigNumber.from('2'), // 1 -> 1
-        BigNumber.from('22'), // 5 -> 2
-        BigNumber.from('3'), // 2 -> 22
-        BigNumber.from('20'), // 6 -> 20
-        BigNumber.from('10'), // 8 -> 11
-        BigNumber.from('11'), // 7 -> 10
+        '10', // 0 -> 10
+        '1', // 3 -> 2
+        '2', // 4 -> 3
+        '2', // 1 -> 1
+        '22', // 5 -> 2
+        '3', // 2 -> 22
+        '20', // 6 -> 20
+        '10', // 8 -> 11
+        '11', // 7 -> 10
       ],
       // becomes -> [2, 3, 5, 1, 1, 4, 10, 20, 11]
       amount: [
@@ -320,17 +302,7 @@ describe('Utils', () => {
 
     expect(prepd).to.deep.equal({
       nftAddress: ['A', 'A', 'A', 'B', 'C', 'D', 'E', 'E', 'F'],
-      tokenID: [
-        BigNumber.from('10'),
-        BigNumber.from('2'),
-        BigNumber.from('3'),
-        BigNumber.from('1'),
-        BigNumber.from('2'),
-        BigNumber.from('22'),
-        BigNumber.from('20'),
-        BigNumber.from('11'),
-        BigNumber.from('10'),
-      ],
+      tokenID: ['10', '2', '3', '1', '2', '22', '20', '11', '10'],
       amount: [2, 3, 5, 1, 1, 4, 10, 20, 11],
       maxRentDuration: [10, 10, 20, 2, 2, 30, 10, 20, 11],
       dailyRentPrice: [

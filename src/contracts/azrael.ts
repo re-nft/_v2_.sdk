@@ -1,5 +1,4 @@
 import { ContractTransaction, Contract } from '@ethersproject/contracts';
-import { BigNumber } from '@ethersproject/bignumber';
 import { Signer } from '@ethersproject/abstract-signer';
 
 import { AzraelAddress } from '../consts';
@@ -23,18 +22,19 @@ export class Azrael implements IAzrael {
 
   async lend(
     nftAddress: string[],
-    tokenID: BigNumber[],
+    tokenID: string[],
     amount: number[],
     maxRentDuration: number[],
     dailyRentPrice: number[],
     nftPrice: number[],
-    paymentToken: PaymentToken[]
+    paymentToken: PaymentToken[],
+    options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID: tokenID.map(id => BigNumber.from(id)),
-      amount: amount.map(amt => Number(amt)),
-      maxRentDuration: maxRentDuration.map(x => Number(x)),
+      nftAddress: nftAddress.map(String),
+      tokenID: tokenID.map(String),
+      amount: amount.map(Number),
+      maxRentDuration: maxRentDuration.map(Number),
       dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
       nftPrice: nftPrice.map(x => packPrice(Number(x).toString())),
       paymentToken,
@@ -47,82 +47,91 @@ export class Azrael implements IAzrael {
       args.maxRentDuration,
       args.dailyRentPrice,
       args.nftPrice,
-      args.paymentToken
+      args.paymentToken,
+      options ?? []
     );
   }
 
   async rent(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[],
-    rentDuration: number[]
+    tokenID: string[],
+    lendingID: string[],
+    rentDuration: number[],
+    options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID: tokenID.map(id => BigNumber.from(id)),
-      lendingID: lendingID.map(x => BigNumber.from(x)),
-      rentDuration: rentDuration.map(x => Number(x)),
+      nftAddress: nftAddress.map(String),
+      tokenID: tokenID.map(String),
+      lendingID: lendingID.map(String),
+      rentDuration: rentDuration.map(Number),
     });
 
     return await this.contract.rent(
       args.nftAddress,
       args.tokenID,
       args.lendingID,
-      args.rentDuration
+      args.rentDuration,
+      options ?? []
     );
   }
 
   async returnIt(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    tokenID: string[],
+    lendingID: string[],
+    options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID: tokenID.map(id => BigNumber.from(id)),
-      lendingID: lendingID.map(x => BigNumber.from(x)),
+      nftAddress: nftAddress.map(String),
+      tokenID: tokenID.map(String),
+      lendingID: lendingID.map(String),
     });
 
     return await this.contract.returnIt(
       args.nftAddress,
       args.tokenID,
-      args.lendingID
+      args.lendingID,
+      options ?? []
     );
   }
 
   async claimCollateral(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    tokenID: string[],
+    lendingID: string[],
+    options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID: tokenID.map(id => BigNumber.from(id)),
-      lendingID: lendingID.map(x => BigNumber.from(x)),
+      nftAddress: nftAddress.map(String),
+      tokenID: tokenID.map(String),
+      lendingID: lendingID.map(String),
     });
 
     return await this.contract.claimCollateral(
       args.nftAddress,
       args.tokenID,
-      args.lendingID
+      args.lendingID,
+      options ?? []
     );
   }
 
   async stopLending(
     nftAddress: string[],
-    tokenID: BigNumber[],
-    lendingID: BigNumber[]
+    tokenID: string[],
+    lendingID: string[],
+    options?: any
   ): Promise<ContractTransaction> {
     const args = prepareBatch({
-      nftAddress: nftAddress.map(nft => String(nft).toLowerCase()),
-      tokenID: tokenID.map(id => BigNumber.from(id)),
-      lendingID: lendingID.map(x => BigNumber.from(x)),
+      nftAddress: nftAddress.map(String),
+      tokenID: tokenID.map(String),
+      lendingID: lendingID.map(String),
     });
 
     return await this.contract.stopLending(
       args.nftAddress,
       args.tokenID,
-      args.lendingID
+      args.lendingID,
+      options ?? []
     );
   }
 }
