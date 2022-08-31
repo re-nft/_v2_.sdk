@@ -86,6 +86,30 @@ const FUJI_ACS: PaymentTokenDetails = {
   address: '0x4a590276DA8E8d660f8ef638464c2D1DF40cEAbA',
   scale: 18,
 };
+const AVALANCHE_WETH: PaymentTokenDetails = {
+  address: '0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB',
+  scale: 18,
+};
+const AVALANCHE_DAI: PaymentTokenDetails = {
+  address: '0xd586E7F844cEa2F87f50152665BCbc2C279D8d70',
+  scale: 18,
+};
+const AVALANCHE_USDC: PaymentTokenDetails = {
+  address: '0xA7D7079b0FEaD91F3e65f86E8915Cb59c1a4C664',
+  scale: 6,
+};
+const AVALANCHE_USDT: PaymentTokenDetails = {
+  address: '0xc7198437980c041c805A1EDcbA50c1Ce5db95118',
+  scale: 6,
+};
+const AVALANCHE_TUSD: PaymentTokenDetails = {
+  address: '0x1C20E891Bab6b1727d14Da358FAe2984Ed9B59EB',
+  scale: 18,
+};
+const AVALANCHE_ACS: PaymentTokenDetails = {
+  address: '0x18fC6360E83FE91404d47Ea4400A221dfbBACF06',
+  scale: 18,
+};
 
 type ResolversType = Record<
   RenftContracts,
@@ -119,15 +143,14 @@ export const Resolvers: ResolversType = {
     [PaymentToken.TUSD]: ETHEREUM_TUSD,
     [PaymentToken.ACS]: SENTINEL,
   },
-  // TODO: set all of these once you deploy to avalanche
   [RenftContracts.WHOOPI_AVALANCHE]: {
     [PaymentToken.SENTINEL]: SENTINEL,
-    [PaymentToken.WETH]: SENTINEL,
-    [PaymentToken.DAI]: SENTINEL,
-    [PaymentToken.USDC]: SENTINEL,
-    [PaymentToken.USDT]: SENTINEL,
-    [PaymentToken.TUSD]: SENTINEL,
-    [PaymentToken.ACS]: SENTINEL,
+    [PaymentToken.WETH]: AVALANCHE_WETH,
+    [PaymentToken.DAI]: AVALANCHE_DAI,
+    [PaymentToken.USDC]: AVALANCHE_USDC,
+    [PaymentToken.USDT]: AVALANCHE_USDT,
+    [PaymentToken.TUSD]: AVALANCHE_TUSD,
+    [PaymentToken.ACS]: AVALANCHE_ACS,
   },
   [RenftContracts.WHOOPI_FUJI]: {
     [PaymentToken.SENTINEL]: SENTINEL,
