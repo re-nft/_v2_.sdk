@@ -1,11 +1,11 @@
 export enum PaymentToken {
-  SENTINEL, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
-  WETH,
-  DAI,
-  USDC,
-  USDT,
-  TUSD,
-  ACS,
+  SENTINEL = 0, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
+  WETH = 1,
+  DAI = 2,
+  USDC = 3,
+  USDT = 4,
+  TUSD = 5,
+  ACS = 7, // 6 is reserved for the RENT token when it is released
 }
 
 export type PaymentTokenDetails = {
@@ -14,14 +14,14 @@ export type PaymentTokenDetails = {
 };
 
 export enum NFTStandard {
-  E721,
-  E1155,
+  E721 = 0,
+  E1155 = 1,
 }
 
 export enum RenftContracts {
-  SYLVESTER,
-  SYLVESTER_POLYGON,
-  AZRAEL,
-  WHOOPI_AVALANCHE,
-  WHOOPI_FUJI,
+  SYLVESTER = 0,
+  SYLVESTER_POLYGON = 1,
+  AZRAEL = 2,
+  WHOOPI_AVALANCHE = 3,
+  WHOOPI_FUJI = 4,
 }
