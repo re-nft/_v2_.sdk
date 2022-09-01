@@ -9,7 +9,7 @@ export const ResolverPolygonAddress =
   '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518';
 export const ResolverFujiAddress = '0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D';
 export const ResolverAvalancheAddress =
-  '0x489C016bB2238Cae7436f16EAD9d0cD5ef9e44AF';
+  '0xEBFd584AAC21dfEFF02c3d4f308B0962610a028A';
 
 export const AzraelAddress = '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7';
 export const SylvesterAddress = '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a';
@@ -17,7 +17,7 @@ export const SylvesterPolygonAddress =
   '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe';
 export const WhoopiFujiAddress = '0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084';
 export const WhoopiAvalancheAddress =
-  '0xbbda1ddead65e780b4330f771801011c995fa02e';
+  '0x6Ee495ecEd3A0255057667FF2685e53f54A19A65';
 
 // Resolver related
 const SENTINEL: PaymentTokenDetails = {
