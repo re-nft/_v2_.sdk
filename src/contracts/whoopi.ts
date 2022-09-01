@@ -53,7 +53,7 @@ export class Whoopi implements IWhoopi {
       }
     }
     return await this.contract.lend(
-      [nftAddress, tokenId, Array(nftAddress.length).fill('0')],
+      [nftAddress, tokenId, Array(tokenId.length).fill('0')],
       upfrontRentFees.map((x, i) =>
         toScaledAmount(x, RenftContracts.WHOOPI_AVALANCHE, paymentTokens[i])
       ) ?? [],
