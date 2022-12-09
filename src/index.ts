@@ -3,13 +3,15 @@ import SylvesterAbi from './abi/sylvester.abi';
 import AzraelAbi from './abi/azrael.abi';
 import WhoopiAbi from './abi/whoopi.abi';
 
-import IAzrael from './contracts/interfaces/iazrael';
-import ISylvester from './contracts/interfaces/isylvester';
-import IWhoopi from './contracts/interfaces/iwhoopi';
+import {AzraelV0FunctionInterface as IAzrael} from './contracts2/azrael/types';
+import {SylvesterV0FunctionInterface as ISylvester} from './contracts2/sylvester/types';
+import {WhoopiV0FunctionInterface as IWhoopi} from './contracts2/whoopi/types';
 
+// @deprecated
 export { Sylvester } from './contracts/sylvester';
 export { Azrael } from './contracts/azrael';
 export { Whoopi } from './contracts/whoopi';
+
 export {
   ResolverAddress as RESOLVER_ADDRESS,
   AzraelAddress as AZRAEL_ADDRESS,
