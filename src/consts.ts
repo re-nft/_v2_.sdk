@@ -1,6 +1,7 @@
 import isEqual from 'react-fast-compare';
 
 import {
+  AbstractRenftContractDeployment,
   AzraelAbiVersions,
   AzraelVersion,
   ContractAbiVersions,
@@ -24,6 +25,8 @@ import azrael_v0 from './abi/azrael.v0.abi.json';
 import sylvester_v0 from './abi/sylvester.v0.abi.json';
 import whoopi_v0 from './abi/whoopi.v0.abi.json';
 import resolver_v0 from './abi/resolver.v0.abi.json';
+import {Signer} from "@ethersproject/abstract-signer";
+import {Contract, ContractInterface} from "@ethersproject/contracts";
 
 export const NETWORK_ETHEREUM_MAINNET: EthereumNetworkLike<
   EthereumNetworkType.ETHEREUM_MAINNET
@@ -53,80 +56,79 @@ export const NETWORK_AVALANCHE_MAINNET: EthereumNetworkLike<
   chainId: 43_114,
 };
 
-export const ETHEREUM_NETWORKS: {
-  readonly [key in EthereumNetworkType]: EthereumNetworkLike<key>;
-} = {
-  [EthereumNetworkType.ETHEREUM_MAINNET]: NETWORK_ETHEREUM_MAINNET,
-  [EthereumNetworkType.POLYGON_MAINNET]: NETWORK_POLYGON_MAINNET,
-  [EthereumNetworkType.AVALANCHE_MAINNET]: NETWORK_AVALANCHE_MAINNET,
-  [EthereumNetworkType.AVALANCHE_FUJI_TESTNET]: NETWORK_AVALANCHE_FUJI_TESTNET,
-};
+export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0 = {
+  contractAddress: '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7',
+  network: NETWORK_ETHEREUM_MAINNET,
+  contractType: RenftContractType.AZRAEL,
+  version: AzraelVersion.V0,
+} as const;
 
-// TODO: The intention here is we have a complete table of all active deployments.
+export const DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0 = {
+  contractAddress: '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a',
+  network: NETWORK_ETHEREUM_MAINNET,
+  contractType: RenftContractType.SYLVESTER,
+  version: SylvesterVersion.V0,
+} as const;
+
+export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0 = {
+  contractAddress: '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe',
+  network: NETWORK_POLYGON_MAINNET,
+  contractType: RenftContractType.SYLVESTER,
+  version: SylvesterVersion.V0,
+} as const;
+
+export const DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0 = {
+  contractAddress: '0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084',
+  network: NETWORK_AVALANCHE_FUJI_TESTNET,
+  contractType: RenftContractType.WHOOPI,
+  version: WhoopiVersion.V0,
+} as const;
+
+export const DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0 = {
+  contractAddress: '0x6Ee495ecEd3A0255057667FF2685e53f54A19A65',
+  network: NETWORK_AVALANCHE_MAINNET,
+  contractType: RenftContractType.WHOOPI,
+  version: WhoopiVersion.V0,
+} as const;
+
+export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0 = {
+  contractAddress: '0x945e589a4715d1915e6fe14f08e4887bc4019341',
+  network: NETWORK_ETHEREUM_MAINNET,
+  contractType: RenftContractType.RESOLVER,
+  version: ResolverVersion.V0,
+} as const;
+
+export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
+  contractAddress: '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518',
+  network: NETWORK_POLYGON_MAINNET,
+  contractType: RenftContractType.RESOLVER,
+  version: ResolverVersion.V0,
+} as const;
+
+export const DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0 = {
+  contractAddress: '0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D',
+  network: NETWORK_AVALANCHE_FUJI_TESTNET,
+  contractType: RenftContractType.RESOLVER,
+  version: ResolverVersion.V0,
+} as const;
+
+export const DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0 = {
+  contractAddress: '0xEBFd584AAC21dfEFF02c3d4f308B0962610a028A',
+  network: NETWORK_AVALANCHE_MAINNET,
+  contractType: RenftContractType.RESOLVER,
+  version: ResolverVersion.V0,
+} as const;
+
 export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
-  /* azrael_ethereum_mainnet */
-  {
-    contractAddress: '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7',
-    network: NETWORK_ETHEREUM_MAINNET,
-    type: RenftContractType.AZRAEL,
-    version: AzraelVersion.V0,
-  },
-  /* sylvester_ethereum_mainnet */
-  {
-    contractAddress: '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a',
-    network: NETWORK_ETHEREUM_MAINNET,
-    type: RenftContractType.SYLVESTER,
-    version: SylvesterVersion.V0,
-  },
-  /* sylvester_polygon_mainnet (v0) */
-  {
-    contractAddress: '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe',
-    network: NETWORK_POLYGON_MAINNET,
-    type: RenftContractType.SYLVESTER,
-    version: SylvesterVersion.V0,
-  },
-  /* whoopi_avalanche_fuji_testnet */
-  {
-    contractAddress: '0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084',
-    network: NETWORK_AVALANCHE_FUJI_TESTNET,
-    type: RenftContractType.WHOOPI,
-    version: WhoopiVersion.V0,
-  },
-  /* whoopi_avalanche_mainnet */
-  {
-    contractAddress: '0x6Ee495ecEd3A0255057667FF2685e53f54A19A65',
-    network: NETWORK_AVALANCHE_MAINNET,
-    type: RenftContractType.WHOOPI,
-    version: WhoopiVersion.V0,
-  },
-  /* resolver_ethereum_mainnet */
-  {
-    contractAddress: '0x945e589a4715d1915e6fe14f08e4887bc4019341',
-    network: NETWORK_ETHEREUM_MAINNET,
-    type: RenftContractType.RESOLVER,
-    version: ResolverVersion.V0,
-  },
-  /* resolver_polygon_mainnet */
-  {
-    contractAddress: '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518',
-    network: NETWORK_POLYGON_MAINNET,
-    type: RenftContractType.RESOLVER,
-    version: ResolverVersion.V0,
-  },
-  /* resolver_avalanche_fuji_testnet */
-  {
-    contractAddress: '0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D',
-    network: NETWORK_AVALANCHE_FUJI_TESTNET,
-    type: RenftContractType.RESOLVER,
-    version: ResolverVersion.V0,
-  },
-  /* resolver_avalanche_mainnet */
-  {
-    contractAddress: '0xEBFd584AAC21dfEFF02c3d4f308B0962610a028A',
-    network: NETWORK_AVALANCHE_MAINNET,
-    type: RenftContractType.RESOLVER,
-    version: ResolverVersion.V0,
-  },
+  DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
+  DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
+  DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0,
+  DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
+  DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
+  DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0,
+  DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0,
+  DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0,
+  DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0,
 ];
 
 export const AZRAEL_ABI_VERSIONS: AzraelAbiVersions = {
@@ -198,15 +200,42 @@ export function getContractAddressForDeployment<T extends RenftContractDeploymen
   return contractAddress;
 }
 
-export function getDeploymentAbi<
-  ContractType extends RenftContractType,
-  Version extends keyof ContractAbiVersions[ContractType]
->({contractType, version}: {
-  readonly contractType: ContractType;
-  readonly version: Version;
-}) {
+export function getDeploymentAbi<T extends RenftContractType>({
+  contractType,
+  version,
+}: {
+  readonly contractType: T;
+  readonly version: keyof ContractAbiVersions[T];
+}): ContractInterface {
   const contractAbiVersions = CONTRACT_ABI_VERSIONS[contractType];
-  return contractAbiVersions[version];
+  const maybeContractAbi = contractAbiVersions?.[version];
+
+  if (!maybeContractAbi)
+    throw new Error(
+      `[getDeploymentAbi]: Unable to find abi for combination "${
+        String(contractType)
+      }", "${
+        String(version)
+      }".`,
+    );
+
+  // Damnit. Feels like all that for nothing.
+  return maybeContractAbi as unknown as ContractInterface;
+}
+
+export function getContractForDeployment<
+  U extends RenftContractType,
+  T extends AbstractRenftContractDeployment<U>
+>({
+  deployment,
+  signer,
+}: {
+  readonly deployment: T;
+  readonly signer: Signer;
+}): Contract {
+  const {contractAddress} = deployment;
+  const abi = getDeploymentAbi<U>(deployment);
+  return new Contract(contractAddress, abi, signer);
 }
 
 // TODO: enforce this relationship with ContractTypes
@@ -216,48 +245,48 @@ export const NUM_BITS_IN_BYTE = 8;
 
 export const ResolverAddress = getContractAddressForDeployment({
   network: NETWORK_ETHEREUM_MAINNET,
-  type: RenftContractType.RESOLVER,
+  contractType: RenftContractType.RESOLVER,
 });
 
 export const ResolverPolygonAddress = getContractAddressForDeployment({
   network: NETWORK_POLYGON_MAINNET,
-  type: RenftContractType.RESOLVER,
+  contractType: RenftContractType.RESOLVER,
 });
 
 export const ResolverFujiAddress = getContractAddressForDeployment({
   network: NETWORK_AVALANCHE_FUJI_TESTNET,
-  type: RenftContractType.RESOLVER,
+  contractType: RenftContractType.RESOLVER,
 });
 
 export const ResolverAvalancheAddress = getContractAddressForDeployment({
   network: NETWORK_AVALANCHE_MAINNET,
-  type: RenftContractType.RESOLVER,
+  contractType: RenftContractType.RESOLVER,
 });
 
 // TODO: DEPRECATE THESE WITH WARNING
 export const AzraelAddress = getContractAddressForDeployment({
-  type: RenftContractType.AZRAEL,
   network: NETWORK_ETHEREUM_MAINNET,
+  contractType: RenftContractType.AZRAEL,
 });
 
 export const SylvesterAddress = getContractAddressForDeployment({
-  type: RenftContractType.SYLVESTER,
   network: NETWORK_ETHEREUM_MAINNET,
+  contractType: RenftContractType.SYLVESTER,
 });
 
 export const SylvesterPolygonAddress = getContractAddressForDeployment({
-  type: RenftContractType.SYLVESTER,
   network: NETWORK_POLYGON_MAINNET,
+  contractType: RenftContractType.SYLVESTER,
 });
 
 export const WhoopiFujiAddress = getContractAddressForDeployment({
-  type: RenftContractType.WHOOPI,
   network: NETWORK_AVALANCHE_FUJI_TESTNET,
+  contractType: RenftContractType.WHOOPI,
 });
 
 export const WhoopiAvalancheAddress = getContractAddressForDeployment({
-  type: RenftContractType.WHOOPI,
   network: NETWORK_AVALANCHE_MAINNET,
+  contractType: RenftContractType.WHOOPI,
 });
 
 // Resolver related

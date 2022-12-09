@@ -70,18 +70,17 @@ export enum ResolverVersion {
   V0 = 'V0',
 }
 
-type AbstractRenftContractDeployment<
+export type AbstractRenftContractDeployment<
   ContractType extends RenftContractType,
-  ContractVersion
 > = {
   readonly contractAddress: string;
-  readonly type: ContractType;
-  readonly version: ContractVersion;
+  readonly contractType: ContractType;
+  readonly version: keyof ContractAbiVersions[ContractType];
   readonly network: Network;
 };
 
 // We need to relate contracts to their versions
-export type AbstractVersionedAbis<Version extends string> = {
+type AbstractVersionedAbis<Version extends string | number | symbol> = {
   // TODO: maybe some extra interfaces here, who knows
   readonly [key in Version]: ContractInterface;
 };
@@ -99,23 +98,19 @@ export type ContractAbiVersions = {
 };
 
 export type RenftAzraelDeployment = AbstractRenftContractDeployment<
-  RenftContractType.AZRAEL,
-  AzraelVersion
+  RenftContractType.AZRAEL
 >;
 
 export type RenftSylvesterDeployment = AbstractRenftContractDeployment<
-  RenftContractType.SYLVESTER,
-  SylvesterVersion
+  RenftContractType.SYLVESTER
 >;
 
 export type RenftWhoopiDeployment = AbstractRenftContractDeployment<
-  RenftContractType.WHOOPI,
-  WhoopiVersion
+  RenftContractType.WHOOPI
 >;
 
 export type RenftResolverDeployment = AbstractRenftContractDeployment<
-  RenftContractType.RESOLVER,
-  ResolverVersion
+  RenftContractType.RESOLVER
 >;
 
 export type RenftContractDeployment =

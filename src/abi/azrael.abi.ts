@@ -1,5 +1,5 @@
-import {getDeploymentAbi} from '../consts';
-import {AzraelVersion, RenftContractType} from '../types';
+import {getDeploymentAbi,} from '../consts';
+import {AzraelVersion, RenftContractType} from "../types";
 
 export default {
   abi: getDeploymentAbi({
