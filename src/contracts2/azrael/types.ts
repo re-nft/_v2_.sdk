@@ -16,7 +16,7 @@ export type AbstractAzraelFunctionInterface<
   readonly stopLending: StopLendingFunction;
 };
 
-type AzraelV0LendFunction = (
+export type AzraelV0LendFunction = (
   nftAddress: string[],
   tokenID: string[],
   amount: number[],

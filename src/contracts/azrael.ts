@@ -4,8 +4,9 @@ import { Signer } from '@ethersproject/abstract-signer';
 import { AzraelAddress } from '../consts';
 import IAzrael from './interfaces/iazrael';
 import AzraelAbi from '../abi/azrael.abi';
-import { prepareBatch, packPrice } from '../utils';
+import { prepareBatch } from '../utils';
 import { PaymentToken } from '../types';
+import {createAzraelV0LendThunk} from '../contracts2/azrael/utils';
 
 export class Azrael implements IAzrael {
   readonly signer: Signer;
@@ -20,7 +21,7 @@ export class Azrael implements IAzrael {
     );
   }
 
-  async lend(
+  lend = (
     nftAddress: string[],
     tokenID: string[],
     amount: number[],
@@ -29,28 +30,16 @@ export class Azrael implements IAzrael {
     nftPrice: number[],
     paymentToken: PaymentToken[],
     options?: any
-  ): Promise<ContractTransaction> {
-    const args = prepareBatch({
-      nftAddress: nftAddress.map(String),
-      tokenID: tokenID.map(String),
-      amount: amount.map(Number),
-      maxRentDuration: maxRentDuration.map(Number),
-      dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
-      nftPrice: nftPrice.map(x => packPrice(Number(x).toString())),
-      paymentToken,
-    });
-
-    return await this.contract.lend(
-      args.nftAddress,
-      args.tokenID,
-      args.amount,
-      args.maxRentDuration,
-      args.dailyRentPrice,
-      args.nftPrice,
-      args.paymentToken,
-      options ?? []
-    );
-  }
+  ): Promise<ContractTransaction> => createAzraelV0LendThunk(this.contract)(
+    nftAddress,
+    tokenID,
+    amount,
+    maxRentDuration,
+    dailyRentPrice,
+    nftPrice,
+    paymentToken,
+    options,
+  );
 
   async rent(
     nftAddress: string[],

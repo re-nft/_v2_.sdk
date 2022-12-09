@@ -1,0 +1,39 @@
+import {Contract, ContractTransaction} from '@ethersproject/contracts';
+
+import {PaymentToken} from '../../types';
+import {packPrice, prepareBatch} from '../../utils';
+
+import {AzraelV0LendFunction} from './types';
+
+export const createAzraelV0LendThunk = (
+  contract: Contract
+): AzraelV0LendFunction => async (
+  nftAddress: string[],
+  tokenID: string[],
+  amount: number[],
+  maxRentDuration: number[],
+  dailyRentPrice: number[],
+  nftPrice: number[],
+  paymentToken: PaymentToken[],
+  options?: any,
+): Promise<ContractTransaction> => {
+  const args = prepareBatch({
+    nftAddress: nftAddress.map(String),
+    tokenID: tokenID.map(String),
+    amount: amount.map(Number),
+    maxRentDuration: maxRentDuration.map(Number),
+    dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
+    nftPrice: nftPrice.map(x => packPrice(Number(x).toString())),
+    paymentToken,
+  });
+  return await contract.lend(
+    args.nftAddress,
+    args.tokenID,
+    args.amount,
+    args.maxRentDuration,
+    args.dailyRentPrice,
+    args.nftPrice,
+    args.paymentToken,
+    options ?? []
+  );
+};
