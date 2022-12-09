@@ -76,19 +76,15 @@ export type RenftContractVersion =
   | SylvesterVersion
   | ResolverVersion;
 
-export type AbstractRenftContractDeployment<
-  ContractType extends RenftContractType,
-  ContractVersion extends RenftContractVersion,
-> = {
-  readonly contractAddress: string;
+export type AbstractRenftContractDeployment<ContractType extends RenftContractType> = {
   readonly contractType: ContractType;
-  readonly version: ContractVersion;
+  readonly version: keyof ContractAbiVersions[ContractType];
+  readonly contractAddress: string;
   readonly network: Network;
 };
 
 // We need to relate contracts to their versions
-type AbstractVersionedAbis<Version extends string | number | symbol> = {
-  // TODO: maybe some extra interfaces here, who knows
+type AbstractVersionedAbis<Version extends RenftContractVersion> = {
   readonly [key in Version]: ContractInterface;
 };
 
@@ -105,23 +101,19 @@ export type ContractAbiVersions = {
 };
 
 export type RenftAzraelDeployment = AbstractRenftContractDeployment<
-  RenftContractType.AZRAEL,
-  AzraelVersion
+  RenftContractType.AZRAEL
 >;
 
 export type RenftSylvesterDeployment = AbstractRenftContractDeployment<
-  RenftContractType.SYLVESTER,
-  SylvesterVersion
+  RenftContractType.SYLVESTER
 >;
 
 export type RenftWhoopiDeployment = AbstractRenftContractDeployment<
-  RenftContractType.WHOOPI,
-  WhoopiVersion
+  RenftContractType.WHOOPI
 >;
 
 export type RenftResolverDeployment = AbstractRenftContractDeployment<
-  RenftContractType.RESOLVER,
-  ResolverVersion
+  RenftContractType.RESOLVER
 >;
 
 export type RenftContractDeployment =
