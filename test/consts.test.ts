@@ -23,5 +23,5 @@ describe('deprecated contract addresses', () => {
     expect(WHOOPI_AVALANCHE_ADDRESS).to.equal('0x6Ee495ecEd3A0255057667FF2685e53f54A19A65');
     expect(WHOOPI_FUJI_ADDRESS).to.equal('0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084');
     expect(RESOLVER_FUJI_ADDRESS).to.equal('0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D');
-  })
+  });
 });
