@@ -4,9 +4,13 @@ import { Signer } from '@ethersproject/abstract-signer';
 import { AzraelAddress } from '../consts';
 import IAzrael from './interfaces/iazrael';
 import AzraelAbi from '../abi/azrael.abi';
-import { prepareBatch } from '../utils';
 import { PaymentToken } from '../types';
-import {createAzraelV0LendThunk, createAzraelV0RentThunk} from '../contracts2/azrael/utils';
+import {
+  createAzraelV0ClaimCollateralThunk,
+  createAzraelV0LendThunk,
+  createAzraelV0RentThunk,
+  createAzraelV0ReturnItThunk, createAzraelV0StopLendingThunk
+} from '../contracts2/azrael/utils';
 
 export class Azrael implements IAzrael {
   readonly signer: Signer;
@@ -55,63 +59,39 @@ export class Azrael implements IAzrael {
     options,
   );
 
-  async returnIt(
+  returnIt = (
     nftAddress: string[],
     tokenID: string[],
     lendingID: string[],
     options?: any
-  ): Promise<ContractTransaction> {
-    const args = prepareBatch({
-      nftAddress: nftAddress.map(String),
-      tokenID: tokenID.map(String),
-      lendingID: lendingID.map(String),
-    });
+  ): Promise<ContractTransaction> => createAzraelV0ReturnItThunk(this.contract)(
+    nftAddress,
+    tokenID,
+    lendingID,
+    options,
+  );
 
-    return await this.contract.returnIt(
-      args.nftAddress,
-      args.tokenID,
-      args.lendingID,
-      options ?? []
-    );
-  }
-
-  async claimCollateral(
+  claimCollateral = (
     nftAddress: string[],
     tokenID: string[],
     lendingID: string[],
     options?: any
-  ): Promise<ContractTransaction> {
-    const args = prepareBatch({
-      nftAddress: nftAddress.map(String),
-      tokenID: tokenID.map(String),
-      lendingID: lendingID.map(String),
-    });
+  ): Promise<ContractTransaction> => createAzraelV0ClaimCollateralThunk(this.contract)(
+    nftAddress,
+    tokenID,
+    lendingID,
+    options,
+  );
 
-    return await this.contract.claimCollateral(
-      args.nftAddress,
-      args.tokenID,
-      args.lendingID,
-      options ?? []
-    );
-  }
-
-  async stopLending(
+  stopLending = (
     nftAddress: string[],
     tokenID: string[],
     lendingID: string[],
     options?: any
-  ): Promise<ContractTransaction> {
-    const args = prepareBatch({
-      nftAddress: nftAddress.map(String),
-      tokenID: tokenID.map(String),
-      lendingID: lendingID.map(String),
-    });
-
-    return await this.contract.stopLending(
-      args.nftAddress,
-      args.tokenID,
-      args.lendingID,
-      options ?? []
-    );
-  }
+  ): Promise<ContractTransaction> => createAzraelV0StopLendingThunk(this.contract)(
+    nftAddress,
+    tokenID,
+    lendingID,
+    options,
+  );
 }
