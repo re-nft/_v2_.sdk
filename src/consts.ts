@@ -361,54 +361,70 @@ const AVALANCHE_ACS: PaymentTokenDetails = {
   scale: 18,
 };
 
-type ResolversType = Record<
-  RenftContracts,
-  Record<PaymentToken, PaymentTokenDetails>
->;
+export type PaymentTokenResolvers = {
+  readonly [key in PaymentToken]: PaymentTokenDetails;
+};
+
+export type NetworkResolvers = {
+  readonly [key in EthereumNetworkType]: PaymentTokenResolvers;
+};
+
+export const ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
+  [PaymentToken.SENTINEL]: SENTINEL,
+  [PaymentToken.WETH]: ETHEREUM_WETH,
+  [PaymentToken.DAI]: ETHEREUM_DAI,
+  [PaymentToken.USDC]: ETHEREUM_USDC,
+  [PaymentToken.USDT]: ETHEREUM_USDT,
+  [PaymentToken.TUSD]: ETHEREUM_TUSD,
+  [PaymentToken.ACS]: SENTINEL,
+};
+
+export const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
+  [PaymentToken.SENTINEL]: SENTINEL,
+  [PaymentToken.WETH]: POLYGON_WETH,
+  [PaymentToken.DAI]: POLYGON_DAI,
+  [PaymentToken.USDC]: POLYGON_USDC,
+  [PaymentToken.USDT]: POLYGON_USDT,
+  [PaymentToken.TUSD]: POLYGON_TUSD,
+  [PaymentToken.ACS]: SENTINEL,
+};
+
+export const AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
+  [PaymentToken.SENTINEL]: SENTINEL,
+  [PaymentToken.WETH]: FUJI_WETH,
+  [PaymentToken.DAI]: FUJI_DAI,
+  [PaymentToken.USDC]: FUJI_USDC,
+  [PaymentToken.USDT]: FUJI_USDT,
+  [PaymentToken.TUSD]: FUJI_TUSD,
+  [PaymentToken.ACS]: FUJI_ACS,
+};
+
+export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
+  [PaymentToken.SENTINEL]: SENTINEL,
+  [PaymentToken.WETH]: AVALANCHE_WETH,
+  [PaymentToken.DAI]: AVALANCHE_DAI,
+  [PaymentToken.USDC]: AVALANCHE_USDC,
+  [PaymentToken.USDT]: AVALANCHE_USDT,
+  [PaymentToken.TUSD]: AVALANCHE_TUSD,
+  [PaymentToken.ACS]: AVALANCHE_ACS,
+};
+
+// TODO: need to associate these with the resolver contract instance somehow
+export const NETWORK_RESOLVERS: NetworkResolvers = {
+  [EthereumNetworkType.ETHEREUM_MAINNET]: ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+  [EthereumNetworkType.POLYGON_MAINNET]: POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+  [EthereumNetworkType.AVALANCHE_FUJI_TESTNET]: AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS,
+  [EthereumNetworkType.AVALANCHE_MAINNET]: AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+};
+
+type ResolversType = {
+  readonly [key in RenftContracts]: PaymentTokenResolvers;
+};
+
 export const Resolvers: ResolversType = {
-  [RenftContracts.SYLVESTER]: {
-    [PaymentToken.SENTINEL]: SENTINEL,
-    [PaymentToken.WETH]: ETHEREUM_WETH,
-    [PaymentToken.DAI]: ETHEREUM_DAI,
-    [PaymentToken.USDC]: ETHEREUM_USDC,
-    [PaymentToken.USDT]: ETHEREUM_USDT,
-    [PaymentToken.TUSD]: ETHEREUM_TUSD,
-    [PaymentToken.ACS]: SENTINEL,
-  },
-  [RenftContracts.SYLVESTER_POLYGON]: {
-    [PaymentToken.SENTINEL]: SENTINEL,
-    [PaymentToken.WETH]: POLYGON_WETH,
-    [PaymentToken.DAI]: POLYGON_DAI,
-    [PaymentToken.USDC]: POLYGON_USDC,
-    [PaymentToken.USDT]: POLYGON_USDT,
-    [PaymentToken.TUSD]: POLYGON_TUSD,
-    [PaymentToken.ACS]: SENTINEL,
-  },
-  [RenftContracts.AZRAEL]: {
-    [PaymentToken.SENTINEL]: SENTINEL,
-    [PaymentToken.WETH]: ETHEREUM_WETH,
-    [PaymentToken.DAI]: ETHEREUM_DAI,
-    [PaymentToken.USDC]: ETHEREUM_USDC,
-    [PaymentToken.USDT]: ETHEREUM_USDT,
-    [PaymentToken.TUSD]: ETHEREUM_TUSD,
-    [PaymentToken.ACS]: SENTINEL,
-  },
-  [RenftContracts.WHOOPI_AVALANCHE]: {
-    [PaymentToken.SENTINEL]: SENTINEL,
-    [PaymentToken.WETH]: AVALANCHE_WETH,
-    [PaymentToken.DAI]: AVALANCHE_DAI,
-    [PaymentToken.USDC]: AVALANCHE_USDC,
-    [PaymentToken.USDT]: AVALANCHE_USDT,
-    [PaymentToken.TUSD]: AVALANCHE_TUSD,
-    [PaymentToken.ACS]: AVALANCHE_ACS,
-  },
-  [RenftContracts.WHOOPI_FUJI]: {
-    [PaymentToken.SENTINEL]: SENTINEL,
-    [PaymentToken.WETH]: FUJI_WETH,
-    [PaymentToken.DAI]: FUJI_DAI,
-    [PaymentToken.USDC]: FUJI_USDC,
-    [PaymentToken.USDT]: FUJI_USDT,
-    [PaymentToken.TUSD]: FUJI_TUSD,
-    [PaymentToken.ACS]: FUJI_ACS,
-  },
+  [RenftContracts.SYLVESTER]: ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+  [RenftContracts.SYLVESTER_POLYGON]: POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+  [RenftContracts.AZRAEL]: ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+  [RenftContracts.WHOOPI_AVALANCHE]: AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+  [RenftContracts.WHOOPI_FUJI]: AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS,
 };
