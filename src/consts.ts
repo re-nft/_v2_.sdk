@@ -221,7 +221,7 @@ export function getDeploymentAbi<T extends RenftContractType>({
       }".`,
     );
 
-  return maybeContractAbi as unknown as ContractInterface;
+  return maybeContractAbi;
 }
 
 export function getContractForDeployment<T extends RenftContractType>({
