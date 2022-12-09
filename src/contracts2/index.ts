@@ -29,7 +29,7 @@ export type CreateVersionedContractInterfaceResult = {
   readonly [RenftContractType.WHOOPI]: WhoopiInterfaceVersions;
 };
 
-export const createAzraelInterfaceVersionsThunk = (
+const createAzraelInterfaceVersionsThunk = (
   contract: Contract
 ): AzraelInterfaceVersions => ({
   [AzraelVersion.V0]: {
@@ -41,7 +41,7 @@ export const createAzraelInterfaceVersionsThunk = (
   },
 });
 
-export const createSylvesterInterfaceVersionsThunk = (
+const createSylvesterInterfaceVersionsThunk = (
   contract: Contract
 ): SylvesterInterfaceVersions => ({
   [SylvesterVersion.V0]: {
@@ -53,7 +53,7 @@ export const createSylvesterInterfaceVersionsThunk = (
   },
 });
 
-export const createWhoopiInterfaceVersionsThunk = (
+const createWhoopiInterfaceVersionsThunk = (
   contract: Contract
 ): WhoopiInterfaceVersions => ({
   [WhoopiVersion.V0]: {
@@ -64,4 +64,12 @@ export const createWhoopiInterfaceVersionsThunk = (
     pay: createWhoopiV0PayThunk(contract),
   },
 });
+
+export const createInterfaceVersions = (
+  contract: Contract
+): CreateVersionedContractInterfaceResult => ({
+  [RenftContractType.AZRAEL]: createAzraelInterfaceVersionsThunk(contract),
+  [RenftContractType.SYLVESTER]: createSylvesterInterfaceVersionsThunk(contract),
+  [RenftContractType.WHOOPI]: createWhoopiInterfaceVersionsThunk(contract),
+})
 

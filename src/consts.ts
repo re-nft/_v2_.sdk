@@ -9,10 +9,12 @@ import {
   EthereumNetworkType,
   PaymentToken,
   PaymentTokenDetails,
+  RenftAzraelDeployment,
   RenftContractDeployment,
   RenftContractDeployments,
   RenftContracts,
   RenftContractType,
+  RenftContractVersion,
   ResolverAbiVersions,
   ResolverVersion,
   SylvesterAbiVersions,
@@ -56,12 +58,12 @@ export const NETWORK_AVALANCHE_MAINNET: EthereumNetworkLike<
   chainId: 43_114,
 };
 
-export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0 = {
+export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0: RenftAzraelDeployment = {
   contractAddress: '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7',
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.AZRAEL,
   version: AzraelVersion.V0,
-} as const;
+};
 
 export const DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0 = {
   contractAddress: '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a',
@@ -225,7 +227,8 @@ export function getDeploymentAbi<T extends RenftContractType>({
 
 export function getContractForDeployment<
   U extends RenftContractType,
-  T extends AbstractRenftContractDeployment<U>
+  V extends RenftContractVersion,
+  T extends AbstractRenftContractDeployment<U, V>
 >({
   deployment,
   signer,
@@ -234,7 +237,10 @@ export function getContractForDeployment<
   readonly signer: Signer;
 }): Contract {
   const {contractAddress} = deployment;
+
+  // @ts-expect-error deployments may not satisfy all versions because we haven't implemented resolver yet
   const abi = getDeploymentAbi<U>(deployment);
+
   return new Contract(contractAddress, abi, signer);
 }
 

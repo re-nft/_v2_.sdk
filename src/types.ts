@@ -70,12 +70,19 @@ export enum ResolverVersion {
   V0 = 'V0',
 }
 
+export type RenftContractVersion =
+  | AzraelVersion
+  | WhoopiVersion
+  | SylvesterVersion
+  | ResolverVersion;
+
 export type AbstractRenftContractDeployment<
   ContractType extends RenftContractType,
+  ContractVersion extends RenftContractVersion,
 > = {
   readonly contractAddress: string;
   readonly contractType: ContractType;
-  readonly version: keyof ContractAbiVersions[ContractType];
+  readonly version: ContractVersion;
   readonly network: Network;
 };
 
@@ -98,19 +105,23 @@ export type ContractAbiVersions = {
 };
 
 export type RenftAzraelDeployment = AbstractRenftContractDeployment<
-  RenftContractType.AZRAEL
+  RenftContractType.AZRAEL,
+  AzraelVersion
 >;
 
 export type RenftSylvesterDeployment = AbstractRenftContractDeployment<
-  RenftContractType.SYLVESTER
+  RenftContractType.SYLVESTER,
+  SylvesterVersion
 >;
 
 export type RenftWhoopiDeployment = AbstractRenftContractDeployment<
-  RenftContractType.WHOOPI
+  RenftContractType.WHOOPI,
+  WhoopiVersion
 >;
 
 export type RenftResolverDeployment = AbstractRenftContractDeployment<
-  RenftContractType.RESOLVER
+  RenftContractType.RESOLVER,
+  ResolverVersion
 >;
 
 export type RenftContractDeployment =
