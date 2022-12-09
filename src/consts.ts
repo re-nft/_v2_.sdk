@@ -11,7 +11,9 @@ import {
   RenftContractDeployment,
   RenftContractDeployments,
   RenftContracts,
-  RenftContractType, ResolverAbiVersions, ResolverVersion,
+  RenftContractType,
+  ResolverAbiVersions,
+  ResolverVersion,
   SylvesterAbiVersions,
   SylvesterVersion,
   WhoopiAbiVersions,
@@ -105,9 +107,35 @@ export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
     type: RenftContractType.WHOOPI,
     version: WhoopiVersion.V0,
   },
+  /* resolver_ethereum_mainnet */
+  {
+    contractAddress: '0x945e589a4715d1915e6fe14f08e4887bc4019341',
+    network: NETWORK_ETHEREUM_MAINNET,
+    type: RenftContractType.RESOLVER,
+    version: ResolverVersion.V0,
+  },
+  /* resolver_polygon_mainnet */
+  {
+    contractAddress: '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518',
+    network: NETWORK_POLYGON_MAINNET,
+    type: RenftContractType.RESOLVER,
+    version: ResolverVersion.V0,
+  },
+  /* resolver_avalanche_fuji_testnet */
+  {
+    contractAddress: '0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D',
+    network: NETWORK_AVALANCHE_FUJI_TESTNET,
+    type: RenftContractType.RESOLVER,
+    version: ResolverVersion.V0,
+  },
+  /* resolver_avalanche_mainnet */
+  {
+    contractAddress: '0xEBFd584AAC21dfEFF02c3d4f308B0962610a028A',
+    network: NETWORK_AVALANCHE_MAINNET,
+    type: RenftContractType.RESOLVER,
+    version: ResolverVersion.V0,
+  },
 ];
-
-// TODO: we need to model the resolver too I think
 
 export const AZRAEL_ABI_VERSIONS: AzraelAbiVersions = {
   [AzraelVersion.V0]: azrael_v0,
@@ -182,13 +210,25 @@ export function getContractAddressForDeployment<T extends RenftContractDeploymen
 export const MAX_PRICE = 9999.9999;
 export const NUM_BITS_IN_BYTE = 8;
 
-export const ResolverAddress = '0x945e589a4715d1915e6fe14f08e4887bc4019341';
-export const ResolverPolygonAddress =
-  '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518';
-export const ResolverFujiAddress = '0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D';
-export const ResolverAvalancheAddress =
-  '0xEBFd584AAC21dfEFF02c3d4f308B0962610a028A';
+export const ResolverAddress = getContractAddressForDeployment({
+  network: NETWORK_ETHEREUM_MAINNET,
+  type: RenftContractType.RESOLVER,
+});
 
+export const ResolverPolygonAddress = getContractAddressForDeployment({
+  network: NETWORK_POLYGON_MAINNET,
+  type: RenftContractType.RESOLVER,
+});
+
+export const ResolverFujiAddress = getContractAddressForDeployment({
+  network: NETWORK_AVALANCHE_FUJI_TESTNET,
+  type: RenftContractType.RESOLVER,
+});
+
+export const ResolverAvalancheAddress = getContractAddressForDeployment({
+  network: NETWORK_AVALANCHE_MAINNET,
+  type: RenftContractType.RESOLVER,
+});
 
 // TODO: DEPRECATE THESE WITH WARNING
 export const AzraelAddress = getContractAddressForDeployment({
