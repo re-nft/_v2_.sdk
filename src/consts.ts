@@ -104,6 +104,8 @@ export const ResolverFujiAddress = '0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D';
 export const ResolverAvalancheAddress =
   '0xEBFd584AAC21dfEFF02c3d4f308B0962610a028A';
 
+
+// TODO: DEPRECATE THESE WITH WARNING
 export const AzraelAddress = '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7';
 export const SylvesterAddress = '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a';
 export const SylvesterPolygonAddress =
