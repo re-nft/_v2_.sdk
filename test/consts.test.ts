@@ -11,12 +11,16 @@ import {
   WHOOPI_FUJI_ADDRESS,
   RESOLVER_FUJI_ADDRESS,
 } from '../src';
-import {createInterfaceVersions} from '../src/contracts2';
 import {
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
-  getContractForDeployment
+  DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
+  DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
+  getVersionedContractInterfaceForDeployment
 } from '../src/consts';
 import {AzraelV0FunctionInterface} from "../src/contracts2/azrael/types";
+import {Signer} from "@ethersproject/abstract-signer";
+import {SylvesterV0FunctionInterface} from "../src/contracts2/sylvester/types";
+import {WhoopiV0FunctionInterface} from "../src/contracts2/whoopi/types";
 
 describe('deprecated contract addresses', () => {
   it('should not invalidate current consumers', () => {
@@ -31,62 +35,28 @@ describe('deprecated contract addresses', () => {
     expect(RESOLVER_FUJI_ADDRESS).to.equal('0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D');
   });
 
-  it('azrael v0 interface', () => {
+  it('interface typing', () => {
+    // @ts-expect-error this is an invalid assertion
+    const signer: Signer = null;
 
-    const deployment = DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0;
-
-    const contract = getContractForDeployment({
-      ...deployment,
-      // @ts-expect-error signer is required
-      signer: null,
+    const azrael: AzraelV0FunctionInterface = getVersionedContractInterfaceForDeployment({
+      deployment: DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
+      signer,
     });
 
-    const {contractType, version} = deployment;
+    const sylvester: SylvesterV0FunctionInterface = getVersionedContractInterfaceForDeployment({
+      deployment: DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
+      signer,
+    });
 
-    const {
-      [contractType]: contractFunctions
-    } = createInterfaceVersions(contract);
+    const whoopi: WhoopiV0FunctionInterface = getVersionedContractInterfaceForDeployment({
+      deployment: DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
+      signer,
+    });
 
-    // Type safe!
-    const azraelInterface: AzraelV0FunctionInterface = contractFunctions[version];
-    expect(!!azraelInterface).to.be.true;
+    expect(!!azrael).to.be.true;
+    expect(!!sylvester).to.be.true;
+    expect(!!whoopi).to.be.true;
   });
-
-  //it('sylvester v0 interface', () => {
-
-  //  const deployment = DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0;
-
-  //  // @ts-expect-error signer is required
-  //  const contract = getContractForDeployment({deployment, signer: undefined});
-
-  //  const {contractType, version} = deployment;
-
-  //  const {
-  //    [contractType]: contractFunctions
-  //  } = createInterfaceVersions(contract);
-
-  //  // Type safe!
-  //  const sylvesterInterface: SylvesterV0FunctionInterface = contractFunctions[version];
-  //  expect(!!sylvesterInterface).to.be.true;
-  //});
-
-//  it('whoopi v0 interface', () => {
-//    const deployment = DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0;
-//
-//    // @ts-expect-error signer is required
-//    const contract = getContractForDeployment({deployment, signer: undefined});
-//
-//    const {contractType, version} = deployment;
-//
-//    const {
-//      [contractType]: contractFunctions
-//    } = createInterfaceVersions(contract);
-//
-//    // Type safe!
-//    const whoopiInterface: WhoopiV0FunctionInterface = contractFunctions[version];
-//
-//    expect(!!whoopiInterface).to.be.true;
-//  });
-
 
 });

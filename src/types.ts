@@ -1,4 +1,5 @@
 import {ContractInterface} from '@ethersproject/contracts';
+import {CreateVersionedContractInterfaceResult} from "./contracts2";
 
 export enum EthereumNetworkType {
   ETHEREUM_MAINNET = 'ETHEREUM_MAINNET',
@@ -76,9 +77,12 @@ export type RenftContractVersion =
   | SylvesterVersion
   | ResolverVersion;
 
-export type AbstractRenftContractDeployment<ContractType extends RenftContractType> = {
+export type AbstractRenftContractDeployment<
+  ContractType extends keyof CreateVersionedContractInterfaceResult,
+  Version extends keyof CreateVersionedContractInterfaceResult[ContractType],
+> = {
   readonly contractType: ContractType;
-  readonly version: keyof ContractAbiVersions[ContractType];
+  readonly version: Version;
   readonly contractAddress: string;
   readonly network: Network;
 };
@@ -101,19 +105,23 @@ export type ContractAbiVersions = {
 };
 
 export type RenftAzraelDeployment = AbstractRenftContractDeployment<
-  RenftContractType.AZRAEL
+  RenftContractType.AZRAEL,
+  AzraelVersion
 >;
 
 export type RenftSylvesterDeployment = AbstractRenftContractDeployment<
-  RenftContractType.SYLVESTER
+  RenftContractType.SYLVESTER,
+  SylvesterVersion
 >;
 
 export type RenftWhoopiDeployment = AbstractRenftContractDeployment<
-  RenftContractType.WHOOPI
+  RenftContractType.WHOOPI,
+  WhoopiVersion
 >;
 
 export type RenftResolverDeployment = AbstractRenftContractDeployment<
-  RenftContractType.RESOLVER
+  RenftContractType.RESOLVER,
+  ResolverVersion
 >;
 
 export type RenftContractDeployment =
