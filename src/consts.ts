@@ -166,7 +166,7 @@ export const CONTRACT_ABI_VERSIONS: ContractAbiVersions = {
 export function findDeployments<T extends RenftContractDeployment>(search: Partial<T>) {
   return RENFT_CONTRACT_DEPLOYMENTS
     .filter(
-      (maybeMatchingDeployment: RenftContractDeployment) => {
+      (maybeMatchingDeployment: RenftContractDeployment): maybeMatchingDeployment is T  => {
         const definedKeys = Object.keys(search);
         const filterObject = Object
           .fromEntries(
