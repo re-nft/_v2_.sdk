@@ -206,6 +206,17 @@ export function getContractAddressForDeployment<T extends RenftContractDeploymen
   return contractAddress;
 }
 
+export function getDeploymentAbi<
+  ContractType extends RenftContractType,
+  Version extends keyof ContractAbiVersions[ContractType]
+>({contractType, version}: {
+  readonly contractType: ContractType;
+  readonly version: Version;
+}) {
+  const contractAbiVersions = CONTRACT_ABI_VERSIONS[contractType];
+  return contractAbiVersions[version];
+}
+
 // * Note, this price does not apply to Whoopi
 export const MAX_PRICE = 9999.9999;
 export const NUM_BITS_IN_BYTE = 8;
