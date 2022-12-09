@@ -2,17 +2,18 @@ import { ContractTransaction, Contract } from '@ethersproject/contracts';
 import { Signer } from '@ethersproject/abstract-signer';
 
 import { AzraelAddress } from '../consts';
-import IAzrael from './interfaces/iazrael';
 import AzraelAbi from '../abi/azrael.abi';
 import { PaymentToken } from '../types';
 import {
   createAzraelV0ClaimCollateralThunk,
   createAzraelV0LendThunk,
   createAzraelV0RentThunk,
-  createAzraelV0ReturnItThunk, createAzraelV0StopLendingThunk
+  createAzraelV0ReturnItThunk,
+  createAzraelV0StopLendingThunk
 } from '../contracts2/azrael/utils';
+import {AzraelV0FunctionInterface} from '../contracts2/azrael/types';
 
-export class Azrael implements IAzrael {
+export class Azrael implements AzraelV0FunctionInterface {
   readonly signer: Signer;
   protected contract: Contract;
 
