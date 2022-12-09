@@ -85,20 +85,12 @@ export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
     type: RenftContractType.SYLVESTER,
     version: SylvesterVersion.V0,
   },
-  // TODO: @bauti We need to implement this thing.
-  ///* sylvester_polygon_mainnet (v1) */
-  //{
-  //  network: NETWORK_POLYGON_MAINNET,
-  //  type: RenftContractType.SYLVESTER,
-  //  version: SylvesterVersion.V1,
-  //},
   /* whoopi_avalanche_fuji_testnet */
   {
     contractAddress: '0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084',
     network: NETWORK_AVALANCHE_FUJI_TESTNET,
     type: RenftContractType.WHOOPI,
     version: WhoopiVersion.V0,
-
   },
   /* whoopi_avalanche_mainnet */
   {
@@ -417,14 +409,13 @@ export const NETWORK_RESOLVERS: NetworkResolvers = {
   [EthereumNetworkType.AVALANCHE_MAINNET]: AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS,
 };
 
-type ResolversType = {
+// @deprecated
+export const Resolvers: {
   readonly [key in RenftContracts]: PaymentTokenResolvers;
-};
-
-export const Resolvers: ResolversType = {
-  [RenftContracts.SYLVESTER]: ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS,
-  [RenftContracts.SYLVESTER_POLYGON]: POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS,
-  [RenftContracts.AZRAEL]: ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS,
-  [RenftContracts.WHOOPI_AVALANCHE]: AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS,
-  [RenftContracts.WHOOPI_FUJI]: AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS,
+} = {
+  [RenftContracts.SYLVESTER]: NETWORK_RESOLVERS[EthereumNetworkType.ETHEREUM_MAINNET],
+  [RenftContracts.SYLVESTER_POLYGON]: NETWORK_RESOLVERS[EthereumNetworkType.POLYGON_MAINNET],
+  [RenftContracts.AZRAEL]: NETWORK_RESOLVERS[EthereumNetworkType.ETHEREUM_MAINNET],
+  [RenftContracts.WHOOPI_AVALANCHE]: NETWORK_RESOLVERS[EthereumNetworkType.AVALANCHE_MAINNET],
+  [RenftContracts.WHOOPI_FUJI]: NETWORK_RESOLVERS[EthereumNetworkType.AVALANCHE_FUJI_TESTNET],
 };
