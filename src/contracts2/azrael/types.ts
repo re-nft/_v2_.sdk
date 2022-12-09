@@ -2,13 +2,13 @@ import {ContractTransaction} from '@ethersproject/contracts';
 
 import {AzraelVersion, PaymentToken} from '../../types';
 
-export type AbstractAzraelFunctionInterface<
+export interface AbstractAzraelFunctionInterface<
   LendFunction,
   RentFunction,
   ReturnItFunction,
   ClaimCollateralFunction,
   StopLendingFunction,
-> = {
+> {
   readonly lend: LendFunction;
   readonly rent: RentFunction;
   readonly returnIt: ReturnItFunction;
