@@ -1,3 +1,5 @@
+import {ContractInterface} from "@ethersproject/contracts";
+
 export enum EthereumNetworkType {
   ETHEREUM_MAINNET = 'ETHEREUM_MAINNET',
   POLYGON_MAINNET = 'POLYGON_MAINNET',
@@ -78,13 +80,10 @@ type AbstractRenftContractDeployment<
   readonly network: Network;
 };
 
-// TODO: use a proper type
-export type Abi = readonly unknown[];
-
 // We need to relate contracts to their versions
 export type AbstractVersionedAbis<Version extends string> = {
   // TODO: maybe some extra interfaces here, who knows
-  readonly [key in Version]: Abi;
+  readonly [key in Version]: ContractInterface;
 };
 
 export type AzraelAbiVersions = AbstractVersionedAbis<AzraelVersion>;

@@ -14,7 +14,8 @@ import sylvester_v0 from '../src/abi/sylvester.v0.abi.json';
 import whoopi_v0 from '../src/abi/whoopi.v0.abi.json';
 
 describe('module exports', () => {
-  it ('abis', () => {
+  it('abis', () => {
+    // Ensure dynamic abi lookup doesn't invalidate existing dependents.
     expect(isEqual(AZRAEL_ABI.abi, azrael_v0)).to.be.true;
     expect(isEqual(RESOLVER_ABI.abi, resolver_v0)).to.be.true;
     expect(isEqual(SYLVESTER_ABI.abi, sylvester_v0)).to.be.true;
