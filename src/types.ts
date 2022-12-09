@@ -61,7 +61,6 @@ export enum WhoopiVersion {
 
 export enum SylvesterVersion {
   V0 = 'V0',
-  V1 = 'V1',
 }
 
 type AbstractRenftContractDeployment<
@@ -72,6 +71,25 @@ type AbstractRenftContractDeployment<
   readonly type: ContractType;
   readonly version: ContractVersion;
   readonly network: Network;
+};
+
+// TODO: use a proper type
+export type Abi = Record<string, unknown>;
+
+// We need to relate contracts to their versions
+export type AbstractVersionedAbis<Version extends string> = {
+  // TODO: maybe some extra interfaces here, who knows
+  readonly [key in Version]: Abi;
+};
+
+export type AzraelAbiVersions = AbstractVersionedAbis<AzraelVersion>;
+export type SylvesterAbiVersions = AbstractVersionedAbis<SylvesterVersion>;
+export type WhoopiAbiVersions = AbstractVersionedAbis<WhoopiVersion>;
+
+export type ContractAbiVersions = {
+  readonly [RenftContractType.AZRAEL]: AzraelAbiVersions;
+  readonly [RenftContractType.SYLVESTER]: SylvesterAbiVersions;
+  readonly [RenftContractType.WHOOPI]: WhoopiAbiVersions;
 };
 
 export type RenftAzraelDeployment = AbstractRenftContractDeployment<
