@@ -3,6 +3,7 @@ import {Contract, ContractInterface} from '@ethersproject/contracts';
 import isEqual from 'react-fast-compare';
 
 import {
+  AbstractRenftContractDeployment,
   AzraelAbiVersions,
   AzraelVersion,
   ContractAbiVersions,
@@ -27,6 +28,7 @@ import azrael_v0 from './abi/azrael.v0.abi.json';
 import sylvester_v0 from './abi/sylvester.v0.abi.json';
 import whoopi_v0 from './abi/whoopi.v0.abi.json';
 import resolver_v0 from './abi/resolver.v0.abi.json';
+import {createInterfaceVersions, CreateVersionedContractInterfaceResult} from "./contracts2";
 
 export const NETWORK_ETHEREUM_MAINNET: EthereumNetworkLike<
   EthereumNetworkType.ETHEREUM_MAINNET
@@ -205,7 +207,7 @@ export function getDeploymentAbi<T extends RenftContractType>({
   version,
 }: {
   readonly contractType: T;
-  readonly version: keyof ContractAbiVersions[T];
+  readonly version: RenftContractDeployment['version'];
 }): ContractInterface {
   const contractAbiVersions = CONTRACT_ABI_VERSIONS[contractType];
   const maybeContractAbi = contractAbiVersions?.[version];
@@ -230,13 +232,44 @@ export function getContractForDeployment<T extends RenftContractType>({
 }: {
   readonly contractAddress: string;
   readonly contractType: T;
-  readonly version: keyof ContractAbiVersions[T];
+  readonly version: RenftContractDeployment['version'];
   readonly signer: Signer;
 }): Contract {
 
   const abi = getDeploymentAbi({contractType, version});
 
   return new Contract(contractAddress, abi, signer);
+}
+
+export function getVersionedContractInterfaceForDeployment<
+  ContractType extends keyof CreateVersionedContractInterfaceResult,
+  Version extends keyof CreateVersionedContractInterfaceResult[ContractType],
+>({
+  deployment,
+  signer,
+}: {
+  readonly deployment: AbstractRenftContractDeployment<ContractType, Version>;
+  readonly signer: Signer;
+}) {
+  const {
+    contractAddress,
+    contractType,
+    version,
+  } = deployment;
+
+  const contract = getContractForDeployment({
+    contractAddress,
+    contractType,
+    // @ts-ignore
+    version,
+    signer,
+  });
+
+  const {
+    [contractType]: contractFunctions
+  } = createInterfaceVersions(contract);
+
+  return contractFunctions[version];
 }
 
 // TODO: enforce this relationship with ContractTypes
