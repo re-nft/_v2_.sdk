@@ -49,6 +49,7 @@ export enum RenftContractType {
   AZRAEL = 'AZRAEL',
   SYLVESTER = 'SYLVESTER',
   WHOOPI = 'WHOOPI',
+  RESOLVER = 'RESOLVER',
 }
 
 export enum AzraelVersion {
@@ -63,6 +64,10 @@ export enum SylvesterVersion {
   V0 = 'V0',
 }
 
+export enum ResolverVersion {
+  V0 = 'V0',
+}
+
 type AbstractRenftContractDeployment<
   ContractType extends RenftContractType,
   ContractVersion
@@ -74,7 +79,7 @@ type AbstractRenftContractDeployment<
 };
 
 // TODO: use a proper type
-export type Abi = Record<string, unknown>;
+export type Abi = readonly unknown[];
 
 // We need to relate contracts to their versions
 export type AbstractVersionedAbis<Version extends string> = {
@@ -85,11 +90,13 @@ export type AbstractVersionedAbis<Version extends string> = {
 export type AzraelAbiVersions = AbstractVersionedAbis<AzraelVersion>;
 export type SylvesterAbiVersions = AbstractVersionedAbis<SylvesterVersion>;
 export type WhoopiAbiVersions = AbstractVersionedAbis<WhoopiVersion>;
+export type ResolverAbiVersions = AbstractVersionedAbis<ResolverVersion>;
 
 export type ContractAbiVersions = {
   readonly [RenftContractType.AZRAEL]: AzraelAbiVersions;
   readonly [RenftContractType.SYLVESTER]: SylvesterAbiVersions;
   readonly [RenftContractType.WHOOPI]: WhoopiAbiVersions;
+  readonly [RenftContractType.RESOLVER]: ResolverAbiVersions;
 };
 
 export type RenftAzraelDeployment = AbstractRenftContractDeployment<
@@ -107,10 +114,16 @@ export type RenftWhoopiDeployment = AbstractRenftContractDeployment<
   WhoopiVersion
 >;
 
+export type RenftResolverDeployment = AbstractRenftContractDeployment<
+  RenftContractType.RESOLVER,
+  ResolverVersion
+>;
+
 export type RenftContractDeployment =
   | RenftAzraelDeployment
   | RenftSylvesterDeployment
-  | RenftWhoopiDeployment;
+  | RenftWhoopiDeployment
+  | RenftResolverDeployment;
 
 export type RenftContractDeployments = readonly RenftContractDeployment[];
 
