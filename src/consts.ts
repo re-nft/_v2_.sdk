@@ -1,4 +1,97 @@
-import { RenftContracts, PaymentToken, PaymentTokenDetails } from './types';
+import {
+  AzraelVersion,
+  EthereumNetworkLike,
+  EthereumNetworkType,
+  PaymentToken,
+  PaymentTokenDetails,
+  RenftContractDeployments,
+  RenftContracts,
+  RenftContractType, SylvesterVersion, WhoopiVersion,
+} from './types';
+
+export const NETWORK_ETHEREUM_MAINNET: EthereumNetworkLike<
+  EthereumNetworkType.ETHEREUM_MAINNET
+> = {
+  type: EthereumNetworkType.ETHEREUM_MAINNET,
+  chainId: 1,
+};
+
+export const NETWORK_POLYGON_MAINNET: EthereumNetworkLike<
+  EthereumNetworkType.POLYGON_MAINNET
+> = {
+  type: EthereumNetworkType.POLYGON_MAINNET,
+  chainId: 137,
+};
+
+export const NETWORK_AVALANCHE_FUJI_TESTNET: EthereumNetworkLike<
+  EthereumNetworkType.AVALANCHE_FUJI_TESTNET
+> = {
+  type: EthereumNetworkType.AVALANCHE_FUJI_TESTNET,
+  chainId: 43_113,
+};
+
+export const NETWORK_AVALANCHE_MAINNET: EthereumNetworkLike<
+  EthereumNetworkType.AVALANCHE_MAINNET
+> = {
+  type: EthereumNetworkType.AVALANCHE_MAINNET,
+  chainId: 43_114,
+};
+
+export const ETHEREUM_NETWORKS: {
+  readonly [key in EthereumNetworkType]: EthereumNetworkLike<key>;
+} = {
+  [EthereumNetworkType.ETHEREUM_MAINNET]: NETWORK_ETHEREUM_MAINNET,
+  [EthereumNetworkType.POLYGON_MAINNET]: NETWORK_POLYGON_MAINNET,
+  [EthereumNetworkType.AVALANCHE_MAINNET]: NETWORK_AVALANCHE_MAINNET,
+  [EthereumNetworkType.AVALANCHE_FUJI_TESTNET]: NETWORK_AVALANCHE_FUJI_TESTNET,
+};
+
+// TODO: The intention here is we have a complete table of all active deployments.
+export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
+  /* azrael_ethereum_mainnet */
+  {
+    contractAddress: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
+    network: NETWORK_ETHEREUM_MAINNET,
+    type: RenftContractType.AZRAEL,
+    version: AzraelVersion.V0,
+  },
+  /* sylvester_ethereum_mainnet */
+  {
+    contractAddress: '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a',
+    network: NETWORK_ETHEREUM_MAINNET,
+    type: RenftContractType.SYLVESTER,
+    version: SylvesterVersion.V0,
+  },
+  /* sylvester_polygon_mainnet (v0) */
+  {
+    contractAddress: '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe',
+    network: NETWORK_POLYGON_MAINNET,
+    type: RenftContractType.SYLVESTER,
+    version: SylvesterVersion.V0,
+  },
+  // TODO: @bauti We need to implement this thing.
+  ///* sylvester_polygon_mainnet (v1) */
+  //{
+  //  network: NETWORK_POLYGON_MAINNET,
+  //  type: RenftContractType.SYLVESTER,
+  //  version: SylvesterVersion.V1,
+  //},
+  /* whoopi_avalanche_fuji_testnet */
+  {
+    contractAddress: '0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084',
+    network: NETWORK_AVALANCHE_FUJI_TESTNET,
+    type: RenftContractType.WHOOPI,
+    version: WhoopiVersion.V0,
+
+  },
+  /* whoopi_avalanche_mainnet */
+  {
+    contractAddress: '0x6Ee495ecEd3A0255057667FF2685e53f54A19A65',
+    network: NETWORK_AVALANCHE_MAINNET,
+    type: RenftContractType.WHOOPI,
+    version: WhoopiVersion.V0,
+  },
+];
 
 // * Note, this price does not apply to Whoopi
 export const MAX_PRICE = 9999.9999;
