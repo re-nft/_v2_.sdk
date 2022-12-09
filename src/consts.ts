@@ -1,12 +1,17 @@
+import isEqual from 'react-fast-compare';
+
 import {
   AzraelVersion,
   EthereumNetworkLike,
   EthereumNetworkType,
   PaymentToken,
   PaymentTokenDetails,
+  RenftContractDeployment,
   RenftContractDeployments,
   RenftContracts,
-  RenftContractType, SylvesterVersion, WhoopiVersion,
+  RenftContractType,
+  SylvesterVersion,
+  WhoopiVersion,
 } from './types';
 
 export const NETWORK_ETHEREUM_MAINNET: EthereumNetworkLike<
@@ -50,7 +55,7 @@ export const ETHEREUM_NETWORKS: {
 export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
   /* azrael_ethereum_mainnet */
   {
-    contractAddress: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
+    contractAddress: '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7',
     network: NETWORK_ETHEREUM_MAINNET,
     type: RenftContractType.AZRAEL,
     version: AzraelVersion.V0,
@@ -93,6 +98,52 @@ export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
   },
 ];
 
+// Attempts to find matching deployments for a given set of deployment properties.
+// For example, it allows callers to search for all deployments for a given network,
+// or of a specific contractType and version.
+export function findDeployments<T extends RenftContractDeployment>(search: Partial<T>) {
+  return RENFT_CONTRACT_DEPLOYMENTS
+    .filter(
+      (maybeMatchingDeployment: RenftContractDeployment) => {
+        const definedKeys = Object.keys(search);
+        const filterObject = Object
+          .fromEntries(
+            Object.entries(maybeMatchingDeployment)
+                  .filter(([k]) => definedKeys.includes(k)),
+          );
+        return isEqual(filterObject, search);
+      },
+    );
+}
+
+// Find a single contract address for a given deployment. Will throw if none-or-many
+// matching deployments are found.
+export function getContractAddressForDeployment<T extends RenftContractDeployment>(
+  search: Omit<Partial<T>, 'contractAddress'>,
+): string {
+  const matchingDeployments = findDeployments<T>(search as Partial<T>);
+
+  if (!matchingDeployments.length)
+    throw new Error(
+      `[getContractAddressForDeployment]: Failed to find a matching deployment for search: ${
+        JSON.stringify(search)
+      }`
+    );
+
+  if (matchingDeployments.length > 1)
+    throw new Error(
+      `[getContractAddressForDeployment]: Found multiple possible deployments for search: ${
+        JSON.stringify(search)
+      }`
+    );
+
+  const [matchingDeployment] = matchingDeployments;
+
+  const {contractAddress} = matchingDeployment!;
+
+  return contractAddress;
+}
+
 // * Note, this price does not apply to Whoopi
 export const MAX_PRICE = 9999.9999;
 export const NUM_BITS_IN_BYTE = 8;
@@ -106,13 +157,30 @@ export const ResolverAvalancheAddress =
 
 
 // TODO: DEPRECATE THESE WITH WARNING
-export const AzraelAddress = '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7';
-export const SylvesterAddress = '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a';
-export const SylvesterPolygonAddress =
-  '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe';
-export const WhoopiFujiAddress = '0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084';
-export const WhoopiAvalancheAddress =
-  '0x6Ee495ecEd3A0255057667FF2685e53f54A19A65';
+export const AzraelAddress = getContractAddressForDeployment({
+  type: RenftContractType.AZRAEL,
+  network: NETWORK_ETHEREUM_MAINNET,
+});
+
+export const SylvesterAddress = getContractAddressForDeployment({
+  type: RenftContractType.SYLVESTER,
+  network: NETWORK_ETHEREUM_MAINNET,
+});
+
+export const SylvesterPolygonAddress = getContractAddressForDeployment({
+  type: RenftContractType.SYLVESTER,
+  network: NETWORK_POLYGON_MAINNET,
+});
+
+export const WhoopiFujiAddress = getContractAddressForDeployment({
+  type: RenftContractType.WHOOPI,
+  network: NETWORK_AVALANCHE_FUJI_TESTNET,
+});
+
+export const WhoopiAvalancheAddress = getContractAddressForDeployment({
+  type: RenftContractType.WHOOPI,
+  network: NETWORK_AVALANCHE_MAINNET,
+});
 
 // Resolver related
 const SENTINEL: PaymentTokenDetails = {
