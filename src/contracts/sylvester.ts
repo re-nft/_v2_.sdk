@@ -2,12 +2,18 @@ import { ContractTransaction, Contract } from '@ethersproject/contracts';
 import { Signer } from '@ethersproject/abstract-signer';
 
 import { SylvesterAddress } from '../consts';
-import ISylvester from './interfaces/isylvester';
 import SylvesterAbi from '../abi/sylvester.abi';
-import { prepareBatch, packPrice } from '../utils';
 import { NFTStandard, PaymentToken } from '../types';
+import {
+  createSylvesterV0ClaimCollateralThunk,
+  createSylvesterV0LendThunk,
+  createSylvesterV0RentThunk,
+  createSylvesterV0ReturnItThunk,
+  createSylvesterV0StopLendingThunk
+} from '../contracts2/sylvester/utils';
+import {SylvesterV0FunctionInterface} from "../contracts2/sylvester/types";
 
-export class Sylvester implements ISylvester {
+export class Sylvester implements SylvesterV0FunctionInterface {
   readonly signer: Signer;
   protected contract: Contract;
 
@@ -20,7 +26,7 @@ export class Sylvester implements ISylvester {
     );
   }
 
-  async lend(
+  lend = (
     nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: string[],
@@ -29,30 +35,18 @@ export class Sylvester implements ISylvester {
     dailyRentPrice: number[],
     paymentToken: PaymentToken[],
     options?: any
-  ): Promise<ContractTransaction> {
-    const args = prepareBatch({
-      nftStandard,
-      nftAddress: nftAddress.map(String),
-      tokenID: tokenID.map(String),
-      amount: amount.map(Number),
-      maxRentDuration: maxRentDuration.map(Number),
-      dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
-      paymentToken,
-    });
+  ): Promise<ContractTransaction> => createSylvesterV0LendThunk(this.contract)(
+    nftStandard,
+    nftAddress,
+    tokenID,
+    amount,
+    maxRentDuration,
+    dailyRentPrice,
+    paymentToken,
+    options,
+  );
 
-    return await this.contract.lend(
-      args.nftStandard,
-      args.nftAddress,
-      args.tokenID,
-      args.amount,
-      args.maxRentDuration,
-      args.dailyRentPrice,
-      args.paymentToken,
-      options ?? []
-    );
-  }
-
-  async rent(
+  rent = (
     nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: string[],
@@ -60,99 +54,59 @@ export class Sylvester implements ISylvester {
     rentDuration: number[],
     rentAmount: string[],
     options?: any
-  ): Promise<ContractTransaction> {
-    const args = prepareBatch({
-      nftStandard: nftStandard.map(Number),
-      nftAddress: nftAddress.map(String),
-      tokenID: tokenID.map(String),
-      lendingID: lendingID.map(String),
-      rentDuration: rentDuration.map(Number),
-      rentAmount: rentAmount.map(String),
-    });
+  ): Promise<ContractTransaction> => createSylvesterV0RentThunk(this.contract)(
+    nftStandard,
+    nftAddress,
+    tokenID,
+    lendingID,
+    rentDuration,
+    rentAmount,
+    options,
+  );
 
-    return await this.contract.rent(
-      args.nftStandard,
-      args.nftAddress,
-      args.tokenID,
-      args.lendingID,
-      args.rentDuration,
-      args.rentAmount,
-      options ?? []
-    );
-  }
-
-  async returnIt(
+  returnIt = (
     nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: string[],
     lendingID: string[],
     rentingID: string[],
     options?: any
-  ): Promise<ContractTransaction> {
-    const args = prepareBatch({
-      nftStandard: nftStandard.map(Number),
-      nftAddress: nftAddress.map(String),
-      tokenID: tokenID.map(String),
-      lendingID: lendingID.map(String),
-      rentingID: rentingID.map(String),
-    });
+  ): Promise<ContractTransaction> => createSylvesterV0ReturnItThunk(this.contract)(
+    nftStandard,
+    nftAddress,
+    tokenID,
+    lendingID,
+    rentingID,
+    options,
+  );
 
-    return await this.contract.stopRent(
-      args.nftStandard,
-      args.nftAddress,
-      args.tokenID,
-      args.lendingID,
-      args.rentingID,
-      options ?? []
-    );
-  }
-
-  async claimCollateral(
+  claimCollateral = (
     nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: string[],
     lendingID: string[],
     rentingID: string[],
     options?: any
-  ): Promise<ContractTransaction> {
-    const args = prepareBatch({
-      nftStandard: nftStandard.map(Number),
-      nftAddress: nftAddress.map(String),
-      tokenID: tokenID.map(String),
-      lendingID: lendingID.map(String),
-      rentingID: rentingID.map(String),
-    });
+  ): Promise<ContractTransaction> => createSylvesterV0ClaimCollateralThunk(this.contract)(
+    nftStandard,
+    nftAddress,
+    tokenID,
+    lendingID,
+    rentingID,
+    options,
+  );
 
-    return await this.contract.claimRent(
-      args.nftStandard,
-      args.nftAddress,
-      args.tokenID,
-      args.lendingID,
-      args.rentingID,
-      options ?? []
-    );
-  }
-
-  async stopLending(
+  stopLending = (
     nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: string[],
     lendingID: string[],
     options?: any
-  ): Promise<ContractTransaction> {
-    const args = prepareBatch({
-      nftStandard: nftStandard.map(Number),
-      nftAddress: nftAddress.map(String),
-      tokenID: tokenID.map(String),
-      lendingID: lendingID.map(String),
-    });
-
-    return await this.contract.stopLend(
-      args.nftStandard,
-      args.nftAddress,
-      args.tokenID,
-      args.lendingID,
-      options ?? []
-    );
-  }
+  ): Promise<ContractTransaction> => createSylvesterV0StopLendingThunk(this.contract)(
+    nftStandard,
+    nftAddress,
+    tokenID,
+    lendingID,
+    options,
+  );
 }

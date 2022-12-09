@@ -6,19 +6,19 @@ import {
   SylvesterVersion,
 } from '../../types';
 
-export type AbstractSylvesterFunctionInterface<
+export interface AbstractSylvesterFunctionInterface<
   LendFunction,
   RentFunction,
   ReturnItFunction,
   ClaimCollateralFunction,
   StopLendingFunction,
-> = {
+> {
   readonly lend: LendFunction;
   readonly rent: RentFunction;
   readonly returnIt: ReturnItFunction;
   readonly claimCollateral: ClaimCollateralFunction /* aka claimRent */;
   readonly stopLending: StopLendingFunction;
-};
+}
 
 export type SylvesterV0LendFunction = (
   nftStandard: NFTStandard[],
