@@ -209,6 +209,7 @@ export function getDeploymentAbi<
   return contractAbiVersions[version];
 }
 
+// TODO: enforce this relationship with ContractTypes
 // * Note, this price does not apply to Whoopi
 export const MAX_PRICE = 9999.9999;
 export const NUM_BITS_IN_BYTE = 8;
