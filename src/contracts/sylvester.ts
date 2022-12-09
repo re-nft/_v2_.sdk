@@ -11,7 +11,7 @@ import {
   createSylvesterV0ReturnItThunk,
   createSylvesterV0StopLendingThunk
 } from '../contracts2/sylvester/utils';
-import {SylvesterV0FunctionInterface} from "../contracts2/sylvester/types";
+import {SylvesterV0FunctionInterface} from '../contracts2/sylvester/types';
 
 export class Sylvester implements SylvesterV0FunctionInterface {
   readonly signer: Signer;
