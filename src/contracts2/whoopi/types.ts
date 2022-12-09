@@ -1,8 +1,7 @@
 import { ContractTransaction } from '@ethersproject/contracts';
 
 // * Note that there is no RENT payment token on avalanche (as of 14th June 2022)
-import {AzraelVersion, PaymentToken, WhoopiVersion} from '../../types';
-import {AzraelV0FunctionInterface} from "../azrael/types";
+import {PaymentToken, WhoopiVersion} from '../../types';
 
 export type AbstractWhoopiFunctionInterface<
   LendFunction,

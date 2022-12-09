@@ -1,4 +1,5 @@
-import {ContractInterface} from "@ethersproject/contracts";
+import {Contract, ContractInterface} from "@ethersproject/contracts";
+import {Signer} from "@ethersproject/abstract-signer";
 
 export enum EthereumNetworkType {
   ETHEREUM_MAINNET = 'ETHEREUM_MAINNET',
