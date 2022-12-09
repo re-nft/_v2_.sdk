@@ -357,7 +357,7 @@ export type PaymentTokenResolvers = {
   readonly [key in PaymentToken]: PaymentTokenDetails;
 };
 
-export type NetworkResolvers = {
+export type NetworkPaymentTokenResolvers = {
   readonly [key in EthereumNetworkType]: PaymentTokenResolvers;
 };
 
@@ -402,7 +402,7 @@ export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = 
 };
 
 // TODO: need to associate these with the resolver contract instance somehow
-export const NETWORK_RESOLVERS: NetworkResolvers = {
+export const NETWORK_RESOLVERS: NetworkPaymentTokenResolvers = {
   [EthereumNetworkType.ETHEREUM_MAINNET]: ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS,
   [EthereumNetworkType.POLYGON_MAINNET]: POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS,
   [EthereumNetworkType.AVALANCHE_FUJI_TESTNET]: AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS,
