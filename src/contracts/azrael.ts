@@ -6,7 +6,7 @@ import IAzrael from './interfaces/iazrael';
 import AzraelAbi from '../abi/azrael.abi';
 import { prepareBatch } from '../utils';
 import { PaymentToken } from '../types';
-import {createAzraelV0LendThunk} from '../contracts2/azrael/utils';
+import {createAzraelV0LendThunk, createAzraelV0RentThunk} from '../contracts2/azrael/utils';
 
 export class Azrael implements IAzrael {
   readonly signer: Signer;
@@ -41,28 +41,19 @@ export class Azrael implements IAzrael {
     options,
   );
 
-  async rent(
+  rent = (
     nftAddress: string[],
     tokenID: string[],
     lendingID: string[],
     rentDuration: number[],
     options?: any
-  ): Promise<ContractTransaction> {
-    const args = prepareBatch({
-      nftAddress: nftAddress.map(String),
-      tokenID: tokenID.map(String),
-      lendingID: lendingID.map(String),
-      rentDuration: rentDuration.map(Number),
-    });
-
-    return await this.contract.rent(
-      args.nftAddress,
-      args.tokenID,
-      args.lendingID,
-      args.rentDuration,
-      options ?? []
-    );
-  }
+  ): Promise<ContractTransaction> => createAzraelV0RentThunk(this.contract)(
+    nftAddress,
+    tokenID,
+    lendingID,
+    rentDuration,
+    options,
+  );
 
   async returnIt(
     nftAddress: string[],
