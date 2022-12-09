@@ -1,7 +1,8 @@
+import {Signer} from '@ethersproject/abstract-signer';
+import {Contract, ContractInterface} from '@ethersproject/contracts';
 import isEqual from 'react-fast-compare';
 
 import {
-  AbstractRenftContractDeployment,
   AzraelAbiVersions,
   AzraelVersion,
   ContractAbiVersions,
@@ -14,7 +15,6 @@ import {
   RenftContractDeployments,
   RenftContracts,
   RenftContractType,
-  RenftContractVersion,
   ResolverAbiVersions,
   ResolverVersion,
   SylvesterAbiVersions,
@@ -27,8 +27,6 @@ import azrael_v0 from './abi/azrael.v0.abi.json';
 import sylvester_v0 from './abi/sylvester.v0.abi.json';
 import whoopi_v0 from './abi/whoopi.v0.abi.json';
 import resolver_v0 from './abi/resolver.v0.abi.json';
-import {Signer} from "@ethersproject/abstract-signer";
-import {Contract, ContractInterface} from "@ethersproject/contracts";
 
 export const NETWORK_ETHEREUM_MAINNET: EthereumNetworkLike<
   EthereumNetworkType.ETHEREUM_MAINNET
@@ -221,25 +219,22 @@ export function getDeploymentAbi<T extends RenftContractType>({
       }".`,
     );
 
-  // Damnit. Feels like all that for nothing.
   return maybeContractAbi as unknown as ContractInterface;
 }
 
-export function getContractForDeployment<
-  U extends RenftContractType,
-  V extends RenftContractVersion,
-  T extends AbstractRenftContractDeployment<U, V>
->({
-  deployment,
+export function getContractForDeployment<T extends RenftContractType>({
+  contractAddress,
+  contractType,
+  version,
   signer,
 }: {
-  readonly deployment: T;
+  readonly contractAddress: string;
+  readonly contractType: T;
+  readonly version: keyof ContractAbiVersions[T];
   readonly signer: Signer;
 }): Contract {
-  const {contractAddress} = deployment;
 
-  // @ts-expect-error deployments may not satisfy all versions because we haven't implemented resolver yet
-  const abi = getDeploymentAbi<U>(deployment);
+  const abi = getDeploymentAbi({contractType, version});
 
   return new Contract(contractAddress, abi, signer);
 }

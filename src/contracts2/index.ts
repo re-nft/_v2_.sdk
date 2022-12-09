@@ -1,4 +1,4 @@
-import {AzraelVersion, RenftContractType, SylvesterVersion, WhoopiVersion} from '../types';
+import {AzraelVersion, RenftContractType, ResolverVersion, SylvesterVersion, WhoopiVersion} from '../types';
 
 import {AzraelInterfaceVersions} from './azrael/types';
 import {SylvesterInterfaceVersions} from './sylvester/types';
@@ -8,25 +8,30 @@ import {
   createAzraelV0ClaimCollateralThunk,
   createAzraelV0LendThunk,
   createAzraelV0RentThunk,
-  createAzraelV0ReturnItThunk, createAzraelV0StopLendingThunk
+  createAzraelV0ReturnItThunk,
+  createAzraelV0StopLendingThunk
 } from "./azrael/utils";
 import {
   createSylvesterV0ClaimCollateralThunk,
   createSylvesterV0LendThunk,
   createSylvesterV0RentThunk,
-  createSylvesterV0ReturnItThunk, createSylvesterV0StopLendingThunk
+  createSylvesterV0ReturnItThunk,
+  createSylvesterV0StopLendingThunk
 } from "./sylvester/utils";
 import {
-  createWhoopiV0LendThunk, createWhoopiV0PayThunk,
+  createWhoopiV0LendThunk,
+  createWhoopiV0PayThunk,
   createWhoopiV0RentThunk,
   createWhoopiV0StopLendingThunk,
   createWhoopiV0StopRentThunk
 } from "./whoopi/utils";
+import {ResolverInterfaceVersions} from "./resolver/types";
 
 export type CreateVersionedContractInterfaceResult = {
   readonly [RenftContractType.AZRAEL]: AzraelInterfaceVersions;
   readonly [RenftContractType.SYLVESTER]: SylvesterInterfaceVersions;
   readonly [RenftContractType.WHOOPI]: WhoopiInterfaceVersions;
+  readonly [RenftContractType.RESOLVER]: ResolverInterfaceVersions;
 };
 
 const createAzraelInterfaceVersionsThunk = (
@@ -65,11 +70,16 @@ const createWhoopiInterfaceVersionsThunk = (
   },
 });
 
+const createResolverInterfaceVersionsThunk = (): ResolverInterfaceVersions => ({
+  // TODO: What arguments to use here?
+  [ResolverVersion.V0]: {},
+});
+
 export const createInterfaceVersions = (
   contract: Contract
 ): CreateVersionedContractInterfaceResult => ({
   [RenftContractType.AZRAEL]: createAzraelInterfaceVersionsThunk(contract),
   [RenftContractType.SYLVESTER]: createSylvesterInterfaceVersionsThunk(contract),
   [RenftContractType.WHOOPI]: createWhoopiInterfaceVersionsThunk(contract),
-})
-
+  [RenftContractType.RESOLVER]: createResolverInterfaceVersionsThunk(),
+});
