@@ -1,7 +1,9 @@
 import isEqual from 'react-fast-compare';
 
 import {
+  AzraelAbiVersions,
   AzraelVersion,
+  ContractAbiVersions,
   EthereumNetworkLike,
   EthereumNetworkType,
   PaymentToken,
@@ -9,10 +11,17 @@ import {
   RenftContractDeployment,
   RenftContractDeployments,
   RenftContracts,
-  RenftContractType,
+  RenftContractType, ResolverAbiVersions, ResolverVersion,
+  SylvesterAbiVersions,
   SylvesterVersion,
+  WhoopiAbiVersions,
   WhoopiVersion,
 } from './types';
+
+import azrael_v0 from './abi/azrael.v0.abi.json';
+import sylvester_v0 from './abi/sylvester.v0.abi.json';
+import whoopi_v0 from './abi/whoopi.v0.abi.json';
+import resolver_v0 from './abi/resolver.v0.abi.json';
 
 export const NETWORK_ETHEREUM_MAINNET: EthereumNetworkLike<
   EthereumNetworkType.ETHEREUM_MAINNET
@@ -100,23 +109,28 @@ export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
 
 // TODO: we need to model the resolver too I think
 
-//export const AZRAEL_ABI_VERSIONS: AzraelAbiVersions = {
-//  [AzraelVersion.V0]: ,
-//};
-//
-//export const SYLVESTER_ABI_VERSIONS: SylvesterAbiVersions = {
-//  [SylvesterVersion.V0]: ,
-//};
-//
-//export const WHOOPI_ABI_VERSIONS: WhoopiAbiVersions = {
-//  [WhoopiVersion.V0]: ,
-//};
+export const AZRAEL_ABI_VERSIONS: AzraelAbiVersions = {
+  [AzraelVersion.V0]: azrael_v0,
+};
 
-//export const CONTRACT_ABI_VERSIONS: ContractAbiVersions = {
-//  [RenftContractType.AZRAEL]: AZRAEL_ABI_VERSIONS,
-//  [RenftContractType.SYLVESTER]: SYLVESTER_ABI_VERSIONS,
-//  [RenftContractType.WHOOPI]: WHOOPI_ABI_VERSIONS,
-//};
+export const SYLVESTER_ABI_VERSIONS: SylvesterAbiVersions = {
+  [SylvesterVersion.V0]: sylvester_v0,
+};
+
+export const WHOOPI_ABI_VERSIONS: WhoopiAbiVersions = {
+  [WhoopiVersion.V0]: whoopi_v0,
+};
+
+export const RESOLVER_ABI_VERSIONS: ResolverAbiVersions = {
+  [ResolverVersion.V0]: resolver_v0,
+};
+
+export const CONTRACT_ABI_VERSIONS: ContractAbiVersions = {
+  [RenftContractType.AZRAEL]: AZRAEL_ABI_VERSIONS,
+  [RenftContractType.SYLVESTER]: SYLVESTER_ABI_VERSIONS,
+  [RenftContractType.WHOOPI]: WHOOPI_ABI_VERSIONS,
+  [RenftContractType.RESOLVER]: RESOLVER_ABI_VERSIONS,
+};
 
 // Attempts to find matching deployments for a given set of deployment properties.
 // For example, it allows callers to search for all deployments for a given network,
