@@ -1,16 +1,12 @@
-import {
-  BigNumber,
-  BigNumberish,
-  parseFixed,
-  formatFixed,
-} from '@ethersproject/bignumber';
+import {BigNumber, BigNumberish, formatFixed, parseFixed,} from '@ethersproject/bignumber';
 
 import {
-  PaymentToken,
   NFTStandard,
-  RenftContracts,
+  PaymentToken,
+  RenftContractDeployment,
+  RenftContractType,
 } from './types';
-import {MAX_PRICE, NUM_BITS_IN_BYTE, Resolvers} from './consts';
+import {MAX_PRICE, NETWORK_RESOLVERS, NUM_BITS_IN_BYTE} from './consts';
 
 // consts that predominantly pertain to this file
 const BITSIZE_MAX_VALUE = 32;
@@ -31,7 +27,9 @@ const PRICE_BITSIZE = 32;
  */
 export const bytesToNibbles = (byteCount: number) => {
   if (typeof byteCount != 'number') throw new Error('only numbers supported');
+
   if (byteCount < 1) throw new Error('invalid byteCount');
+
   return byteCount * 2;
 };
 
@@ -159,8 +157,7 @@ export const unpackPrice = (price: BigNumberish) => {
     decimalStr = '0' + decimalStr;
   }
 
-  const number = parseFloat(`${whole}.${decimalStr}`);
-  return number;
+  return parseFloat(`${whole}.${decimalStr}`);
 };
 
 type IObjectKeysValues = string[] | boolean[] | number[] | PaymentToken[];
@@ -234,21 +231,22 @@ export const prepareBatch = (args: PrepareBatch) => {
 // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
 export const toScaledAmount = (
   v: BigNumberish,
-  c: RenftContracts,
+  c: RenftContractDeployment,
   t: PaymentToken
 ): BigNumber => {
-  if (
-    c !== RenftContracts.WHOOPI_FUJI &&
-    c !== RenftContracts.WHOOPI_AVALANCHE
-  ) {
+  const {contractType} = c;
+
+  if (contractType !== RenftContractType.WHOOPI)
     throw new TypeError(
-      'Invalid contract type. Only whoopy fuji and whoopi avalanche supported.'
+        'Invalid contract type. Only whoopy supported.'
     );
-  }
-  if (t === PaymentToken.SENTINEL) {
+
+  if (t === PaymentToken.SENTINEL)
     throw new TypeError('Invalid payment token. Non sentinels supported only.');
-  }
-  return parseFixed(String(v), Resolvers[c][t].scale);
+
+  const {[c.network.type]: resolver} = NETWORK_RESOLVERS;
+
+  return parseFixed(String(v), resolver[t].scale);
 };
 
 // TODO: deprecate the usage of these in front & api. People should use
@@ -256,20 +254,21 @@ export const toScaledAmount = (
 // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
 export const fromScaledAmount = (
   v: BigNumberish,
-  c: RenftContracts,
+  c: RenftContractDeployment,
   t: PaymentToken
 ): string => {
-  if (
-    c !== RenftContracts.WHOOPI_FUJI &&
-    c !== RenftContracts.WHOOPI_AVALANCHE
-  ) {
+  const {contractType} = c;
+
+  if (contractType !== RenftContractType.WHOOPI)
     throw new TypeError(
-      'Invalid contract type. Only whoopy fuji and whoopi avalanche supported.'
+      'Invalid contract type. Only whoopy supported.'
     );
-  }
-  if (t === PaymentToken.SENTINEL) {
+
+  if (t === PaymentToken.SENTINEL)
     throw new TypeError('Invalid payment token. Non sentinels supported only.');
-  }
-  return formatFixed(v, Resolvers[c][t].scale);
+
+  const {[c.network.type]: resolver} = NETWORK_RESOLVERS;
+
+  return formatFixed(v, resolver[t].scale);
 };
 

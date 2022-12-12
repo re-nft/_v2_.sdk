@@ -11,7 +11,6 @@ import {
   EVMNetworkLike,
   PaymentToken,
   PaymentTokenDetails,
-  RenftContracts,
   RenftContractType,
   ResolverAbiVersions,
   ResolverVersion,
@@ -227,13 +226,13 @@ export const NETWORK_RESOLVERS: NetworkPaymentTokenResolvers = {
   [EVMNetworkType.AVALANCHE_MAINNET]: AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS,
 };
 
-// @deprecated
-export const Resolvers: {
-  readonly [key in RenftContracts]: PaymentTokenResolvers;
-} = {
-  [RenftContracts.SYLVESTER]: NETWORK_RESOLVERS[EVMNetworkType.ETHEREUM_MAINNET],
-  [RenftContracts.SYLVESTER_POLYGON]: NETWORK_RESOLVERS[EVMNetworkType.POLYGON_MAINNET],
-  [RenftContracts.AZRAEL]: NETWORK_RESOLVERS[EVMNetworkType.ETHEREUM_MAINNET],
-  [RenftContracts.WHOOPI_AVALANCHE]: NETWORK_RESOLVERS[EVMNetworkType.AVALANCHE_MAINNET],
-  [RenftContracts.WHOOPI_FUJI]: NETWORK_RESOLVERS[EVMNetworkType.AVALANCHE_FUJI_TESTNET],
-};
+//// @deprecated
+//export const Resolvers: {
+//  readonly [key in RenftContracts]: PaymentTokenResolvers;
+//} = {
+//  [RenftContracts.SYLVESTER]: NETWORK_RESOLVERS[EVMNetworkType.ETHEREUM_MAINNET],
+//  [RenftContracts.SYLVESTER_POLYGON]: NETWORK_RESOLVERS[EVMNetworkType.POLYGON_MAINNET],
+//  [RenftContracts.AZRAEL]: NETWORK_RESOLVERS[EVMNetworkType.ETHEREUM_MAINNET],
+//  [RenftContracts.WHOOPI_AVALANCHE]: NETWORK_RESOLVERS[EVMNetworkType.AVALANCHE_MAINNET],
+//  [RenftContracts.WHOOPI_FUJI]: NETWORK_RESOLVERS[EVMNetworkType.AVALANCHE_FUJI_TESTNET],
+//};
