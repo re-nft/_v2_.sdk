@@ -45,7 +45,7 @@ export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0 = {
 } as const;
 
 export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
-  contractAddress: '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe',
+  contractAddress: 'TODO: ADD DEPLOYMENT CONTRACT ADDRESS',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V1,
