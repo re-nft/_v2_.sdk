@@ -14,7 +14,7 @@ import {
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
-  getVersionedContractInterfaceForDeployment,
+  getRenftContract,
   AzraelV0FunctionInterface,
   SylvesterV0FunctionInterface,
   WhoopiV0FunctionInterface,
@@ -37,17 +37,17 @@ describe('deprecated contract addresses', () => {
     // @ts-expect-error this is an invalid assertion
     const signer: Signer = null;
 
-    const azrael: AzraelV0FunctionInterface = getVersionedContractInterfaceForDeployment({
+    const azrael: AzraelV0FunctionInterface = getRenftContract({
       deployment: DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
       signer,
     });
 
-    const sylvester: SylvesterV0FunctionInterface = getVersionedContractInterfaceForDeployment({
+    const sylvester: SylvesterV0FunctionInterface = getRenftContract({
       deployment: DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
       signer,
     });
 
-    const whoopi: WhoopiV0FunctionInterface = getVersionedContractInterfaceForDeployment({
+    const whoopi: WhoopiV0FunctionInterface = getRenftContract({
       deployment: DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
       signer,
     });

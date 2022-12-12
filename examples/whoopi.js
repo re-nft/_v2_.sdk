@@ -4,7 +4,7 @@ const { Wallet } = require('@ethersproject/wallet');
 const {
   PaymentToken,
   NETWORK_RESOLVERS,
-  getVersionedContractInterfaceForDeployment,
+  getRenftContract,
   DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
 } = require('@renft/sdk');
 
@@ -35,7 +35,7 @@ const main = async () => {
 
   const deployment = DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0;
 
-  const whoopi = getVersionedContractInterfaceForDeployment({
+  const whoopi = getRenftContract({
     deployment,
     signer: wallet,
   });
