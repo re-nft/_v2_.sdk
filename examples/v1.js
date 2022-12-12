@@ -1,7 +1,8 @@
 const { JsonRpcProvider } = require('@ethersproject/providers');
 const { Wallet } = require('@ethersproject/wallet');
 const { BigNumber } = require('@ethersproject/bignumber');
-const { Sylvester, PaymentToken } = require('@renft/sdk');
+const { DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0, PaymentToken } = require('@renft/sdk');
+const {getVersionedContractInterfaceForDeployment, DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0} = require("../src");
 
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
 const provider = new JsonRpcProvider('<your provider uri>');
@@ -20,7 +21,10 @@ const main = async () => {
   // collateral solution
   // const renft = new Azrael(wallet);
   // * for collateral free (import Sylvester from index):
-  const renft = new Sylvester(wallet);
+  const renft = getVersionedContractInterfaceForDeployment({
+    deployment: DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
+    signer: wallet,
+  });
 
   const E721_ADDR = ['0xCDf60B46Fa88e74DE7e1e613325E386BFe8609ad'];
   const E721_TOKENID = [BigNumber.from('3')];
