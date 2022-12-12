@@ -1,8 +1,7 @@
 import {Contract, ContractTransaction} from '@ethersproject/contracts';
 
-import {NETWORK_AVALANCHE_MAINNET} from '../../consts';
-import {PaymentToken, RenftContractType} from '../../types';
-import {toScaledAmount} from '../../utils';
+import {EVMNetworkType, PaymentToken} from '../../types';
+import {toWhoopiScaledAmount} from '../../utils';
 
 import {
   WhoopiV0LendFunction,
@@ -13,7 +12,8 @@ import {
 } from './types';
 
 export const createWhoopiV0LendThunk = (
-  contract: Contract
+  contract: Contract,
+  network: EVMNetworkType
 ): WhoopiV0LendFunction => async (
   nftAddress: string,
   tokenId: string[],
@@ -49,11 +49,7 @@ export const createWhoopiV0LendThunk = (
   }
   return await contract.lend(
     [nftAddress, tokenId, Array(tokenId.length).fill('0')],
-    upfrontRentFees.map((x, i) =>
-      // TODO: There is something inherently strange about knowing the network here. This isn't going to cause
-      //       issues for us now, but if there were deviations between networks would indeed cause a problem.
-      toScaledAmount(x, {network: NETWORK_AVALANCHE_MAINNET, contractType: RenftContractType.WHOOPI}, paymentTokens[i])
-    ) ?? [],
+    upfrontRentFees.map((x, i) => toWhoopiScaledAmount(x, network, paymentTokens[i])) ?? [],
     allowRenters,
     revShares,
     maxRentDurations,
