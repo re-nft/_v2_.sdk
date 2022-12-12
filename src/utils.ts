@@ -231,7 +231,7 @@ export const prepareBatch = (args: PrepareBatch) => {
 // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
 export const toScaledAmount = (
   v: BigNumberish,
-  c: RenftContractDeployment,
+  c: Pick<RenftContractDeployment, 'network' | 'contractType'>,
   t: PaymentToken
 ): BigNumber => {
   const {contractType} = c;

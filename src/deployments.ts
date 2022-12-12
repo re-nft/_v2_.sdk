@@ -2,6 +2,15 @@ import {Contract, ContractInterface} from '@ethersproject/contracts';
 import {Signer} from '@ethersproject/abstract-signer';
 import isEqual from 'react-fast-compare';
 
+
+import {
+  CONTRACT_ABI_VERSIONS,
+  NETWORK_AVALANCHE_FUJI_TESTNET,
+  NETWORK_AVALANCHE_MAINNET,
+  NETWORK_ETHEREUM_MAINNET,
+  NETWORK_POLYGON_MAINNET,
+} from './consts';
+import {createInterfaceVersions} from './interfaces';
 import {
   AbstractRenftContractDeployment,
   AzraelVersion,
@@ -14,20 +23,9 @@ import {
   RenftWhoopiDeployment,
   ResolverVersion,
   SylvesterVersion,
-  WhoopiVersion
-} from './types';
-import {
-  CONTRACT_ABI_VERSIONS,
-  NETWORK_AVALANCHE_FUJI_TESTNET,
-  NETWORK_AVALANCHE_MAINNET,
-  NETWORK_ETHEREUM_MAINNET,
-  NETWORK_POLYGON_MAINNET,
-} from './consts';
-import {
-  createInterfaceVersions,
+  WhoopiVersion,
   CreateVersionedContractInterfaceResult,
-} from './contracts';
-
+} from './types';
 
 export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0: RenftAzraelDeployment = {
   contractAddress: '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7',

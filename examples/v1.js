@@ -1,8 +1,11 @@
 const { JsonRpcProvider } = require('@ethersproject/providers');
 const { Wallet } = require('@ethersproject/wallet');
 const { BigNumber } = require('@ethersproject/bignumber');
-const { DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0, PaymentToken } = require('@renft/sdk');
-const {getVersionedContractInterfaceForDeployment, DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0} = require("../src");
+const {
+  DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
+  PaymentToken,
+  getVersionedContractInterfaceForDeployment,
+} = require('@renft/sdk');
 
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
 const provider = new JsonRpcProvider('<your provider uri>');

@@ -1,5 +1,11 @@
 import {ContractInterface} from '@ethersproject/contracts';
-import {CreateVersionedContractInterfaceResult} from './contracts';
+
+import {
+  AzraelInterfaceVersions,
+  ResolverInterfaceVersions,
+  SylvesterInterfaceVersions,
+  WhoopiInterfaceVersions
+} from './contracts';
 
 export enum EVMNetworkType {
   ETHEREUM_MAINNET = 'ETHEREUM_MAINNET',
@@ -132,6 +138,13 @@ export type RenftContractDeployment =
   | RenftResolverDeployment;
 
 export type RenftContractDeployments = readonly RenftContractDeployment[];
+
+export type CreateVersionedContractInterfaceResult = {
+  readonly [RenftContractType.AZRAEL]: AzraelInterfaceVersions;
+  readonly [RenftContractType.SYLVESTER]: SylvesterInterfaceVersions;
+  readonly [RenftContractType.WHOOPI]: WhoopiInterfaceVersions;
+  readonly [RenftContractType.RESOLVER]: ResolverInterfaceVersions;
+};
 
 //// TODO: deprecate this
 //export enum RenftContracts {

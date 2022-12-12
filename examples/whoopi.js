@@ -3,18 +3,10 @@ const { parseFixed } = require('@ethersproject/bignumber');
 const { Wallet } = require('@ethersproject/wallet');
 const {
   PaymentToken,
-  RESOLVERS,
-  RenftContracts,
+  NETWORK_RESOLVERS,
   getVersionedContractInterfaceForDeployment,
   DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
 } = require('@renft/sdk');
-
-const {
-  mintPaymentToken,
-  approvePaymentToken,
-  approveNftForAll,
-  FUJI_USDC,
-} = require('./utils/index');
 
 // If you ever have issues with sending a transaction:
 // use { gasLimit: 1000000 } options when you send a transaction.
@@ -43,6 +35,7 @@ const main = async () => {
 
   // TODO: this is different... why?
   const whoopiAddress = "0x516775e81b0d1fC91Ec326DEd21c33728895Fc6C";
+  const deployment = DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0;
 
   const whoopi = getVersionedContractInterfaceForDeployment({
     deployment: DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
@@ -64,8 +57,8 @@ const main = async () => {
   // ! Note that if allowedRenters is empty, you must set
   // ! upfrontRentFee to a non zero value.
   const upfrontRentFee = [
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString(),
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString()
+    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString(),
+    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString()
   ];
   // ! you can't use SENTINEL as a payment token, even though
   // ! you don't want to set an upfront rent fee. Just use any
@@ -144,8 +137,8 @@ const main = async () => {
   lendingId = [3, 4];
   const renterAddress = ["0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE", "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE"];
   const amountToPay = [
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString(),
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString()
+    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString(),
+    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString()
   ];
 
   txn = await whoopi.pay(
