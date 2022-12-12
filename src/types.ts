@@ -1,21 +1,21 @@
 import {ContractInterface} from '@ethersproject/contracts';
 import {CreateVersionedContractInterfaceResult} from "./contracts2";
 
-export enum EthereumNetworkType {
+export enum EVMNetworkType {
   ETHEREUM_MAINNET = 'ETHEREUM_MAINNET',
   POLYGON_MAINNET = 'POLYGON_MAINNET',
   AVALANCHE_MAINNET = 'AVALANCHE_MAINNET',
   AVALANCHE_FUJI_TESTNET = 'AVALANCHE_FUJI_TESTNET',
 }
 
-export type EthereumNetworkLike<T extends EthereumNetworkType> = {
+export type EVMNetworkLike<T extends EVMNetworkType> = {
   readonly type: T;
   readonly chainId: number;
 };
 
 export type Network =
   // | SolanaNetwork
-  | EthereumNetworkLike<EthereumNetworkType>;
+  | EVMNetworkLike<EVMNetworkType>;
 
 export enum PaymentToken {
   SENTINEL = 0, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
@@ -41,7 +41,8 @@ export enum NFTStandard {
 //
 // + Azrael: A collateralized rental; an up-front fee is required to prevent a renter from leaving a lender empty-handed.
 // + Sylvester: A non-collateralized rental; have an escrow contract programmatically safeguard the safety of your asset.
-// + Whoopi A non-collateralized rental which is cycle-driven, and includes revenue-share for counterparties.
+// + Whoopi: A collateral-free rental; very similar to Sylvester, with an addition of whitelisting and reward share
+//           features that facilitate guild-scholar management. Push approach to pay function.
 //
 // These contracts can be redeployed to new addresses and may be slightly modified to include new features
 // and use cases. These are intended to be ideologically backwards-compatible, though their interfaces
