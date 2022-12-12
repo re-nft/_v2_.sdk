@@ -36,7 +36,7 @@ const main = async () => {
   const deployment = DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0;
 
   const whoopi = getVersionedContractInterfaceForDeployment({
-    deployment: DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
+    deployment,
     signer: wallet,
   });
 
