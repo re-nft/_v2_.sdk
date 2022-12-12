@@ -6,8 +6,9 @@ import {
     WhoopiV0StopLendingFunction,
     WhoopiV0StopRentFunction
 } from './types';
-import {PaymentToken, RenftContracts} from "../../types";
-import {toScaledAmount} from "../../utils";
+import {PaymentToken} from '../../types';
+import {toScaledAmount} from '../../utils';
+import {DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0} from "../../deployments";
 
 export const createWhoopiV0LendThunk = (
   contract: Contract
@@ -47,7 +48,7 @@ export const createWhoopiV0LendThunk = (
   return await contract.lend(
     [nftAddress, tokenId, Array(tokenId.length).fill('0')],
     upfrontRentFees.map((x, i) =>
-        toScaledAmount(x, RenftContracts.WHOOPI_AVALANCHE, paymentTokens[i])
+      toScaledAmount(x, DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0, paymentTokens[i])
     ) ?? [],
     allowRenters,
     revShares,

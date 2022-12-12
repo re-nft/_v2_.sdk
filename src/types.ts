@@ -133,11 +133,11 @@ export type RenftContractDeployment =
 
 export type RenftContractDeployments = readonly RenftContractDeployment[];
 
-// TODO: deprecate this
-export enum RenftContracts {
-  SYLVESTER = 0,
-  SYLVESTER_POLYGON = 1,
-  AZRAEL = 2,
-  WHOOPI_AVALANCHE = 3,
-  WHOOPI_FUJI = 4,
-}
+//// TODO: deprecate this
+//export enum RenftContracts {
+//  SYLVESTER = 0,
+//  SYLVESTER_POLYGON = 1,
+//  AZRAEL = 2,
+//  WHOOPI_AVALANCHE = 3,
+//  WHOOPI_FUJI = 4,
+//}

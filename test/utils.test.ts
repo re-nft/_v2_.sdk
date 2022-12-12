@@ -3,9 +3,9 @@ import { expect } from 'chai';
 
 import {
   PaymentToken,
-  RenftContracts,
   toScaledAmount,
   fromScaledAmount,
+  DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
 } from '../src';
 
 describe('Scaling', () => {
@@ -13,7 +13,7 @@ describe('Scaling', () => {
     const unscaledOneWETH = '1.0';
     const scaledOneWTH = toScaledAmount(
       unscaledOneWETH,
-      RenftContracts.WHOOPI_FUJI,
+      DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
       PaymentToken.WETH
     );
     expect(scaledOneWTH.toString()).to.equal(
@@ -25,7 +25,7 @@ describe('Scaling', () => {
     const unscaledOneUSDC = '1';
     const scaledOneUSDC = toScaledAmount(
       unscaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
       PaymentToken.USDC
     );
     expect(scaledOneUSDC.toString()).to.equal(
@@ -37,7 +37,7 @@ describe('Scaling', () => {
     const unscaledOneUSDC = 1;
     const scaledOneUSDC = toScaledAmount(
       unscaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
       PaymentToken.USDC
     );
     expect(scaledOneUSDC.toString()).to.equal(
@@ -49,7 +49,7 @@ describe('Scaling', () => {
     const unscaledOneUSDC = '0.1';
     const scaledOneUSDC = toScaledAmount(
       unscaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
       PaymentToken.USDC
     );
     expect(scaledOneUSDC.toString()).to.equal(
@@ -61,7 +61,7 @@ describe('Scaling', () => {
     const unscaledOneUSDC = 0.1;
     const scaledOneUSDC = toScaledAmount(
       unscaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
       PaymentToken.USDC
     );
     expect(scaledOneUSDC.toString()).to.equal(
@@ -73,7 +73,7 @@ describe('Scaling', () => {
     const scaledOneUSDC = 1000000;
     const unscaledOneUSDC = fromScaledAmount(
       scaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
       PaymentToken.USDC
     );
     expect(unscaledOneUSDC).to.equal('1.0');
@@ -83,7 +83,7 @@ describe('Scaling', () => {
     const scaledOneUSDC = '1000000';
     const unscaledOneUSDC = fromScaledAmount(
       scaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
       PaymentToken.USDC
     );
     expect(unscaledOneUSDC).to.equal('1.0');
@@ -93,7 +93,7 @@ describe('Scaling', () => {
     const scaledOneUSDC = 100000;
     const unscaledOneUSDC = fromScaledAmount(
       scaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
       PaymentToken.USDC
     );
     expect(unscaledOneUSDC).to.equal('0.1');
@@ -103,7 +103,7 @@ describe('Scaling', () => {
     const scaledOneUSDC = '100000';
     const unscaledOneUSDC = fromScaledAmount(
       scaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
       PaymentToken.USDC
     );
     expect(unscaledOneUSDC).to.equal('0.1');

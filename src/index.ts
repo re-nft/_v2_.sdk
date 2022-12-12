@@ -2,7 +2,7 @@ export * from './contracts';
 export * from './consts';
 export * from './deployments';
 
-export { PaymentToken, NFTStandard, RenftContracts } from './types';
+export { PaymentToken, NFTStandard } from './types';
 
 export * from './utils';
 
