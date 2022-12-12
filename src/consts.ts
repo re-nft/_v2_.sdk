@@ -7,8 +7,8 @@ import {
   AzraelAbiVersions,
   AzraelVersion,
   ContractAbiVersions,
-  EthereumNetworkLike,
-  EthereumNetworkType,
+  EVMNetworkType,
+  EVMNetworkLike,
   PaymentToken,
   PaymentTokenDetails,
   RenftAzraelDeployment,
@@ -30,31 +30,31 @@ import whoopi_v0 from './abi/whoopi.v0.abi.json';
 import resolver_v0 from './abi/resolver.v0.abi.json';
 import {createInterfaceVersions, CreateVersionedContractInterfaceResult} from "./contracts2";
 
-export const NETWORK_ETHEREUM_MAINNET: EthereumNetworkLike<
-  EthereumNetworkType.ETHEREUM_MAINNET
+export const NETWORK_ETHEREUM_MAINNET: EVMNetworkLike<
+  EVMNetworkType.ETHEREUM_MAINNET
 > = {
-  type: EthereumNetworkType.ETHEREUM_MAINNET,
+  type: EVMNetworkType.ETHEREUM_MAINNET,
   chainId: 1,
 };
 
-export const NETWORK_POLYGON_MAINNET: EthereumNetworkLike<
-  EthereumNetworkType.POLYGON_MAINNET
+export const NETWORK_POLYGON_MAINNET: EVMNetworkLike<
+  EVMNetworkType.POLYGON_MAINNET
 > = {
-  type: EthereumNetworkType.POLYGON_MAINNET,
+  type: EVMNetworkType.POLYGON_MAINNET,
   chainId: 137,
 };
 
-export const NETWORK_AVALANCHE_FUJI_TESTNET: EthereumNetworkLike<
-  EthereumNetworkType.AVALANCHE_FUJI_TESTNET
+export const NETWORK_AVALANCHE_FUJI_TESTNET: EVMNetworkLike<
+  EVMNetworkType.AVALANCHE_FUJI_TESTNET
 > = {
-  type: EthereumNetworkType.AVALANCHE_FUJI_TESTNET,
+  type: EVMNetworkType.AVALANCHE_FUJI_TESTNET,
   chainId: 43_113,
 };
 
-export const NETWORK_AVALANCHE_MAINNET: EthereumNetworkLike<
-  EthereumNetworkType.AVALANCHE_MAINNET
+export const NETWORK_AVALANCHE_MAINNET: EVMNetworkLike<
+  EVMNetworkType.AVALANCHE_MAINNET
 > = {
-  type: EthereumNetworkType.AVALANCHE_MAINNET,
+  type: EVMNetworkType.AVALANCHE_MAINNET,
   chainId: 43_114,
 };
 
@@ -423,7 +423,7 @@ export type PaymentTokenResolvers = {
 };
 
 export type NetworkPaymentTokenResolvers = {
-  readonly [key in EthereumNetworkType]: PaymentTokenResolvers;
+  readonly [key in EVMNetworkType]: PaymentTokenResolvers;
 };
 
 export const ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -468,19 +468,19 @@ export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = 
 
 // TODO: need to associate these with the resolver contract instance somehow
 export const NETWORK_RESOLVERS: NetworkPaymentTokenResolvers = {
-  [EthereumNetworkType.ETHEREUM_MAINNET]: ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS,
-  [EthereumNetworkType.POLYGON_MAINNET]: POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS,
-  [EthereumNetworkType.AVALANCHE_FUJI_TESTNET]: AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS,
-  [EthereumNetworkType.AVALANCHE_MAINNET]: AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+  [EVMNetworkType.ETHEREUM_MAINNET]: ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+  [EVMNetworkType.POLYGON_MAINNET]: POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+  [EVMNetworkType.AVALANCHE_FUJI_TESTNET]: AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS,
+  [EVMNetworkType.AVALANCHE_MAINNET]: AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS,
 };
 
 // @deprecated
 export const Resolvers: {
   readonly [key in RenftContracts]: PaymentTokenResolvers;
 } = {
-  [RenftContracts.SYLVESTER]: NETWORK_RESOLVERS[EthereumNetworkType.ETHEREUM_MAINNET],
-  [RenftContracts.SYLVESTER_POLYGON]: NETWORK_RESOLVERS[EthereumNetworkType.POLYGON_MAINNET],
-  [RenftContracts.AZRAEL]: NETWORK_RESOLVERS[EthereumNetworkType.ETHEREUM_MAINNET],
-  [RenftContracts.WHOOPI_AVALANCHE]: NETWORK_RESOLVERS[EthereumNetworkType.AVALANCHE_MAINNET],
-  [RenftContracts.WHOOPI_FUJI]: NETWORK_RESOLVERS[EthereumNetworkType.AVALANCHE_FUJI_TESTNET],
+  [RenftContracts.SYLVESTER]: NETWORK_RESOLVERS[EVMNetworkType.ETHEREUM_MAINNET],
+  [RenftContracts.SYLVESTER_POLYGON]: NETWORK_RESOLVERS[EVMNetworkType.POLYGON_MAINNET],
+  [RenftContracts.AZRAEL]: NETWORK_RESOLVERS[EVMNetworkType.ETHEREUM_MAINNET],
+  [RenftContracts.WHOOPI_AVALANCHE]: NETWORK_RESOLVERS[EVMNetworkType.AVALANCHE_MAINNET],
+  [RenftContracts.WHOOPI_FUJI]: NETWORK_RESOLVERS[EVMNetworkType.AVALANCHE_FUJI_TESTNET],
 };
