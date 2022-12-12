@@ -1,10 +1,9 @@
 import {BigNumber, BigNumberish, formatFixed, parseFixed,} from '@ethersproject/bignumber';
 
 import {
+  EVMNetworkType,
   NFTStandard,
   PaymentToken,
-  RenftContractDeployment,
-  RenftContractType,
 } from './types';
 import {MAX_PRICE, NETWORK_RESOLVERS, NUM_BITS_IN_BYTE} from './consts';
 
@@ -229,22 +228,16 @@ export const prepareBatch = (args: PrepareBatch) => {
 // TODO: deprecate the usage of these in front & api. People should use
 // parseFixed directly.
 // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
-export const toScaledAmount = (
+export const toWhoopiScaledAmount = (
   v: BigNumberish,
-  c: Pick<RenftContractDeployment, 'network' | 'contractType'>,
+  c: EVMNetworkType,
   t: PaymentToken
 ): BigNumber => {
-  const {contractType} = c;
-
-  if (contractType !== RenftContractType.WHOOPI)
-    throw new TypeError(
-        'Invalid contract type. Only whoopy supported.'
-    );
 
   if (t === PaymentToken.SENTINEL)
-    throw new TypeError('Invalid payment token. Non sentinels supported only.');
+    throw new TypeError('Invalid payment token. Non-sentinels supported only.');
 
-  const {[c.network.type]: resolver} = NETWORK_RESOLVERS;
+  const {[c]: resolver} = NETWORK_RESOLVERS;
 
   return parseFixed(String(v), resolver[t].scale);
 };
@@ -252,22 +245,15 @@ export const toScaledAmount = (
 // TODO: deprecate the usage of these in front & api. People should use
 // formatFixed directly.
 // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
-export const fromScaledAmount = (
+export const fromWhoopiScaledAmount = (
   v: BigNumberish,
-  c: RenftContractDeployment,
+  c: EVMNetworkType.AVALANCHE_MAINNET | EVMNetworkType.AVALANCHE_FUJI_TESTNET,
   t: PaymentToken
 ): string => {
-  const {contractType} = c;
-
-  if (contractType !== RenftContractType.WHOOPI)
-    throw new TypeError(
-      'Invalid contract type. Only whoopy supported.'
-    );
-
   if (t === PaymentToken.SENTINEL)
-    throw new TypeError('Invalid payment token. Non sentinels supported only.');
+    throw new TypeError('Invalid payment token. Non-sentinels supported only.');
 
-  const {[c.network.type]: resolver} = NETWORK_RESOLVERS;
+  const {[c]: resolver} = NETWORK_RESOLVERS;
 
   return formatFixed(v, resolver[t].scale);
 };
