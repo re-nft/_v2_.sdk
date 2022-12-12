@@ -1,3 +1,4 @@
+import {Signer} from '@ethersproject/abstract-signer';
 import { expect } from 'chai';
 import isEqual from 'react-fast-compare';
 
@@ -20,7 +21,6 @@ import azrael_v0 from '../src/abi/azrael.v0.abi.json';
 import resolver_v0 from '../src/abi/resolver.v0.abi.json';
 import sylvester_v0 from '../src/abi/sylvester.v0.abi.json';
 import whoopi_v0 from '../src/abi/whoopi.v0.abi.json';
-import {Signer} from "@ethersproject/abstract-signer";
 
 describe('module exports', () => {
   it('abis', () => {
