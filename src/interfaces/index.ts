@@ -2,11 +2,12 @@ import {Contract} from '@ethersproject/contracts';
 
 import {
   AzraelVersion,
+  CreateVersionedContractInterfaceResult,
   RenftContractType,
   ResolverVersion,
   SylvesterVersion,
   WhoopiVersion,
-} from '../../types';
+} from '../types';
 
 import {
   AzraelInterfaceVersions,
@@ -15,31 +16,20 @@ import {
   createAzraelV0RentThunk,
   createAzraelV0ReturnItThunk,
   createAzraelV0StopLendingThunk,
-} from "../azrael";
-import {
   createSylvesterV0ClaimCollateralThunk,
   createSylvesterV0LendThunk,
   createSylvesterV0RentThunk,
   createSylvesterV0ReturnItThunk,
   createSylvesterV0StopLendingThunk,
-  SylvesterInterfaceVersions
-} from "../sylvester";
-import {
+  SylvesterInterfaceVersions,
   createWhoopiV0LendThunk,
   createWhoopiV0PayThunk,
   createWhoopiV0RentThunk,
   createWhoopiV0StopLendingThunk,
   createWhoopiV0StopRentThunk,
   WhoopiInterfaceVersions,
-} from '../whoopi';
-import {ResolverInterfaceVersions} from '../resolver';
-
-export type CreateVersionedContractInterfaceResult = {
-    readonly [RenftContractType.AZRAEL]: AzraelInterfaceVersions;
-    readonly [RenftContractType.SYLVESTER]: SylvesterInterfaceVersions;
-    readonly [RenftContractType.WHOOPI]: WhoopiInterfaceVersions;
-    readonly [RenftContractType.RESOLVER]: ResolverInterfaceVersions;
-};
+  ResolverInterfaceVersions,
+} from '../contracts';
 
 const createAzraelInterfaceVersionsThunk = (
     contract: Contract
