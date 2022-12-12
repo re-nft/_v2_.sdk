@@ -5,8 +5,12 @@ import {
   formatFixed,
 } from '@ethersproject/bignumber';
 
-import { PaymentToken, NFTStandard, RenftContracts } from './types';
-import { MAX_PRICE, NUM_BITS_IN_BYTE, Resolvers } from './consts';
+import {
+  PaymentToken,
+  NFTStandard,
+  RenftContracts,
+} from './types';
+import {MAX_PRICE, NUM_BITS_IN_BYTE, Resolvers} from './consts';
 
 // consts that predominantly pertain to this file
 const BITSIZE_MAX_VALUE = 32;
@@ -268,3 +272,4 @@ export const fromScaledAmount = (
   }
   return formatFixed(v, Resolvers[c][t].scale);
 };
+

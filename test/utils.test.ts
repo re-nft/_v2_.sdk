@@ -1,8 +1,11 @@
 import { expect } from 'chai';
 import { BigNumber, parseFixed } from '@ethersproject/bignumber';
-import { PaymentToken, RenftContracts } from '../src/types';
-
-import { toScaledAmount, fromScaledAmount } from '../src/utils';
+import {
+  PaymentToken,
+  RenftContracts,
+  toScaledAmount,
+  fromScaledAmount,
+} from '../src';
 
 describe('Scaling', () => {
   it('Scales one WETH for Whopi Fuji (string input)', () => {

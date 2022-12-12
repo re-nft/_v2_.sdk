@@ -1,5 +1,5 @@
 import {ContractInterface} from '@ethersproject/contracts';
-import {CreateVersionedContractInterfaceResult} from "./contracts2";
+import {CreateVersionedContractInterfaceResult} from './contracts';
 
 export enum EVMNetworkType {
   ETHEREUM_MAINNET = 'ETHEREUM_MAINNET',
@@ -133,6 +133,7 @@ export type RenftContractDeployment =
 
 export type RenftContractDeployments = readonly RenftContractDeployment[];
 
+// TODO: deprecate this
 export enum RenftContracts {
   SYLVESTER = 0,
   SYLVESTER_POLYGON = 1,

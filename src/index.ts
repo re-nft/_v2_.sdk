@@ -1,46 +1,65 @@
-import ResolverAbi from './abi/resolver.abi';
-import SylvesterAbi from './abi/sylvester.abi';
-import AzraelAbi from './abi/azrael.abi';
-import WhoopiAbi from './abi/whoopi.abi';
-
-import {AzraelV0FunctionInterface as IAzrael} from './contracts2/azrael/types';
-import {SylvesterV0FunctionInterface as ISylvester} from './contracts2/sylvester/types';
-import {WhoopiV0FunctionInterface as IWhoopi} from './contracts2/whoopi/types';
-
-// @deprecated
-export { Sylvester } from './contracts/sylvester';
-export { Azrael } from './contracts/azrael';
-export { Whoopi } from './contracts/whoopi';
-
-export {
-  ResolverAddress as RESOLVER_ADDRESS,
-  AzraelAddress as AZRAEL_ADDRESS,
-  SylvesterAddress as SYLVESTER_ADDRESS,
-  ResolverPolygonAddress as RESOLVER_POLYGON_ADDRESS,
-  SylvesterPolygonAddress as SYLVESTER_POLYGON_ADDRESS,
-  ResolverAvalancheAddress as RESOLVER_AVALANCHE_ADDRESS,
-  WhoopiAvalancheAddress as WHOOPI_AVALANCHE_ADDRESS,
-  WhoopiFujiAddress as WHOOPI_FUJI_ADDRESS,
-  ResolverFujiAddress as RESOLVER_FUJI_ADDRESS,
-  Resolvers as RESOLVERS,
-} from './consts';
+export * from './contracts';
+export * from './consts';
+export * from './deployments';
 
 export { PaymentToken, NFTStandard, RenftContracts } from './types';
-export {
-  packPrice,
-  unpackPrice,
-  toPaddedHex,
-  prepareBatch,
-  toScaledAmount,
-  fromScaledAmount,
-} from './utils';
 
-export {
-  ResolverAbi as RESOLVER_ABI,
-  SylvesterAbi as SYLVESTER_ABI,
-  AzraelAbi as AZRAEL_ABI,
-  WhoopiAbi as WHOOPI_ABI,
-  IAzrael,
-  ISylvester,
-  IWhoopi,
-};
+export * from './utils';
+
+import {RenftContractType} from './types';
+
+import {
+  NETWORK_AVALANCHE_FUJI_TESTNET,
+  NETWORK_AVALANCHE_MAINNET,
+  NETWORK_ETHEREUM_MAINNET,
+  NETWORK_POLYGON_MAINNET
+} from './consts';
+
+import {getContractAddressForDeployment} from './deployments';
+
+export const RESOLVER_ADDRESS = getContractAddressForDeployment({
+  network: NETWORK_ETHEREUM_MAINNET,
+  contractType: RenftContractType.RESOLVER,
+});
+
+export const RESOLVER_POLYGON_ADDRESS = getContractAddressForDeployment({
+  network: NETWORK_POLYGON_MAINNET,
+  contractType: RenftContractType.RESOLVER,
+});
+
+export const RESOLVER_FUJI_ADDRESS = getContractAddressForDeployment({
+  network: NETWORK_AVALANCHE_FUJI_TESTNET,
+  contractType: RenftContractType.RESOLVER,
+});
+
+export const RESOLVER_AVALANCHE_ADDRESS = getContractAddressForDeployment({
+  network: NETWORK_AVALANCHE_MAINNET,
+  contractType: RenftContractType.RESOLVER,
+});
+
+export const AZRAEL_ADDRESS = getContractAddressForDeployment({
+  network: NETWORK_ETHEREUM_MAINNET,
+  contractType: RenftContractType.AZRAEL,
+});
+
+export const SYLVESTER_ADDRESS = getContractAddressForDeployment({
+  network: NETWORK_ETHEREUM_MAINNET,
+  contractType: RenftContractType.SYLVESTER,
+});
+
+export const SYLVESTER_POLYGON_ADDRESS = getContractAddressForDeployment({
+  network: NETWORK_POLYGON_MAINNET,
+  contractType: RenftContractType.SYLVESTER,
+});
+
+export const WHOOPI_FUJI_ADDRESS = getContractAddressForDeployment({
+  network: NETWORK_AVALANCHE_FUJI_TESTNET,
+  contractType: RenftContractType.WHOOPI,
+});
+
+export const WHOOPI_AVALANCHE_ADDRESS = getContractAddressForDeployment({
+  network: NETWORK_AVALANCHE_MAINNET,
+  contractType: RenftContractType.WHOOPI,
+});
+
+
