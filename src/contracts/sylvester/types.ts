@@ -31,6 +31,18 @@ export type SylvesterV0LendFunction = (
   options?: any
 ) => Promise<ContractTransaction>;
 
+export type SylvesterV1LendFunction = (
+  nftStandard: NFTStandard[],
+  nftAddress: string[],
+  tokenID: string[],
+  amount: number[],
+  maxRentDuration: number[],
+  dailyRentPrice: number[],
+  paymentToken: PaymentToken[],
+  willAutoRenew: boolean[],
+  options?: any
+) => Promise<ContractTransaction>;
+
 export type SylvesterV0RentFunction = (
   nftStandard: NFTStandard[],
   nftAddress: string[],
@@ -75,6 +87,15 @@ export type SylvesterV0FunctionInterface = AbstractSylvesterFunctionInterface<
   SylvesterV0StopLendingFunction
 >;
 
+export type SylvesterV1FunctionInterface = AbstractSylvesterFunctionInterface<
+  SylvesterV1LendFunction,
+  SylvesterV0RentFunction,
+  SylvesterV0ReturnItFunction,
+  SylvesterV0ClaimCollateralFunction,
+  SylvesterV0StopLendingFunction
+>;
+
 export type SylvesterInterfaceVersions = {
   readonly [SylvesterVersion.V0]: SylvesterV0FunctionInterface;
+  readonly [SylvesterVersion.V1]: SylvesterV1FunctionInterface;
 };

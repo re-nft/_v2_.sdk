@@ -1,5 +1,6 @@
 import azrael_v0 from './abi/azrael.v0.abi.json';
 import sylvester_v0 from './abi/sylvester.v0.abi.json';
+import sylvester_v1 from './abi/sylvester.v1.abi.json';
 import whoopi_v0 from './abi/whoopi.v0.abi.json';
 import resolver_v0 from './abi/resolver.v0.abi.json';
 
@@ -54,6 +55,7 @@ export const AZRAEL_ABI_VERSIONS: AzraelAbiVersions = {
 
 export const SYLVESTER_ABI_VERSIONS: SylvesterAbiVersions = {
   [SylvesterVersion.V0]: sylvester_v0,
+  [SylvesterVersion.V1]: sylvester_v1,
 };
 
 export const WHOOPI_ABI_VERSIONS: WhoopiAbiVersions = {

@@ -14,81 +14,84 @@ import {createInterfaceVersions} from './interfaces';
 import {
   AbstractRenftContractDeployment,
   AzraelVersion,
-  RenftAzraelDeployment,
   RenftContractDeployment,
   RenftContractDeployments,
   RenftContractType,
-  RenftResolverDeployment,
-  RenftSylvesterDeployment,
-  RenftWhoopiDeployment,
   ResolverVersion,
   SylvesterVersion,
   WhoopiVersion,
   CreateVersionedContractInterfaceResult,
 } from './types';
 
-export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0: RenftAzraelDeployment = {
+export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0 = {
   contractAddress: '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7',
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.AZRAEL,
   version: AzraelVersion.V0,
-};
+} as const;
 
-export const DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0: RenftSylvesterDeployment = {
+export const DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0 = {
   contractAddress: '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a',
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V0,
-};
+} as const;
 
-export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0: RenftSylvesterDeployment = {
+export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0 = {
   contractAddress: '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V0,
-};
+} as const;
 
-export const DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0: RenftWhoopiDeployment = {
+export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
+  contractAddress: '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe',
+  network: NETWORK_POLYGON_MAINNET,
+  contractType: RenftContractType.SYLVESTER,
+  version: SylvesterVersion.V1,
+} as const;
+
+export const DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0 = {
   contractAddress: '0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084',
   network: NETWORK_AVALANCHE_FUJI_TESTNET,
   contractType: RenftContractType.WHOOPI,
   version: WhoopiVersion.V0,
-};
+} as const;
 
-export const DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0: RenftWhoopiDeployment = {
+export const DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0 = {
   contractAddress: '0x6Ee495ecEd3A0255057667FF2685e53f54A19A65',
   network: NETWORK_AVALANCHE_MAINNET,
   contractType: RenftContractType.WHOOPI,
   version: WhoopiVersion.V0,
-};
+} as const;
 
-export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0: RenftResolverDeployment = {
+export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0 = {
   contractAddress: '0x945e589a4715d1915e6fe14f08e4887bc4019341',
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
-};
+} as const;
 
-export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0: RenftResolverDeployment = {
+export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
   contractAddress: '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
-};
+} as const;
 
-export const DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0: RenftResolverDeployment = {
+export const DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0 = {
   contractAddress: '0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D',
   network: NETWORK_AVALANCHE_FUJI_TESTNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
-};
+} as const;
 
-export const DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0: RenftResolverDeployment = {
+export const DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0 = {
   contractAddress: '0xEBFd584AAC21dfEFF02c3d4f308B0962610a028A',
   network: NETWORK_AVALANCHE_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
-};
+} as const;
 
 export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,

@@ -18,6 +18,7 @@ import {
   AzraelV0FunctionInterface,
   SylvesterV0FunctionInterface,
   WhoopiV0FunctionInterface,
+  DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1,
 } from '../src';
 
 describe('deprecated contract addresses', () => {
@@ -52,9 +53,15 @@ describe('deprecated contract addresses', () => {
       signer,
     });
 
+    const sylvesterv1 = getRenftContract({
+      deployment: DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1,
+      signer,
+    });
+
     expect(!!azrael).to.be.true;
     expect(!!sylvester).to.be.true;
     expect(!!whoopi).to.be.true;
-  });
+    expect(!!sylvesterv1).to.be.true;
 
+  });
 });
