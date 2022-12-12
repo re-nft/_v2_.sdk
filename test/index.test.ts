@@ -6,6 +6,9 @@ import {
   RESOLVER_ABI,
   SYLVESTER_ABI,
   WHOOPI_ABI,
+  Azrael,
+  Sylvester,
+  Whoopi,
 } from '../src';
 
 import azrael_v0 from '../src/abi/azrael.v0.abi.json';
@@ -42,4 +45,9 @@ describe('module exports', () => {
     expect(isEqual(getDeploymentAbi(DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0), resolver_v0)).to.be.true;
     expect(isEqual(getDeploymentAbi(DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0), resolver_v0)).to.be.true;
   });
+  it('deprecated classes export', () => {
+    expect(typeof Azrael).to.equal('function');
+    expect(typeof Sylvester).to.equal('function');
+    expect(typeof Whoopi).to.equal('function');
+  })
 });
