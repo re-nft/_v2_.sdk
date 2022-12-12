@@ -19,6 +19,7 @@ import {
   SylvesterV0FunctionInterface,
   WhoopiV0FunctionInterface,
   DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1,
+  SylvesterV1FunctionInterface,
 } from '../src';
 
 describe('deprecated contract addresses', () => {
@@ -53,7 +54,7 @@ describe('deprecated contract addresses', () => {
       signer,
     });
 
-    const sylvesterv1 = getRenftContract({
+    const sylvesterv1: SylvesterV1FunctionInterface = getRenftContract({
       deployment: DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1,
       signer,
     });
