@@ -63,8 +63,8 @@ export const createSylvesterV1LendThunk = (
     amount: amount.map(Number),
     maxRentDuration: maxRentDuration.map(Number),
     dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
-    willAutoRenew: willAutoRenew.map(x => x ? 1 : 0),
     paymentToken,
+    willAutoRenew: willAutoRenew.map(x => x ? 1 : 0),
   });
   return await contract.lend(
     args.nftStandard,
