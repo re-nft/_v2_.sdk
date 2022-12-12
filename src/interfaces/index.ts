@@ -1,12 +1,13 @@
 import {Contract} from '@ethersproject/contracts';
 
 import {
-    AzraelVersion,
-    CreateVersionedContractInterfaceResult, EVMNetworkType,
-    RenftContractType,
-    ResolverVersion,
-    SylvesterVersion,
-    WhoopiVersion,
+  AzraelVersion,
+  CreateVersionedContractInterfaceResult,
+  EVMNetworkType,
+  RenftContractType,
+  ResolverVersion,
+  SylvesterVersion,
+  WhoopiVersion,
 } from '../types';
 
 import {
@@ -29,6 +30,7 @@ import {
   createWhoopiV0StopRentThunk,
   WhoopiInterfaceVersions,
   ResolverInterfaceVersions,
+  createSylvesterV1LendThunk,
 } from '../contracts';
 
 const createAzraelInterfaceVersionsThunk = (
@@ -44,7 +46,7 @@ const createAzraelInterfaceVersionsThunk = (
 });
 
 const createSylvesterInterfaceVersionsThunk = (
-    contract: Contract
+  contract: Contract
 ): SylvesterInterfaceVersions => ({
     [SylvesterVersion.V0]: {
         lend: createSylvesterV0LendThunk(contract),
@@ -52,6 +54,13 @@ const createSylvesterInterfaceVersionsThunk = (
         returnIt: createSylvesterV0ReturnItThunk(contract),
         claimCollateral: createSylvesterV0ClaimCollateralThunk(contract),
         stopLending: createSylvesterV0StopLendingThunk(contract),
+    },
+    [SylvesterVersion.V1]: {
+      lend: createSylvesterV1LendThunk(contract),
+      rent: createSylvesterV0RentThunk(contract),
+      returnIt: createSylvesterV0ReturnItThunk(contract),
+      claimCollateral: createSylvesterV0ClaimCollateralThunk(contract),
+      stopLending: createSylvesterV0StopLendingThunk(contract),
     },
 });
 

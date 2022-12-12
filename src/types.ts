@@ -72,6 +72,7 @@ export enum WhoopiVersion {
 
 export enum SylvesterVersion {
   V0 = 'V0',
+  V1 = 'V1',
 }
 
 export enum ResolverVersion {

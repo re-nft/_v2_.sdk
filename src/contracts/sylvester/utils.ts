@@ -43,6 +43,42 @@ export const createSylvesterV0LendThunk = (
   );
 };
 
+export const createSylvesterV1LendThunk = (
+    contract: Contract,
+): SylvesterV0LendFunction => async (
+    nftStandard: NFTStandard[],
+    nftAddress: string[],
+    tokenID: string[],
+    amount: number[],
+    maxRentDuration: number[],
+    dailyRentPrice: number[],
+    paymentToken: PaymentToken[],
+    willAutoRenew: boolean[],
+    options?: any
+): Promise<ContractTransaction> => {
+  const args = prepareBatch({
+    nftStandard,
+    nftAddress: nftAddress.map(String),
+    tokenID: tokenID.map(String),
+    amount: amount.map(Number),
+    maxRentDuration: maxRentDuration.map(Number),
+    dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
+    willAutoRenew: willAutoRenew.map(x => x ? 1 : 0),
+    paymentToken,
+  });
+  return await contract.lend(
+    args.nftStandard,
+    args.nftAddress,
+    args.tokenID,
+    args.amount,
+    args.maxRentDuration,
+    args.dailyRentPrice,
+    args.paymentToken,
+    args.willAutoRenew,
+    options ?? []
+  );
+};
+
 export const createSylvesterV0RentThunk = (
   contract: Contract
 ): SylvesterV0RentFunction => async (
