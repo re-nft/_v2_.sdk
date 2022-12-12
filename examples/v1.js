@@ -4,7 +4,7 @@ const { BigNumber } = require('@ethersproject/bignumber');
 const {
   DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
   PaymentToken,
-  getVersionedContractInterfaceForDeployment,
+  getRenftContract,
 } = require('@renft/sdk');
 
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
@@ -24,7 +24,7 @@ const main = async () => {
   // collateral solution
   // const renft = new Azrael(wallet);
   // * for collateral free (import Sylvester from index):
-  const renft = getVersionedContractInterfaceForDeployment({
+  const renft = getRenftContract({
     deployment: DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
     signer: wallet,
   });

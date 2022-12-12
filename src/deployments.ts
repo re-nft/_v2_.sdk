@@ -185,7 +185,7 @@ export function getContractForDeployment<T extends RenftContractType>({
   return new Contract(contractAddress, abi, signer);
 }
 
-export function getVersionedContractInterfaceForDeployment<
+export function getRenftContract<
   ContractType extends keyof CreateVersionedContractInterfaceResult,
   Version extends keyof CreateVersionedContractInterfaceResult[ContractType],
 >({

@@ -14,7 +14,7 @@ import {
   DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
   DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
   getDeploymentAbi,
-  getVersionedContractInterfaceForDeployment,
+  getRenftContract,
 } from '../src';
 
 import azrael_v0 from '../src/abi/azrael.v0.abi.json';
@@ -38,7 +38,7 @@ describe('module exports', () => {
   it('readme compatibility', () => {
     // @ts-expect-error
     const wallet: Signer = null;
-    const renft = getVersionedContractInterfaceForDeployment({
+    const renft = getRenftContract({
       deployment: DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
       signer: wallet,
     });

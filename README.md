@@ -28,7 +28,7 @@ The below is a simple example of lending an ERC721, note that the amount is igno
 ```javascript
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
-import { DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0, PaymentToken } from '@renft/sdk';
+import { DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0, PaymentToken, getRenftContract } from '@renft/sdk';
 
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
 const provider = new JsonRpcProvider('<your provider uri>');
@@ -37,7 +37,7 @@ let wallet = new Wallet(privKey);
 wallet = wallet.connect(provider);
 
 const main = async () => {
-  const renft = getVersionedContractInterfaceForDeployment({
+  const renft = getRenftContract({
     deployment: DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
     signer: wallet,
   });
