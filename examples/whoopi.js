@@ -33,8 +33,6 @@ let lendingId;
 const main = async () => {
   const castleCrushNftAddress = "0xeA4E79F0a40A9A468a5159499b738dc6b1332447";
 
-  // TODO: this is different... why?
-  const whoopiAddress = "0x516775e81b0d1fC91Ec326DEd21c33728895Fc6C";
   const deployment = DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0;
 
   const whoopi = getVersionedContractInterfaceForDeployment({
