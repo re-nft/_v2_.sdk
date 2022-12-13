@@ -1,10 +1,10 @@
-import {ContractInterface} from '@ethersproject/contracts';
+import { ContractInterface } from '@ethersproject/contracts';
 
 import {
   AzraelInterfaceVersions,
   ResolverInterfaceVersions,
   SylvesterInterfaceVersions,
-  WhoopiInterfaceVersions
+  WhoopiInterfaceVersions,
 } from './contracts';
 
 export enum EVMNetworkType {
@@ -21,7 +21,7 @@ export type EVMNetworkLike<T extends EVMNetworkType> = {
 
 export type Network =
   // | SolanaNetwork
-  | EVMNetworkLike<EVMNetworkType>;
+  EVMNetworkLike<EVMNetworkType>;
 
 export enum PaymentToken {
   SENTINEL = 0, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
@@ -87,7 +87,7 @@ export type RenftContractVersion =
 
 export type AbstractRenftContractDeployment<
   ContractType extends keyof CreateVersionedContractInterfaceResult,
-  Version extends keyof CreateVersionedContractInterfaceResult[ContractType],
+  Version extends keyof CreateVersionedContractInterfaceResult[ContractType]
 > = {
   readonly contractType: ContractType;
   readonly version: Version;

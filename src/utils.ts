@@ -1,11 +1,12 @@
-import {BigNumber, BigNumberish, formatFixed, parseFixed,} from '@ethersproject/bignumber';
-
 import {
-  EVMNetworkType,
-  NFTStandard,
-  PaymentToken,
-} from './types';
-import {MAX_PRICE, NETWORK_RESOLVERS, NUM_BITS_IN_BYTE} from './consts';
+  BigNumber,
+  BigNumberish,
+  formatFixed,
+  parseFixed,
+} from '@ethersproject/bignumber';
+
+import { EVMNetworkType, NFTStandard, PaymentToken } from './types';
+import { MAX_PRICE, NETWORK_RESOLVERS, NUM_BITS_IN_BYTE } from './consts';
 
 // consts that predominantly pertain to this file
 const BITSIZE_MAX_VALUE = 32;
@@ -233,11 +234,10 @@ export const toWhoopiScaledAmount = (
   c: EVMNetworkType,
   t: PaymentToken
 ): BigNumber => {
-
   if (t === PaymentToken.SENTINEL)
     throw new TypeError('Invalid payment token. Non-sentinels supported only.');
 
-  const {[c]: resolver} = NETWORK_RESOLVERS;
+  const { [c]: resolver } = NETWORK_RESOLVERS;
 
   return parseFixed(String(v), resolver[t].scale);
 };
@@ -253,8 +253,7 @@ export const fromWhoopiScaledAmount = (
   if (t === PaymentToken.SENTINEL)
     throw new TypeError('Invalid payment token. Non-sentinels supported only.');
 
-  const {[c]: resolver} = NETWORK_RESOLVERS;
+  const { [c]: resolver } = NETWORK_RESOLVERS;
 
   return formatFixed(v, resolver[t].scale);
 };
-

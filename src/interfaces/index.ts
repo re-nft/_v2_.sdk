@@ -1,4 +1,4 @@
-import {Contract} from '@ethersproject/contracts';
+import { Contract } from '@ethersproject/contracts';
 
 import {
   AzraelVersion,
@@ -34,60 +34,65 @@ import {
 } from '../contracts';
 
 const createAzraelInterfaceVersionsThunk = (
-    contract: Contract
+  contract: Contract
 ): AzraelInterfaceVersions => ({
-    [AzraelVersion.V0]: {
-        lend: createAzraelV0LendThunk(contract),
-        rent: createAzraelV0RentThunk(contract),
-        returnIt: createAzraelV0ReturnItThunk(contract),
-        claimCollateral: createAzraelV0ClaimCollateralThunk(contract),
-        stopLending: createAzraelV0StopLendingThunk(contract),
-    },
+  [AzraelVersion.V0]: {
+    lend: createAzraelV0LendThunk(contract),
+    rent: createAzraelV0RentThunk(contract),
+    returnIt: createAzraelV0ReturnItThunk(contract),
+    claimCollateral: createAzraelV0ClaimCollateralThunk(contract),
+    stopLending: createAzraelV0StopLendingThunk(contract),
+  },
 });
 
 const createSylvesterInterfaceVersionsThunk = (
   contract: Contract
 ): SylvesterInterfaceVersions => ({
-    [SylvesterVersion.V0]: {
-        lend: createSylvesterV0LendThunk(contract),
-        rent: createSylvesterV0RentThunk(contract),
-        returnIt: createSylvesterV0ReturnItThunk(contract),
-        claimCollateral: createSylvesterV0ClaimCollateralThunk(contract),
-        stopLending: createSylvesterV0StopLendingThunk(contract),
-    },
-    [SylvesterVersion.V1]: {
-      lend: createSylvesterV1LendThunk(contract),
-      rent: createSylvesterV0RentThunk(contract),
-      returnIt: createSylvesterV0ReturnItThunk(contract),
-      claimCollateral: createSylvesterV0ClaimCollateralThunk(contract),
-      stopLending: createSylvesterV0StopLendingThunk(contract),
-    },
+  [SylvesterVersion.V0]: {
+    lend: createSylvesterV0LendThunk(contract),
+    rent: createSylvesterV0RentThunk(contract),
+    returnIt: createSylvesterV0ReturnItThunk(contract),
+    claimCollateral: createSylvesterV0ClaimCollateralThunk(contract),
+    stopLending: createSylvesterV0StopLendingThunk(contract),
+  },
+  [SylvesterVersion.V1]: {
+    lend: createSylvesterV1LendThunk(contract),
+    rent: createSylvesterV0RentThunk(contract),
+    returnIt: createSylvesterV0ReturnItThunk(contract),
+    claimCollateral: createSylvesterV0ClaimCollateralThunk(contract),
+    stopLending: createSylvesterV0StopLendingThunk(contract),
+  },
 });
 
 const createWhoopiInterfaceVersionsThunk = (
   contract: Contract,
-  network: EVMNetworkType,
+  network: EVMNetworkType
 ): WhoopiInterfaceVersions => ({
-    [WhoopiVersion.V0]: {
-        lend: createWhoopiV0LendThunk(contract, network),
-        rent: createWhoopiV0RentThunk(contract),
-        stopRent: createWhoopiV0StopRentThunk(contract),
-        stopLending: createWhoopiV0StopLendingThunk(contract),
-        pay: createWhoopiV0PayThunk(contract),
-    },
+  [WhoopiVersion.V0]: {
+    lend: createWhoopiV0LendThunk(contract, network),
+    rent: createWhoopiV0RentThunk(contract),
+    stopRent: createWhoopiV0StopRentThunk(contract),
+    stopLending: createWhoopiV0StopLendingThunk(contract),
+    pay: createWhoopiV0PayThunk(contract),
+  },
 });
 
 const createResolverInterfaceVersionsThunk = (): ResolverInterfaceVersions => ({
-    // TODO: What arguments to use here?
-    [ResolverVersion.V0]: {},
+  // TODO: What arguments to use here?
+  [ResolverVersion.V0]: {},
 });
 
 export const createInterfaceVersions = (
   contract: Contract,
-  network: EVMNetworkType,
+  network: EVMNetworkType
 ): CreateVersionedContractInterfaceResult => ({
-    [RenftContractType.AZRAEL]: createAzraelInterfaceVersionsThunk(contract),
-    [RenftContractType.SYLVESTER]: createSylvesterInterfaceVersionsThunk(contract),
-    [RenftContractType.WHOOPI]: createWhoopiInterfaceVersionsThunk(contract, network),
-    [RenftContractType.RESOLVER]: createResolverInterfaceVersionsThunk(),
+  [RenftContractType.AZRAEL]: createAzraelInterfaceVersionsThunk(contract),
+  [RenftContractType.SYLVESTER]: createSylvesterInterfaceVersionsThunk(
+    contract
+  ),
+  [RenftContractType.WHOOPI]: createWhoopiInterfaceVersionsThunk(
+    contract,
+    network
+  ),
+  [RenftContractType.RESOLVER]: createResolverInterfaceVersionsThunk(),
 });

@@ -1,7 +1,7 @@
-import {Contract, ContractTransaction} from '@ethersproject/contracts';
+import { Contract, ContractTransaction } from '@ethersproject/contracts';
 
-import {PaymentToken} from '../../types';
-import {packPrice, prepareBatch} from '../../utils';
+import { PaymentToken } from '../../types';
+import { packPrice, prepareBatch } from '../../utils';
 
 import {
   AzraelV0ClaimCollateralFunction,
@@ -21,7 +21,7 @@ export const createAzraelV0LendThunk = (
   dailyRentPrice: number[],
   nftPrice: number[],
   paymentToken: PaymentToken[],
-  options?: any,
+  options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
     nftAddress: nftAddress.map(String),
@@ -44,7 +44,9 @@ export const createAzraelV0LendThunk = (
   );
 };
 
-export const createAzraelV0RentThunk = (contract: Contract): AzraelV0RentFunction => async (
+export const createAzraelV0RentThunk = (
+  contract: Contract
+): AzraelV0RentFunction => async (
   nftAddress: string[],
   tokenID: string[],
   lendingID: string[],
@@ -72,7 +74,7 @@ export const createAzraelV0ReturnItThunk = (
   nftAddress: string[],
   tokenID: string[],
   lendingID: string[],
-  options?: any,
+  options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
     nftAddress: nftAddress.map(String),
@@ -93,7 +95,7 @@ export const createAzraelV0ClaimCollateralThunk = (
   nftAddress: string[],
   tokenID: string[],
   lendingID: string[],
-  options?: any,
+  options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
     nftAddress: nftAddress.map(String),

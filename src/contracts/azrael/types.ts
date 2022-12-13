@@ -1,20 +1,20 @@
-import {ContractTransaction} from '@ethersproject/contracts';
+import { ContractTransaction } from '@ethersproject/contracts';
 
-import {AzraelVersion, PaymentToken} from '../../types';
+import { AzraelVersion, PaymentToken } from '../../types';
 
 export interface AbstractAzraelFunctionInterface<
   LendFunction,
   RentFunction,
   ReturnItFunction,
   ClaimCollateralFunction,
-  StopLendingFunction,
+  StopLendingFunction
 > {
   readonly lend: LendFunction;
   readonly rent: RentFunction;
   readonly returnIt: ReturnItFunction;
   readonly claimCollateral: ClaimCollateralFunction;
   readonly stopLending: StopLendingFunction;
-};
+}
 
 export type AzraelV0LendFunction = (
   nftAddress: string[],
@@ -24,7 +24,7 @@ export type AzraelV0LendFunction = (
   dailyRentPrice: number[],
   nftPrice: number[],
   paymentToken: PaymentToken[],
-  options?: any,
+  options?: any
 ) => Promise<ContractTransaction>;
 
 export type AzraelV0RentFunction = (
@@ -35,7 +35,7 @@ export type AzraelV0RentFunction = (
   options?: any
 ) => Promise<ContractTransaction>;
 
-export type AzraelV0ReturnItFunction =(
+export type AzraelV0ReturnItFunction = (
   nftAddress: string[],
   tokenID: string[],
   lendingID: string[],

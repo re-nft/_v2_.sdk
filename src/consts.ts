@@ -21,30 +21,22 @@ import {
   WhoopiVersion,
 } from './types';
 
-export const NETWORK_ETHEREUM_MAINNET: EVMNetworkLike<
-  EVMNetworkType.ETHEREUM_MAINNET
-> = {
+export const NETWORK_ETHEREUM_MAINNET: EVMNetworkLike<EVMNetworkType.ETHEREUM_MAINNET> = {
   type: EVMNetworkType.ETHEREUM_MAINNET,
   chainId: 1,
 };
 
-export const NETWORK_POLYGON_MAINNET: EVMNetworkLike<
-  EVMNetworkType.POLYGON_MAINNET
-> = {
+export const NETWORK_POLYGON_MAINNET: EVMNetworkLike<EVMNetworkType.POLYGON_MAINNET> = {
   type: EVMNetworkType.POLYGON_MAINNET,
   chainId: 137,
 };
 
-export const NETWORK_AVALANCHE_FUJI_TESTNET: EVMNetworkLike<
-  EVMNetworkType.AVALANCHE_FUJI_TESTNET
-> = {
+export const NETWORK_AVALANCHE_FUJI_TESTNET: EVMNetworkLike<EVMNetworkType.AVALANCHE_FUJI_TESTNET> = {
   type: EVMNetworkType.AVALANCHE_FUJI_TESTNET,
   chainId: 43_113,
 };
 
-export const NETWORK_AVALANCHE_MAINNET: EVMNetworkLike<
-  EVMNetworkType.AVALANCHE_MAINNET
-> = {
+export const NETWORK_AVALANCHE_MAINNET: EVMNetworkLike<EVMNetworkType.AVALANCHE_MAINNET> = {
   type: EVMNetworkType.AVALANCHE_MAINNET,
   chainId: 43_114,
 };
