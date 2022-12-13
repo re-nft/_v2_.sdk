@@ -1,17 +1,18 @@
-import {Contract, ContractTransaction} from '@ethersproject/contracts';
+import { Contract, ContractTransaction } from '@ethersproject/contracts';
 
-import {NFTStandard, PaymentToken} from '../../types';
-import {packPrice, prepareBatch} from '../../utils';
+import { NFTStandard, PaymentToken } from '../../types';
+import { packPrice, prepareBatch } from '../../utils';
 
 import {
   SylvesterV0ClaimCollateralFunction,
   SylvesterV0LendFunction,
   SylvesterV0RentFunction,
-  SylvesterV0ReturnItFunction, SylvesterV0StopLendingFunction
+  SylvesterV0ReturnItFunction,
+  SylvesterV0StopLendingFunction,
 } from './types';
 
 export const createSylvesterV0LendThunk = (
-  contract: Contract,
+  contract: Contract
 ): SylvesterV0LendFunction => async (
   nftStandard: NFTStandard[],
   nftAddress: string[],
@@ -44,17 +45,17 @@ export const createSylvesterV0LendThunk = (
 };
 
 export const createSylvesterV1LendThunk = (
-    contract: Contract,
+  contract: Contract
 ): SylvesterV0LendFunction => async (
-    nftStandard: NFTStandard[],
-    nftAddress: string[],
-    tokenID: string[],
-    amount: number[],
-    maxRentDuration: number[],
-    dailyRentPrice: number[],
-    paymentToken: PaymentToken[],
-    willAutoRenew: boolean[],
-    options?: any
+  nftStandard: NFTStandard[],
+  nftAddress: string[],
+  tokenID: string[],
+  amount: number[],
+  maxRentDuration: number[],
+  dailyRentPrice: number[],
+  paymentToken: PaymentToken[],
+  willAutoRenew: boolean[],
+  options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
     nftStandard,
@@ -64,7 +65,7 @@ export const createSylvesterV1LendThunk = (
     maxRentDuration: maxRentDuration.map(Number),
     dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
     paymentToken,
-    willAutoRenew: willAutoRenew.map(x => x ? 1 : 0),
+    willAutoRenew: willAutoRenew.map(x => (x ? 1 : 0)),
   });
   return await contract.lend(
     args.nftStandard,
@@ -117,7 +118,7 @@ export const createSylvesterV0ReturnItThunk = (
   tokenID: string[],
   lendingID: string[],
   rentingID: string[],
-  options?: any,
+  options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
     nftStandard: nftStandard.map(Number),
@@ -132,12 +133,12 @@ export const createSylvesterV0ReturnItThunk = (
     args.tokenID,
     args.lendingID,
     args.rentingID,
-    options ?? [],
+    options ?? []
   );
 };
 
 export const createSylvesterV0ClaimCollateralThunk = (
-  contract: Contract,
+  contract: Contract
 ): SylvesterV0ClaimCollateralFunction => async (
   nftStandard: NFTStandard[],
   nftAddress: string[],
@@ -164,7 +165,7 @@ export const createSylvesterV0ClaimCollateralThunk = (
 };
 
 export const createSylvesterV0StopLendingThunk = (
-  contract: Contract,
+  contract: Contract
 ): SylvesterV0StopLendingFunction => async (
   nftStandard: NFTStandard[],
   nftAddress: string[],

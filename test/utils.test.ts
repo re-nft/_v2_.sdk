@@ -1,5 +1,5 @@
-import {BigNumber, parseFixed} from '@ethersproject/bignumber';
-import {expect} from 'chai';
+import { BigNumber, parseFixed } from '@ethersproject/bignumber';
+import { expect } from 'chai';
 
 import {
   EVMNetworkType,

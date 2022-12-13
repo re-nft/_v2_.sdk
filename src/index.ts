@@ -6,16 +6,16 @@ export * from './types';
 export * from './interfaces';
 export * from './utils';
 
-import {RenftContractType} from './types';
+import { RenftContractType } from './types';
 
 import {
   NETWORK_AVALANCHE_FUJI_TESTNET,
   NETWORK_AVALANCHE_MAINNET,
   NETWORK_ETHEREUM_MAINNET,
-  NETWORK_POLYGON_MAINNET
+  NETWORK_POLYGON_MAINNET,
 } from './consts';
 
-import {getContractAddressForDeployment} from './deployments';
+import { getContractAddressForDeployment } from './deployments';
 
 export const RESOLVER_ADDRESS = getContractAddressForDeployment({
   network: NETWORK_ETHEREUM_MAINNET,
@@ -61,5 +61,3 @@ export const WHOOPI_AVALANCHE_ADDRESS = getContractAddressForDeployment({
   network: NETWORK_AVALANCHE_MAINNET,
   contractType: RenftContractType.WHOOPI,
 });
-
-

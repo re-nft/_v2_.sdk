@@ -1,14 +1,14 @@
-import {Contract, ContractTransaction} from '@ethersproject/contracts';
+import { Contract, ContractTransaction } from '@ethersproject/contracts';
 
-import {EVMNetworkType, PaymentToken} from '../../types';
-import {toWhoopiScaledAmount} from '../../utils';
+import { EVMNetworkType, PaymentToken } from '../../types';
+import { toWhoopiScaledAmount } from '../../utils';
 
 import {
   WhoopiV0LendFunction,
   WhoopiV0PayFunction,
   WhoopiV0RentFunction,
   WhoopiV0StopLendingFunction,
-  WhoopiV0StopRentFunction
+  WhoopiV0StopRentFunction,
 } from './types';
 
 export const createWhoopiV0LendThunk = (
@@ -49,7 +49,9 @@ export const createWhoopiV0LendThunk = (
   }
   return await contract.lend(
     [nftAddress, tokenId, Array(tokenId.length).fill('0')],
-    upfrontRentFees.map((x, i) => toWhoopiScaledAmount(x, network, paymentTokens[i])) ?? [],
+    upfrontRentFees.map((x, i) =>
+      toWhoopiScaledAmount(x, network, paymentTokens[i])
+    ) ?? [],
     allowRenters,
     revShares,
     maxRentDurations,
@@ -80,14 +82,9 @@ export const createWhoopiV0StopRentThunk = (
   nftAddress: string,
   tokenId: string[],
   lendingId: string[],
-  options?: any,
+  options?: any
 ) => {
-  return await contract.stopRent(
-    nftAddress,
-    tokenId,
-    lendingId,
-    options ?? []
-  );
+  return await contract.stopRent(nftAddress, tokenId, lendingId, options ?? []);
 };
 
 export const createWhoopiV0StopLendingThunk = (
@@ -96,16 +93,16 @@ export const createWhoopiV0StopLendingThunk = (
   nftAddress: string,
   tokenId: string[],
   lendingId: string[],
-  options?: any,
+  options?: any
 ): Promise<ContractTransaction> => {
   return await contract.stopLend(
     [nftAddress, tokenId, lendingId],
-    options ?? [],
+    options ?? []
   );
 };
 
 export const createWhoopiV0PayThunk = (
-  contract: Contract,
+  contract: Contract
 ): WhoopiV0PayFunction => async (
   nftAddress: string,
   tokenId: string[],

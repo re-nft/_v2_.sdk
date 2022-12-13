@@ -1,7 +1,6 @@
-import {Contract, ContractInterface} from '@ethersproject/contracts';
-import {Signer} from '@ethersproject/abstract-signer';
+import { Contract, ContractInterface } from '@ethersproject/contracts';
+import { Signer } from '@ethersproject/abstract-signer';
 import isEqual from 'react-fast-compare';
-
 
 import {
   CONTRACT_ABI_VERSIONS,
@@ -10,7 +9,7 @@ import {
   NETWORK_ETHEREUM_MAINNET,
   NETWORK_POLYGON_MAINNET,
 } from './consts';
-import {createInterfaceVersions} from './interfaces';
+import { createInterfaceVersions } from './interfaces';
 import {
   AbstractRenftContractDeployment,
   AzraelVersion,
@@ -106,45 +105,48 @@ export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
   DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0,
 ];
 
-export function findDeployments<T extends RenftContractDeployment>(search: Partial<T>) {
-  return RENFT_CONTRACT_DEPLOYMENTS
-    .filter(
-      (maybeMatchingDeployment: RenftContractDeployment): maybeMatchingDeployment is T  => {
-        const definedKeys = Object.keys(search);
-        const filterObject = Object
-          .fromEntries(
-            Object.entries(maybeMatchingDeployment)
-              .filter(([k]) => definedKeys.includes(k)),
-          );
-        return isEqual(filterObject, search);
-      },
-    );
+export function findDeployments<T extends RenftContractDeployment>(
+  search: Partial<T>
+) {
+  return RENFT_CONTRACT_DEPLOYMENTS.filter(
+    (
+      maybeMatchingDeployment: RenftContractDeployment
+    ): maybeMatchingDeployment is T => {
+      const definedKeys = Object.keys(search);
+      const filterObject = Object.fromEntries(
+        Object.entries(maybeMatchingDeployment).filter(([k]) =>
+          definedKeys.includes(k)
+        )
+      );
+      return isEqual(filterObject, search);
+    }
+  );
 }
 
 // Find a single contract address for a given deployment. Will throw if none-or-many
 // matching deployments are found.
-export function getContractAddressForDeployment<T extends RenftContractDeployment>(
-  search: Omit<Partial<T>, 'contractAddress'>,
-): string {
+export function getContractAddressForDeployment<
+  T extends RenftContractDeployment
+>(search: Omit<Partial<T>, 'contractAddress'>): string {
   const matchingDeployments = findDeployments<T>(search as Partial<T>);
 
   if (!matchingDeployments.length)
     throw new Error(
-      `[getContractAddressForDeployment]: Failed to find a matching deployment for search: ${
-          JSON.stringify(search)
-      }`
+      `[getContractAddressForDeployment]: Failed to find a matching deployment for search: ${JSON.stringify(
+        search
+      )}`
     );
 
   if (matchingDeployments.length > 1)
     throw new Error(
-      `[getContractAddressForDeployment]: Found multiple possible deployments for search: ${
-          JSON.stringify(search)
-      }`
+      `[getContractAddressForDeployment]: Found multiple possible deployments for search: ${JSON.stringify(
+        search
+      )}`
     );
 
   const [matchingDeployment] = matchingDeployments;
 
-  const {contractAddress} = matchingDeployment!;
+  const { contractAddress } = matchingDeployment!;
 
   return contractAddress;
 }
@@ -163,11 +165,9 @@ export function getDeploymentAbi<T extends RenftContractType>({
 
   if (!maybeContractAbi)
     throw new Error(
-      `[getDeploymentAbi]: Unable to find abi for combination "${
-        String(contractType)
-      }", "${
-        String(version)
-      }".`,
+      `[getDeploymentAbi]: Unable to find abi for combination "${String(
+        contractType
+      )}", "${String(version)}".`
     );
 
   return maybeContractAbi;
@@ -184,14 +184,14 @@ export function getContractForDeployment<T extends RenftContractType>({
   readonly version: keyof CreateVersionedContractInterfaceResult[T];
   readonly signer: Signer | null;
 }): Contract {
-  const abi = getDeploymentAbi({contractType, version});
+  const abi = getDeploymentAbi({ contractType, version });
 
   return new Contract(contractAddress, abi, signer ?? undefined);
 }
 
 export function getRenftContract<
   ContractType extends keyof CreateVersionedContractInterfaceResult,
-  Version extends keyof CreateVersionedContractInterfaceResult[ContractType],
+  Version extends keyof CreateVersionedContractInterfaceResult[ContractType]
 >({
   deployment,
   signer,
@@ -202,7 +202,8 @@ export function getRenftContract<
   const {
     contractAddress,
     contractType,
-    version, network: {type: networkType},
+    version,
+    network: { type: networkType },
   } = deployment;
 
   const contract = getContractForDeployment({
@@ -212,9 +213,10 @@ export function getRenftContract<
     signer,
   });
 
-  const {
-    [contractType]: contractFunctions
-  } = createInterfaceVersions(contract, networkType);
+  const { [contractType]: contractFunctions } = createInterfaceVersions(
+    contract,
+    networkType
+  );
 
   return contractFunctions[version];
 }

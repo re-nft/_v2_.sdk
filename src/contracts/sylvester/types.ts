@@ -1,17 +1,13 @@
 import { ContractTransaction } from '@ethersproject/contracts';
 
-import {
-  PaymentToken,
-  NFTStandard,
-  SylvesterVersion,
-} from '../../types';
+import { PaymentToken, NFTStandard, SylvesterVersion } from '../../types';
 
 export interface AbstractSylvesterFunctionInterface<
   LendFunction,
   RentFunction,
   ReturnItFunction,
   ClaimCollateralFunction,
-  StopLendingFunction,
+  StopLendingFunction
 > {
   readonly lend: LendFunction;
   readonly rent: RentFunction;
@@ -51,7 +47,7 @@ export type SylvesterV0RentFunction = (
   rentDuration: number[],
   rentAmount: string[],
   options?: any
-) => Promise<ContractTransaction>
+) => Promise<ContractTransaction>;
 
 export type SylvesterV0ReturnItFunction = (
   nftStandard: NFTStandard[],
@@ -69,7 +65,7 @@ export type SylvesterV0ClaimCollateralFunction = (
   lendingID: string[],
   rentingID: string[],
   options?: any
-) => Promise<ContractTransaction>
+) => Promise<ContractTransaction>;
 
 export type SylvesterV0StopLendingFunction = (
   nftStandard: NFTStandard[],
