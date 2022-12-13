@@ -11,12 +11,14 @@
     "node": ">=14"
   },
   "scripts": {
+    "pre-commit": "echo \"pre-commit\"",
+    "pre-push": "echo \"pre-push\"",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint src test",
     "format": "prettier --write './src/**/*' './test/**/*'",
-    "prepare": "tsdx build",
+    "prepare": "husky install",
     "size": "size-limit"
   },
   "husky": {
@@ -71,7 +73,7 @@
     "@size-limit/preset-small-lib": "7.0.1",
     "@types/chai": "4.2.22",
     "chai": "4.3.4",
-    "husky": "7.0.4",
+    "husky": "^8.0.2",
     "size-limit": "7.0.1",
     "tsdx": "0.14.1",
     "tslib": "2.3.1",
