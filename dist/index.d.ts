@@ -1,0 +1,15 @@
+export * from './contracts';
+export * from './consts';
+export * from './deployments';
+export * from './types';
+export * from './interfaces';
+export * from './utils';
+export declare const RESOLVER_ADDRESS: string;
+export declare const RESOLVER_POLYGON_ADDRESS: string;
+export declare const RESOLVER_FUJI_ADDRESS: string;
+export declare const RESOLVER_AVALANCHE_ADDRESS: string;
+export declare const AZRAEL_ADDRESS: string;
+export declare const SYLVESTER_ADDRESS: string;
+export declare const SYLVESTER_POLYGON_ADDRESS: string;
+export declare const WHOOPI_FUJI_ADDRESS: string;
+export declare const WHOOPI_AVALANCHE_ADDRESS: string;

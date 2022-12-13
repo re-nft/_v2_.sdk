@@ -11,7 +11,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "pre-commit": "echo \"pre-commit\"",
+    "pre-commit": "yarn build",
     "pre-push": "yarn test",
     "start": "tsdx watch",
     "build": "tsdx build",
