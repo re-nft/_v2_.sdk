@@ -1,11 +1,3 @@
-export * from './contracts';
-export * from './consts';
-export * from './deployments';
-
-export * from './types';
-export * from './interfaces';
-export * from './utils';
-
 import { RenftContractType } from './types';
 
 import {
@@ -16,6 +8,14 @@ import {
 } from './consts';
 
 import { getContractAddressForDeployment } from './deployments';
+
+export * from './contracts';
+export * from './consts';
+export * from './deployments';
+
+export * from './types';
+export * from './interfaces';
+export * from './utils';
 
 export const RESOLVER_ADDRESS = getContractAddressForDeployment({
   network: NETWORK_ETHEREUM_MAINNET,
