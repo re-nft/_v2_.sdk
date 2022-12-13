@@ -1,4 +1,3 @@
-import {Signer} from '@ethersproject/abstract-signer';
 import { expect } from 'chai';
 
 import {
@@ -36,27 +35,24 @@ describe('deprecated contract addresses', () => {
   });
 
   it('interface typing', () => {
-    // @ts-expect-error this is an invalid assertion
-    const signer: Signer = null;
-
     const azrael: AzraelV0FunctionInterface = getRenftContract({
       deployment: DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
-      signer,
+      signer: null,
     });
 
     const sylvester: SylvesterV0FunctionInterface = getRenftContract({
       deployment: DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
-      signer,
+      signer: null,
     });
 
     const whoopi: WhoopiV0FunctionInterface = getRenftContract({
       deployment: DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
-      signer,
+      signer: null,
     });
 
     const sylvesterv1: SylvesterV1FunctionInterface = getRenftContract({
       deployment: DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1,
-      signer,
+      signer: null,
     });
 
     expect(!!azrael).to.be.true;
