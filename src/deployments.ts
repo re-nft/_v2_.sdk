@@ -45,7 +45,8 @@ export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0 = {
 } as const;
 
 export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
-  contractAddress: 'TODO: ADD DEPLOYMENT CONTRACT ADDRESS',
+  // TODO: THIS IS WRONG!
+  contractAddress: '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V1,
@@ -181,11 +182,11 @@ export function getContractForDeployment<T extends RenftContractType>({
   readonly contractAddress: string;
   readonly contractType: T;
   readonly version: keyof CreateVersionedContractInterfaceResult[T];
-  readonly signer: Signer;
+  readonly signer: Signer | null;
 }): Contract {
   const abi = getDeploymentAbi({contractType, version});
 
-  return new Contract(contractAddress, abi, signer);
+  return new Contract(contractAddress, abi, signer ?? undefined);
 }
 
 export function getRenftContract<
@@ -196,7 +197,7 @@ export function getRenftContract<
   signer,
 }: {
   readonly deployment: AbstractRenftContractDeployment<ContractType, Version>;
-  readonly signer: Signer;
+  readonly signer: Signer | null;
 }) {
   const {
     contractAddress,
