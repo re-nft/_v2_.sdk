@@ -4741,7 +4741,8 @@ var RESOLVER_ADDRESS = /*#__PURE__*/getContractAddressForDeployment({
 });
 var RESOLVER_POLYGON_ADDRESS = /*#__PURE__*/getContractAddressForDeployment({
   network: NETWORK_POLYGON_MAINNET,
-  contractType: RenftContractType.RESOLVER
+  contractType: RenftContractType.RESOLVER,
+  version: ResolverVersion.V0
 });
 var RESOLVER_FUJI_ADDRESS = /*#__PURE__*/getContractAddressForDeployment({
   network: NETWORK_AVALANCHE_FUJI_TESTNET,
