@@ -1,4 +1,4 @@
-import { RenftContractType } from './types';
+import {RenftContractType, ResolverVersion} from './types';
 
 import {
   NETWORK_AVALANCHE_FUJI_TESTNET,
@@ -7,7 +7,7 @@ import {
   NETWORK_POLYGON_MAINNET,
 } from './consts';
 
-import { getContractAddressForDeployment } from './deployments';
+import {getContractAddressForDeployment} from './deployments';
 
 export * from './contracts';
 export * from './consts';
@@ -17,6 +17,8 @@ export * from './types';
 export * from './interfaces';
 export * from './utils';
 
+// TODO: These exports are now deprecated. Remove them and have the consumer compute them dynamically.
+
 export const RESOLVER_ADDRESS = getContractAddressForDeployment({
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.RESOLVER,
@@ -25,6 +27,7 @@ export const RESOLVER_ADDRESS = getContractAddressForDeployment({
 export const RESOLVER_POLYGON_ADDRESS = getContractAddressForDeployment({
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
+  version: ResolverVersion.V0,
 });
 
 export const RESOLVER_FUJI_ADDRESS = getContractAddressForDeployment({
