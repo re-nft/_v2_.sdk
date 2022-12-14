@@ -44,8 +44,7 @@ export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0 = {
 } as const;
 
 export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
-  // TODO: THIS IS WRONG!
-  contractAddress: '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe',
+  contractAddress: '0x4e52b73aa28b7ff84d88ea3a90c0668f46043450',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V1,
@@ -74,6 +73,14 @@ export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0 = {
 
 export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
   contractAddress: '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518',
+  network: NETWORK_POLYGON_MAINNET,
+  contractType: RenftContractType.RESOLVER,
+  version: ResolverVersion.V0,
+} as const;
+
+// TODO: we need to enforce this association more strongly
+export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0_FOR_DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
+  contractAddress: '0x3ddc85bb768a11b0125f4ee71cfea54e54653366',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
