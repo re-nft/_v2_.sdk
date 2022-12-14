@@ -222,6 +222,13 @@ export const NETWORK_RESOLVERS: NetworkPaymentTokenResolvers = {
   [EVMNetworkType.AVALANCHE_MAINNET]: AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS,
 };
 
+export const ALL_NETWORKS: {readonly [key in EVMNetworkType]: EVMNetworkLike<key>} = {
+  [EVMNetworkType.ETHEREUM_MAINNET]: NETWORK_ETHEREUM_MAINNET,
+  [EVMNetworkType.POLYGON_MAINNET]: NETWORK_POLYGON_MAINNET,
+  [EVMNetworkType.AVALANCHE_FUJI_TESTNET]: NETWORK_AVALANCHE_FUJI_TESTNET,
+  [EVMNetworkType.AVALANCHE_MAINNET]: NETWORK_AVALANCHE_MAINNET,
+};
+
 //// @deprecated
 //export const Resolvers: {
 //  readonly [key in RenftContracts]: PaymentTokenResolvers;
