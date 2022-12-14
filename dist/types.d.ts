@@ -45,7 +45,8 @@ export declare enum SylvesterVersion {
     V1 = "V1"
 }
 export declare enum ResolverVersion {
-    V0 = "V0"
+    V0 = "V0",
+    V1 = "V1"
 }
 export declare type RenftContractVersion = AzraelVersion | WhoopiVersion | SylvesterVersion | ResolverVersion;
 export declare type AbstractRenftContractDeployment<ContractType extends keyof CreateVersionedContractInterfaceResult, Version extends keyof CreateVersionedContractInterfaceResult[ContractType]> = {
