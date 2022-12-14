@@ -78,12 +78,11 @@ export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
   version: ResolverVersion.V0,
 } as const;
 
-// TODO: we need to enforce this association more strongly
-export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0_FOR_DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
+export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1 = {
   contractAddress: '0x3ddc85bb768a11b0125f4ee71cfea54e54653366',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
-  version: ResolverVersion.V0,
+  version: ResolverVersion.V1,
 } as const;
 
 export const DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0 = {
@@ -110,6 +109,7 @@ export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
   DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0,
   DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0,
   DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0,
+  DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1,
 ];
 
 export function findDeployments<T extends RenftContractDeployment>(

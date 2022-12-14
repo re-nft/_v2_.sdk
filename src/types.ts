@@ -77,6 +77,7 @@ export enum SylvesterVersion {
 
 export enum ResolverVersion {
   V0 = 'V0',
+  V1 = 'V1',
 }
 
 export type RenftContractVersion =
