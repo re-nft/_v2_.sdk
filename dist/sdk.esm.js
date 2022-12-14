@@ -74,6 +74,7 @@ var ResolverVersion;
 
 (function (ResolverVersion) {
   ResolverVersion["V0"] = "V0";
+  ResolverVersion["V1"] = "V1";
 })(ResolverVersion || (ResolverVersion = {})); //// TODO: deprecate this
 //export enum RenftContracts {
 //  SYLVESTER = 0,
@@ -2822,6 +2823,58 @@ var resolver_v0 = [
 	}
 ];
 
+var resolver_v1 = [
+	{
+		inputs: [
+			{
+				internalType: "address",
+				name: "_admin",
+				type: "address"
+			}
+		],
+		stateMutability: "nonpayable",
+		type: "constructor"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint8",
+				name: "_pt",
+				type: "uint8"
+			}
+		],
+		name: "getPaymentToken",
+		outputs: [
+			{
+				internalType: "address",
+				name: "",
+				type: "address"
+			}
+		],
+		stateMutability: "view",
+		type: "function"
+	},
+	{
+		inputs: [
+			{
+				internalType: "uint8",
+				name: "_pt",
+				type: "uint8"
+			},
+			{
+				internalType: "address",
+				name: "_v",
+				type: "address"
+			}
+		],
+		name: "setPaymentToken",
+		outputs: [
+		],
+		stateMutability: "nonpayable",
+		type: "function"
+	}
+];
+
 var _AZRAEL_ABI_VERSIONS, _SYLVESTER_ABI_VERSIO, _WHOOPI_ABI_VERSIONS, _RESOLVER_ABI_VERSION, _CONTRACT_ABI_VERSION, _ETHEREUM_MAINNET_PAY, _POLYGON_MAINNET_PAYM, _AVALANCHE_FUJI_TESTN, _AVALANCHE_MAINNET_PA, _NETWORK_RESOLVERS;
 var NETWORK_ETHEREUM_MAINNET = {
   type: EVMNetworkType.ETHEREUM_MAINNET,
@@ -2842,7 +2895,7 @@ var NETWORK_AVALANCHE_MAINNET = {
 var AZRAEL_ABI_VERSIONS = (_AZRAEL_ABI_VERSIONS = {}, _AZRAEL_ABI_VERSIONS[AzraelVersion.V0] = azrael_v0, _AZRAEL_ABI_VERSIONS);
 var SYLVESTER_ABI_VERSIONS = (_SYLVESTER_ABI_VERSIO = {}, _SYLVESTER_ABI_VERSIO[SylvesterVersion.V0] = sylvester_v0, _SYLVESTER_ABI_VERSIO[SylvesterVersion.V1] = sylvester_v1, _SYLVESTER_ABI_VERSIO);
 var WHOOPI_ABI_VERSIONS = (_WHOOPI_ABI_VERSIONS = {}, _WHOOPI_ABI_VERSIONS[WhoopiVersion.V0] = whoopi_v0, _WHOOPI_ABI_VERSIONS);
-var RESOLVER_ABI_VERSIONS = (_RESOLVER_ABI_VERSION = {}, _RESOLVER_ABI_VERSION[ResolverVersion.V0] = resolver_v0, _RESOLVER_ABI_VERSION);
+var RESOLVER_ABI_VERSIONS = (_RESOLVER_ABI_VERSION = {}, _RESOLVER_ABI_VERSION[ResolverVersion.V0] = resolver_v0, _RESOLVER_ABI_VERSION[ResolverVersion.V1] = resolver_v1, _RESOLVER_ABI_VERSION);
 var CONTRACT_ABI_VERSIONS = (_CONTRACT_ABI_VERSION = {}, _CONTRACT_ABI_VERSION[RenftContractType.AZRAEL] = AZRAEL_ABI_VERSIONS, _CONTRACT_ABI_VERSION[RenftContractType.SYLVESTER] = SYLVESTER_ABI_VERSIONS, _CONTRACT_ABI_VERSION[RenftContractType.WHOOPI] = WHOOPI_ABI_VERSIONS, _CONTRACT_ABI_VERSION[RenftContractType.RESOLVER] = RESOLVER_ABI_VERSIONS, _CONTRACT_ABI_VERSION); // TODO: enforce this relationship with ContractTypes
 // * Note, this price does not apply to Whoopi
 
@@ -4546,7 +4599,7 @@ var createWhoopiInterfaceVersionsThunk = function createWhoopiInterfaceVersionsT
 var createResolverInterfaceVersionsThunk = function createResolverInterfaceVersionsThunk() {
   var _ref4;
 
-  return _ref4 = {}, _ref4[ResolverVersion.V0] = {}, _ref4;
+  return _ref4 = {}, _ref4[ResolverVersion.V0] = {}, _ref4[ResolverVersion.V1] = {}, _ref4;
 };
 
 var createInterfaceVersions = function createInterfaceVersions(contract, network) {
@@ -4602,13 +4655,12 @@ var DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0
-}; // TODO: we need to enforce this association more strongly
-
-var DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0_FOR_DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
+};
+var DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1 = {
   contractAddress: '0x3ddc85bb768a11b0125f4ee71cfea54e54653366',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
-  version: ResolverVersion.V0
+  version: ResolverVersion.V1
 };
 var DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0 = {
   contractAddress: '0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D',
@@ -4622,7 +4674,7 @@ var DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0 = {
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0
 };
-var RENFT_CONTRACT_DEPLOYMENTS = [DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0, DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0, DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0, DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0, DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0, DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0, DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0, DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0, DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0];
+var RENFT_CONTRACT_DEPLOYMENTS = [DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0, DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0, DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0, DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0, DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0, DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0, DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0, DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0, DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0, DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1];
 function findDeployments(search) {
   return RENFT_CONTRACT_DEPLOYMENTS.filter(function (maybeMatchingDeployment) {
     var definedKeys = Object.keys(search);
@@ -4720,5 +4772,5 @@ var WHOOPI_AVALANCHE_ADDRESS = /*#__PURE__*/getContractAddressForDeployment({
   contractType: RenftContractType.WHOOPI
 });
 
-export { AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS, AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS, AZRAEL_ABI_VERSIONS, AZRAEL_ADDRESS, AzraelVersion, CONTRACT_ABI_VERSIONS, DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0, DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0, DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0, DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0, DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0, DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0_FOR_DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1, DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0, DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0, DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1, DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0, DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0, ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS, EVMNetworkType, MAX_PRICE, NETWORK_AVALANCHE_FUJI_TESTNET, NETWORK_AVALANCHE_MAINNET, NETWORK_ETHEREUM_MAINNET, NETWORK_POLYGON_MAINNET, NETWORK_RESOLVERS, NFTStandard, NUM_BITS_IN_BYTE, POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS, PaymentToken, RENFT_CONTRACT_DEPLOYMENTS, RESOLVER_ABI_VERSIONS, RESOLVER_ADDRESS, RESOLVER_AVALANCHE_ADDRESS, RESOLVER_FUJI_ADDRESS, RESOLVER_POLYGON_ADDRESS, RenftContractType, ResolverVersion, SYLVESTER_ABI_VERSIONS, SYLVESTER_ADDRESS, SYLVESTER_POLYGON_ADDRESS, SylvesterVersion, WHOOPI_ABI_VERSIONS, WHOOPI_AVALANCHE_ADDRESS, WHOOPI_FUJI_ADDRESS, WhoopiVersion, bytesToNibbles, createAzraelV0ClaimCollateralThunk, createAzraelV0LendThunk, createAzraelV0RentThunk, createAzraelV0ReturnItThunk, createAzraelV0StopLendingThunk, createInterfaceVersions, createSylvesterV0ClaimCollateralThunk, createSylvesterV0LendThunk, createSylvesterV0RentThunk, createSylvesterV0ReturnItThunk, createSylvesterV0StopLendingThunk, createSylvesterV1LendThunk, createWhoopiV0LendThunk, createWhoopiV0PayThunk, createWhoopiV0RentThunk, createWhoopiV0StopLendingThunk, createWhoopiV0StopRentThunk, findDeployments, fromWhoopiScaledAmount, getContractAddressForDeployment, getContractForDeployment, getDeploymentAbi, getRenftContract, packPrice, prepareBatch, toPaddedHex, toWhoopiScaledAmount, unpackPrice };
+export { AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS, AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS, AZRAEL_ABI_VERSIONS, AZRAEL_ADDRESS, AzraelVersion, CONTRACT_ABI_VERSIONS, DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0, DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0, DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0, DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0, DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0, DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1, DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0, DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0, DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1, DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0, DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0, ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS, EVMNetworkType, MAX_PRICE, NETWORK_AVALANCHE_FUJI_TESTNET, NETWORK_AVALANCHE_MAINNET, NETWORK_ETHEREUM_MAINNET, NETWORK_POLYGON_MAINNET, NETWORK_RESOLVERS, NFTStandard, NUM_BITS_IN_BYTE, POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS, PaymentToken, RENFT_CONTRACT_DEPLOYMENTS, RESOLVER_ABI_VERSIONS, RESOLVER_ADDRESS, RESOLVER_AVALANCHE_ADDRESS, RESOLVER_FUJI_ADDRESS, RESOLVER_POLYGON_ADDRESS, RenftContractType, ResolverVersion, SYLVESTER_ABI_VERSIONS, SYLVESTER_ADDRESS, SYLVESTER_POLYGON_ADDRESS, SylvesterVersion, WHOOPI_ABI_VERSIONS, WHOOPI_AVALANCHE_ADDRESS, WHOOPI_FUJI_ADDRESS, WhoopiVersion, bytesToNibbles, createAzraelV0ClaimCollateralThunk, createAzraelV0LendThunk, createAzraelV0RentThunk, createAzraelV0ReturnItThunk, createAzraelV0StopLendingThunk, createInterfaceVersions, createSylvesterV0ClaimCollateralThunk, createSylvesterV0LendThunk, createSylvesterV0RentThunk, createSylvesterV0ReturnItThunk, createSylvesterV0StopLendingThunk, createSylvesterV1LendThunk, createWhoopiV0LendThunk, createWhoopiV0PayThunk, createWhoopiV0RentThunk, createWhoopiV0StopLendingThunk, createWhoopiV0StopRentThunk, findDeployments, fromWhoopiScaledAmount, getContractAddressForDeployment, getContractForDeployment, getDeploymentAbi, getRenftContract, packPrice, prepareBatch, toPaddedHex, toWhoopiScaledAmount, unpackPrice };
 //# sourceMappingURL=sdk.esm.js.map
