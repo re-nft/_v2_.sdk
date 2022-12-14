@@ -80,6 +80,7 @@ const createWhoopiInterfaceVersionsThunk = (
 const createResolverInterfaceVersionsThunk = (): ResolverInterfaceVersions => ({
   // TODO: What arguments to use here?
   [ResolverVersion.V0]: {},
+  [ResolverVersion.V1]: {},
 });
 
 export const createInterfaceVersions = (
