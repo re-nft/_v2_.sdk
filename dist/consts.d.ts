@@ -21,3 +21,6 @@ export declare const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolv
 export declare const AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers;
 export declare const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers;
 export declare const NETWORK_RESOLVERS: NetworkPaymentTokenResolvers;
+export declare const ALL_NETWORKS: {
+    readonly [key in EVMNetworkType]: EVMNetworkLike<key>;
+};
