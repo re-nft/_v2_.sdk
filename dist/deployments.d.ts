@@ -20,7 +20,7 @@ export declare const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0: {
     readonly version: SylvesterVersion.V0;
 };
 export declare const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1: {
-    readonly contractAddress: "0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe";
+    readonly contractAddress: "0x4e52b73aa28b7ff84d88ea3a90c0668f46043450";
     readonly network: import("./types").EVMNetworkLike<import("./types").EVMNetworkType.POLYGON_MAINNET>;
     readonly contractType: RenftContractType.SYLVESTER;
     readonly version: SylvesterVersion.V1;
@@ -45,6 +45,12 @@ export declare const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0: {
 };
 export declare const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0: {
     readonly contractAddress: "0x6884d88Ce56C5C93F46eE23684eBA8628c90B518";
+    readonly network: import("./types").EVMNetworkLike<import("./types").EVMNetworkType.POLYGON_MAINNET>;
+    readonly contractType: RenftContractType.RESOLVER;
+    readonly version: ResolverVersion;
+};
+export declare const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0_FOR_DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1: {
+    readonly contractAddress: "0x3ddc85bb768a11b0125f4ee71cfea54e54653366";
     readonly network: import("./types").EVMNetworkLike<import("./types").EVMNetworkType.POLYGON_MAINNET>;
     readonly contractType: RenftContractType.RESOLVER;
     readonly version: ResolverVersion;
