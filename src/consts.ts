@@ -73,7 +73,7 @@ export const MAX_PRICE = 9999.9999;
 export const NUM_BITS_IN_BYTE = 8;
 
 // Resolver related
-const SENTINEL: PaymentTokenDetails = {
+export const SENTINEL: PaymentTokenDetails = {
   address: '',
   scale: 0,
 };

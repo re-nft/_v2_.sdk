@@ -10,6 +10,7 @@ export declare const RESOLVER_ABI_VERSIONS: ResolverAbiVersions;
 export declare const CONTRACT_ABI_VERSIONS: ContractAbiVersions;
 export declare const MAX_PRICE = 9999.9999;
 export declare const NUM_BITS_IN_BYTE = 8;
+export declare const SENTINEL: PaymentTokenDetails;
 export declare type PaymentTokenResolvers = {
     readonly [key in PaymentToken]: PaymentTokenDetails;
 };
