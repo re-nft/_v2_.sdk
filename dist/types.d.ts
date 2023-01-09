@@ -55,6 +55,7 @@ export declare type AbstractRenftContractDeployment<ContractType extends keyof C
     readonly contractAddress: string;
     readonly network: Network;
 };
+export declare type AnyRenftContractDeployment<T extends keyof CreateVersionedContractInterfaceResult = keyof CreateVersionedContractInterfaceResult> = AbstractRenftContractDeployment<T, keyof CreateVersionedContractInterfaceResult[T]>;
 declare type AbstractVersionedAbis<Version extends RenftContractVersion> = {
     readonly [key in Version]: ContractInterface;
 };
