@@ -96,6 +96,13 @@ export type AbstractRenftContractDeployment<
   readonly network: Network;
 };
 
+export type AnyRenftContractDeployment<
+  T extends keyof CreateVersionedContractInterfaceResult = keyof CreateVersionedContractInterfaceResult
+> = AbstractRenftContractDeployment<
+  T,
+  keyof CreateVersionedContractInterfaceResult[T]
+>;
+
 // We need to relate contracts to their versions
 type AbstractVersionedAbis<Version extends RenftContractVersion> = {
   readonly [key in Version]: ContractInterface;
