@@ -5,7 +5,7 @@
 <p align="center"><strong>ReNFT</strong> <em>- A leading multi-chain NFT rental protocol.</em></p>
 
 <p align="center">
-<a href="https://pypi.org/project/httpx/">
+<a href="https://renft.io/">
     <img src="https://img.shields.io/npm/v/@renft/sdk?style=for-the-badge" alt="Package version">
     <img src="https://img.shields.io/npm/l/@renft/sdk?style=for-the-badge" alt="License">
     <img src="https://img.shields.io/bundlephobia/min/@renft/sdk?style=for-the-badge" alt="Minified Size">
