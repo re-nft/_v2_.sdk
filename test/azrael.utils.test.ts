@@ -18,6 +18,11 @@ describe('Utils', () => {
     expect(packed).to.be.equal('0x00151068');
   });
 
+  it('throws if price has decimal length > 4', () => {
+    const price = 0.000001;
+    expect(() => packPrice(price)).to.throw();
+  });
+
   it('packs 1.1', () => {
     const price = 1.1;
     const packed = packPrice(price);
@@ -28,12 +33,6 @@ describe('Utils', () => {
     const price = 21;
     const padded = toPaddedHex(price, 32);
     expect(padded).to.be.equal('0x00000015');
-  });
-
-  it('truncates the excess decimals', () => {
-    const price = 21.99999;
-    const packed = packPrice(price);
-    expect(packed).to.be.equal('0x0015270F');
   });
 
   it('works with zero decimal', () => {

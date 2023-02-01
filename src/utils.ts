@@ -98,6 +98,8 @@ export const packPrice = (price: string | number) => {
   if (parts.length === 1) return wholeHex.concat('0000');
   if (parts.length !== 2) throw new Error('price packing issue');
 
+  if(parts[1].length > 4) throw new Error('supplied price exceeds decimal length');
+
   let decimal = scaleDecimal(parts[1].slice(0, 4));
 
   return wholeHex.concat(toPaddedHex(Number(decimal), HALF_BITSIZE).slice(2));
