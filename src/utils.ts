@@ -6,7 +6,12 @@ import {
 } from '@ethersproject/bignumber';
 
 import { EVMNetworkType, NFTStandard, PaymentToken } from './types';
-import { MAX_DECIMAL_LENGTH, MAX_PRICE, NETWORK_RESOLVERS, NUM_BITS_IN_BYTE } from './consts';
+import {
+  MAX_DECIMAL_LENGTH,
+  MAX_PRICE,
+  NETWORK_RESOLVERS,
+  NUM_BITS_IN_BYTE,
+} from './consts';
 
 // consts that predominantly pertain to this file
 const BITSIZE_MAX_VALUE = 32;
@@ -73,8 +78,7 @@ export const toPaddedHex = (number: number, bitsize: number) => {
 
 const scaleDecimal = (num: string) => {
   const numLen = num.length;
-  const maxLen = 4;
-  for (let i = 0; i < maxLen - numLen; i++) {
+  for (let i = 0; i < MAX_DECIMAL_LENGTH - numLen; i++) {
     num = num + '0';
   }
   return Number(num);
@@ -100,9 +104,8 @@ export const packPrice = (price: string | number) => {
   if (parts.length === 1) return wholeHex.concat('0000');
   if (parts.length !== 2) throw new Error('price packing issue');
 
-
   if (parts[1].length > MAX_DECIMAL_LENGTH)
-    throw new Error('supplied price exceeds decimal length');
+    throw new Error(`supplied price exceeds decimal length of ${MAX_DECIMAL_LENGTH}`);
 
   let decimal = scaleDecimal(parts[1].slice(0, 4));
 

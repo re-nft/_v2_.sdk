@@ -7,6 +7,7 @@ import {
   bytesToNibbles,
   prepareBatch,
   unpackPrice,
+  MAX_DECIMAL_LENGTH,
 } from '../src';
 
 // Azrael - v1 collateral
@@ -24,11 +25,10 @@ describe('Utils', () => {
     expect(packed).to.be.equal('0x000103E8');
   });
 
-  it('throws if price has decimal length > 4', () => {
-    const price = 0.000001;
+  it(`throws if price has decimal length > ${MAX_DECIMAL_LENGTH}`, () => {
+    const price  = `0.${Array(MAX_DECIMAL_LENGTH + 1).fill(0).join('')}1`
     expect(() => packPrice(price)).to.throw();
   });
-
 
   it('pads usual domain', () => {
     const price = 21;
