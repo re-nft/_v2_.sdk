@@ -71,6 +71,7 @@ export const CONTRACT_ABI_VERSIONS: ContractAbiVersions = {
 // * Note, this price does not apply to Whoopi
 export const MAX_PRICE = 9999.9999;
 export const NUM_BITS_IN_BYTE = 8;
+export const MAX_DECIMAL_LENGTH = 4;
 
 // Resolver related
 export const SENTINEL: PaymentTokenDetails = {
