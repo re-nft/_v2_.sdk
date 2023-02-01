@@ -2,6 +2,7 @@ import { RenftContracts, PaymentToken, PaymentTokenDetails } from './types';
 
 // * Note, this price does not apply to Whoopi
 export const MAX_PRICE = 9999.9999;
+export const MAX_DECIMAL_LENGTH = 4;
 export const NUM_BITS_IN_BYTE = 8;
 
 export const ResolverAddress = '0x945e589a4715d1915e6fe14f08e4887bc4019341';

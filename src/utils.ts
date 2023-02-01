@@ -6,7 +6,7 @@ import {
 } from '@ethersproject/bignumber';
 
 import { PaymentToken, NFTStandard, RenftContracts } from './types';
-import { MAX_PRICE, NUM_BITS_IN_BYTE, Resolvers } from './consts';
+import { MAX_DECIMAL_LENGTH, MAX_PRICE, NUM_BITS_IN_BYTE, Resolvers } from './consts';
 
 // consts that predominantly pertain to this file
 const BITSIZE_MAX_VALUE = 32;
@@ -71,8 +71,7 @@ export const toPaddedHex = (number: number, bitsize: number) => {
 
 const scaleDecimal = (num: string) => {
   const numLen = num.length;
-  const maxLen = 4;
-  for (let i = 0; i < maxLen - numLen; i++) {
+  for (let i = 0; i < MAX_DECIMAL_LENGTH - numLen; i++) {
     num = num + '0';
   }
   return Number(num);
@@ -98,7 +97,7 @@ export const packPrice = (price: string | number) => {
   if (parts.length === 1) return wholeHex.concat('0000');
   if (parts.length !== 2) throw new Error('price packing issue');
 
-  if(parts[1].length > 4) throw new Error('supplied price exceeds decimal length');
+  if(parts[1].length > MAX_DECIMAL_LENGTH) throw new Error('supplied price exceeds decimal length');
 
   let decimal = scaleDecimal(parts[1].slice(0, 4));
 
