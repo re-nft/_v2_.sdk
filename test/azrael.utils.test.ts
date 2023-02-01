@@ -1,13 +1,13 @@
 import { expect } from 'chai';
-import { PaymentToken } from '../src/types';
 
 import {
+  PaymentToken,
   packPrice,
   toPaddedHex,
   bytesToNibbles,
   prepareBatch,
   unpackPrice,
-} from '../src/utils';
+} from '../src';
 
 // Azrael - v1 collateral
 

@@ -1,5 +1,5 @@
 {
-  "version": "5.0.4",
+  "version": "6.0.0-alpha.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -11,12 +11,14 @@
     "node": ">=14"
   },
   "scripts": {
+    "pre-commit": "yarn format && yarn lint && yarn build",
+    "pre-push": "yarn test",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint src test",
+    "lint": "tsdx lint src",
     "format": "prettier --write './src/**/*' './test/**/*'",
-    "prepare": "tsdx build",
+    "prepare": "husky install",
     "size": "size-limit"
   },
   "husky": {
@@ -54,25 +56,26 @@
   "size-limit": [
     {
       "path": "dist/sdk.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "200 KB"
     },
     {
       "path": "dist/sdk.esm.js",
-      "limit": "10 KB"
+      "limit": "100 KB"
     }
   ],
   "dependencies": {
     "@ethersproject/abstract-signer": ">=5.5.0",
     "@ethersproject/bignumber": ">=5.5.0",
-    "@ethersproject/contracts": ">=5.5.0"
+    "@ethersproject/contracts": ">=5.5.0",
+    "react-fast-compare": "3.2.0"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "7.0.1",
     "@types/chai": "4.2.22",
-    "chai": "^4.3.4",
-    "husky": "7.0.4",
+    "chai": "4.3.4",
+    "husky": "^8.0.2",
     "size-limit": "7.0.1",
-    "tsdx": "^0.14.1",
+    "tsdx": "0.14.1",
     "tslib": "2.3.1",
     "typescript": "4.5.2"
   },

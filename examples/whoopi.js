@@ -1,9 +1,12 @@
 const { JsonRpcProvider } = require('@ethersproject/providers');
 const { parseFixed } = require('@ethersproject/bignumber');
 const { Wallet } = require('@ethersproject/wallet');
-const { Whoopi, PaymentToken, RESOLVERS, RenftContracts } = require('@renft/sdk');
-
-const { mintPaymentToken, approvePaymentToken, approveNftForAll, FUJI_USDC } = require('./utils/index');
+const {
+  PaymentToken,
+  NETWORK_RESOLVERS,
+  getRenftContract,
+  DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
+} = require('@renft/sdk');
 
 // If you ever have issues with sending a transaction:
 // use { gasLimit: 1000000 } options when you send a transaction.
@@ -29,8 +32,13 @@ let lendingId;
 // Wildlife Castle Crush FUJI examples
 const main = async () => {
   const castleCrushNftAddress = "0xeA4E79F0a40A9A468a5159499b738dc6b1332447";
-  const whoopiAddress = "0x516775e81b0d1fC91Ec326DEd21c33728895Fc6C";
-  const whoopi = new Whoopi(wallet, whoopiAddress);
+
+  const deployment = DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0;
+
+  const whoopi = getRenftContract({
+    deployment,
+    signer: wallet,
+  });
 
   // ! depending on what you want to do, comment out a section
   // ! for example, if you want to just lend, comment out
@@ -47,8 +55,8 @@ const main = async () => {
   // ! Note that if allowedRenters is empty, you must set
   // ! upfrontRentFee to a non zero value.
   const upfrontRentFee = [
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString(),
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString()
+    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString(),
+    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString()
   ];
   // ! you can't use SENTINEL as a payment token, even though
   // ! you don't want to set an upfront rent fee. Just use any
@@ -127,8 +135,8 @@ const main = async () => {
   lendingId = [3, 4];
   const renterAddress = ["0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE", "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE"];
   const amountToPay = [
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString(),
-    parseFixed("1", RESOLVERS[RenftContracts.WHOOPI_FUJI][PaymentToken.USDC].scale).toString()
+    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString(),
+    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString()
   ];
 
   txn = await whoopi.pay(

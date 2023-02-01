@@ -1,8 +1,8 @@
 import {
   BigNumber,
   BigNumberish,
-  parseFixed,
   formatFixed,
+  parseFixed,
 } from '@ethersproject/bignumber';
 
 import { PaymentToken, NFTStandard, RenftContracts } from './types';
@@ -32,7 +32,9 @@ const PRICE_BITSIZE = 32;
  */
 export const bytesToNibbles = (byteCount: number) => {
   if (typeof byteCount != 'number') throw new Error('only numbers supported');
+
   if (byteCount < 1) throw new Error('invalid byteCount');
+
   return byteCount * 2;
 };
 
@@ -162,8 +164,7 @@ export const unpackPrice = (price: BigNumberish) => {
     decimalStr = '0' + decimalStr;
   }
 
-  const number = parseFloat(`${whole}.${decimalStr}`);
-  return number;
+  return parseFloat(`${whole}.${decimalStr}`);
 };
 
 type IObjectKeysValues = string[] | boolean[] | number[] | PaymentToken[];
@@ -235,43 +236,31 @@ export const prepareBatch = (args: PrepareBatch) => {
 // TODO: deprecate the usage of these in front & api. People should use
 // parseFixed directly.
 // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
-export const toScaledAmount = (
+export const toWhoopiScaledAmount = (
   v: BigNumberish,
-  c: RenftContracts,
+  c: EVMNetworkType,
   t: PaymentToken
 ): BigNumber => {
-  if (
-    c !== RenftContracts.WHOOPI_FUJI &&
-    c !== RenftContracts.WHOOPI_AVALANCHE
-  ) {
-    throw new TypeError(
-      'Invalid contract type. Only whoopy fuji and whoopi avalanche supported.'
-    );
-  }
-  if (t === PaymentToken.SENTINEL) {
-    throw new TypeError('Invalid payment token. Non sentinels supported only.');
-  }
-  return parseFixed(String(v), Resolvers[c][t].scale);
+  if (t === PaymentToken.SENTINEL)
+    throw new TypeError('Invalid payment token. Non-sentinels supported only.');
+
+  const { [c]: resolver } = NETWORK_RESOLVERS;
+
+  return parseFixed(String(v), resolver[t].scale);
 };
 
 // TODO: deprecate the usage of these in front & api. People should use
 // formatFixed directly.
 // TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
-export const fromScaledAmount = (
+export const fromWhoopiScaledAmount = (
   v: BigNumberish,
-  c: RenftContracts,
+  c: EVMNetworkType.AVALANCHE_MAINNET | EVMNetworkType.AVALANCHE_FUJI_TESTNET,
   t: PaymentToken
 ): string => {
-  if (
-    c !== RenftContracts.WHOOPI_FUJI &&
-    c !== RenftContracts.WHOOPI_AVALANCHE
-  ) {
-    throw new TypeError(
-      'Invalid contract type. Only whoopy fuji and whoopi avalanche supported.'
-    );
-  }
-  if (t === PaymentToken.SENTINEL) {
-    throw new TypeError('Invalid payment token. Non sentinels supported only.');
-  }
-  return formatFixed(v, Resolvers[c][t].scale);
+  if (t === PaymentToken.SENTINEL)
+    throw new TypeError('Invalid payment token. Non-sentinels supported only.');
+
+  const { [c]: resolver } = NETWORK_RESOLVERS;
+
+  return formatFixed(v, resolver[t].scale);
 };

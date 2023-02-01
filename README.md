@@ -5,7 +5,7 @@
 <p align="center"><strong>ReNFT</strong> <em>- A leading multi-chain NFT rental protocol.</em></p>
 
 <p align="center">
-<a href="https://pypi.org/project/httpx/">
+<a href="https://renft.io/">
     <img src="https://img.shields.io/npm/v/@renft/sdk?style=for-the-badge" alt="Package version">
     <img src="https://img.shields.io/npm/l/@renft/sdk?style=for-the-badge" alt="License">
     <img src="https://img.shields.io/bundlephobia/min/@renft/sdk?style=for-the-badge" alt="Minified Size">
@@ -28,7 +28,7 @@ The below is a simple example of lending an ERC721, note that the amount is igno
 ```javascript
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
-import { Azrael, PaymentToken } from '@renft/sdk';
+import { DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0, PaymentToken, getRenftContract } from '@renft/sdk';
 
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
 const provider = new JsonRpcProvider('<your provider uri>');
@@ -37,7 +37,10 @@ let wallet = new Wallet(privKey);
 wallet = wallet.connect(provider);
 
 const main = async () => {
-  const renft = new Azrael(wallet);
+  const renft = getRenftContract({
+    deployment: DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
+    signer: wallet,
+  });
 
   const nftAddress = ['0xCDf60B46Fa88e74DE7e1e613325E386BFe8609ad'];
   const tokenId = ['3'];

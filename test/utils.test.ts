@@ -1,15 +1,19 @@
-import { expect } from 'chai';
 import { BigNumber, parseFixed } from '@ethersproject/bignumber';
-import { PaymentToken, RenftContracts } from '../src/types';
+import { expect } from 'chai';
 
-import { toScaledAmount, fromScaledAmount } from '../src/utils';
+import {
+  EVMNetworkType,
+  fromWhoopiScaledAmount,
+  PaymentToken,
+  toWhoopiScaledAmount,
+} from '../src';
 
 describe('Scaling', () => {
   it('Scales one WETH for Whopi Fuji (string input)', () => {
     const unscaledOneWETH = '1.0';
-    const scaledOneWTH = toScaledAmount(
+    const scaledOneWTH = toWhoopiScaledAmount(
       unscaledOneWETH,
-      RenftContracts.WHOOPI_FUJI,
+      EVMNetworkType.AVALANCHE_FUJI_TESTNET,
       PaymentToken.WETH
     );
     expect(scaledOneWTH.toString()).to.equal(
@@ -19,9 +23,9 @@ describe('Scaling', () => {
 
   it('Scales one USDC for Whoopi Fuji (string input)', () => {
     const unscaledOneUSDC = '1';
-    const scaledOneUSDC = toScaledAmount(
+    const scaledOneUSDC = toWhoopiScaledAmount(
       unscaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      EVMNetworkType.AVALANCHE_FUJI_TESTNET,
       PaymentToken.USDC
     );
     expect(scaledOneUSDC.toString()).to.equal(
@@ -31,9 +35,9 @@ describe('Scaling', () => {
 
   it('Scales one USDC for Whoopi Fuji (number input)', () => {
     const unscaledOneUSDC = 1;
-    const scaledOneUSDC = toScaledAmount(
+    const scaledOneUSDC = toWhoopiScaledAmount(
       unscaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      EVMNetworkType.AVALANCHE_FUJI_TESTNET,
       PaymentToken.USDC
     );
     expect(scaledOneUSDC.toString()).to.equal(
@@ -43,9 +47,9 @@ describe('Scaling', () => {
 
   it('Scales 0.1 USDC for Whoopi Fuji (string input)', () => {
     const unscaledOneUSDC = '0.1';
-    const scaledOneUSDC = toScaledAmount(
+    const scaledOneUSDC = toWhoopiScaledAmount(
       unscaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      EVMNetworkType.AVALANCHE_FUJI_TESTNET,
       PaymentToken.USDC
     );
     expect(scaledOneUSDC.toString()).to.equal(
@@ -55,9 +59,9 @@ describe('Scaling', () => {
 
   it('Scales 0.1 USDC for Whoopi Fuji (number input)', () => {
     const unscaledOneUSDC = 0.1;
-    const scaledOneUSDC = toScaledAmount(
+    const scaledOneUSDC = toWhoopiScaledAmount(
       unscaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      EVMNetworkType.AVALANCHE_FUJI_TESTNET,
       PaymentToken.USDC
     );
     expect(scaledOneUSDC.toString()).to.equal(
@@ -67,9 +71,9 @@ describe('Scaling', () => {
 
   it('Unscales 1 USDC for Whoopi Fuji (number input)', () => {
     const scaledOneUSDC = 1000000;
-    const unscaledOneUSDC = fromScaledAmount(
+    const unscaledOneUSDC = fromWhoopiScaledAmount(
       scaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      EVMNetworkType.AVALANCHE_FUJI_TESTNET,
       PaymentToken.USDC
     );
     expect(unscaledOneUSDC).to.equal('1.0');
@@ -77,9 +81,9 @@ describe('Scaling', () => {
 
   it('Unscales 1 USDC for Whoopi Fuji (string input)', () => {
     const scaledOneUSDC = '1000000';
-    const unscaledOneUSDC = fromScaledAmount(
+    const unscaledOneUSDC = fromWhoopiScaledAmount(
       scaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      EVMNetworkType.AVALANCHE_FUJI_TESTNET,
       PaymentToken.USDC
     );
     expect(unscaledOneUSDC).to.equal('1.0');
@@ -87,9 +91,9 @@ describe('Scaling', () => {
 
   it('Unscales 0.1 USDC for Whoopi Fuji (number input)', () => {
     const scaledOneUSDC = 100000;
-    const unscaledOneUSDC = fromScaledAmount(
+    const unscaledOneUSDC = fromWhoopiScaledAmount(
       scaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      EVMNetworkType.AVALANCHE_FUJI_TESTNET,
       PaymentToken.USDC
     );
     expect(unscaledOneUSDC).to.equal('0.1');
@@ -97,9 +101,9 @@ describe('Scaling', () => {
 
   it('Unscales 0.1 USDC for Whoopi Fuji (string input)', () => {
     const scaledOneUSDC = '100000';
-    const unscaledOneUSDC = fromScaledAmount(
+    const unscaledOneUSDC = fromWhoopiScaledAmount(
       scaledOneUSDC,
-      RenftContracts.WHOOPI_FUJI,
+      EVMNetworkType.AVALANCHE_FUJI_TESTNET,
       PaymentToken.USDC
     );
     expect(unscaledOneUSDC).to.equal('0.1');
