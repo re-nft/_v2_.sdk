@@ -105,7 +105,9 @@ export const packPrice = (price: string | number) => {
   if (parts.length !== 2) throw new Error('price packing issue');
 
   if (parts[1].length > MAX_DECIMAL_LENGTH)
-    throw new Error(`supplied price exceeds decimal length of ${MAX_DECIMAL_LENGTH}`);
+    throw new Error(
+      `supplied price exceeds decimal length of ${MAX_DECIMAL_LENGTH}`
+    );
 
   let decimal = scaleDecimal(parts[1].slice(0, 4));
 
