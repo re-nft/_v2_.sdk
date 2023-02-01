@@ -109,7 +109,7 @@ export const packPrice = (price: string | number) => {
       `supplied price exceeds decimal length of ${MAX_DECIMAL_LENGTH}`
     );
 
-  let decimal = scaleDecimal(parts[1].slice(0, 4));
+  let decimal = scaleDecimal(parts[1].slice(0, MAX_DECIMAL_LENGTH));
 
   return wholeHex.concat(toPaddedHex(Number(decimal), HALF_BITSIZE).slice(2));
 };
