@@ -26,7 +26,7 @@ describe('Utils', () => {
   });
 
   it(`throws if price has decimal length > ${MAX_DECIMAL_LENGTH}`, () => {
-    const price = `0.${Array(MAX_DECIMAL_LENGTH + 1)
+    const price = `0.${Array(MAX_DECIMAL_LENGTH)
       .fill(0)
       .join('')}1`;
     expect(() => packPrice(price)).to.throw();
