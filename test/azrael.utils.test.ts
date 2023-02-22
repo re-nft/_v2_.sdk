@@ -7,6 +7,7 @@ import {
   bytesToNibbles,
   prepareBatch,
   unpackPrice,
+  MAX_DECIMAL_LENGTH,
 } from '../src';
 
 // Azrael - v1 collateral
@@ -24,16 +25,17 @@ describe('Utils', () => {
     expect(packed).to.be.equal('0x000103E8');
   });
 
+  it(`throws if price has decimal length > ${MAX_DECIMAL_LENGTH}`, () => {
+    const price = `0.${Array(MAX_DECIMAL_LENGTH)
+      .fill(0)
+      .join('')}1`;
+    expect(() => packPrice(price)).to.throw();
+  });
+
   it('pads usual domain', () => {
     const price = 21;
     const padded = toPaddedHex(price, 32);
     expect(padded).to.be.equal('0x00000015');
-  });
-
-  it('truncates the excess decimals', () => {
-    const price = 21.99999;
-    const packed = packPrice(price);
-    expect(packed).to.be.equal('0x0015270F');
   });
 
   it('works with zero decimal', () => {
