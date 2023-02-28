@@ -1,9 +1,7 @@
 import { Contract, ContractTransaction } from '@ethersproject/contracts';
 
-import { EVMNetworkType, PaymentToken } from '../../types';
-import { toWhoopiScaledAmount } from '../../utils';
-
 import {
+  UpFrontRentFee,
   WhoopiV0LendFunction,
   WhoopiV0PayFunction,
   WhoopiV0RentFunction,
@@ -13,15 +11,13 @@ import {
 
 export const createWhoopiV0LendThunk = (
   contract: Contract,
-  network: EVMNetworkType
 ): WhoopiV0LendFunction => async (
   nftAddress: string,
   tokenId: string[],
-  upfrontRentFees: string[],
+  upfrontRentFees: readonly UpFrontRentFee[],
   revShareBeneficiaries: string[][],
   revSharePortions: number[][],
   maxRentDurations: number[],
-  paymentTokens: PaymentToken[],
   allowedRenters?: string[][],
   options?: any
 ): Promise<ContractTransaction> => {
@@ -49,13 +45,11 @@ export const createWhoopiV0LendThunk = (
   }
   return await contract.lend(
     [nftAddress, tokenId, Array(tokenId.length).fill('0')],
-    upfrontRentFees.map((x, i) =>
-      toWhoopiScaledAmount(x, network, paymentTokens[i])
-    ) ?? [],
+    upfrontRentFees.map(({value}) => value),
     allowRenters,
     revShares,
     maxRentDurations,
-    paymentTokens,
+    upfrontRentFees.map(({paymentToken}) => paymentToken),
     options ?? []
   );
 };

@@ -3,7 +3,6 @@ import { Contract } from '@ethersproject/contracts';
 import {
   AzraelVersion,
   CreateVersionedContractInterfaceResult,
-  EVMNetworkType,
   RenftContractType,
   ResolverVersion,
   SylvesterVersion,
@@ -66,10 +65,9 @@ const createSylvesterInterfaceVersionsThunk = (
 
 const createWhoopiInterfaceVersionsThunk = (
   contract: Contract,
-  network: EVMNetworkType
 ): WhoopiInterfaceVersions => ({
   [WhoopiVersion.V0]: {
-    lend: createWhoopiV0LendThunk(contract, network),
+    lend: createWhoopiV0LendThunk(contract),
     rent: createWhoopiV0RentThunk(contract),
     stopRent: createWhoopiV0StopRentThunk(contract),
     stopLending: createWhoopiV0StopLendingThunk(contract),
@@ -85,7 +83,6 @@ const createResolverInterfaceVersionsThunk = (): ResolverInterfaceVersions => ({
 
 export const createInterfaceVersions = (
   contract: Contract,
-  network: EVMNetworkType
 ): CreateVersionedContractInterfaceResult => ({
   [RenftContractType.AZRAEL]: createAzraelInterfaceVersionsThunk(contract),
   [RenftContractType.SYLVESTER]: createSylvesterInterfaceVersionsThunk(
@@ -93,7 +90,6 @@ export const createInterfaceVersions = (
   ),
   [RenftContractType.WHOOPI]: createWhoopiInterfaceVersionsThunk(
     contract,
-    network
   ),
   [RenftContractType.RESOLVER]: createResolverInterfaceVersionsThunk(),
 });

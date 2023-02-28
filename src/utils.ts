@@ -1,15 +1,9 @@
-import {
-  BigNumber,
-  BigNumberish,
-  formatFixed,
-  parseFixed,
-} from '@ethersproject/bignumber';
+import { BigNumberish } from '@ethersproject/bignumber';
 
-import { EVMNetworkType, NFTStandard, PaymentToken } from './types';
+import { NFTStandard, PaymentToken } from './types';
 import {
   MAX_DECIMAL_LENGTH,
   MAX_PRICE,
-  NETWORK_RESOLVERS,
   NUM_BITS_IN_BYTE,
 } from './consts';
 
@@ -233,36 +227,4 @@ export const prepareBatch = (args: PrepareBatch) => {
   });
 
   return preparedBatch;
-};
-
-// TODO: deprecate the usage of these in front & api. People should use
-// parseFixed directly.
-// TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
-export const toWhoopiScaledAmount = (
-  v: BigNumberish,
-  c: EVMNetworkType,
-  t: PaymentToken
-): BigNumber => {
-  if (t === PaymentToken.SENTINEL)
-    throw new TypeError('Invalid payment token. Non-sentinels supported only.');
-
-  const { [c]: resolver } = NETWORK_RESOLVERS;
-
-  return parseFixed(String(v), resolver[t].scale);
-};
-
-// TODO: deprecate the usage of these in front & api. People should use
-// formatFixed directly.
-// TODO: haven't tested the Bytes conversion here. Do **NOT** use with Bytes
-export const fromWhoopiScaledAmount = (
-  v: BigNumberish,
-  c: EVMNetworkType.AVALANCHE_MAINNET | EVMNetworkType.AVALANCHE_FUJI_TESTNET,
-  t: PaymentToken
-): string => {
-  if (t === PaymentToken.SENTINEL)
-    throw new TypeError('Invalid payment token. Non-sentinels supported only.');
-
-  const { [c]: resolver } = NETWORK_RESOLVERS;
-
-  return formatFixed(v, resolver[t].scale);
 };

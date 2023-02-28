@@ -210,7 +210,6 @@ export function getRenftContract<
     contractAddress,
     contractType,
     version,
-    network: { type: networkType },
   } = deployment;
 
   const contract = getContractForDeployment({
@@ -222,7 +221,6 @@ export function getRenftContract<
 
   const { [contractType]: contractFunctions } = createInterfaceVersions(
     contract,
-    networkType
   );
 
   return contractFunctions[version];

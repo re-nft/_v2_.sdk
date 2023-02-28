@@ -2,6 +2,7 @@ import { ContractTransaction } from '@ethersproject/contracts';
 
 // * Note that there is no RENT payment token on avalanche (as of 14th June 2022)
 import { PaymentToken, WhoopiVersion } from '../../types';
+import {BigNumber} from "@ethersproject/bignumber";
 
 export type AbstractWhoopiFunctionInterface<
   LendFunction,
@@ -17,14 +18,18 @@ export type AbstractWhoopiFunctionInterface<
   readonly pay: PayFunction;
 };
 
+export type UpFrontRentFee = {
+  readonly value: BigNumber;
+  readonly paymentToken: PaymentToken;
+};
+
 export type WhoopiV0LendFunction = (
   nftAddress: string,
   tokenId: string[],
-  upfrontRentFees: string[],
+  upfrontRentFees: readonly UpFrontRentFee[],
   revShareBeneficiaries: string[][],
   portions: number[][],
   maxRentDurations: number[],
-  paymentTokens: PaymentToken[],
   allowedRenters?: string[][],
   options?: any
 ) => Promise<ContractTransaction>;
