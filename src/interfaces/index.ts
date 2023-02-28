@@ -64,7 +64,7 @@ const createSylvesterInterfaceVersionsThunk = (
 });
 
 const createWhoopiInterfaceVersionsThunk = (
-  contract: Contract,
+  contract: Contract
 ): WhoopiInterfaceVersions => ({
   [WhoopiVersion.V0]: {
     lend: createWhoopiV0LendThunk(contract),
@@ -82,14 +82,12 @@ const createResolverInterfaceVersionsThunk = (): ResolverInterfaceVersions => ({
 });
 
 export const createInterfaceVersions = (
-  contract: Contract,
+  contract: Contract
 ): CreateVersionedContractInterfaceResult => ({
   [RenftContractType.AZRAEL]: createAzraelInterfaceVersionsThunk(contract),
   [RenftContractType.SYLVESTER]: createSylvesterInterfaceVersionsThunk(
     contract
   ),
-  [RenftContractType.WHOOPI]: createWhoopiInterfaceVersionsThunk(
-    contract,
-  ),
+  [RenftContractType.WHOOPI]: createWhoopiInterfaceVersionsThunk(contract),
   [RenftContractType.RESOLVER]: createResolverInterfaceVersionsThunk(),
 });

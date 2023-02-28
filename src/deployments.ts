@@ -206,11 +206,7 @@ export function getRenftContract<
   readonly deployment: AbstractRenftContractDeployment<ContractType, Version>;
   readonly signer: Signer | null;
 }) {
-  const {
-    contractAddress,
-    contractType,
-    version,
-  } = deployment;
+  const { contractAddress, contractType, version } = deployment;
 
   const contract = getContractForDeployment({
     contractAddress,
@@ -220,7 +216,7 @@ export function getRenftContract<
   });
 
   const { [contractType]: contractFunctions } = createInterfaceVersions(
-    contract,
+    contract
   );
 
   return contractFunctions[version];

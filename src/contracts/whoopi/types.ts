@@ -1,8 +1,8 @@
 import { ContractTransaction } from '@ethersproject/contracts';
+import { BigNumber } from '@ethersproject/bignumber';
 
 // * Note that there is no RENT payment token on avalanche (as of 14th June 2022)
 import { PaymentToken, WhoopiVersion } from '../../types';
-import {BigNumber} from "@ethersproject/bignumber";
 
 export type AbstractWhoopiFunctionInterface<
   LendFunction,

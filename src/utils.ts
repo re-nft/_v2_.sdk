@@ -1,11 +1,7 @@
 import { BigNumberish } from '@ethersproject/bignumber';
 
 import { NFTStandard, PaymentToken } from './types';
-import {
-  MAX_DECIMAL_LENGTH,
-  MAX_PRICE,
-  NUM_BITS_IN_BYTE,
-} from './consts';
+import { MAX_DECIMAL_LENGTH, MAX_PRICE, NUM_BITS_IN_BYTE } from './consts';
 
 // consts that predominantly pertain to this file
 const BITSIZE_MAX_VALUE = 32;

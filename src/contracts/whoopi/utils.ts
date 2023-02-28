@@ -10,7 +10,7 @@ import {
 } from './types';
 
 export const createWhoopiV0LendThunk = (
-  contract: Contract,
+  contract: Contract
 ): WhoopiV0LendFunction => async (
   nftAddress: string,
   tokenId: string[],
@@ -45,11 +45,11 @@ export const createWhoopiV0LendThunk = (
   }
   return await contract.lend(
     [nftAddress, tokenId, Array(tokenId.length).fill('0')],
-    upfrontRentFees.map(({value}) => value),
+    upfrontRentFees.map(({ value }) => value),
     allowRenters,
     revShares,
     maxRentDurations,
-    upfrontRentFees.map(({paymentToken}) => paymentToken),
+    upfrontRentFees.map(({ paymentToken }) => paymentToken),
     options ?? []
   );
 };
