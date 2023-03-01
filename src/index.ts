@@ -1,4 +1,4 @@
-import { RenftContractType, ResolverVersion } from './types';
+import { RenftContractType, ResolverVersion, SylvesterVersion } from './types';
 
 import {
   NETWORK_AVALANCHE_FUJI_TESTNET,
@@ -53,6 +53,8 @@ export const SYLVESTER_ADDRESS = getContractAddressForDeployment({
 export const SYLVESTER_POLYGON_ADDRESS = getContractAddressForDeployment({
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
+  // HACK: Existing consumers expect the v0 contract version.
+  version: SylvesterVersion.V0,
 });
 
 export const WHOOPI_FUJI_ADDRESS = getContractAddressForDeployment({
