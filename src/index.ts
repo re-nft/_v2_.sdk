@@ -1,4 +1,4 @@
-import {RenftContractType, ResolverVersion, SylvesterVersion} from './types';
+import { RenftContractType, ResolverVersion, SylvesterVersion } from './types';
 
 import {
   NETWORK_AVALANCHE_FUJI_TESTNET,
@@ -7,7 +7,7 @@ import {
   NETWORK_POLYGON_MAINNET,
 } from './consts';
 
-import {getContractAddressForDeployment} from './deployments';
+import { getContractAddressForDeployment } from './deployments';
 
 export * from './contracts';
 export * from './consts';
