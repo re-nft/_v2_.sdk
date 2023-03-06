@@ -118,6 +118,10 @@ const POLYGON_TUSD: PaymentTokenDetails = {
   address: '0x2e1AD108fF1D8C782fcBbB89AAd783aC49586756',
   scale: 18,
 };
+const POLYGON_WELT: PaymentTokenDetails = {
+  address: '0x23E8B6A3f6891254988B84Da3738D2bfe5E703b9',
+  scale: 18,
+};
 const FUJI_WETH: PaymentTokenDetails = {
   address: '0x40E71a970Ff1fbd21A53b4d2dbc102Be0E1d574f', // couldn't find weth on fuji, so this is dai
   scale: 18,
@@ -182,7 +186,9 @@ export const ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.USDC]: ETHEREUM_USDC,
   [PaymentToken.USDT]: ETHEREUM_USDT,
   [PaymentToken.TUSD]: ETHEREUM_TUSD,
+  [PaymentToken.RENT]: SENTINEL,
   [PaymentToken.ACS]: SENTINEL,
+  [PaymentToken.WELT]: SENTINEL,
 };
 
 export const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -192,7 +198,9 @@ export const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.USDC]: POLYGON_USDC,
   [PaymentToken.USDT]: POLYGON_USDT,
   [PaymentToken.TUSD]: POLYGON_TUSD,
+  [PaymentToken.RENT]: SENTINEL,
   [PaymentToken.ACS]: SENTINEL,
+  [PaymentToken.WELT]: POLYGON_WELT,
 };
 
 export const AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -202,7 +210,9 @@ export const AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolve
   [PaymentToken.USDC]: FUJI_USDC,
   [PaymentToken.USDT]: FUJI_USDT,
   [PaymentToken.TUSD]: FUJI_TUSD,
+  [PaymentToken.RENT]: SENTINEL,
   [PaymentToken.ACS]: FUJI_ACS,
+  [PaymentToken.WELT]: SENTINEL,
 };
 
 export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -212,7 +222,9 @@ export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = 
   [PaymentToken.USDC]: AVALANCHE_USDC,
   [PaymentToken.USDT]: AVALANCHE_USDT,
   [PaymentToken.TUSD]: AVALANCHE_TUSD,
+  [PaymentToken.RENT]: SENTINEL,
   [PaymentToken.ACS]: AVALANCHE_ACS,
+  [PaymentToken.WELT]: SENTINEL,
 };
 
 // TODO: need to associate these with the resolver contract instance somehow
@@ -231,14 +243,3 @@ export const ALL_NETWORKS: {
   [EVMNetworkType.AVALANCHE_FUJI_TESTNET]: NETWORK_AVALANCHE_FUJI_TESTNET,
   [EVMNetworkType.AVALANCHE_MAINNET]: NETWORK_AVALANCHE_MAINNET,
 };
-
-//// @deprecated
-//export const Resolvers: {
-//  readonly [key in RenftContracts]: PaymentTokenResolvers;
-//} = {
-//  [RenftContracts.SYLVESTER]: NETWORK_RESOLVERS[EVMNetworkType.ETHEREUM_MAINNET],
-//  [RenftContracts.SYLVESTER_POLYGON]: NETWORK_RESOLVERS[EVMNetworkType.POLYGON_MAINNET],
-//  [RenftContracts.AZRAEL]: NETWORK_RESOLVERS[EVMNetworkType.ETHEREUM_MAINNET],
-//  [RenftContracts.WHOOPI_AVALANCHE]: NETWORK_RESOLVERS[EVMNetworkType.AVALANCHE_MAINNET],
-//  [RenftContracts.WHOOPI_FUJI]: NETWORK_RESOLVERS[EVMNetworkType.AVALANCHE_FUJI_TESTNET],
-//};
