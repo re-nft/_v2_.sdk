@@ -36,6 +36,7 @@ export const DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0 = {
   version: SylvesterVersion.V0,
 } as const;
 
+// @deprecated - Please use the v1 contract below.
 export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0 = {
   contractAddress: '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe',
   network: NETWORK_POLYGON_MAINNET,
