@@ -30,7 +30,7 @@ export enum PaymentToken {
   USDC = 3,
   USDT = 4,
   TUSD = 5,
-  RENT = 6 /* pending */,
+  RENT = 6 /* reserved for when RENT token is deployed */,
   ACS = 7,
   WELT = 8,
 }
