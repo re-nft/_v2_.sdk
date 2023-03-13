@@ -33,6 +33,7 @@ export enum PaymentToken {
   RENT = 6 /* reserved for when RENT token is deployed */,
   ACS = 7,
   WELT = 8,
+  KNIGHT = 9,
 }
 
 export type PaymentTokenDetails = {
