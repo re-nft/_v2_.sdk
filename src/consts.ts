@@ -193,7 +193,7 @@ export const ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.RENT]: SENTINEL,
   [PaymentToken.ACS]: SENTINEL,
   [PaymentToken.WELT]: SENTINEL,
-  [PaymentToken.KNIGHT]: SENTINEL
+  [PaymentToken.KNIGHT]: SENTINEL,
 };
 
 export const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -206,7 +206,7 @@ export const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.RENT]: SENTINEL,
   [PaymentToken.ACS]: SENTINEL,
   [PaymentToken.WELT]: POLYGON_WELT,
-  [PaymentToken.KNIGHT]: POLYGON_KNIGHT
+  [PaymentToken.KNIGHT]: POLYGON_KNIGHT,
 };
 
 export const AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -219,7 +219,7 @@ export const AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolve
   [PaymentToken.RENT]: SENTINEL,
   [PaymentToken.ACS]: FUJI_ACS,
   [PaymentToken.WELT]: SENTINEL,
-  [PaymentToken.KNIGHT]: SENTINEL
+  [PaymentToken.KNIGHT]: SENTINEL,
 };
 
 export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -232,7 +232,7 @@ export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = 
   [PaymentToken.RENT]: SENTINEL,
   [PaymentToken.ACS]: AVALANCHE_ACS,
   [PaymentToken.WELT]: SENTINEL,
-  [PaymentToken.KNIGHT]: SENTINEL
+  [PaymentToken.KNIGHT]: SENTINEL,
 };
 
 // TODO: need to associate these with the resolver contract instance somehow
