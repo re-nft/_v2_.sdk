@@ -98,6 +98,10 @@ const ETHEREUM_TUSD: PaymentTokenDetails = {
   address: '0x0000000000085d4780B73119b644AE5ecd22b376',
   scale: 18,
 };
+const ETHEREUM_TOSHI: PaymentTokenDetails = {
+  address: '0xF136D7b0B7AE5b86D21E7B78DFA95375a7360f19',
+  scale: 18,
+};
 const POLYGON_WETH: PaymentTokenDetails = {
   address: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
   scale: 18,
@@ -194,6 +198,7 @@ export const ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.ACS]: SENTINEL,
   [PaymentToken.WELT]: SENTINEL,
   [PaymentToken.KNIGHT]: SENTINEL,
+  [PaymentToken.TOSHI]: ETHEREUM_TOSHI,
 };
 
 export const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -207,6 +212,7 @@ export const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.ACS]: SENTINEL,
   [PaymentToken.WELT]: POLYGON_WELT,
   [PaymentToken.KNIGHT]: POLYGON_KNIGHT,
+  [PaymentToken.TOSHI]: SENTINEL,
 };
 
 export const AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -220,6 +226,7 @@ export const AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolve
   [PaymentToken.ACS]: FUJI_ACS,
   [PaymentToken.WELT]: SENTINEL,
   [PaymentToken.KNIGHT]: SENTINEL,
+  [PaymentToken.TOSHI]: SENTINEL,
 };
 
 export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -233,6 +240,7 @@ export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = 
   [PaymentToken.ACS]: AVALANCHE_ACS,
   [PaymentToken.WELT]: SENTINEL,
   [PaymentToken.KNIGHT]: SENTINEL,
+  [PaymentToken.TOSHI]: SENTINEL,
 };
 
 // TODO: need to associate these with the resolver contract instance somehow

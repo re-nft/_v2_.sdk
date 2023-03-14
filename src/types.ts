@@ -34,6 +34,7 @@ export enum PaymentToken {
   ACS = 7,
   WELT = 8,
   KNIGHT = 9,
+  TOSHI = 10,
 }
 
 export type PaymentTokenDetails = {
