@@ -41,7 +41,7 @@ enum PaymentToken_Deprecated {
   TOSHI = 10,
 }
 
-export type PaymentTokenKeys = typeof PaymentToken_Deprecated[keyof typeof PaymentToken_Deprecated];
+export type PaymentToken = typeof PaymentToken_Deprecated[keyof typeof PaymentToken_Deprecated];
 
 let emittedWarning: boolean = false;
 

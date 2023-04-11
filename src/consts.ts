@@ -20,7 +20,6 @@ import {
   SylvesterVersion,
   WhoopiAbiVersions,
   WhoopiVersion,
-  PaymentTokenKeys,
 } from './types';
 
 export const NETWORK_ETHEREUM_MAINNET: EVMNetworkLike<EVMNetworkType.ETHEREUM_MAINNET> = {
@@ -181,7 +180,7 @@ const AVALANCHE_ACS: PaymentTokenDetails = {
 };
 
 export type PaymentTokenResolvers = {
-  readonly [key in PaymentTokenKeys]: PaymentTokenDetails;
+  readonly [key in PaymentToken]: PaymentTokenDetails;
 };
 
 export type NetworkPaymentTokenResolvers = {
