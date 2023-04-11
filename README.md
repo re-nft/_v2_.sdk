@@ -81,3 +81,10 @@ Take time to familiarise yourself with our [docs](https://docs.renft.io).
 
 For contract name code-mapping see [this](https://docs.renft.io/developers/contracts-name-mapping).
 
+
+## PaymentToken enum Deprecation
+
+The `PaymentToken` enum is deprecated and will be removed in the next major version. Going forward `PaymentToken` will defined as a `keccak256(resolverAddress:chainId:slotId)`. For example, `WETH` on Ethereum will be `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2:1:0`. 
+Notice the slotId of `0`. The slotId is a cardinal parameter to give a single resolver the ability to resolve to multiple token addresses on the same chain. For example, `WBTC` may occupy the second slot given by `0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599:1:1`. 
+
+All the `PaymentToken` values will be available through the reNFT Resolver Subgraph(s). More information to come...

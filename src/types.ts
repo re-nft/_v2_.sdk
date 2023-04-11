@@ -23,6 +23,10 @@ export type Network =
   // | SolanaNetwork
   EVMNetworkLike<EVMNetworkType>;
 
+/**
+ * @deprecated This enum is deprecated and will be removed in the next major release.
+ * Please refer to the SDK documentation for further instructions. 
+ */
 export enum PaymentToken {
   SENTINEL = 0, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
   WETH = 1,
