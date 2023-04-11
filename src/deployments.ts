@@ -27,6 +27,7 @@ export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0 = {
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.AZRAEL,
   version: AzraelVersion.V0,
+  startBlock: 12875508
 } as const;
 
 export const DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0 = {
@@ -34,6 +35,7 @@ export const DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0 = {
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V0,
+  startBlock: 13197348
 } as const;
 
 // @deprecated - Please use the v1 contract below.
@@ -42,6 +44,7 @@ export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0 = {
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V0,
+  startBlock: 28399140
 } as const;
 
 export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
@@ -49,6 +52,7 @@ export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V1,
+  startBlock: 36825974
 } as const;
 
 export const DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0 = {
@@ -56,6 +60,7 @@ export const DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0 = {
   network: NETWORK_AVALANCHE_FUJI_TESTNET,
   contractType: RenftContractType.WHOOPI,
   version: WhoopiVersion.V0,
+  startBlock: 11500156
 } as const;
 
 export const DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0 = {
@@ -63,6 +68,7 @@ export const DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0 = {
   network: NETWORK_AVALANCHE_MAINNET,
   contractType: RenftContractType.WHOOPI,
   version: WhoopiVersion.V0,
+  startBlock: 19408332
 } as const;
 
 export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0 = {
@@ -70,6 +76,7 @@ export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0 = {
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
+  startBlock: 12875506
 } as const;
 
 export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
@@ -77,6 +84,7 @@ export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
+  startBlock: 28399112
 } as const;
 
 export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1 = {
@@ -84,6 +92,7 @@ export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1 = {
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V1,
+  startBlock: 36825213
 } as const;
 
 export const DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0 = {
@@ -91,6 +100,7 @@ export const DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0 = {
   network: NETWORK_AVALANCHE_FUJI_TESTNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
+  startBlock: 11500156
 } as const;
 
 export const DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0 = {
@@ -98,6 +108,7 @@ export const DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0 = {
   network: NETWORK_AVALANCHE_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
+  startBlock: 19408332
 } as const;
 
 export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
