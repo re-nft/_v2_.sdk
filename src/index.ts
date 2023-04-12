@@ -9,6 +9,8 @@ import {
 
 import { getContractAddressForDeployment } from './deployments';
 
+import { PaymentToken as DefaultPaymentToken } from './types';
+
 export * from './contracts';
 export * from './consts';
 export * from './deployments';
@@ -65,4 +67,23 @@ export const WHOOPI_FUJI_ADDRESS = getContractAddressForDeployment({
 export const WHOOPI_AVALANCHE_ADDRESS = getContractAddressForDeployment({
   network: NETWORK_AVALANCHE_MAINNET,
   contractType: RenftContractType.WHOOPI,
+});
+
+let emittedWarning: boolean = false;
+
+/**
+ * @deprecated This Object is deprecated and will be removed in the next major release.
+ * Please refer to the SDK documentation for further instructions.
+ */
+export const PaymentToken = new Proxy(DefaultPaymentToken, {
+  get: (target, prop, _receiver) => {
+    if (!emittedWarning) {
+      console.warn(
+        'PaymentToken enum is deprecated and will be removed in the next major release. Please refer to the SDK documentation for further instructions.'
+      );
+      emittedWarning = true;
+    }
+
+    return target[prop as keyof typeof target];
+  },
 });

@@ -27,7 +27,7 @@ export type Network =
  * @deprecated This enum is deprecated and will be removed in the next major release.
  * Should only be used internally.
  */
-enum PaymentToken_Deprecated {
+export enum PaymentToken {
   SENTINEL = 0, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
   WETH = 1,
   DAI = 2,
@@ -40,27 +40,6 @@ enum PaymentToken_Deprecated {
   KNIGHT = 9,
   TOSHI = 10,
 }
-
-export type PaymentToken = typeof PaymentToken_Deprecated[keyof typeof PaymentToken_Deprecated];
-
-let emittedWarning: boolean = false;
-
-/**
- * @deprecated This Object is deprecated and will be removed in the next major release.
- * Please refer to the SDK documentation for further instructions.
- */
-export const PaymentToken = new Proxy(PaymentToken_Deprecated, {
-  get: (target, prop, _receiver) => {
-    if (!emittedWarning) {
-      console.warn(
-        'PaymentToken enum is deprecated and will be removed in the next major release. Please refer to the SDK documentation for further instructions.'
-      );
-      emittedWarning = true;
-    }
-
-    return target[prop as keyof typeof target];
-  },
-});
 
 export type PaymentTokenDetails = {
   address: String;
