@@ -9,7 +9,7 @@ import {
 
 import { getContractAddressForDeployment } from './deployments';
 
-import { PaymentToken as DefaultPaymentToken } from './types';
+import * as Types from './types';
 
 export * from './contracts';
 export * from './consts';
@@ -69,21 +69,35 @@ export const WHOOPI_AVALANCHE_ADDRESS = getContractAddressForDeployment({
   contractType: RenftContractType.WHOOPI,
 });
 
-let emittedWarning: boolean = false;
+const deprecate = <Deprecated extends Record<string, unknown>>(
+  deprecated: Deprecated,
+  what: string
+) => {
+  return (() => {
+
+    let emittedWarning: boolean = false;
+
+    return new Proxy<Deprecated>(
+      deprecated,
+      {
+        get: (target, prop, _receiver) => {
+
+          if (!emittedWarning) {
+            console.warn(`[DEPRECATED]: ${what} is deprecated and will be removed in the next major release.`);
+            emittedWarning = true;
+          }
+
+          return target[prop as keyof typeof target];
+        },
+      }
+    );
+  })();
+};
+
 
 /**
  * @deprecated This Object is deprecated and will be removed in the next major release.
  * Please refer to the SDK documentation for further instructions.
  */
-export const PaymentToken = new Proxy(DefaultPaymentToken, {
-  get: (target, prop, _receiver) => {
-    if (!emittedWarning) {
-      console.warn(
-        'PaymentToken enum is deprecated and will be removed in the next major release. Please refer to the SDK documentation for further instructions.'
-      );
-      emittedWarning = true;
-    }
-
-    return target[prop as keyof typeof target];
-  },
-});
+export const PaymentToken = deprecate(Types.PaymentToken, 'PaymentToken');
+export type  PaymentToken = Types.PaymentToken;
