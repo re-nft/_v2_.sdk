@@ -102,6 +102,7 @@ export type AbstractRenftContractDeployment<
   readonly version: Version;
   readonly contractAddress: string;
   readonly network: Network;
+  readonly startBlock: number;
 };
 
 export type AnyRenftContractDeployment<
