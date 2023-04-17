@@ -23,7 +23,7 @@ import {
 } from './types';
 
 export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0 = {
-  contractAddress: '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7',
+  contractAddress: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.AZRAEL,
   version: AzraelVersion.V0,
@@ -48,7 +48,7 @@ export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0 = {
 } as const;
 
 export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
-  contractAddress: '0x4e52b73aa28b7ff84d88ea3a90c0668f46043450',
+  contractAddress: '0x4e52B73Aa28b7FF84d88eA3A90C0668f46043450',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V1,
@@ -88,7 +88,7 @@ export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
 } as const;
 
 export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1 = {
-  contractAddress: '0x3ddc85bb768a11b0125f4ee71cfea54e54653366',
+  contractAddress: '0x3ddC85bB768A11B0125f4ee71CfeA54e54653366',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V1,
