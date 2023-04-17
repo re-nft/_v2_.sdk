@@ -1,4 +1,4 @@
-import { isAddress } from '@ethersproject/address';
+import { getAddress, isAddress } from '@ethersproject/address';
 import { expect } from 'chai';
 
 import {
@@ -12,7 +12,7 @@ describe('deployments', () => {
   it('addresses are checksummed', () => {
     expect(
       RENFT_CONTRACT_DEPLOYMENTS.map(deployment =>
-        isAddress(deployment.contractAddress)
+        isAddress(getAddress(deployment.contractAddress))
       ).every(Boolean)
     ).to.be.true;
   });
