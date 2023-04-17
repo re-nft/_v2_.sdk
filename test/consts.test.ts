@@ -24,7 +24,7 @@ import {
 describe('deprecated contract addresses', () => {
   it('should not invalidate current consumers', () => {
     expect(RESOLVER_ADDRESS).to.equal(
-      '0x945e589a4715d1915e6fe14f08e4887bc4019341'
+      '0x945E589A4715d1915e6FE14f08e4887Bc4019341'
     );
     expect(AZRAEL_ADDRESS).to.equal(
       '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7'

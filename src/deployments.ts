@@ -72,7 +72,7 @@ export const DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0 = {
 } as const;
 
 export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0 = {
-  contractAddress: '0x945e589a4715d1915e6fe14f08e4887bc4019341',
+  contractAddress: '0x945E589A4715d1915e6FE14f08e4887Bc4019341',
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
@@ -125,6 +125,27 @@ export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
   DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1,
 ];
 
+export function findSingleDeploymentOrThrow<T extends RenftContractDeployment>(
+  search: Partial<T>
+) {
+  const [deployment, ...rest] = findDeployments<T>(search);
+
+  if (!deployment)
+    throw new Error(
+      `[findSingleDeploymentOrThrow]: No deployment found for search: ${JSON.stringify(
+        search
+      )}`
+    );
+  if (rest.length)
+    throw new Error(
+      `[findSingleDeploymentOrThrow]: Multiple deployments found for search: ${JSON.stringify(
+        search
+      )}`
+    );
+
+  return deployment;
+}
+
 export function findDeployments<T extends RenftContractDeployment>(
   search: Partial<T>
 ) {
@@ -148,23 +169,9 @@ export function findDeployments<T extends RenftContractDeployment>(
 export function getContractAddressForDeployment<
   T extends RenftContractDeployment
 >(search: Omit<Partial<T>, 'contractAddress'>): string {
-  const matchingDeployments = findDeployments<T>(search as Partial<T>);
-
-  if (!matchingDeployments.length)
-    throw new Error(
-      `[getContractAddressForDeployment]: Failed to find a matching deployment for search: ${JSON.stringify(
-        search
-      )}`
-    );
-
-  if (matchingDeployments.length > 1)
-    throw new Error(
-      `[getContractAddressForDeployment]: Found multiple possible deployments for search: ${JSON.stringify(
-        search
-      )}`
-    );
-
-  const [matchingDeployment] = matchingDeployments;
+  const matchingDeployment = findSingleDeploymentOrThrow<T>(
+    search as Partial<T>
+  );
 
   const { contractAddress } = matchingDeployment!;
 
