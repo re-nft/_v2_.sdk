@@ -149,7 +149,7 @@ export function isValidDeployment<T extends RenftContractDeployment>(
   deployment: T
 ): boolean {
   try {
-    return DeploymentSchema.safeParse(deployment).success;
+    return !!DeploymentSchema.parse(deployment);
   } catch (e) {
     console.warn(e);
 
