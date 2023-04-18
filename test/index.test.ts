@@ -1,5 +1,4 @@
 import { Signer } from '@ethersproject/abstract-signer';
-import { isAddress } from '@ethersproject/address';
 import { expect } from 'chai';
 import isEqual from 'react-fast-compare';
 
@@ -16,7 +15,6 @@ import {
   DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
   getDeploymentAbi,
   getRenftContract,
-  RENFT_CONTRACT_DEPLOYMENTS,
 } from '../src';
 
 import azrael_v0 from '../src/abi/azrael.v0.abi.json';
@@ -92,12 +90,5 @@ describe('module exports', () => {
     // HACK: Here we ensure that the returned interface matches the provided deployment.
     const azrael: AzraelV0FunctionInterface = renft;
     expect(!!azrael).to.be.true;
-  });
-  it('deployment addresses are checksummed', () => {
-    expect(
-      RENFT_CONTRACT_DEPLOYMENTS.map(deployment =>
-        isAddress(deployment.contractAddress)
-      ).every(Boolean)
-    ).to.be.true;
   });
 });

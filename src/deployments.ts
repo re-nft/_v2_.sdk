@@ -1,6 +1,7 @@
 import { Contract, ContractInterface } from '@ethersproject/contracts';
 import { Signer } from '@ethersproject/abstract-signer';
 import isEqual from 'react-fast-compare';
+import { z } from 'zod';
 
 import {
   CONTRACT_ABI_VERSIONS,
@@ -20,7 +21,26 @@ import {
   SylvesterVersion,
   WhoopiVersion,
   CreateVersionedContractInterfaceResult,
+  EVMNetworkType,
 } from './types';
+import { getAddress } from '@ethersproject/address';
+
+export const DeploymentSchema = z.object({
+  contractAddress: z.string().refine((address: string) => getAddress(address), {
+    message: 'Deployment contract address must be a valid checksummed address',
+  }),
+  network: z.object({
+    chainId: z.number(),
+    type: z.nativeEnum(EVMNetworkType),
+  }),
+  contractType: z.nativeEnum(RenftContractType),
+  version: z
+    .nativeEnum(ResolverVersion)
+    .or(z.nativeEnum(AzraelVersion))
+    .or(z.nativeEnum(SylvesterVersion))
+    .or(z.nativeEnum(WhoopiVersion)),
+  startBlock: z.number().min(0),
+});
 
 export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0 = {
   contractAddress: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
@@ -124,6 +144,18 @@ export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
   DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0,
   DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1,
 ];
+
+export function isValidDeployment<T extends RenftContractDeployment>(
+  deployment: T
+): boolean {
+  try {
+    return DeploymentSchema.safeParse(deployment).success;
+  } catch (e) {
+    console.warn(e);
+
+    return false;
+  }
+}
 
 export function findSingleDeploymentOrThrow<T extends RenftContractDeployment>(
   search: Partial<T>

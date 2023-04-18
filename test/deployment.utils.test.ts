@@ -1,21 +1,39 @@
-import { getAddress } from '@ethersproject/address';
 import { expect } from 'chai';
 
 import {
   DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1,
   findSingleDeploymentOrThrow,
+  isValidDeployment,
   RenftContractType,
   RENFT_CONTRACT_DEPLOYMENTS,
 } from '../src';
 
 describe('deployments', () => {
-  it('addresses are checksummed', () => {
-    expect(
-      RENFT_CONTRACT_DEPLOYMENTS.map(
-        deployment =>
-          deployment.contractAddress === getAddress(deployment.contractAddress)
-      ).every(Boolean)
-    ).to.be.true;
+  const validDeployment = DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1;
+
+  it('all deployments are valid', () => {
+    expect(RENFT_CONTRACT_DEPLOYMENTS.map(isValidDeployment).every(Boolean)).to
+      .be.true;
+  });
+
+  describe('isValidDeployment', () => {
+    it('false for invalid contractAddress', () => {
+      expect(
+        isValidDeployment({
+          ...validDeployment,
+          contractAddress: '0x0000000',
+        })
+      ).to.be.false;
+    });
+
+    it('false for invalid startBlock', () => {
+      expect(
+        isValidDeployment({
+          ...validDeployment,
+          startBlock: -1,
+        })
+      ).to.be.false;
+    });
   });
 
   describe('findSingleDeploymentOrThrow', () => {
@@ -34,12 +52,11 @@ describe('deployments', () => {
     });
 
     it('finds by contract address', () => {
-      const deployment = DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1;
       expect(
         findSingleDeploymentOrThrow({
-          contractAddress: deployment.contractAddress,
+          contractAddress: validDeployment.contractAddress,
         })
-      ).to.equal(deployment);
+      ).to.equal(validDeployment);
     });
   });
 });
