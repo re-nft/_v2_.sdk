@@ -26,9 +26,9 @@ import {
 import { getAddress } from '@ethersproject/address';
 
 export const DeploymentSchema = z.object({
-  contractAddress: z.string().refine((address: string) => getAddress(address), {
-    message: 'Deployment contract address must be a valid checksummed address',
-  }),
+  contractAddress: z
+    .string()
+    .transform((address: string) => getAddress(address)),
   network: z.object({
     chainId: z.number(),
     type: z.nativeEnum(EVMNetworkType),
