@@ -81,3 +81,17 @@ Take time to familiarise yourself with our [docs](https://docs.renft.io).
 
 For contract name code-mapping see [this](https://docs.renft.io/developers/contracts-name-mapping).
 
+## Deploying New SDK versions
+
+Create a utility shell scripts for deploys locally like the one below:
+
+```bash
+#!/bin/bash
+set -e
+yarn build
+yarn publish
+```
+
+make sure to make it executable:
+
+`chmod +x deploy.sh`
