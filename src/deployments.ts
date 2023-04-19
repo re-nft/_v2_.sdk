@@ -1,7 +1,6 @@
 import { Contract, ContractInterface } from '@ethersproject/contracts';
 import { Signer } from '@ethersproject/abstract-signer';
 import isEqual from 'react-fast-compare';
-import { z } from 'zod';
 
 import {
   CONTRACT_ABI_VERSIONS,
@@ -24,23 +23,6 @@ import {
   EVMNetworkType,
 } from './types';
 import { getAddress } from '@ethersproject/address';
-
-export const DeploymentSchema = z.object({
-  contractAddress: z
-    .string()
-    .transform((address: string) => getAddress(address)),
-  network: z.object({
-    chainId: z.number(),
-    type: z.nativeEnum(EVMNetworkType),
-  }),
-  contractType: z.nativeEnum(RenftContractType),
-  version: z
-    .nativeEnum(ResolverVersion)
-    .or(z.nativeEnum(AzraelVersion))
-    .or(z.nativeEnum(SylvesterVersion))
-    .or(z.nativeEnum(WhoopiVersion)),
-  startBlock: z.number().min(0),
-});
 
 export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0 = {
   contractAddress: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
@@ -145,16 +127,82 @@ export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
   DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1,
 ];
 
+export function hasValidReNftContractType<T extends RenftContractDeployment>({
+  contractType,
+}: T): boolean {
+  return Object.values(RenftContractType).includes(
+    contractType as RenftContractType
+  );
+}
+
+export function hasValidNetwork<T extends RenftContractDeployment>({
+  network,
+}: T): boolean {
+  return (
+    Object.values(EVMNetworkType).includes(network.type) && network.chainId > 0
+  );
+}
+
+export function hasValidStartBlock<T extends RenftContractDeployment>({
+  startBlock,
+}: T): boolean {
+  return startBlock >= 0;
+}
+
+export function hasValidContractAddress<T extends RenftContractDeployment>({
+  contractAddress,
+}: T): boolean {
+  try {
+    return getAddress(contractAddress) === contractAddress;
+  } catch {
+    return false;
+  }
+}
+
+function isValidContractVersion({
+  contractType,
+  version,
+}: {
+  contractType: RenftContractType;
+  version: string;
+}): boolean {
+  switch (contractType) {
+    case RenftContractType.RESOLVER:
+      return Object.values(ResolverVersion).includes(
+        version as ResolverVersion
+      );
+    case RenftContractType.WHOOPI:
+      return Object.values(WhoopiVersion).includes(version as WhoopiVersion);
+    case RenftContractType.AZRAEL:
+      return Object.values(AzraelVersion).includes(version as AzraelVersion);
+    case RenftContractType.SYLVESTER:
+      return Object.values(SylvesterVersion).includes(
+        version as SylvesterVersion
+      );
+    default:
+      return false;
+  }
+}
+
+export function hasValidContractVersion<T extends RenftContractDeployment>({
+  contractType,
+  version,
+}: T): boolean {
+  return isValidContractVersion({ contractType, version });
+}
+
 export function isValidDeployment<T extends RenftContractDeployment>(
   deployment: T
 ): boolean {
-  try {
-    return !!DeploymentSchema.parse(deployment);
-  } catch (e) {
-    console.warn(e);
+  const validityChecks = [
+    hasValidContractAddress,
+    hasValidReNftContractType,
+    hasValidNetwork,
+    hasValidStartBlock,
+    hasValidContractVersion,
+  ] as const;
 
-    return false;
-  }
+  return validityChecks.every(check => check(deployment));
 }
 
 export function findSingleDeploymentOrThrow<T extends RenftContractDeployment>(
