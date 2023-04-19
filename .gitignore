@@ -6,3 +6,6 @@ dist/
 
 # WebStorm IDE
 .idea/
+
+# local deploy scripts
+deploy.sh
