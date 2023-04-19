@@ -19,6 +19,8 @@ import {
   WhoopiV0FunctionInterface,
   DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1,
   SylvesterV1FunctionInterface,
+  RESOLVER_ETHEREUM_ADDRESS,
+  AZRAEL_ETHEREUM_ADDRESS,
 } from '../src';
 
 describe('deprecated contract addresses', () => {
@@ -26,9 +28,17 @@ describe('deprecated contract addresses', () => {
     expect(RESOLVER_ADDRESS).to.equal(
       '0x945e589a4715d1915e6fe14f08e4887bc4019341'
     );
+    expect(RESOLVER_ETHEREUM_ADDRESS).to.equal(
+      '0x945E589A4715d1915e6FE14f08e4887Bc4019341'
+    );
+    expect(RESOLVER_ETHEREUM_ADDRESS).to.not.equal(RESOLVER_ADDRESS);
     expect(AZRAEL_ADDRESS).to.equal(
       '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7'
     );
+    expect(AZRAEL_ETHEREUM_ADDRESS).to.equal(
+      '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7'
+    );
+    expect(AZRAEL_ETHEREUM_ADDRESS).to.not.equal(AZRAEL_ADDRESS);
     expect(SYLVESTER_ADDRESS).to.equal(
       '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a'
     );

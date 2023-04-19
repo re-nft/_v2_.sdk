@@ -65,9 +65,11 @@
   ],
   "dependencies": {
     "@ethersproject/abstract-signer": ">=5.5.0",
+    "@ethersproject/address": "5.7.0",
     "@ethersproject/bignumber": ">=5.5.0",
     "@ethersproject/contracts": ">=5.5.0",
-    "react-fast-compare": "3.2.0"
+    "react-fast-compare": "3.2.0",
+    "zod": "3.21.4"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "7.0.1",

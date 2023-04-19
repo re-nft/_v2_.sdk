@@ -1,6 +1,7 @@
 import { Contract, ContractInterface } from '@ethersproject/contracts';
 import { Signer } from '@ethersproject/abstract-signer';
 import isEqual from 'react-fast-compare';
+import { z } from 'zod';
 
 import {
   CONTRACT_ABI_VERSIONS,
@@ -20,10 +21,29 @@ import {
   SylvesterVersion,
   WhoopiVersion,
   CreateVersionedContractInterfaceResult,
+  EVMNetworkType,
 } from './types';
+import { getAddress } from '@ethersproject/address';
+
+export const DeploymentSchema = z.object({
+  contractAddress: z
+    .string()
+    .transform((address: string) => getAddress(address)),
+  network: z.object({
+    chainId: z.number(),
+    type: z.nativeEnum(EVMNetworkType),
+  }),
+  contractType: z.nativeEnum(RenftContractType),
+  version: z
+    .nativeEnum(ResolverVersion)
+    .or(z.nativeEnum(AzraelVersion))
+    .or(z.nativeEnum(SylvesterVersion))
+    .or(z.nativeEnum(WhoopiVersion)),
+  startBlock: z.number().min(0),
+});
 
 export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0 = {
-  contractAddress: '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7',
+  contractAddress: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.AZRAEL,
   version: AzraelVersion.V0,
@@ -48,7 +68,7 @@ export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0 = {
 } as const;
 
 export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
-  contractAddress: '0x4e52b73aa28b7ff84d88ea3a90c0668f46043450',
+  contractAddress: '0x4e52B73Aa28b7FF84d88eA3A90C0668f46043450',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V1,
@@ -72,7 +92,7 @@ export const DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0 = {
 } as const;
 
 export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0 = {
-  contractAddress: '0x945e589a4715d1915e6fe14f08e4887bc4019341',
+  contractAddress: '0x945E589A4715d1915e6FE14f08e4887Bc4019341',
   network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V0,
@@ -88,7 +108,7 @@ export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
 } as const;
 
 export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1 = {
-  contractAddress: '0x3ddc85bb768a11b0125f4ee71cfea54e54653366',
+  contractAddress: '0x3ddC85bB768A11B0125f4ee71CfeA54e54653366',
   network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
   version: ResolverVersion.V1,
@@ -125,6 +145,39 @@ export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
   DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1,
 ];
 
+export function isValidDeployment<T extends RenftContractDeployment>(
+  deployment: T
+): boolean {
+  try {
+    return !!DeploymentSchema.parse(deployment);
+  } catch (e) {
+    console.warn(e);
+
+    return false;
+  }
+}
+
+export function findSingleDeploymentOrThrow<T extends RenftContractDeployment>(
+  search: Partial<T>
+) {
+  const [deployment, ...rest] = findDeployments<T>(search);
+
+  if (!deployment)
+    throw new Error(
+      `[findSingleDeploymentOrThrow]: No deployment found for search: ${JSON.stringify(
+        search
+      )}`
+    );
+  if (rest.length)
+    throw new Error(
+      `[findSingleDeploymentOrThrow]: Multiple deployments found for search: ${JSON.stringify(
+        search
+      )}`
+    );
+
+  return deployment;
+}
+
 export function findDeployments<T extends RenftContractDeployment>(
   search: Partial<T>
 ) {
@@ -148,23 +201,9 @@ export function findDeployments<T extends RenftContractDeployment>(
 export function getContractAddressForDeployment<
   T extends RenftContractDeployment
 >(search: Omit<Partial<T>, 'contractAddress'>): string {
-  const matchingDeployments = findDeployments<T>(search as Partial<T>);
-
-  if (!matchingDeployments.length)
-    throw new Error(
-      `[getContractAddressForDeployment]: Failed to find a matching deployment for search: ${JSON.stringify(
-        search
-      )}`
-    );
-
-  if (matchingDeployments.length > 1)
-    throw new Error(
-      `[getContractAddressForDeployment]: Found multiple possible deployments for search: ${JSON.stringify(
-        search
-      )}`
-    );
-
-  const [matchingDeployment] = matchingDeployments;
+  const matchingDeployment = findSingleDeploymentOrThrow<T>(
+    search as Partial<T>
+  );
 
   const { contractAddress } = matchingDeployment!;
 
