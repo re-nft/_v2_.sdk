@@ -49,6 +49,15 @@ describe('deployments', () => {
       ).to.be.false;
     });
 
+    it('false for incorrectly checksummed contractAddress', () => {
+      expect(
+        hasValidContractAddress({
+          ...validDeployment,
+          contractAddress: '0x94D8f036a0fbC216bb532d33bDF6564157Af0cD7',
+        })
+      ).to.be.false;
+    });
+
     it('true for valid contractAddress', () => {
       expect(hasValidContractAddress(validDeployment)).to.be.true;
     });
