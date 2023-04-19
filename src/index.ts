@@ -19,7 +19,7 @@ export * from './utils';
 
 // TODO: These exports are now deprecated. Remove them and have the consumer compute them dynamically.
 
-/*
+/**
  * @deprecated Use RESOLVER_ETHEREUM_ADDRESS instead
  */
 export const RESOLVER_ADDRESS = '0x945e589a4715d1915e6fe14f08e4887bc4019341';
@@ -45,7 +45,7 @@ export const RESOLVER_AVALANCHE_ADDRESS = getContractAddressForDeployment({
   contractType: RenftContractType.RESOLVER,
 });
 
-/*
+/**
  * @deprecated Use AZRAEL_ETHEREUM_ADDRESS instead
  */
 export const AZRAEL_ADDRESS = '0x94d8f036a0fbc216bb532d33bdf6564157af0cd7';
