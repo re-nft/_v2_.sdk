@@ -83,6 +83,8 @@ For contract name code-mapping see [this](https://docs.renft.io/developers/contr
 
 ## Deploying New SDK versions
 
+> Make sure the `CHANGELOG.md` is updated accordingly!
+
 Create a utility shell scripts for deploys locally like the one below:
 
 ```bash
