@@ -8,6 +8,7 @@ import {
   NETWORK_AVALANCHE_MAINNET,
   NETWORK_ETHEREUM_MAINNET,
   NETWORK_POLYGON_MAINNET,
+  NETWORK_ETHEREUM_GOERLI_TESTNET,
 } from './consts';
 import { createInterfaceVersions } from './interfaces';
 import {
@@ -38,6 +39,14 @@ export const DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0 = {
   contractType: RenftContractType.SYLVESTER,
   version: SylvesterVersion.V0,
   startBlock: 13197348,
+} as const;
+
+export const DEPLOYMENT_SYLVESTER_ETHEREUM_GOERLI_TESTNET_V0 = {
+  contractAddress: '0xEDe9A15388CCd972DffBD7C3F5504345703b63b2',
+  network: NETWORK_ETHEREUM_GOERLI_TESTNET,
+  contractType: RenftContractType.SYLVESTER,
+  version: SylvesterVersion.V0,
+  startBlock: 8907139,
 } as const;
 
 // @deprecated - Please use the v1 contract below.
@@ -81,6 +90,17 @@ export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0 = {
   startBlock: 12875506,
 } as const;
 
+// note that this resolver actually allows us to change already set
+// payment tokens. that is its only difference from the prod v0 resolver
+// this is useful if an integrating project wishes to change their erc20
+export const DEPLOYMENT_RESOLVER_ETHEREUM_GOERLI_TESTNET_V0 = {
+  contractAddress: '0xF8834327e7f3f5103954E477A32dC742A6518A9C',
+  network: NETWORK_ETHEREUM_GOERLI_TESTNET,
+  contractType: RenftContractType.RESOLVER,
+  version: ResolverVersion.V0,
+  startBlock: 8907116,
+} as const;
+
 export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
   contractAddress: '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518',
   network: NETWORK_POLYGON_MAINNET,
@@ -116,6 +136,7 @@ export const DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0 = {
 export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
+  DEPLOYMENT_SYLVESTER_ETHEREUM_GOERLI_TESTNET_V0,
   DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0,
   DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1,
   DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
