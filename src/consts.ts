@@ -27,6 +27,11 @@ export const NETWORK_ETHEREUM_MAINNET: EVMNetworkLike<EVMNetworkType.ETHEREUM_MA
   chainId: 1,
 };
 
+export const NETWORK_ETHEREUM_GOERLI_TESTNET: EVMNetworkLike<EVMNetworkType.ETHEREUM_GOERLI_TESTNET> = {
+  type: EVMNetworkType.ETHEREUM_GOERLI_TESTNET,
+  chainId: 5,
+};
+
 export const NETWORK_POLYGON_MAINNET: EVMNetworkLike<EVMNetworkType.POLYGON_MAINNET> = {
   type: EVMNetworkType.POLYGON_MAINNET,
   chainId: 137,
@@ -100,6 +105,14 @@ const ETHEREUM_TUSD: PaymentTokenDetails = {
 };
 const ETHEREUM_TOSHI: PaymentTokenDetails = {
   address: '0xF136D7b0B7AE5b86D21E7B78DFA95375a7360f19',
+  scale: 18,
+};
+const GOERLI_WETH: PaymentTokenDetails = {
+  address: '0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6',
+  scale: 18,
+};
+const GOERLI_DAI: PaymentTokenDetails = {
+  address: '0x9D233A907E065855D2A9c7d4B552ea27fB2E5a36',
   scale: 18,
 };
 const POLYGON_WETH: PaymentTokenDetails = {
@@ -201,6 +214,22 @@ export const ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.TOSHI]: ETHEREUM_TOSHI,
 };
 
+export const ETHEREUM_GOERLI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
+  [PaymentToken.SENTINEL]: SENTINEL,
+  [PaymentToken.WETH]: GOERLI_WETH,
+  [PaymentToken.DAI]: GOERLI_DAI,
+  // couldn't find anything decent on goerli for these
+  [PaymentToken.USDC]: SENTINEL,
+  [PaymentToken.USDT]: SENTINEL,
+  [PaymentToken.TUSD]: SENTINEL,
+  // ---
+  [PaymentToken.RENT]: SENTINEL,
+  [PaymentToken.ACS]: SENTINEL,
+  [PaymentToken.WELT]: SENTINEL,
+  [PaymentToken.KNIGHT]: SENTINEL,
+  [PaymentToken.TOSHI]: SENTINEL,
+};
+
 export const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.SENTINEL]: SENTINEL,
   [PaymentToken.WETH]: POLYGON_WETH,
@@ -246,6 +275,7 @@ export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = 
 // TODO: need to associate these with the resolver contract instance somehow
 export const NETWORK_RESOLVERS: NetworkPaymentTokenResolvers = {
   [EVMNetworkType.ETHEREUM_MAINNET]: ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+  [EVMNetworkType.ETHEREUM_GOERLI_TESTNET]: ETHEREUM_GOERLI_TESTNET_PAYMENT_TOKEN_RESOLVERS,
   [EVMNetworkType.POLYGON_MAINNET]: POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS,
   [EVMNetworkType.AVALANCHE_FUJI_TESTNET]: AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS,
   [EVMNetworkType.AVALANCHE_MAINNET]: AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS,
@@ -255,6 +285,7 @@ export const ALL_NETWORKS: {
   readonly [key in EVMNetworkType]: EVMNetworkLike<key>;
 } = {
   [EVMNetworkType.ETHEREUM_MAINNET]: NETWORK_ETHEREUM_MAINNET,
+  [EVMNetworkType.ETHEREUM_GOERLI_TESTNET]: NETWORK_ETHEREUM_GOERLI_TESTNET,
   [EVMNetworkType.POLYGON_MAINNET]: NETWORK_POLYGON_MAINNET,
   [EVMNetworkType.AVALANCHE_FUJI_TESTNET]: NETWORK_AVALANCHE_FUJI_TESTNET,
   [EVMNetworkType.AVALANCHE_MAINNET]: NETWORK_AVALANCHE_MAINNET,
