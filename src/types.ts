@@ -36,6 +36,7 @@ export enum PaymentToken {
   WELT = 8,
   KNIGHT = 9,
   TOSHI = 10,
+  ELLE = 11, /* Kryptoria */
 }
 
 export type PaymentTokenDetails = {
