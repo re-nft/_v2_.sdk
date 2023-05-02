@@ -115,6 +115,10 @@ const GOERLI_DAI: PaymentTokenDetails = {
   address: '0x9D233A907E065855D2A9c7d4B552ea27fB2E5a36',
   scale: 18,
 };
+const GOERLI_ELLE: PaymentTokenDetails = {
+  address: '0xd68ccAf337CB4b441d350B7508068bcfcA944673',
+  scale: 18,
+};
 const POLYGON_WETH: PaymentTokenDetails = {
   address: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
   scale: 18,
@@ -212,6 +216,7 @@ export const ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.WELT]: SENTINEL,
   [PaymentToken.KNIGHT]: SENTINEL,
   [PaymentToken.TOSHI]: ETHEREUM_TOSHI,
+  [PaymentToken.ELLE]: SENTINEL,
 };
 
 export const ETHEREUM_GOERLI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -228,6 +233,7 @@ export const ETHEREUM_GOERLI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolv
   [PaymentToken.WELT]: SENTINEL,
   [PaymentToken.KNIGHT]: SENTINEL,
   [PaymentToken.TOSHI]: SENTINEL,
+  [PaymentToken.ELLE]: GOERLI_ELLE,
 };
 
 export const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -242,6 +248,7 @@ export const POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.WELT]: POLYGON_WELT,
   [PaymentToken.KNIGHT]: POLYGON_KNIGHT,
   [PaymentToken.TOSHI]: SENTINEL,
+  [PaymentToken.ELLE]: SENTINEL,
 };
 
 export const AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -256,6 +263,7 @@ export const AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolve
   [PaymentToken.WELT]: SENTINEL,
   [PaymentToken.KNIGHT]: SENTINEL,
   [PaymentToken.TOSHI]: SENTINEL,
+  [PaymentToken.ELLE]: SENTINEL,
 };
 
 export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
@@ -270,6 +278,7 @@ export const AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = 
   [PaymentToken.WELT]: SENTINEL,
   [PaymentToken.KNIGHT]: SENTINEL,
   [PaymentToken.TOSHI]: SENTINEL,
+  [PaymentToken.ELLE]: SENTINEL,
 };
 
 // TODO: need to associate these with the resolver contract instance somehow
