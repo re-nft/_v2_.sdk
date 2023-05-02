@@ -14,6 +14,7 @@ import {
   RenftContractType,
   RenftContractVersion,
   RENFT_CONTRACT_DEPLOYMENTS,
+  Chain,
 } from '../src';
 
 describe('deployments', () => {
@@ -85,7 +86,7 @@ describe('deployments', () => {
           ...validDeployment,
           network: {
             type: EVMNetworkType.AVALANCHE_MAINNET,
-            chainId: -1,
+            chainId: -1 as Chain,
           },
         } as RenftContractDeployment)
       ).to.be.false;
