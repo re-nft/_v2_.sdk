@@ -20,11 +20,12 @@ import {
   SylvesterVersion,
   WhoopiAbiVersions,
   WhoopiVersion,
+  Chain,
 } from './types';
 
 export const NETWORK_ETHEREUM_MAINNET: EVMNetworkLike<EVMNetworkType.ETHEREUM_MAINNET> = {
   type: EVMNetworkType.ETHEREUM_MAINNET,
-  chainId: 1,
+  chainId: Chain.ETHEREUM_MAINNET,
 };
 
 export const NETWORK_ETHEREUM_GOERLI_TESTNET: EVMNetworkLike<EVMNetworkType.ETHEREUM_GOERLI_TESTNET> = {
@@ -34,17 +35,17 @@ export const NETWORK_ETHEREUM_GOERLI_TESTNET: EVMNetworkLike<EVMNetworkType.ETHE
 
 export const NETWORK_POLYGON_MAINNET: EVMNetworkLike<EVMNetworkType.POLYGON_MAINNET> = {
   type: EVMNetworkType.POLYGON_MAINNET,
-  chainId: 137,
+  chainId: Chain.POLYGON_MAINNET,
 };
 
 export const NETWORK_AVALANCHE_FUJI_TESTNET: EVMNetworkLike<EVMNetworkType.AVALANCHE_FUJI_TESTNET> = {
   type: EVMNetworkType.AVALANCHE_FUJI_TESTNET,
-  chainId: 43_113,
+  chainId: Chain.AVALANCHE_FUJI_TESTNET,
 };
 
 export const NETWORK_AVALANCHE_MAINNET: EVMNetworkLike<EVMNetworkType.AVALANCHE_MAINNET> = {
   type: EVMNetworkType.AVALANCHE_MAINNET,
-  chainId: 43_114,
+  chainId: Chain.AVALANCHE_MAINNET,
 };
 
 export const AZRAEL_ABI_VERSIONS: AzraelAbiVersions = {
@@ -288,6 +289,15 @@ export const NETWORK_RESOLVERS: NetworkPaymentTokenResolvers = {
   [EVMNetworkType.POLYGON_MAINNET]: POLYGON_MAINNET_PAYMENT_TOKEN_RESOLVERS,
   [EVMNetworkType.AVALANCHE_FUJI_TESTNET]: AVALANCHE_FUJI_TESTNET_PAYMENT_TOKEN_RESOLVERS,
   [EVMNetworkType.AVALANCHE_MAINNET]: AVALANCHE_MAINNET_PAYMENT_TOKEN_RESOLVERS,
+};
+
+export const ALL_CHAINS: {
+  readonly [key in Chain]: EVMNetworkLike<EVMNetworkType>;
+} = {
+  [Chain.ETHEREUM_MAINNET]: NETWORK_ETHEREUM_MAINNET,
+  [Chain.POLYGON_MAINNET]: NETWORK_POLYGON_MAINNET,
+  [Chain.AVALANCHE_FUJI_TESTNET]: NETWORK_AVALANCHE_FUJI_TESTNET,
+  [Chain.AVALANCHE_MAINNET]: NETWORK_AVALANCHE_MAINNET,
 };
 
 export const ALL_NETWORKS: {

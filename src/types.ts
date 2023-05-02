@@ -15,9 +15,16 @@ export enum EVMNetworkType {
   AVALANCHE_FUJI_TESTNET = 'AVALANCHE_FUJI_TESTNET',
 }
 
+export enum Chain {
+  ETHEREUM_MAINNET = 1,
+  POLYGON_MAINNET = 137,
+  AVALANCHE_MAINNET = 43_114,
+  AVALANCHE_FUJI_TESTNET = 43_113,
+}
+
 export type EVMNetworkLike<T extends EVMNetworkType> = {
   readonly type: T;
-  readonly chainId: number;
+  readonly chainId: Chain;
 };
 
 export type Network =
