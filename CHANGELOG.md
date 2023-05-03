@@ -1,5 +1,15 @@
 # Change Log
 
+## [6.0.0-alpha.10] - 2023-05-04
+
+### Added
+
+Nothing.
+
+### Changed
+
+- Readme to instruct users what to do if the Readme example doesn't work. Plus some clarifications around what AZRAEL means.
+
 ## [6.0.0-alpha.9] - 2023-05-02
 
 ### Added
