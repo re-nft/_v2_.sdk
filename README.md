@@ -23,6 +23,10 @@
 
 The below is a simple example of lending an ERC721, note that the amount is ignored, you will always lend **1** unit of ERC721 token.
 
+If you are having any issues with the below code, go here: https://github.com/re-nft/sdk/tree/main/examples and ensure your dependencies for `ethersproject` are the same as ours.
+
+You might be wondering what 'AZRAEL' refers to in the below import. If so, go to our docs here: https://docs.renft.io/developers/renft-contracts-addresses. Azrael, Sylvester and Whoopi are our naming conventions to refer to different versions of our contracts.
+
 ```javascript
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
