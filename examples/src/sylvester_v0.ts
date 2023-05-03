@@ -43,9 +43,9 @@ const main = async () => {
     "65385238396461245548909757441444140644847314737463192205847680215270719225857",
     "73166",
   ];
-  const lendingID = ['133', '132'];
+  const lendingID = ["133", "132"];
   const rentDuration = [1, 1];
-  const rentAmount = ['1', '1'];
+  const rentAmount = ["1", "1"];
 
   // Azrael Lend Transaction
   txn = await renft.lend(
