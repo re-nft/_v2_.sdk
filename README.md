@@ -23,9 +23,9 @@
 
 The below is a simple example of lending an ERC721, note that the amount is ignored, you will always lend **1** unit of ERC721 token.
 
-If you are having any issues with the below code, go here: https://github.com/re-nft/sdk/tree/main/examples and ensure your dependencies for `ethersproject` are the same as ours.
+If you are having any issues with the below code, go [here](https://github.com/re-nft/sdk/tree/main/examples) and ensure your dependencies for `ethersproject` are the same as ours (in `package.json`).
 
-You might be wondering what 'AZRAEL' refers to in the below import. If so, go to our docs here: https://docs.renft.io/developers/renft-contracts-addresses. Azrael, Sylvester and Whoopi are our naming conventions to refer to different versions of our contracts.
+You might be wondering what 'AZRAEL' refers to in the below import. If so, go to our docs [here](https://docs.renft.io/developers/renft-contracts-addresses). Azrael, Sylvester and Whoopi are our naming conventions to refer to different versions of our contracts.
 
 ```javascript
 import { JsonRpcProvider } from '@ethersproject/providers';
@@ -75,13 +75,9 @@ main()
   });
 ```
 
-For more usage examples, see `test/utils.test.ts`
+For more usage examples, see `test` and `examples` folders on our [github repo](https://github.com/re-nft/sdk/tree/main/examples).
 
-Take time to familiarise yourself with our [docs](https://docs.renft.io).
-
-## Contract name code-mapping
-
-For contract name code-mapping see [this](https://docs.renft.io/developers/contracts-name-mapping).
+Please, also take the time to familiarise yourself with our [docs](https://docs.renft.io).
 
 ## Deploying New SDK versions
 
