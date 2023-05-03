@@ -1,12 +1,12 @@
-const { JsonRpcProvider } = require('@ethersproject/providers');
-const { parseFixed } = require('@ethersproject/bignumber');
-const { Wallet } = require('@ethersproject/wallet');
-const {
-  PaymentToken,
-  NETWORK_RESOLVERS,
-  getRenftContract,
+import { JsonRpcProvider } from "@ethersproject/providers";
+import { parseFixed } from "@ethersproject/bignumber";
+import { Wallet } from "@ethersproject/wallet";
+import {
   DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
-} = require('@renft/sdk');
+  getRenftContract,
+  NETWORK_RESOLVERS,
+  PaymentToken,
+} from "@renft/sdk";
 
 // If you ever have issues with sending a transaction:
 // use { gasLimit: 1000000 } options when you send a transaction.
@@ -18,8 +18,10 @@ const {
 // const walletMnemonic = Wallet.fromMnemonic(`<your mnemonic>`);
 // * avalanche fuji rpc: https://api.avax-test.network/ext/bc/C/rpc
 // * avalanche main rpc: https://api.avax.network/ext/bc/C/rpc
-const provider = new JsonRpcProvider('https://api.avax-test.network/ext/bc/C/rpc');
-const privKey = '';
+const provider = new JsonRpcProvider(
+  "https://api.avax-test.network/ext/bc/C/rpc",
+);
+const privKey = "";
 let wallet = new Wallet(privKey);
 wallet = wallet.connect(provider);
 
@@ -27,7 +29,6 @@ let txn;
 let receipt;
 let tokenId;
 let lendingId;
-
 
 // Wildlife Castle Crush FUJI examples
 const main = async () => {
@@ -55,16 +56,28 @@ const main = async () => {
   // ! Note that if allowedRenters is empty, you must set
   // ! upfrontRentFee to a non zero value.
   const upfrontRentFee = [
-    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString(),
-    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString()
+    parseFixed(
+      "1",
+      NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale,
+    ).toString(),
+    parseFixed(
+      "1",
+      NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale,
+    ).toString(),
   ];
   // ! you can't use SENTINEL as a payment token, even though
   // ! you don't want to set an upfront rent fee. Just use any
   // ! payment token in such a case.
   const paymentToken = [PaymentToken.USDC, PaymentToken.USDC];
   const revShareBeneficiaries = [
-    ["0x000000045232fe75A3C7db3e5B03B0Ab6166F425", "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE"],
-    ["0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE", "0xeA4E79F0a40A9A468a5159499b738dc6b1332447"]
+    [
+      "0x000000045232fe75A3C7db3e5B03B0Ab6166F425",
+      "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE",
+    ],
+    [
+      "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE",
+      "0xeA4E79F0a40A9A468a5159499b738dc6b1332447",
+    ],
   ];
   // ! portions sum cannot be 100 here. At lend, we don't know who will rent,
   // ! and the renter is always a mandatory part in rev share. We are not setting
@@ -72,7 +85,7 @@ const main = async () => {
   // ! gets eventually assigned to the renter.
   const revSharePortions = [
     [50, 40], // 10% is how much the renter will get on this lending
-    [90, 5] // 5% is how much ther renter will get on this lending
+    [90, 5], // 5% is how much ther renter will get on this lending
   ];
   const maxRentDuration = [1, 2];
 
@@ -98,30 +111,30 @@ const main = async () => {
   // await approvePaymentToken(FUJI_USDC, wallet, whoopiAddress, "1000000000");
 
   // castle crush nft address
-  tokenId = [210, 200];
-  lendingId = [3, 4];
+  tokenId = ['210', '200'];
+  lendingId = ['3', '4'];
   const rentingDuration = [1, 2];
 
   txn = await whoopi.rent(
     castleCrushNftAddress,
     tokenId,
     lendingId,
-    rentingDuration
+    rentingDuration,
     // { gasLimit: 1000000 }
   );
   receipt = await txn.wait();
 
   // -------------------- STOPPING LENDING ----------------------
 
-  tokenId = [210, 200];
-  lendingId = [3, 4];
+  tokenId = ['210', '200'];
+  lendingId = ['3', '4'];
 
   txn = await whoopi.stopLending(
     castleCrushNftAddress,
     tokenId,
     lendingId,
     // { gasLimit: 1000000 }
-  )
+  );
   receipt = await txn.wait();
 
   // -------------------- PAYING REWARDS ----------------------
@@ -131,12 +144,21 @@ const main = async () => {
   // * "115792089237316195423570985008687907853269984665640564039457584007913129639935"
   // await approvePaymentToken(FUJI_USDC, wallet, whoopiAddress, "1000000000");
 
-  tokenId = [210, 200];
-  lendingId = [3, 4];
-  const renterAddress = ["0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE", "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE"];
+  tokenId = ['210', '200'];
+  lendingId = ['3', '4'];
+  const renterAddress = [
+    "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE",
+    "0x465DCa9995D6c2a81A9Be80fBCeD5a770dEE3daE",
+  ];
   const amountToPay = [
-    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString(),
-    parseFixed("1", NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale).toString()
+    parseFixed(
+      "1",
+      NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale,
+    ).toString(),
+    parseFixed(
+      "1",
+      NETWORK_RESOLVERS[deployment.network.type][PaymentToken.USDC].scale,
+    ).toString(),
   ];
 
   txn = await whoopi.pay(
@@ -153,9 +175,9 @@ const main = async () => {
 };
 
 main()
-  .then(receipt => {
+  .then((receipt) => {
     console.log(receipt);
   })
-  .catch(e => {
+  .catch((e) => {
     console.warn(e);
   });
