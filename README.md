@@ -1,3 +1,5 @@
+**ReNFT** is a multi-chain highly gas-optimised NFT rental protocol and platform that can be whitelabel integrated into any project to enable collateral-free in-house renting, lending, and reward share (scholarship automation).
+
 <p align="center">
   <a href="https://renft.io/"><img width="350" height="208" src="https://i.imgur.com/WgB9HzK.png" alt='renft-cat'></a>
 </p>
@@ -12,10 +14,6 @@
     <img src="https://img.shields.io/npm/dm/@renft/sdk?style=for-the-badge" alt="Monthly Downloads">
 </a>
 </p>
-
-What is **ReNFT**?
-
-**ReNFT** is a multi-chain highly gas-optimised NFT rental protocol and platform that can be whitelabel integrated into any project to enable collateral-free in-house renting, lending, and reward share (scholarship automation).
 
 # Install
 
