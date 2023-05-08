@@ -23,14 +23,14 @@ export enum Chain {
   AVALANCHE_FUJI_TESTNET = 43_113,
 }
 
-export type EVMNetworkLike<T extends EVMNetworkType> = {
+export type EVMNetworkLike<T extends EVMNetworkType, C extends Chain> = {
   readonly type: T;
-  readonly chainId: Chain;
+  readonly chainId: C;
 };
 
 export type Network =
   // | SolanaNetwork
-  EVMNetworkLike<EVMNetworkType>;
+  EVMNetworkLike<EVMNetworkType, Chain>;
 
 export enum PaymentToken {
   SENTINEL = 0, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
