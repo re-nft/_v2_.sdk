@@ -123,6 +123,10 @@ const ETHEREUM_TOSHI: PaymentTokenDetails = {
   address: '0xF136D7b0B7AE5b86D21E7B78DFA95375a7360f19',
   scale: 18,
 };
+const ETHEREUM_ELLE: PaymentTokenDetails = {
+  address: '0xd4aA5CC39b15CC805e5591F09880934BE3fEAd8C',
+  scale: 18,
+};
 const GOERLI_WETH: PaymentTokenDetails = {
   address: '0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6',
   scale: 18,
@@ -232,7 +236,7 @@ export const ETHEREUM_MAINNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {
   [PaymentToken.WELT]: SENTINEL,
   [PaymentToken.KNIGHT]: SENTINEL,
   [PaymentToken.TOSHI]: ETHEREUM_TOSHI,
-  [PaymentToken.ELLE]: SENTINEL,
+  [PaymentToken.ELLE]: ETHEREUM_ELLE,
 };
 
 export const ETHEREUM_GOERLI_TESTNET_PAYMENT_TOKEN_RESOLVERS: PaymentTokenResolvers = {

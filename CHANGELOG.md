@@ -1,5 +1,15 @@
 # Change Log
 
+## [6.0.0-alpha.12] - 2023-05-08
+
+### Added
+
+- Kryptoria's ELLE payment token for Ethereum Mainnet.
+
+### Changed
+
+Nothing.
+
 ## [6.0.0-alpha.11] - 2023-05-08
 
 ### Added
