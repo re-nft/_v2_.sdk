@@ -1,5 +1,16 @@
 # Change Log
 
+## [6.0.0-alpha.11] - 2023-05-08
+
+### Added
+
+- `Chain` enum. Defines the supported chain IDs.
+- `ALL_CHAINS` mapping. Maps chain IDs to their Network.
+
+### Changed
+
+- `Network` now uses `Chain` internally.
+
 ## [6.0.0-alpha.10] - 2023-05-04
 
 ### Added
