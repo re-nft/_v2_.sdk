@@ -23,27 +23,42 @@ import {
   Chain,
 } from './types';
 
-export const NETWORK_ETHEREUM_MAINNET: EVMNetworkLike<EVMNetworkType.ETHEREUM_MAINNET> = {
+export const NETWORK_ETHEREUM_MAINNET: EVMNetworkLike<
+  EVMNetworkType.ETHEREUM_MAINNET,
+  Chain.ETHEREUM_MAINNET
+> = {
   type: EVMNetworkType.ETHEREUM_MAINNET,
   chainId: Chain.ETHEREUM_MAINNET,
 };
 
-export const NETWORK_ETHEREUM_GOERLI_TESTNET: EVMNetworkLike<EVMNetworkType.ETHEREUM_GOERLI_TESTNET> = {
+export const NETWORK_ETHEREUM_GOERLI_TESTNET: EVMNetworkLike<
+  EVMNetworkType.ETHEREUM_GOERLI_TESTNET,
+  Chain.ETHEREUM_GOERLI_TESTNET
+> = {
   type: EVMNetworkType.ETHEREUM_GOERLI_TESTNET,
   chainId: Chain.ETHEREUM_GOERLI_TESTNET,
 };
 
-export const NETWORK_POLYGON_MAINNET: EVMNetworkLike<EVMNetworkType.POLYGON_MAINNET> = {
+export const NETWORK_POLYGON_MAINNET: EVMNetworkLike<
+  EVMNetworkType.POLYGON_MAINNET,
+  Chain.POLYGON_MAINNET
+> = {
   type: EVMNetworkType.POLYGON_MAINNET,
   chainId: Chain.POLYGON_MAINNET,
 };
 
-export const NETWORK_AVALANCHE_FUJI_TESTNET: EVMNetworkLike<EVMNetworkType.AVALANCHE_FUJI_TESTNET> = {
+export const NETWORK_AVALANCHE_FUJI_TESTNET: EVMNetworkLike<
+  EVMNetworkType.AVALANCHE_FUJI_TESTNET,
+  Chain.AVALANCHE_FUJI_TESTNET
+> = {
   type: EVMNetworkType.AVALANCHE_FUJI_TESTNET,
   chainId: Chain.AVALANCHE_FUJI_TESTNET,
 };
 
-export const NETWORK_AVALANCHE_MAINNET: EVMNetworkLike<EVMNetworkType.AVALANCHE_MAINNET> = {
+export const NETWORK_AVALANCHE_MAINNET: EVMNetworkLike<
+  EVMNetworkType.AVALANCHE_MAINNET,
+  Chain.AVALANCHE_MAINNET
+> = {
   type: EVMNetworkType.AVALANCHE_MAINNET,
   chainId: Chain.AVALANCHE_MAINNET,
 };
@@ -292,7 +307,7 @@ export const NETWORK_RESOLVERS: NetworkPaymentTokenResolvers = {
 };
 
 export const ALL_CHAINS: {
-  readonly [key in Chain]: EVMNetworkLike<EVMNetworkType>;
+  readonly [key in Chain]: EVMNetworkLike<EVMNetworkType, Chain>;
 } = {
   [Chain.ETHEREUM_MAINNET]: NETWORK_ETHEREUM_MAINNET,
   [Chain.ETHEREUM_GOERLI_TESTNET]: NETWORK_ETHEREUM_GOERLI_TESTNET,
@@ -302,7 +317,7 @@ export const ALL_CHAINS: {
 };
 
 export const ALL_NETWORKS: {
-  readonly [key in EVMNetworkType]: EVMNetworkLike<key>;
+  readonly [key in EVMNetworkType]: EVMNetworkLike<key, Chain>;
 } = {
   [EVMNetworkType.ETHEREUM_MAINNET]: NETWORK_ETHEREUM_MAINNET,
   [EVMNetworkType.ETHEREUM_GOERLI_TESTNET]: NETWORK_ETHEREUM_GOERLI_TESTNET,
