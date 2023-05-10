@@ -4,7 +4,6 @@
 
 ### Added
 
-- Kryptoria's ELLE payment token for Ethereum Mainnet.
 - `Chain` enum. Defines the supported chain IDs.
 - `ALL_CHAINS` mapping. Maps chain IDs to their Network.
 
