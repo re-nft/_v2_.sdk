@@ -1,8 +1,11 @@
 import { Contract, ContractTransaction } from '@ethersproject/contracts';
 
-import { NFTStandard, PaymentToken } from '../../types';
-import { packPrice, prepareBatch } from '../../utils';
-
+import {
+  NFTStandard,
+  packPrice,
+  PaymentToken,
+  prepareBatch,
+} from '../../../core';
 import {
   SylvesterV0ClaimCollateralFunction,
   SylvesterV0LendFunction,
@@ -24,13 +27,13 @@ export const createSylvesterV0LendThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
-    nftStandard,
-    nftAddress: nftAddress.map(String),
-    tokenID: tokenID.map(String),
     amount: amount.map(Number),
-    maxRentDuration: maxRentDuration.map(Number),
     dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
+    maxRentDuration: maxRentDuration.map(Number),
+    nftAddress: nftAddress.map(String),
+    nftStandard,
     paymentToken,
+    tokenID: tokenID.map(String),
   });
   return await contract.lend(
     args.nftStandard,
@@ -58,13 +61,13 @@ export const createSylvesterV1LendThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
-    nftStandard,
-    nftAddress: nftAddress.map(String),
-    tokenID: tokenID.map(String),
     amount: amount.map(Number),
-    maxRentDuration: maxRentDuration.map(Number),
     dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
+    maxRentDuration: maxRentDuration.map(Number),
+    nftAddress: nftAddress.map(String),
+    nftStandard,
     paymentToken,
+    tokenID: tokenID.map(String),
     willAutoRenew: willAutoRenew.map(x => (x ? 1 : 0)),
   });
   return await contract.lend(
@@ -92,12 +95,12 @@ export const createSylvesterV0RentThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
-    nftStandard: nftStandard.map(Number),
-    nftAddress: nftAddress.map(String),
-    tokenID: tokenID.map(String),
     lendingID: lendingID.map(String),
-    rentDuration: rentDuration.map(Number),
+    nftAddress: nftAddress.map(String),
+    nftStandard: nftStandard.map(Number),
     rentAmount: rentAmount.map(String),
+    rentDuration: rentDuration.map(Number),
+    tokenID: tokenID.map(String),
   });
   return await contract.rent(
     args.nftStandard,
@@ -121,11 +124,11 @@ export const createSylvesterV0ReturnItThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
-    nftStandard: nftStandard.map(Number),
-    nftAddress: nftAddress.map(String),
-    tokenID: tokenID.map(String),
     lendingID: lendingID.map(String),
+    nftAddress: nftAddress.map(String),
+    nftStandard: nftStandard.map(Number),
     rentingID: rentingID.map(String),
+    tokenID: tokenID.map(String),
   });
   return await contract.stopRent(
     args.nftStandard,
@@ -148,11 +151,11 @@ export const createSylvesterV0ClaimCollateralThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
-    nftStandard: nftStandard.map(Number),
-    nftAddress: nftAddress.map(String),
-    tokenID: tokenID.map(String),
     lendingID: lendingID.map(String),
+    nftAddress: nftAddress.map(String),
+    nftStandard: nftStandard.map(Number),
     rentingID: rentingID.map(String),
+    tokenID: tokenID.map(String),
   });
   return await contract.claimRent(
     args.nftStandard,
@@ -174,10 +177,10 @@ export const createSylvesterV0StopLendingThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
-    nftStandard: nftStandard.map(Number),
-    nftAddress: nftAddress.map(String),
-    tokenID: tokenID.map(String),
     lendingID: lendingID.map(String),
+    nftAddress: nftAddress.map(String),
+    nftStandard: nftStandard.map(Number),
+    tokenID: tokenID.map(String),
   });
   return await contract.stopLend(
     args.nftStandard,

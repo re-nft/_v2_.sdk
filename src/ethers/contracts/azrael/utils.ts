@@ -1,8 +1,6 @@
 import { Contract, ContractTransaction } from '@ethersproject/contracts';
 
-import { PaymentToken } from '../../types';
-import { packPrice, prepareBatch } from '../../utils';
-
+import { packPrice, PaymentToken, prepareBatch } from '../../../core';
 import {
   AzraelV0ClaimCollateralFunction,
   AzraelV0LendFunction,
@@ -24,13 +22,13 @@ export const createAzraelV0LendThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
-    nftAddress: nftAddress.map(String),
-    tokenID: tokenID.map(String),
     amount: amount.map(Number),
-    maxRentDuration: maxRentDuration.map(Number),
     dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
+    maxRentDuration: maxRentDuration.map(Number),
+    nftAddress: nftAddress.map(String),
     nftPrice: nftPrice.map(x => packPrice(Number(x).toString())),
     paymentToken,
+    tokenID: tokenID.map(String),
   });
   return await contract.lend(
     args.nftAddress,
@@ -54,10 +52,10 @@ export const createAzraelV0RentThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
-    nftAddress: nftAddress.map(String),
-    tokenID: tokenID.map(String),
     lendingID: lendingID.map(String),
+    nftAddress: nftAddress.map(String),
     rentDuration: rentDuration.map(Number),
+    tokenID: tokenID.map(String),
   });
   return await contract.rent(
     args.nftAddress,
@@ -77,9 +75,9 @@ export const createAzraelV0ReturnItThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
+    lendingID: lendingID.map(String),
     nftAddress: nftAddress.map(String),
     tokenID: tokenID.map(String),
-    lendingID: lendingID.map(String),
   });
   return await contract.returnIt(
     args.nftAddress,
@@ -98,9 +96,9 @@ export const createAzraelV0ClaimCollateralThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
+    lendingID: lendingID.map(String),
     nftAddress: nftAddress.map(String),
     tokenID: tokenID.map(String),
-    lendingID: lendingID.map(String),
   });
   return await contract.claimCollateral(
     args.nftAddress,
@@ -119,9 +117,9 @@ export const createAzraelV0StopLendingThunk = (
   options?: any
 ): Promise<ContractTransaction> => {
   const args = prepareBatch({
+    lendingID: lendingID.map(String),
     nftAddress: nftAddress.map(String),
     tokenID: tokenID.map(String),
-    lendingID: lendingID.map(String),
   });
   return await contract.stopLending(
     args.nftAddress,

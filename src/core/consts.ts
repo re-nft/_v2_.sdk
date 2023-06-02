@@ -1,91 +1,49 @@
-import azrael_v0 from './abi/azrael.v0.abi.json';
-import sylvester_v0 from './abi/sylvester.v0.abi.json';
-import sylvester_v1 from './abi/sylvester.v1.abi.json';
-import whoopi_v0 from './abi/whoopi.v0.abi.json';
-import resolver_v0 from './abi/resolver.v0.abi.json';
-import resolver_v1 from './abi/resolver.v1.abi.json';
-
 import {
-  AzraelAbiVersions,
-  AzraelVersion,
-  ContractAbiVersions,
-  EVMNetworkType,
+  Chain,
   EVMNetworkLike,
+  EVMNetworkType,
   PaymentToken,
   PaymentTokenDetails,
-  RenftContractType,
-  ResolverAbiVersions,
-  ResolverVersion,
-  SylvesterAbiVersions,
-  SylvesterVersion,
-  WhoopiAbiVersions,
-  WhoopiVersion,
-  Chain,
 } from './types';
 
 export const NETWORK_ETHEREUM_MAINNET: EVMNetworkLike<
   EVMNetworkType.ETHEREUM_MAINNET,
   Chain.ETHEREUM_MAINNET
 > = {
-  type: EVMNetworkType.ETHEREUM_MAINNET,
   chainId: Chain.ETHEREUM_MAINNET,
+  type: EVMNetworkType.ETHEREUM_MAINNET,
 };
 
 export const NETWORK_ETHEREUM_GOERLI_TESTNET: EVMNetworkLike<
   EVMNetworkType.ETHEREUM_GOERLI_TESTNET,
   Chain.ETHEREUM_GOERLI_TESTNET
 > = {
-  type: EVMNetworkType.ETHEREUM_GOERLI_TESTNET,
   chainId: Chain.ETHEREUM_GOERLI_TESTNET,
+  type: EVMNetworkType.ETHEREUM_GOERLI_TESTNET,
 };
 
 export const NETWORK_POLYGON_MAINNET: EVMNetworkLike<
   EVMNetworkType.POLYGON_MAINNET,
   Chain.POLYGON_MAINNET
 > = {
-  type: EVMNetworkType.POLYGON_MAINNET,
   chainId: Chain.POLYGON_MAINNET,
+  type: EVMNetworkType.POLYGON_MAINNET,
 };
 
 export const NETWORK_AVALANCHE_FUJI_TESTNET: EVMNetworkLike<
   EVMNetworkType.AVALANCHE_FUJI_TESTNET,
   Chain.AVALANCHE_FUJI_TESTNET
 > = {
-  type: EVMNetworkType.AVALANCHE_FUJI_TESTNET,
   chainId: Chain.AVALANCHE_FUJI_TESTNET,
+  type: EVMNetworkType.AVALANCHE_FUJI_TESTNET,
 };
 
 export const NETWORK_AVALANCHE_MAINNET: EVMNetworkLike<
   EVMNetworkType.AVALANCHE_MAINNET,
   Chain.AVALANCHE_MAINNET
 > = {
-  type: EVMNetworkType.AVALANCHE_MAINNET,
   chainId: Chain.AVALANCHE_MAINNET,
-};
-
-export const AZRAEL_ABI_VERSIONS: AzraelAbiVersions = {
-  [AzraelVersion.V0]: azrael_v0,
-};
-
-export const SYLVESTER_ABI_VERSIONS: SylvesterAbiVersions = {
-  [SylvesterVersion.V0]: sylvester_v0,
-  [SylvesterVersion.V1]: sylvester_v1,
-};
-
-export const WHOOPI_ABI_VERSIONS: WhoopiAbiVersions = {
-  [WhoopiVersion.V0]: whoopi_v0,
-};
-
-export const RESOLVER_ABI_VERSIONS: ResolverAbiVersions = {
-  [ResolverVersion.V0]: resolver_v0,
-  [ResolverVersion.V1]: resolver_v1,
-};
-
-export const CONTRACT_ABI_VERSIONS: ContractAbiVersions = {
-  [RenftContractType.AZRAEL]: AZRAEL_ABI_VERSIONS,
-  [RenftContractType.SYLVESTER]: SYLVESTER_ABI_VERSIONS,
-  [RenftContractType.WHOOPI]: WHOOPI_ABI_VERSIONS,
-  [RenftContractType.RESOLVER]: RESOLVER_ABI_VERSIONS,
+  type: EVMNetworkType.AVALANCHE_MAINNET,
 };
 
 // TODO: enforce this relationship with ContractTypes

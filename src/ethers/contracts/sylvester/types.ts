@@ -1,6 +1,6 @@
 import { ContractTransaction } from '@ethersproject/contracts';
 
-import { PaymentToken, NFTStandard, SylvesterVersion } from '../../types';
+import { NFTStandard, PaymentToken, SylvesterVersion } from '../../../core';
 
 export interface AbstractSylvesterFunctionInterface<
   LendFunction,

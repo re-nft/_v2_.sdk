@@ -2,14 +2,12 @@ import { Contract } from '@ethersproject/contracts';
 
 import {
   AzraelVersion,
-  CreateVersionedContractInterfaceResult,
   EVMNetworkType,
   RenftContractType,
   ResolverVersion,
   SylvesterVersion,
   WhoopiVersion,
-} from '../types';
-
+} from '../core';
 import {
   AzraelInterfaceVersions,
   createAzraelV0ClaimCollateralThunk,
@@ -22,25 +20,26 @@ import {
   createSylvesterV0RentThunk,
   createSylvesterV0ReturnItThunk,
   createSylvesterV0StopLendingThunk,
-  SylvesterInterfaceVersions,
+  createSylvesterV1LendThunk,
   createWhoopiV0LendThunk,
   createWhoopiV0PayThunk,
   createWhoopiV0RentThunk,
   createWhoopiV0StopLendingThunk,
   createWhoopiV0StopRentThunk,
-  WhoopiInterfaceVersions,
   ResolverInterfaceVersions,
-  createSylvesterV1LendThunk,
-} from '../contracts';
+  SylvesterInterfaceVersions,
+  WhoopiInterfaceVersions,
+} from './contracts';
+import { CreateVersionedContractInterfaceResult } from './types';
 
 const createAzraelInterfaceVersionsThunk = (
   contract: Contract
 ): AzraelInterfaceVersions => ({
   [AzraelVersion.V0]: {
+    claimCollateral: createAzraelV0ClaimCollateralThunk(contract),
     lend: createAzraelV0LendThunk(contract),
     rent: createAzraelV0RentThunk(contract),
     returnIt: createAzraelV0ReturnItThunk(contract),
-    claimCollateral: createAzraelV0ClaimCollateralThunk(contract),
     stopLending: createAzraelV0StopLendingThunk(contract),
   },
 });
@@ -49,17 +48,17 @@ const createSylvesterInterfaceVersionsThunk = (
   contract: Contract
 ): SylvesterInterfaceVersions => ({
   [SylvesterVersion.V0]: {
+    claimCollateral: createSylvesterV0ClaimCollateralThunk(contract),
     lend: createSylvesterV0LendThunk(contract),
     rent: createSylvesterV0RentThunk(contract),
     returnIt: createSylvesterV0ReturnItThunk(contract),
-    claimCollateral: createSylvesterV0ClaimCollateralThunk(contract),
     stopLending: createSylvesterV0StopLendingThunk(contract),
   },
   [SylvesterVersion.V1]: {
+    claimCollateral: createSylvesterV0ClaimCollateralThunk(contract),
     lend: createSylvesterV1LendThunk(contract),
     rent: createSylvesterV0RentThunk(contract),
     returnIt: createSylvesterV0ReturnItThunk(contract),
-    claimCollateral: createSylvesterV0ClaimCollateralThunk(contract),
     stopLending: createSylvesterV0StopLendingThunk(contract),
   },
 });
@@ -70,10 +69,10 @@ const createWhoopiInterfaceVersionsThunk = (
 ): WhoopiInterfaceVersions => ({
   [WhoopiVersion.V0]: {
     lend: createWhoopiV0LendThunk(contract, network),
-    rent: createWhoopiV0RentThunk(contract),
-    stopRent: createWhoopiV0StopRentThunk(contract),
-    stopLending: createWhoopiV0StopLendingThunk(contract),
     pay: createWhoopiV0PayThunk(contract),
+    rent: createWhoopiV0RentThunk(contract),
+    stopLending: createWhoopiV0StopLendingThunk(contract),
+    stopRent: createWhoopiV0StopRentThunk(contract),
   },
 });
 

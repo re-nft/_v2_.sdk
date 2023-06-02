@@ -1,6 +1,6 @@
 import { ContractTransaction } from '@ethersproject/contracts';
 
-import { AzraelVersion, PaymentToken } from '../../types';
+import { AzraelVersion, PaymentToken } from '../../../core';
 
 export interface AbstractAzraelFunctionInterface<
   LendFunction,

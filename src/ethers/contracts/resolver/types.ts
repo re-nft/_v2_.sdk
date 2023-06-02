@@ -1,4 +1,4 @@
-import { ResolverVersion } from '../../types';
+import { ResolverVersion } from '../../../core';
 
 export type ResolverInterfaceVersions = {
   readonly [ResolverVersion.V0]: {};
