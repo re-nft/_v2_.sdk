@@ -1,8 +1,10 @@
 import { Contract, ContractTransaction } from '@ethersproject/contracts';
 
-import { EVMNetworkType, PaymentToken } from '../../types';
-import { toWhoopiScaledAmount } from '../../utils';
-
+import {
+  EVMNetworkType,
+  PaymentToken,
+  toWhoopiScaledAmount,
+} from '../../../core';
 import {
   WhoopiV0LendFunction,
   WhoopiV0PayFunction,
@@ -25,13 +27,13 @@ export const createWhoopiV0LendThunk = (
   allowedRenters?: string[][],
   options?: any
 ): Promise<ContractTransaction> => {
-  let revShares = [];
+  const revShares = [];
 
   for (let i = 0; i < revShareBeneficiaries.length; i++) {
     revShares.push([revShareBeneficiaries[i], revSharePortions[i]]);
   }
 
-  let allowRenters = [];
+  const allowRenters = [];
 
   if (allowedRenters) {
     for (let i = 0; i < allowedRenters.length; i++) {
