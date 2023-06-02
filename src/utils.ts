@@ -5,13 +5,13 @@ import {
   parseFixed,
 } from '@ethersproject/bignumber';
 
-import { EVMNetworkType, NFTStandard, PaymentToken } from './types';
 import {
   MAX_DECIMAL_LENGTH,
   MAX_PRICE,
   NETWORK_RESOLVERS,
   NUM_BITS_IN_BYTE,
 } from './consts';
+import { EVMNetworkType, NFTStandard, PaymentToken } from './types';
 
 // consts that predominantly pertain to this file
 const BITSIZE_MAX_VALUE = 32;
@@ -109,7 +109,7 @@ export const packPrice = (price: string | number) => {
       `supplied price exceeds decimal length of ${MAX_DECIMAL_LENGTH}`
     );
 
-  let decimal = scaleDecimal(parts[1].slice(0, MAX_DECIMAL_LENGTH));
+  const decimal = scaleDecimal(parts[1].slice(0, MAX_DECIMAL_LENGTH));
 
   return wholeHex.concat(toPaddedHex(Number(decimal), HALF_BITSIZE).slice(2));
 };
@@ -211,7 +211,7 @@ interface PrepareBatch extends IObjectKeys {
 export const prepareBatch = (args: PrepareBatch) => {
   if (args.nftAddress.length <= 1) return args;
   validateSameLength(args);
-  let preparedBatch: PrepareBatch = { nftAddress: [], tokenID: [] };
+  const preparedBatch: PrepareBatch = { nftAddress: [], tokenID: [] };
 
   // input:  ['a', 'b', 'a', 'c']
   // output: [0, 2, 1, 3]
