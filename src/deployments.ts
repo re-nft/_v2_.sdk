@@ -227,6 +227,24 @@ export function isValidDeployment<T extends RenftContractDeployment>(
   return validityChecks.every(check => check(deployment));
 }
 
+export function findDeployments<T extends RenftContractDeployment>(
+  search: Partial<T>
+) {
+  return RENFT_CONTRACT_DEPLOYMENTS.filter(
+    (
+      maybeMatchingDeployment: RenftContractDeployment
+    ): maybeMatchingDeployment is T => {
+      const definedKeys = Object.keys(search);
+      const filterObject = Object.fromEntries(
+        Object.entries(maybeMatchingDeployment).filter(([k]) =>
+          definedKeys.includes(k)
+        )
+      );
+      return isEqual(filterObject, search);
+    }
+  );
+}
+
 export function findSingleDeploymentOrThrow<T extends RenftContractDeployment>(
   search: Partial<T>
 ) {
@@ -246,24 +264,6 @@ export function findSingleDeploymentOrThrow<T extends RenftContractDeployment>(
     );
 
   return deployment;
-}
-
-export function findDeployments<T extends RenftContractDeployment>(
-  search: Partial<T>
-) {
-  return RENFT_CONTRACT_DEPLOYMENTS.filter(
-    (
-      maybeMatchingDeployment: RenftContractDeployment
-    ): maybeMatchingDeployment is T => {
-      const definedKeys = Object.keys(search);
-      const filterObject = Object.fromEntries(
-        Object.entries(maybeMatchingDeployment).filter(([k]) =>
-          definedKeys.includes(k)
-        )
-      );
-      return isEqual(filterObject, search);
-    }
-  );
 }
 
 // Find a single contract address for a given deployment. Will throw if none-or-many
