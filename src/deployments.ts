@@ -1,93 +1,93 @@
-import { Contract, ContractInterface } from '@ethersproject/contracts';
 import { Signer } from '@ethersproject/abstract-signer';
+import { getAddress } from '@ethersproject/address';
+import { Contract, ContractInterface } from '@ethersproject/contracts';
 import isEqual from 'react-fast-compare';
 
 import {
   CONTRACT_ABI_VERSIONS,
   NETWORK_AVALANCHE_FUJI_TESTNET,
   NETWORK_AVALANCHE_MAINNET,
+  NETWORK_ETHEREUM_GOERLI_TESTNET,
   NETWORK_ETHEREUM_MAINNET,
   NETWORK_POLYGON_MAINNET,
-  NETWORK_ETHEREUM_GOERLI_TESTNET,
 } from './consts';
 import { createInterfaceVersions } from './interfaces';
 import {
   AbstractRenftContractDeployment,
   AzraelVersion,
+  CreateVersionedContractInterfaceResult,
+  EVMNetworkType,
   RenftContractDeployment,
   RenftContractDeployments,
   RenftContractType,
   ResolverVersion,
   SylvesterVersion,
   WhoopiVersion,
-  CreateVersionedContractInterfaceResult,
-  EVMNetworkType,
 } from './types';
-import { getAddress } from '@ethersproject/address';
 
 export const DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0 = {
   contractAddress: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
-  network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.AZRAEL,
-  version: AzraelVersion.V0,
+  network: NETWORK_ETHEREUM_MAINNET,
   startBlock: 12875508,
+  version: AzraelVersion.V0,
 } as const;
 
 export const DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0 = {
   contractAddress: '0xa8D3F65b6E2922fED1430b77aC2b557e1fa8DA4a',
-  network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.SYLVESTER,
-  version: SylvesterVersion.V0,
+  network: NETWORK_ETHEREUM_MAINNET,
   startBlock: 13197348,
+  version: SylvesterVersion.V0,
 } as const;
 
 export const DEPLOYMENT_SYLVESTER_ETHEREUM_GOERLI_TESTNET_V0 = {
   contractAddress: '0xEDe9A15388CCd972DffBD7C3F5504345703b63b2',
-  network: NETWORK_ETHEREUM_GOERLI_TESTNET,
   contractType: RenftContractType.SYLVESTER,
-  version: SylvesterVersion.V0,
+  network: NETWORK_ETHEREUM_GOERLI_TESTNET,
   startBlock: 8907139,
+  version: SylvesterVersion.V0,
 } as const;
 
 // @deprecated - Please use the v1 contract below.
 export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0 = {
   contractAddress: '0xfA06cFE34C85Ec6b6D29A6a99806cC68BA0018Fe',
-  network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
-  version: SylvesterVersion.V0,
+  network: NETWORK_POLYGON_MAINNET,
   startBlock: 28399140,
+  version: SylvesterVersion.V0,
 } as const;
 
 export const DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1 = {
   contractAddress: '0x4e52B73Aa28b7FF84d88eA3A90C0668f46043450',
-  network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.SYLVESTER,
-  version: SylvesterVersion.V1,
+  network: NETWORK_POLYGON_MAINNET,
   startBlock: 36825974,
+  version: SylvesterVersion.V1,
 } as const;
 
 export const DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0 = {
   contractAddress: '0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084',
-  network: NETWORK_AVALANCHE_FUJI_TESTNET,
   contractType: RenftContractType.WHOOPI,
-  version: WhoopiVersion.V0,
+  network: NETWORK_AVALANCHE_FUJI_TESTNET,
   startBlock: 11500156,
+  version: WhoopiVersion.V0,
 } as const;
 
 export const DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0 = {
   contractAddress: '0x6Ee495ecEd3A0255057667FF2685e53f54A19A65',
-  network: NETWORK_AVALANCHE_MAINNET,
   contractType: RenftContractType.WHOOPI,
-  version: WhoopiVersion.V0,
+  network: NETWORK_AVALANCHE_MAINNET,
   startBlock: 19408332,
+  version: WhoopiVersion.V0,
 } as const;
 
 export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0 = {
   contractAddress: '0x945E589A4715d1915e6FE14f08e4887Bc4019341',
-  network: NETWORK_ETHEREUM_MAINNET,
   contractType: RenftContractType.RESOLVER,
-  version: ResolverVersion.V0,
+  network: NETWORK_ETHEREUM_MAINNET,
   startBlock: 12875506,
+  version: ResolverVersion.V0,
 } as const;
 
 // note that this resolver actually allows us to change already set
@@ -95,42 +95,42 @@ export const DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0 = {
 // this is useful if an integrating project wishes to change their erc20
 export const DEPLOYMENT_RESOLVER_ETHEREUM_GOERLI_TESTNET_V0 = {
   contractAddress: '0xF8834327e7f3f5103954E477A32dC742A6518A9C',
-  network: NETWORK_ETHEREUM_GOERLI_TESTNET,
   contractType: RenftContractType.RESOLVER,
-  version: ResolverVersion.V0,
+  network: NETWORK_ETHEREUM_GOERLI_TESTNET,
   startBlock: 8907116,
+  version: ResolverVersion.V0,
 } as const;
 
 export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0 = {
   contractAddress: '0x6884d88Ce56C5C93F46eE23684eBA8628c90B518',
-  network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
-  version: ResolverVersion.V0,
+  network: NETWORK_POLYGON_MAINNET,
   startBlock: 28399112,
+  version: ResolverVersion.V0,
 } as const;
 
 export const DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1 = {
   contractAddress: '0x3ddC85bB768A11B0125f4ee71CfeA54e54653366',
-  network: NETWORK_POLYGON_MAINNET,
   contractType: RenftContractType.RESOLVER,
-  version: ResolverVersion.V1,
+  network: NETWORK_POLYGON_MAINNET,
   startBlock: 36825213,
+  version: ResolverVersion.V1,
 } as const;
 
 export const DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0 = {
   contractAddress: '0x23F7F8B03BAF01D5124255fE240E81BbBd3AEc0D',
-  network: NETWORK_AVALANCHE_FUJI_TESTNET,
   contractType: RenftContractType.RESOLVER,
-  version: ResolverVersion.V0,
+  network: NETWORK_AVALANCHE_FUJI_TESTNET,
   startBlock: 11500156,
+  version: ResolverVersion.V0,
 } as const;
 
 export const DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0 = {
   contractAddress: '0xEBFd584AAC21dfEFF02c3d4f308B0962610a028A',
-  network: NETWORK_AVALANCHE_MAINNET,
   contractType: RenftContractType.RESOLVER,
-  version: ResolverVersion.V0,
+  network: NETWORK_AVALANCHE_MAINNET,
   startBlock: 19408332,
+  version: ResolverVersion.V0,
 } as const;
 
 export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
@@ -338,8 +338,8 @@ export function getRenftContract<
   const contract = getContractForDeployment({
     contractAddress,
     contractType,
-    version,
     signer,
+    version,
   });
 
   const { [contractType]: contractFunctions } = createInterfaceVersions(
