@@ -68,7 +68,8 @@
     "@ethersproject/address": ">=5.5.0",
     "@ethersproject/bignumber": ">=5.5.0",
     "@ethersproject/contracts": ">=5.5.0",
-    "react-fast-compare": "3.2.0"
+    "react-fast-compare": "3.2.0",
+    "viem": "0.3.49"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "7.0.1",
