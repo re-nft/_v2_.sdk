@@ -9,19 +9,18 @@ import {
   DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0,
   DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0,
-  DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_SYLVESTER_ETHEREUM_GOERLI_TESTNET_V0,
+  DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0,
   DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
   DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
   getDeploymentAbi,
   getRenftContract,
 } from '../src';
-
-import azrael_v0 from '../src/abi/azrael.v0.abi.json';
-import resolver_v0 from '../src/abi/resolver.v0.abi.json';
-import sylvester_v0 from '../src/abi/sylvester.v0.abi.json';
-import whoopi_v0 from '../src/abi/whoopi.v0.abi.json';
+import azrael_v0 from '../src/abi/azrael.v0';
+import resolver_v0 from '../src/abi/resolver.v0';
+import sylvester_v0 from '../src/abi/sylvester.v0';
+import whoopi_v0 from '../src/abi/whoopi.v0';
 
 describe('module exports', () => {
   it('abis', () => {

@@ -1,9 +1,9 @@
-import azrael_v0 from '../abi/azrael.v0.abi.json';
-import resolver_v0 from '../abi/resolver.v0.abi.json';
-import resolver_v1 from '../abi/resolver.v1.abi.json';
-import sylvester_v0 from '../abi/sylvester.v0.abi.json';
-import sylvester_v1 from '../abi/sylvester.v1.abi.json';
-import whoopi_v0 from '../abi/whoopi.v0.abi.json';
+import azrael_v0 from '../abi/azrael.v0';
+import resolver_v0 from '../abi/resolver.v0';
+import resolver_v1 from '../abi/resolver.v1';
+import sylvester_v0 from '../abi/sylvester.v0';
+import sylvester_v1 from '../abi/sylvester.v1';
+import whoopi_v0 from '../abi/whoopi.v0';
 import {
   AzraelVersion,
   RenftContractType,
