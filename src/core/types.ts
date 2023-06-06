@@ -91,11 +91,20 @@ export type RenftContractVersion =
   | SylvesterVersion
   | ResolverVersion;
 
-export type DeploymentDefinition = {
+export type DeploymentDefinition<
+  ContractType extends RenftContractType,
+  ContractVersion extends RenftContractVersion
+> = {
   readonly abi: any;
   readonly contractAddress: string;
-  readonly contractType: RenftContractType;
-  readonly network: EVMNetworkLike<any, any>;
+  readonly contractType: ContractType;
+  readonly network: Network;
   readonly startBlock: number;
-  readonly version: RenftContractVersion;
+  readonly version: ContractVersion;
 };
+
+export type ValidDeployment =
+  | DeploymentDefinition<RenftContractType.AZRAEL, AzraelVersion.V0>
+  | DeploymentDefinition<RenftContractType.SYLVESTER, SylvesterVersion.V0>
+  | DeploymentDefinition<RenftContractType.SYLVESTER, SylvesterVersion.V1>
+  | DeploymentDefinition<RenftContractType.WHOOPI, WhoopiVersion.V0>;

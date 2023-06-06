@@ -6,7 +6,7 @@ import {
   WriteContractReturnType,
 } from 'viem';
 
-import { Deployment } from '../core';
+import { ValidDeployment } from '../core';
 
 export type Simulator = (
   functionName: string,
@@ -27,22 +27,21 @@ export abstract class SDK {
 
 export function makeExecutor({
   account,
-  deployment,
+  deployment: { abi, contractAddress: address },
   publicClient,
   walletClient,
 }: {
   account: Account;
-  deployment: Deployment;
+  deployment: ValidDeployment;
   publicClient: PublicClient;
   walletClient: WalletClient;
 }): Executor {
-  const { abi, contractAddress: address } = deployment;
-
   const prepare: Simulator = async (functionName, args) =>
     publicClient.simulateContract({
       abi,
       account,
-      address, // TODO
+      // @ts-expect-error current SDK TS version doesn't support this
+      address,
       args,
       functionName,
     });
