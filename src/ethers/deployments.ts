@@ -4,6 +4,7 @@ import { Contract, ContractInterface } from '@ethersproject/contracts';
 import isEqual from 'react-fast-compare';
 
 import {
+  Deployment,
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0,
   DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0,
@@ -23,13 +24,13 @@ import {
 } from '../core';
 import { CONTRACT_ABI_VERSIONS } from './consts';
 import { createInterfaceVersions } from './interfaces';
-import { RenftContractDeployment, RenftContractDeployments } from './types';
+import { RenftContractDeployment } from './types';
 import {
   AbstractRenftContractDeployment,
   CreateVersionedContractInterfaceResult,
 } from './types';
 
-export const RENFT_CONTRACT_DEPLOYMENTS: RenftContractDeployments = [
+export const RENFT_CONTRACT_DEPLOYMENTS: Deployment[] = [
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_SYLVESTER_ETHEREUM_GOERLI_TESTNET_V0,
@@ -98,13 +99,9 @@ export function isValidDeployment<T extends RenftContractDeployment>(
   return validityChecks.every(check => check(deployment));
 }
 
-export function findDeployments<T extends RenftContractDeployment>(
-  search: Partial<T>
-) {
+export function findDeployments<T extends Deployment>(search: Partial<T>) {
   return RENFT_CONTRACT_DEPLOYMENTS.filter(
-    (
-      maybeMatchingDeployment: RenftContractDeployment
-    ): maybeMatchingDeployment is T => {
+    (maybeMatchingDeployment: Deployment): maybeMatchingDeployment is T => {
       const definedKeys = Object.keys(search);
       const filterObject = Object.fromEntries(
         Object.entries(maybeMatchingDeployment).filter(([k]) =>
@@ -116,7 +113,7 @@ export function findDeployments<T extends RenftContractDeployment>(
   );
 }
 
-export function findSingleDeploymentOrThrow<T extends RenftContractDeployment>(
+export function findSingleDeploymentOrThrow<T extends Deployment>(
   search: Partial<T>
 ) {
   const [deployment, ...rest] = findDeployments<T>(search);
@@ -139,9 +136,9 @@ export function findSingleDeploymentOrThrow<T extends RenftContractDeployment>(
 
 // Find a single contract address for a given deployment. Will throw if none-or-many
 // matching deployments are found.
-export function getContractAddressForDeployment<
-  T extends RenftContractDeployment
->(search: Omit<Partial<T>, 'contractAddress'>): string {
+export function getContractAddressForDeployment<T extends Deployment>(
+  search: Omit<Partial<T>, 'contractAddress'>
+): string {
   const matchingDeployment = findSingleDeploymentOrThrow<T>(
     search as Partial<T>
   );
