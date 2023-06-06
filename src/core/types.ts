@@ -90,3 +90,12 @@ export type RenftContractVersion =
   | WhoopiVersion
   | SylvesterVersion
   | ResolverVersion;
+
+export type DeploymentDefinition = {
+  readonly abi: any;
+  readonly contractAddress: string;
+  readonly contractType: RenftContractType;
+  readonly network: EVMNetworkLike<any, any>;
+  readonly startBlock: number;
+  readonly version: RenftContractVersion;
+};
