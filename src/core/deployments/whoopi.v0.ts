@@ -3,16 +3,9 @@ import {
   NETWORK_AVALANCHE_FUJI_TESTNET,
   NETWORK_AVALANCHE_MAINNET,
 } from '../consts';
-import {
-  DeploymentDefinition,
-  RenftContractType,
-  WhoopiVersion,
-} from '../types';
+import { RenftContractType, WhoopiVersion } from '../types';
 
-export const DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0: DeploymentDefinition<
-  RenftContractType.WHOOPI,
-  WhoopiVersion.V0
-> = {
+export const DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0 = {
   abi,
   contractAddress: '0x42816FA3cB0aDc3fcAdED3109323c0Bc19215084',
   contractType: RenftContractType.WHOOPI,
@@ -21,10 +14,7 @@ export const DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0: DeploymentDefinition<
   version: WhoopiVersion.V0,
 };
 
-export const DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0: DeploymentDefinition<
-  RenftContractType.WHOOPI,
-  WhoopiVersion.V0
-> = {
+export const DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0 = {
   abi,
   contractAddress: '0x6Ee495ecEd3A0255057667FF2685e53f54A19A65',
   contractType: RenftContractType.WHOOPI,
