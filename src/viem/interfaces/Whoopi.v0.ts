@@ -1,13 +1,11 @@
-import { EVMNetworkType, PaymentToken, toWhoopiScaledAmount } from '../../core';
-import { Executor, SDK } from '../executor';
+import { PaymentToken, toWhoopiScaledAmount } from '../../core';
+import { Executor, SDK } from '../base';
+import { SupportedSDKInterfaces } from '../deployments';
 
-export default class WhoopiV0SDK extends SDK {
-  protected network: EVMNetworkType;
-  constructor(exec: Executor, network: EVMNetworkType) {
-    super(exec);
-    this.network = network;
-  }
-
+export default class WhoopiV0SDK<
+  ContractType extends keyof SupportedSDKInterfaces,
+  ContractVersion extends keyof SupportedSDKInterfaces[ContractType]
+> extends SDK<ContractType, ContractVersion> {
   async lend(
     nftAddress: string,
     tokenId: string[],

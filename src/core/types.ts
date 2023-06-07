@@ -90,21 +90,3 @@ export type RenftContractVersion =
   | WhoopiVersion
   | SylvesterVersion
   | ResolverVersion;
-
-export type DeploymentDefinition<
-  ContractType extends RenftContractType,
-  ContractVersion extends RenftContractVersion
-> = {
-  readonly abi: any;
-  readonly contractAddress: string;
-  readonly contractType: ContractType;
-  readonly network: Network;
-  readonly startBlock: number;
-  readonly version: ContractVersion;
-};
-
-export type ValidDeployment =
-  | DeploymentDefinition<RenftContractType.AZRAEL, AzraelVersion.V0>
-  | DeploymentDefinition<RenftContractType.SYLVESTER, SylvesterVersion.V0>
-  | DeploymentDefinition<RenftContractType.SYLVESTER, SylvesterVersion.V1>
-  | DeploymentDefinition<RenftContractType.WHOOPI, WhoopiVersion.V0>;
