@@ -4,7 +4,6 @@ import { Contract, ContractInterface } from '@ethersproject/contracts';
 import isEqual from 'react-fast-compare';
 
 import {
-  Deployment,
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0,
   DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0,
@@ -18,6 +17,7 @@ import {
   DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1,
   DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
   DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
+  Deployments,
   EVMNetworkType,
   isValidContractVersion,
   RenftContractType,
@@ -30,7 +30,7 @@ import {
   CreateVersionedContractInterfaceResult,
 } from './types';
 
-export const RENFT_CONTRACT_DEPLOYMENTS: Deployment[] = [
+export const RENFT_CONTRACT_DEPLOYMENTS: Deployments[] = [
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_SYLVESTER_ETHEREUM_GOERLI_TESTNET_V0,
@@ -99,9 +99,9 @@ export function isValidDeployment<T extends RenftContractDeployment>(
   return validityChecks.every(check => check(deployment));
 }
 
-export function findDeployments<T extends Deployment>(search: Partial<T>) {
+export function findDeployments<T extends Deployments>(search: Partial<T>) {
   return RENFT_CONTRACT_DEPLOYMENTS.filter(
-    (maybeMatchingDeployment: Deployment): maybeMatchingDeployment is T => {
+    (maybeMatchingDeployment: Deployments): maybeMatchingDeployment is T => {
       const definedKeys = Object.keys(search);
       const filterObject = Object.fromEntries(
         Object.entries(maybeMatchingDeployment).filter(([k]) =>
@@ -113,7 +113,7 @@ export function findDeployments<T extends Deployment>(search: Partial<T>) {
   );
 }
 
-export function findSingleDeploymentOrThrow<T extends Deployment>(
+export function findSingleDeploymentOrThrow<T extends Deployments>(
   search: Partial<T>
 ) {
   const [deployment, ...rest] = findDeployments<T>(search);
@@ -136,7 +136,7 @@ export function findSingleDeploymentOrThrow<T extends Deployment>(
 
 // Find a single contract address for a given deployment. Will throw if none-or-many
 // matching deployments are found.
-export function getContractAddressForDeployment<T extends Deployment>(
+export function getContractAddressForDeployment<T extends Deployments>(
   search: Omit<Partial<T>, 'contractAddress'>
 ): string {
   const matchingDeployment = findSingleDeploymentOrThrow<T>(

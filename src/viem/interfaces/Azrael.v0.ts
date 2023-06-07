@@ -1,10 +1,15 @@
-import { packPrice, PaymentToken, prepareBatch } from '../../core';
+import {
+  packPrice,
+  PaymentToken,
+  prepareBatch,
+  RenftContractType,
+  RenftContractVersions,
+} from '../../core';
 import { Executor, SDK } from '../base';
-import { SupportedSDKInterfaces } from '../deployments';
 
 export default class AzrealV0SDK<
-  ContractType extends keyof SupportedSDKInterfaces,
-  ContractVersion extends keyof SupportedSDKInterfaces[ContractType]
+  ContractType extends RenftContractType,
+  ContractVersion extends RenftContractVersions[ContractType]
 > extends SDK<ContractType, ContractVersion> {
   async lend(
     nftAddress: string[],

@@ -6,12 +6,13 @@ import {
   WriteContractReturnType,
 } from 'viem';
 
-import { EVMNetworkType } from '../core/types';
 import {
-  DeploymentDefinition,
-  SDKDeployments,
-  SupportedSDKInterfaces,
-} from './deployments';
+  Deployment,
+  EVMNetworkType,
+  RenftContractType,
+  RenftContractVersions,
+} from '../core/types';
+import { SDKDeployments } from './deployments';
 
 export type Simulator = (
   functionName: string,
@@ -24,18 +25,18 @@ export type Executor = (
 ) => Promise<WriteContractReturnType>;
 
 export type SDKInterface<
-  ContractType extends keyof SupportedSDKInterfaces,
-  ContractVersion extends keyof SupportedSDKInterfaces[ContractType]
+  ContractType extends RenftContractType,
+  ContractVersion extends RenftContractVersions[ContractType]
 > = {
   account: Account;
-  deployment: DeploymentDefinition<ContractType, ContractVersion>;
+  deployment: Deployment<ContractType, ContractVersion>;
   publicClient: PublicClient;
   walletClient: WalletClient;
 };
 
 export abstract class SDK<
-  ContractType extends keyof SupportedSDKInterfaces,
-  ContractVersion extends keyof SupportedSDKInterfaces[ContractType]
+  ContractType extends RenftContractType,
+  ContractVersion extends RenftContractVersions[ContractType]
 > {
   protected exec: Executor;
   protected network: EVMNetworkType;
