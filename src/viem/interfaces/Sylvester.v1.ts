@@ -1,8 +1,11 @@
 import { NFTStandard, packPrice, PaymentToken, prepareBatch } from '../../core';
-import { Executor } from '../executor';
-import SylvesterV0SDK from './Sylvester.v0';
+import { Executor, SDK } from '../base';
+import { SupportedSDKInterfaces } from '../deployments';
 
-export default class SylvesterV1SDK extends SylvesterV0SDK {
+export default class SylvesterV1SDK<
+  ContractType extends keyof SupportedSDKInterfaces,
+  ContractVersion extends keyof SupportedSDKInterfaces[ContractType]
+> extends SDK<ContractType, ContractVersion> {
   async lend(
     nftStandard: NFTStandard[],
     nftAddress: string[],
