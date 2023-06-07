@@ -1,3 +1,5 @@
+import { Abi } from 'abitype';
+
 export enum EVMNetworkType {
   ETHEREUM_MAINNET = 'ETHEREUM_MAINNET',
   ETHEREUM_GOERLI_TESTNET = 'ETHEREUM_GOERLI_TESTNET',
@@ -90,3 +92,22 @@ export type RenftContractVersion =
   | WhoopiVersion
   | SylvesterVersion
   | ResolverVersion;
+
+export type RenftContractVersions = {
+  [RenftContractType.AZRAEL]: AzraelVersion;
+  [RenftContractType.RESOLVER]: ResolverVersion;
+  [RenftContractType.SYLVESTER]: SylvesterVersion;
+  [RenftContractType.WHOOPI]: WhoopiVersion;
+};
+
+export type Deployment<
+  ContractType extends RenftContractType,
+  ContractVersion extends RenftContractVersions[ContractType]
+> = {
+  abi: Abi;
+  contractAddress: string;
+  contractType: ContractType;
+  network: Network;
+  startBlock: number;
+  version: ContractVersion;
+};
