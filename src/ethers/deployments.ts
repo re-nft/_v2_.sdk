@@ -24,7 +24,6 @@ import {
 } from '../core';
 import { CONTRACT_ABI_VERSIONS } from './consts';
 import { createInterfaceVersions } from './interfaces';
-import { RenftContractDeployment } from './types';
 import {
   AbstractRenftContractDeployment,
   CreateVersionedContractInterfaceResult,
@@ -46,7 +45,7 @@ export const RENFT_CONTRACT_DEPLOYMENTS: Deployments[] = [
   DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1,
 ];
 
-export function hasValidReNftContractType<T extends RenftContractDeployment>({
+export function hasValidReNftContractType<T extends Deployments>({
   contractType,
 }: T): boolean {
   return Object.values(RenftContractType).includes(
@@ -54,7 +53,7 @@ export function hasValidReNftContractType<T extends RenftContractDeployment>({
   );
 }
 
-export function hasValidNetwork<T extends RenftContractDeployment>({
+export function hasValidNetwork<T extends Deployments>({
   network,
 }: T): boolean {
   return (
@@ -62,13 +61,13 @@ export function hasValidNetwork<T extends RenftContractDeployment>({
   );
 }
 
-export function hasValidStartBlock<T extends RenftContractDeployment>({
+export function hasValidStartBlock<T extends Deployments>({
   startBlock,
 }: T): boolean {
   return startBlock >= 0;
 }
 
-export function hasValidContractAddress<T extends RenftContractDeployment>({
+export function hasValidContractAddress<T extends Deployments>({
   contractAddress,
 }: T): boolean {
   try {
@@ -78,14 +77,14 @@ export function hasValidContractAddress<T extends RenftContractDeployment>({
   }
 }
 
-export function hasValidContractVersion<T extends RenftContractDeployment>({
+export function hasValidContractVersion<T extends Deployments>({
   contractType,
   version,
 }: T): boolean {
   return isValidContractVersion({ contractType, version });
 }
 
-export function isValidDeployment<T extends RenftContractDeployment>(
+export function isValidDeployment<T extends Deployments>(
   deployment: T
 ): boolean {
   const validityChecks = [
