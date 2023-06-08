@@ -1,15 +1,27 @@
 import {
+  DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
+  DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
   PaymentToken,
   RenftContractType,
   RenftContractVersions,
   toWhoopiScaledAmount,
 } from '../../core';
-import { Executor, SDK } from '../base';
+import { Executor, SDK, SDKInterface } from '../base';
 
 export default class WhoopiV0SDK<
   ContractType extends RenftContractType,
   ContractVersion extends RenftContractVersions[ContractType]
 > extends SDK<ContractType, ContractVersion> {
+  protected supportedDeployments = [
+    DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
+    DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
+  ];
+
+  constructor(args: SDKInterface<ContractType, ContractVersion>) {
+    super(args);
+    super.validate(this.supportedDeployments);
+  }
+
   async lend(
     nftAddress: string,
     tokenId: string[],
@@ -18,8 +30,7 @@ export default class WhoopiV0SDK<
     revSharePortions: number[][],
     maxRentDurations: number[],
     paymentTokens: PaymentToken[],
-    allowedRenters?: string[][],
-    options?: any
+    allowedRenters?: string[][]
   ): Promise<ReturnType<Executor>> {
     const revShares = [];
 
@@ -53,7 +64,6 @@ export default class WhoopiV0SDK<
       revShares,
       maxRentDurations,
       paymentTokens,
-      options ?? [],
     ]);
   }
 
@@ -61,40 +71,25 @@ export default class WhoopiV0SDK<
     nftAddress: string,
     tokenId: string[],
     lendingId: string[],
-    rentDurations: number[],
-    options?: any
+    rentDurations: number[]
   ): Promise<ReturnType<Executor>> {
-    return this.exec('rent', [
-      [nftAddress, tokenId, lendingId],
-      rentDurations,
-      options ?? [],
-    ]);
+    return this.exec('rent', [[nftAddress, tokenId, lendingId], rentDurations]);
   }
 
   async stopRent(
     nftAddress: string,
     tokenId: string[],
-    lendingId: string[],
-    options?: any
+    lendingId: string[]
   ): Promise<ReturnType<Executor>> {
-    return this.exec('stopRent', [
-      nftAddress,
-      tokenId,
-      lendingId,
-      options ?? [],
-    ]);
+    return this.exec('stopRent', [nftAddress, tokenId, lendingId]);
   }
 
   async stopLend(
     nftAddress: string,
     tokenId: string[],
-    lendingId: string[],
-    options?: any
+    lendingId: string[]
   ): Promise<ReturnType<Executor>> {
-    return this.exec('stopLend', [
-      [nftAddress, tokenId, lendingId],
-      options ?? [],
-    ]);
+    return this.exec('stopLend', [[nftAddress, tokenId, lendingId]]);
   }
 
   async pay(
@@ -102,14 +97,12 @@ export default class WhoopiV0SDK<
     tokenId: string[],
     lendingId: string[],
     renterAddress: string[],
-    amountToPay: string[],
-    options?: any
+    amountToPay: string[]
   ): Promise<ReturnType<Executor>> {
     return this.exec('pay', [
       [nftAddress, tokenId, lendingId],
       renterAddress,
       amountToPay,
-      options ?? [],
     ]);
   }
 }
