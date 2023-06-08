@@ -19,9 +19,7 @@ export type EVMNetworkLike<T extends EVMNetworkType, C extends Chain> = {
   readonly chainId: C;
 };
 
-export type Network =
-  // | SolanaNetwork
-  EVMNetworkLike<EVMNetworkType, Chain>;
+export type Network = EVMNetworkLike<EVMNetworkType, Chain>;
 
 export enum PaymentToken {
   SENTINEL = 0, // denotes non-existence of payment token. i.e. default value signifying it hasn't been set
