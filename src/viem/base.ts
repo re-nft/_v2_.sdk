@@ -59,7 +59,7 @@ export abstract class SDK<
       publicClient.simulateContract({
         abi: deployment.abi,
         account,
-        // @ts-ignore something about TSDX is messing this up
+        // @ts-ignore something about tsdx is messing this up
         address: deployment.contractAddress,
         args,
         functionName,
@@ -74,7 +74,7 @@ export abstract class SDK<
     this.network = deployment.network.type;
   }
 
-  validate(
+  protected validate(
     deploymentList: Deployment<RenftContractType, RenftContractVersion>[]
   ): void {
     const { contractType, version } = this.deployment;
