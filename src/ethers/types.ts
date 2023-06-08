@@ -50,38 +50,3 @@ export type AbstractRenftContractDeployment<
   readonly network: Network;
   readonly startBlock: number;
 };
-
-export type AnyRenftContractDeployment<
-  T extends keyof CreateVersionedContractInterfaceResult = keyof CreateVersionedContractInterfaceResult
-> = AbstractRenftContractDeployment<
-  T,
-  keyof CreateVersionedContractInterfaceResult[T]
->;
-
-export type RenftAzraelDeployment = AbstractRenftContractDeployment<
-  RenftContractType.AZRAEL,
-  AzraelVersion
->;
-
-export type RenftSylvesterDeployment = AbstractRenftContractDeployment<
-  RenftContractType.SYLVESTER,
-  SylvesterVersion
->;
-
-export type RenftWhoopiDeployment = AbstractRenftContractDeployment<
-  RenftContractType.WHOOPI,
-  WhoopiVersion
->;
-
-export type RenftResolverDeployment = AbstractRenftContractDeployment<
-  RenftContractType.RESOLVER,
-  ResolverVersion
->;
-
-export type RenftContractDeployment =
-  | RenftAzraelDeployment
-  | RenftSylvesterDeployment
-  | RenftWhoopiDeployment
-  | RenftResolverDeployment;
-
-export type RenftContractDeployments = readonly RenftContractDeployment[];
