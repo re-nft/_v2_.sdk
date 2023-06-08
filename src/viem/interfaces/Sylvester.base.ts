@@ -20,8 +20,15 @@ export default class SylvesterBaseSDK<
     maxRentDuration: number[],
     dailyRentPrice: number[],
     paymentToken: PaymentToken[],
-    options?: any
+    // Required so SylvesterV1SDK can extend.
+    willAutoRenew?: boolean[]
   ): Promise<ReturnType<Executor>> {
+    if (willAutoRenew) {
+      console.warn(
+        'Using `willAutoRenew` on SylvesterV0SDK is not supported. Argument will be omitted.'
+      );
+    }
+
     const args = prepareBatch({
       amount: amount.map(Number),
       dailyRentPrice: dailyRentPrice.map(x => packPrice(Number(x).toString())),
