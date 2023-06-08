@@ -12,7 +12,7 @@ import {
   RenftContractType,
   RenftContractVersion,
   RenftContractVersions,
-} from '../core/types';
+} from '../core';
 
 export type Simulator = (
   functionName: string,
