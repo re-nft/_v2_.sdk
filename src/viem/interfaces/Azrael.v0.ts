@@ -8,7 +8,7 @@ import {
 } from '../../core';
 import { Executor, SDK, SDKInterface } from '../base';
 
-export default class AzrealV0SDK<
+export default class AzraelV0SDK<
   ContractType extends RenftContractType,
   ContractVersion extends RenftContractVersions[ContractType]
 > extends SDK<ContractType, ContractVersion> {

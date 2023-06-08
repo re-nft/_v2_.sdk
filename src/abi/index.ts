@@ -1,4 +1,4 @@
-export { default as AzrealV0Abi } from './azrael.v0';
+export { default as AzraelV0Abi } from './azrael.v0';
 export { default as ResolverV0Abi } from './resolver.v0';
 export { default as ResolverV1Abi } from './resolver.v1';
 export { default as SylvesterV0Abi } from './sylvester.v0';

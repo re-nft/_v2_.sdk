@@ -6,12 +6,14 @@ import {
   NFTStandard,
   PaymentToken,
 } from '../../src';
-import AzrealV0Abi from '../../src/abi/azrael.v0';
-import SylvesterV0Abi from '../../src/abi/sylvester.v0';
-import SylvesterV1Abi from '../../src/abi/sylvester.v1';
-import WhoopiV0Abi from '../../src/abi/whoopi.v0';
 import {
-  AzrealV0SDK,
+  AzraelV0Abi,
+  SylvesterV0Abi,
+  SylvesterV1Abi,
+  WhoopiV0Abi,
+} from '../../src/abi';
+import {
+  AzraelV0SDK,
   SylvesterV0SDK,
   SylvesterV1SDK,
   WhoopiV0SDK,
@@ -43,8 +45,8 @@ afterEach(() => {
 });
 
 describe('SDK interfaces', () => {
-  it('AzrealV0SDK', async () => {
-    const sdk = new AzrealV0SDK({
+  it('AzraelV0SDK', async () => {
+    const sdk = new AzraelV0SDK({
       account,
       deployment: DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
       publicClient,
@@ -62,7 +64,7 @@ describe('SDK interfaces', () => {
     );
 
     expect(publicClient.simulateContract).toBeCalledWith({
-      abi: AzrealV0Abi,
+      abi: AzraelV0Abi,
       account,
       address: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
       args: [
@@ -80,7 +82,7 @@ describe('SDK interfaces', () => {
     await sdk.rent([assetAddress], ['1'], ['1'], [7]);
 
     expect(publicClient.simulateContract).toBeCalledWith({
-      abi: AzrealV0Abi,
+      abi: AzraelV0Abi,
       account,
       address: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
       args: [['0xc3f733ca98E0daD0386979Eb96fb1722A1A05E69'], ['1'], ['1'], [7]],
@@ -90,7 +92,7 @@ describe('SDK interfaces', () => {
     await sdk.returnIt([assetAddress], ['1'], ['1']);
 
     expect(publicClient.simulateContract).toBeCalledWith({
-      abi: AzrealV0Abi,
+      abi: AzraelV0Abi,
       account,
       address: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
       args: [['0xc3f733ca98E0daD0386979Eb96fb1722A1A05E69'], ['1'], ['1']],
@@ -100,7 +102,7 @@ describe('SDK interfaces', () => {
     await sdk.claimCollateral([assetAddress], ['1'], ['1']);
 
     expect(publicClient.simulateContract).toBeCalledWith({
-      abi: AzrealV0Abi,
+      abi: AzraelV0Abi,
       account,
       address: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
       args: [['0xc3f733ca98E0daD0386979Eb96fb1722A1A05E69'], ['1'], ['1']],
@@ -110,7 +112,7 @@ describe('SDK interfaces', () => {
     await sdk.stopLending([assetAddress], ['1'], ['1']);
 
     expect(publicClient.simulateContract).toBeCalledWith({
-      abi: AzrealV0Abi,
+      abi: AzraelV0Abi,
       account,
       address: '0x94D8f036a0fbC216Bb532D33bDF6564157Af0cD7',
       args: [['0xc3f733ca98E0daD0386979Eb96fb1722A1A05E69'], ['1'], ['1']],

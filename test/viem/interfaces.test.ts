@@ -4,7 +4,7 @@ import {
   SylvesterVersion,
 } from '../../src';
 import {
-  AzrealV0SDK,
+  AzraelV0SDK,
   SylvesterV0SDK,
   SylvesterV1SDK,
   WhoopiV0SDK,
@@ -16,7 +16,7 @@ it('should only allow valid deployments', () => {
     if (deployment.contractType === RenftContractType.AZRAEL) {
       expect(
         Reflect.getPrototypeOf(
-          new AzrealV0SDK({ account, deployment, publicClient, walletClient })
+          new AzraelV0SDK({ account, deployment, publicClient, walletClient })
         )
       ).toEqual({
         claimCollateral: expect.any(Function),
@@ -30,7 +30,7 @@ it('should only allow valid deployments', () => {
       expect(
         () =>
           // @ts-expect-error we know deployments don't match
-          new AzrealV0SDK({ account, deployment, publicClient, walletClient })
+          new AzraelV0SDK({ account, deployment, publicClient, walletClient })
       ).toThrow('Invalid deployment supplied');
     }
 

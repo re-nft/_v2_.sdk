@@ -1,9 +1,11 @@
-import AzraelV0Abi from '../abi/azrael.v0';
-import ResolverV0Abi from '../abi/resolver.v0';
-import ResolverV1Abi from '../abi/resolver.v1';
-import SylvesterV0Abi from '../abi/sylvester.v0';
-import SylvesterV1Abi from '../abi/sylvester.v1';
-import WhoopiV0Abi from '../abi/whoopi.v0';
+import {
+  AzraelV0Abi,
+  ResolverV0Abi,
+  ResolverV1Abi,
+  SylvesterV0Abi,
+  SylvesterV1Abi,
+  WhoopiV0Abi,
+} from '../abi';
 import {
   AzraelVersion,
   RenftContractType,
