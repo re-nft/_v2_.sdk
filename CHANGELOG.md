@@ -1,5 +1,30 @@
 # Change Log
 
+## [7.0.0] - 2023-06-08
+
+### Added
+
+- `src/core` exporting types, configuration, and constants
+- `src/ethers` exporting our `ethers` SDK interface `getRenftContract()`
+- `src/viem` exporting our `viem` SDK interfaces `AzraelV0SDK`, `SylvesterV0SDK`, `SylvesterV1SDK`, `WhoopiV0SDK`
+- `Deployment<RenftContractType, RenftContractVersion>` definition
+- `test/ethers` containing most of previous test suite
+- `test/viem` containing tests on `viem` SDK interfaces
+
+### Changed
+
+- Split up deployment configuration into separate files
+- Updated `typescript` to `4.9.5`
+- `src/abi` now exports ABIs as modules
+- `RenftContractDeployment` renamed to `Deployments`
+
+### Removed
+
+- `ELLE` token support for Kryptoria integration
+- `RenftContractDeployments`, use `Deployments[]`
+- `CreateVersionedContractInterfaceResult`
+- `Renft${Contract}Deployment`
+
 ## [6.0.0-alpha.11] - 2023-05-08
 
 ### Added
