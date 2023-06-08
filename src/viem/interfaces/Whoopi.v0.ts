@@ -1,10 +1,12 @@
+import { parseUnits } from 'viem/utils/';
+
+import { NETWORK_RESOLVERS } from '../../core';
 import {
   DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
   DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
   PaymentToken,
   RenftContractType,
   RenftContractVersions,
-  toWhoopiScaledAmount,
 } from '../../core';
 import { Executor, SDK, SDKInterface } from '../base';
 
@@ -57,9 +59,11 @@ export default class WhoopiV0SDK<
 
     return this.exec('lend', [
       [nftAddress, tokenId, Array(tokenId.length).fill('0')],
-      upfrontRentFees?.map((x, i) =>
-        toWhoopiScaledAmount(x, this.network, paymentTokens[i])
-      ) ?? [],
+      upfrontRentFees?.map((fee, i) => {
+        const scale = NETWORK_RESOLVERS[this.network][paymentTokens[i]].scale;
+        // @ts-ignore something about tsdx is messing this up
+        return parseUnits(fee, scale);
+      }) ?? [],
       allowRenters,
       revShares,
       maxRentDurations,
