@@ -1,27 +1,29 @@
 import { expect } from 'chai';
 
 import {
-  RESOLVER_ADDRESS,
   AZRAEL_ADDRESS,
-  SYLVESTER_ADDRESS,
-  RESOLVER_POLYGON_ADDRESS,
-  SYLVESTER_POLYGON_ADDRESS,
-  RESOLVER_AVALANCHE_ADDRESS,
-  WHOOPI_AVALANCHE_ADDRESS,
-  WHOOPI_FUJI_ADDRESS,
-  RESOLVER_FUJI_ADDRESS,
+  AZRAEL_ETHEREUM_ADDRESS,
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
-  DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
-  getRenftContract,
-  AzraelV0FunctionInterface,
-  SylvesterV0FunctionInterface,
-  WhoopiV0FunctionInterface,
   DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1,
-  SylvesterV1FunctionInterface,
+  DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
+  RESOLVER_ADDRESS,
+  RESOLVER_AVALANCHE_ADDRESS,
   RESOLVER_ETHEREUM_ADDRESS,
-  AZRAEL_ETHEREUM_ADDRESS,
-} from '../src';
+  RESOLVER_FUJI_ADDRESS,
+  RESOLVER_POLYGON_ADDRESS,
+  SYLVESTER_ADDRESS,
+  SYLVESTER_POLYGON_ADDRESS,
+  WHOOPI_AVALANCHE_ADDRESS,
+  WHOOPI_FUJI_ADDRESS,
+} from '../../src';
+import {
+  AzraelV0FunctionInterface,
+  getRenftContract,
+  SylvesterV0FunctionInterface,
+  SylvesterV1FunctionInterface,
+  WhoopiV0FunctionInterface,
+} from '../../src/ethers';
 
 describe('deprecated contract addresses', () => {
   it('should not invalidate current consumers', () => {

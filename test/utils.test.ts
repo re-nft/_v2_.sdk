@@ -6,7 +6,7 @@ import {
   fromWhoopiScaledAmount,
   PaymentToken,
   toWhoopiScaledAmount,
-} from '../src';
+} from '../src/core';
 
 describe('Scaling', () => {
   it('Scales one WETH for Whopi Fuji (string input)', () => {
