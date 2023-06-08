@@ -1,8 +1,14 @@
 import { expect } from 'chai';
 
 import {
+  Chain,
   DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1,
+  Deployments,
   EVMNetworkType,
+  RenftContractType,
+  RenftContractVersion,
+} from '../../src/core';
+import {
   findSingleDeploymentOrThrow,
   hasValidContractAddress,
   hasValidContractVersion,
@@ -10,12 +16,8 @@ import {
   hasValidReNftContractType,
   hasValidStartBlock,
   isValidDeployment,
-  RenftContractDeployment,
-  RenftContractType,
-  RenftContractVersion,
   RENFT_CONTRACT_DEPLOYMENTS,
-  Chain,
-} from '../src';
+} from '../../src/ethers';
 
 describe('deployments', () => {
   const validDeployment = DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V1;
@@ -31,7 +33,7 @@ describe('deployments', () => {
         hasValidReNftContractType({
           ...validDeployment,
           contractType: 'INVALID' as RenftContractType,
-        } as RenftContractDeployment)
+        } as Deployments)
       ).to.be.false;
     });
 
@@ -85,10 +87,10 @@ describe('deployments', () => {
         hasValidNetwork({
           ...validDeployment,
           network: {
-            type: EVMNetworkType.AVALANCHE_MAINNET,
             chainId: -1 as Chain,
+            type: EVMNetworkType.AVALANCHE_MAINNET,
           },
-        } as RenftContractDeployment)
+        } as Deployments)
       ).to.be.false;
     });
 
@@ -97,10 +99,10 @@ describe('deployments', () => {
         hasValidNetwork({
           ...validDeployment,
           network: {
-            type: 'INVALID' as EVMNetworkType,
             chainId: 137,
+            type: 'INVALID' as EVMNetworkType,
           },
-        } as RenftContractDeployment)
+        } as Deployments)
       ).to.be.false;
     });
 
@@ -115,7 +117,7 @@ describe('deployments', () => {
         hasValidContractVersion({
           ...validDeployment,
           version: 'INVALID' as RenftContractVersion,
-        } as RenftContractDeployment)
+        } as Deployments)
       ).to.be.false;
     });
 
