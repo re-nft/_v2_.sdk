@@ -1,4 +1,5 @@
 import {
+  DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1,
   NFTStandard,
   packPrice,
   PaymentToken,
@@ -6,12 +7,20 @@ import {
   RenftContractType,
   RenftContractVersions,
 } from '../../core';
-import { Executor, SDK } from '../base';
+import { Executor, SDKInterface } from '../base';
+import SylvesterBaseSDK from './Sylvester.base';
 
 export default class SylvesterV1SDK<
   ContractType extends RenftContractType,
   ContractVersion extends RenftContractVersions[ContractType]
-> extends SDK<ContractType, ContractVersion> {
+> extends SylvesterBaseSDK<ContractType, ContractVersion> {
+  protected supportedDeployments = [DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V1];
+
+  constructor(args: SDKInterface<ContractType, ContractVersion>) {
+    super(args);
+    super.validate(this.supportedDeployments);
+  }
+
   async lend(
     nftStandard: NFTStandard[],
     nftAddress: string[],
@@ -20,8 +29,7 @@ export default class SylvesterV1SDK<
     maxRentDuration: number[],
     dailyRentPrice: number[],
     paymentToken: PaymentToken[],
-    willAutoRenew: boolean[],
-    options?: any
+    willAutoRenew: boolean[]
   ): Promise<ReturnType<Executor>> {
     const args = prepareBatch({
       amount: amount.map(Number),
@@ -42,7 +50,6 @@ export default class SylvesterV1SDK<
       args.dailyRentPrice,
       args.paymentToken,
       args.willAutoRenew,
-      options ?? [],
     ]);
   }
 }

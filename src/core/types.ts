@@ -1,5 +1,3 @@
-import { Abi } from 'abitype';
-
 export enum EVMNetworkType {
   ETHEREUM_MAINNET = 'ETHEREUM_MAINNET',
   ETHEREUM_GOERLI_TESTNET = 'ETHEREUM_GOERLI_TESTNET',
@@ -104,7 +102,7 @@ export type Deployment<
   ContractType extends RenftContractType,
   ContractVersion extends RenftContractVersions[ContractType]
 > = {
-  abi: Abi;
+  abi: any;
   contractAddress: string;
   contractType: ContractType;
   network: Network;

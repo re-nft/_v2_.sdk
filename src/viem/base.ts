@@ -10,9 +10,9 @@ import {
   Deployment,
   EVMNetworkType,
   RenftContractType,
+  RenftContractVersion,
   RenftContractVersions,
 } from '../core/types';
-import { SDKDeployments } from './deployments';
 
 export type Simulator = (
   functionName: string,
@@ -38,8 +38,13 @@ export abstract class SDK<
   ContractType extends RenftContractType,
   ContractVersion extends RenftContractVersions[ContractType]
 > {
+  protected deployment: Deployment<RenftContractType, RenftContractVersion>;
   protected exec: Executor;
   protected network: EVMNetworkType;
+  protected supportedDeployments: Deployment<
+    RenftContractType,
+    RenftContractVersion
+  >[] = [];
 
   constructor({
     account,
@@ -47,19 +52,14 @@ export abstract class SDK<
     publicClient,
     walletClient,
   }: SDKInterface<ContractType, ContractVersion>) {
-    const { contractType, version } = deployment;
-
-    // @ts-ignore 🤷
-    if (!SDKDeployments?.[contractType]?.[version]?.includes(deployment))
-      throw new Error(
-        `Invalid deployment supplied: ${contractType}.${version}`
-      );
+    this.deployment = deployment;
+    this.validate(this.supportedDeployments);
 
     const prepare: Simulator = async (functionName, args) =>
       publicClient.simulateContract({
         abi: deployment.abi,
         account,
-        // @ts-ignore current SDK TS version doesn't support this
+        // @ts-ignore something about TSDX is messing this up
         address: deployment.contractAddress,
         args,
         functionName,
@@ -72,5 +72,16 @@ export abstract class SDK<
 
     this.exec = exec;
     this.network = deployment.network.type;
+  }
+
+  validate(
+    deploymentList: Deployment<RenftContractType, RenftContractVersion>[]
+  ): void {
+    const { contractType, version } = this.deployment;
+    if (deploymentList.length && !deploymentList.includes(this.deployment)) {
+      throw new Error(
+        `Invalid deployment supplied for ${this.constructor.name}: ${contractType}.${version}`
+      );
+    }
   }
 }
