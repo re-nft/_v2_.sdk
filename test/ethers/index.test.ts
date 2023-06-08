@@ -2,8 +2,11 @@ import { Signer } from '@ethersproject/abstract-signer';
 import { expect } from 'chai';
 import isEqual from 'react-fast-compare';
 
+import AzraelV0Abi from '../../src/abi/azrael.v0';
+import ResolverV0Abi from '../../src/abi/resolver.v0';
+import SylvesterV0Abi from '../../src/abi/sylvester.v0';
+import WhoopiV0Abi from '../../src/abi/whoopi.v0';
 import {
-  AzraelV0FunctionInterface,
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
   DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0,
   DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0,
@@ -14,13 +17,12 @@ import {
   DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0,
   DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0,
   DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0,
+} from '../../src/core';
+import {
+  AzraelV0FunctionInterface,
   getDeploymentAbi,
   getRenftContract,
-} from '../src';
-import azrael_v0 from '../src/abi/azrael.v0';
-import resolver_v0 from '../src/abi/resolver.v0';
-import sylvester_v0 from '../src/abi/sylvester.v0';
-import whoopi_v0 from '../src/abi/whoopi.v0';
+} from '../../src/ethers';
 
 describe('module exports', () => {
   it('abis', () => {
@@ -28,61 +30,61 @@ describe('module exports', () => {
     expect(
       isEqual(
         getDeploymentAbi(DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0),
-        azrael_v0
+        AzraelV0Abi
       )
     ).to.be.true;
     expect(
       isEqual(
         getDeploymentAbi(DEPLOYMENT_SYLVESTER_ETHEREUM_GOERLI_TESTNET_V0),
-        sylvester_v0
+        SylvesterV0Abi
       )
     ).to.be.true;
     expect(
       isEqual(
         getDeploymentAbi(DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0),
-        sylvester_v0
+        SylvesterV0Abi
       )
     ).to.be.true;
     expect(
       isEqual(
         getDeploymentAbi(DEPLOYMENT_SYLVESTER_POLYGON_MAINNET_V0),
-        sylvester_v0
+        SylvesterV0Abi
       )
     ).to.be.true;
     expect(
       isEqual(
         getDeploymentAbi(DEPLOYMENT_WHOOPI_AVALANCHE_FUJI_TESTNET_V0),
-        whoopi_v0
+        WhoopiV0Abi
       )
     ).to.be.true;
     expect(
       isEqual(
         getDeploymentAbi(DEPLOYMENT_WHOOPI_AVALANCHE_MAINNET_V0),
-        whoopi_v0
+        WhoopiV0Abi
       )
     ).to.be.true;
     expect(
       isEqual(
         getDeploymentAbi(DEPLOYMENT_RESOLVER_ETHEREUM_MAINNET_V0),
-        resolver_v0
+        ResolverV0Abi
       )
     ).to.be.true;
     expect(
       isEqual(
         getDeploymentAbi(DEPLOYMENT_RESOLVER_POLYGON_MAINNET_V0),
-        resolver_v0
+        ResolverV0Abi
       )
     ).to.be.true;
     expect(
       isEqual(
         getDeploymentAbi(DEPLOYMENT_RESOLVER_AVALANCHE_FUJI_TESTNET_V0),
-        resolver_v0
+        ResolverV0Abi
       )
     ).to.be.true;
     expect(
       isEqual(
         getDeploymentAbi(DEPLOYMENT_RESOLVER_AVALANCHE_MAINNET_V0),
-        resolver_v0
+        ResolverV0Abi
       )
     ).to.be.true;
   });
