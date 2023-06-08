@@ -39,7 +39,6 @@ export default class SylvesterBaseSDK<
       args.maxRentDuration,
       args.dailyRentPrice,
       args.paymentToken,
-      options ?? [],
     ]);
   }
 
@@ -49,8 +48,7 @@ export default class SylvesterBaseSDK<
     tokenID: string[],
     lendingID: string[],
     rentDuration: number[],
-    rentAmount: string[],
-    options?: any
+    rentAmount: string[]
   ): Promise<ReturnType<Executor>> {
     const args = prepareBatch({
       lendingID: lendingID.map(String),
@@ -67,7 +65,6 @@ export default class SylvesterBaseSDK<
       args.lendingID,
       args.rentDuration,
       args.rentAmount,
-      options ?? [],
     ]);
   }
 
@@ -76,8 +73,7 @@ export default class SylvesterBaseSDK<
     nftAddress: string[],
     tokenID: string[],
     lendingID: string[],
-    rentingID: string[],
-    options?: any
+    rentingID: string[]
   ): Promise<ReturnType<Executor>> {
     const args = prepareBatch({
       lendingID: lendingID.map(String),
@@ -92,7 +88,6 @@ export default class SylvesterBaseSDK<
       args.tokenID,
       args.lendingID,
       args.rentingID,
-      options ?? [],
     ]);
   }
 
@@ -101,8 +96,7 @@ export default class SylvesterBaseSDK<
     nftAddress: string[],
     tokenID: string[],
     lendingID: string[],
-    rentingID: string[],
-    options?: any
+    rentingID: string[]
   ): Promise<ReturnType<Executor>> {
     const args = prepareBatch({
       lendingID: lendingID.map(String),
@@ -111,13 +105,12 @@ export default class SylvesterBaseSDK<
       rentingID: rentingID.map(String),
       tokenID: tokenID.map(String),
     });
-    return await this.exec('claimRent', [
+    return this.exec('claimRent', [
       args.nftStandard,
       args.nftAddress,
       args.tokenID,
       args.lendingID,
       args.rentingID,
-      options ?? [],
     ]);
   }
 
@@ -125,8 +118,7 @@ export default class SylvesterBaseSDK<
     nftStandard: NFTStandard[],
     nftAddress: string[],
     tokenID: string[],
-    lendingID: string[],
-    options?: any
+    lendingID: string[]
   ): Promise<ReturnType<Executor>> {
     const args = prepareBatch({
       lendingID: lendingID.map(String),
@@ -134,12 +126,11 @@ export default class SylvesterBaseSDK<
       nftStandard: nftStandard.map(Number),
       tokenID: tokenID.map(String),
     });
-    return await this.exec('stopLend', [
+    return this.exec('stopLend', [
       args.nftStandard,
       args.nftAddress,
       args.tokenID,
       args.lendingID,
-      options ?? [],
     ]);
   }
 }
