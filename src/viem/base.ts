@@ -1,5 +1,6 @@
 import {
   Account,
+  Address,
   PublicClient,
   SimulateContractReturnType,
   WalletClient,
@@ -28,7 +29,7 @@ export type SDKInterface<
   ContractType extends RenftContractType,
   ContractVersion extends RenftContractVersions[ContractType]
 > = {
-  account: Account;
+  account: Account | Address;
   deployment: Deployment<ContractType, ContractVersion>;
   publicClient: PublicClient;
   walletClient: WalletClient;
