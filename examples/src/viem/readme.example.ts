@@ -36,7 +36,6 @@ const main = async () => {
   const lendAmount = [1];
   const maxRentDuration = [1];
   const dailyRentPrice = [1.1];
-  const nftPrice = [2.2];
   const paymentToken = [PaymentToken.WETH];
 
   const nftStandard = [1, 1];
