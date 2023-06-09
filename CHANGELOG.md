@@ -100,6 +100,6 @@ Nothing.
 
 ### Changed
 
-- All RENET deployment addresses are now in checksummed address format.
+- All reNFT deployment addresses are now in checksummed address format.
 - Deprecated `RESOLVER_ADDRESS` in favor of `RESOLVER_ETHEREUM_ADDRESS`
 - Deprecated `AZRAEL_ADDRESS` in favor of `AZRAEL_ETHEREUM_ADDRESS`
