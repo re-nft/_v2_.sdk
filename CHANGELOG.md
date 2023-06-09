@@ -1,5 +1,11 @@
 # Change Log
 
+## [7.0.2] - 2023-06-09
+
+- Allowed `account` initialization parameter to allow `Account | Address`
+- Build multiple entrypoints 🤞
+- Removed unused var in `examples/viem/readme.example.ts`
+
 ## [7.0.1] - 2023-06-09
 
 ## Changed
@@ -94,6 +100,6 @@ Nothing.
 
 ### Changed
 
-- All reNFT deployment addresses are now in checksummed address format.
+- All RENET deployment addresses are now in checksummed address format.
 - Deprecated `RESOLVER_ADDRESS` in favor of `RESOLVER_ETHEREUM_ADDRESS`
 - Deprecated `AZRAEL_ADDRESS` in favor of `AZRAEL_ETHEREUM_ADDRESS`
