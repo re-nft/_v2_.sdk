@@ -1,4 +1,4 @@
-import { parseUnits } from 'viem/utils';
+import { parseUnits } from 'viem';
 
 import { NETWORK_RESOLVERS } from '../../core';
 import {
