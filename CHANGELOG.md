@@ -4,7 +4,6 @@
 
 ## Changed
 
-- How we import utils from `viem` in one place
 - Wording around contracts flavors in readme
 
 ## [7.0.0] - 2023-06-08
