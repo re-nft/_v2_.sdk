@@ -27,7 +27,7 @@ The below is a simple example of lending an ERC721, note that the amount is igno
 
 If you are having any issues with the below code, go [here](https://github.com/re-nft/sdk/tree/main/examples) and ensure your dependencies for `ethersproject` are the same as ours (in `package.json`).
 
-You might be wondering what 'AZRAEL' refers to in the below import. If so, go to our docs [here](https://docs.renft.io/developers/renft-contracts-addresses). Azrael, Sylvester and Whoopi are our naming conventions to refer to different versions of our contracts.
+You might be wondering what 'AZRAEL' refers to in the below import. If so, go to our docs [here](https://docs.renft.io/developers/renft-contracts-addresses). Azrael, Sylvester and Whoopi are our naming conventions to refer to different flavors of our contracts.
 
 ## `@renft/sdk/viem`
 
