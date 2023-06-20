@@ -1,8 +1,8 @@
 import {
   DEPLOYMENT_SYLVESTER_ETHEREUM_MAINNET_V0,
   PaymentToken,
-} from '@renft/sdk/core';
-import { SylvesterV0SDK } from '@renft/sdk/viem';
+  SylvesterV0SDK,
+} from '@renft/sdk';
 import { createPublicClient, createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
