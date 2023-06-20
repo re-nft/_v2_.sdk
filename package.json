@@ -1,5 +1,5 @@
 {
-  "version": "7.0.2",
+  "version": "7.0.3",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -14,7 +14,7 @@
     "pre-commit": "yarn format && yarn lint && yarn build",
     "pre-push": "yarn test",
     "start": "tsdx watch",
-    "build": "tsdx build -i src/index.ts -i src/abi/index.ts -i src/core/index.ts -i src/ethers/index.ts -i src/viem/index.ts",
+    "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint src",
     "format": "prettier --write './src/**/*' './test/**/*'",
