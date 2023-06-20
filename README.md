@@ -33,10 +33,10 @@ You might be wondering what 'AZRAEL' refers to in the below import. If so, go to
 
 ```javascript
 import {
+  AzraelV0SDK,
   DEPLOYMENT_AZRAEL_ETHEREUM_MAINNET_V0,
   PaymentToken,
-} from '@renft/sdk/core';
-import { AzraelV0SDK } from '@renft/sdk/viem';
+} from '@renft/sdk';
 import { createPublicClient, createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { mainnet } from 'viem/chains';
