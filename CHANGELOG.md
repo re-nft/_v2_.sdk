@@ -1,5 +1,10 @@
 # Change Log
 
+## [7.0.3] - 2023-06-21
+
+- Reverted `yarn build` command to build the complete `src/` directory instead of separate modules. The previous build command gobbled up `enum` as `const` exports and only provided their types.
+- Updated examples to utilize correct import paths.
+
 ## [7.0.2] - 2023-06-09
 
 - Allowed `account` initialization parameter to allow `Account | Address`
